@@ -1,0 +1,19 @@
+{
+  "name": "pcto2022",
+  "version": "1.0.0",
+  "description": "prova",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dolivieri-finsoft/pcto2022.git"
+  },
+  "author": "Davide Trapani",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dolivieri-finsoft/pcto2022/issues"
+  },
+  "homepage": "https://github.com/dolivieri-finsoft/pcto2022#readme"
+}
