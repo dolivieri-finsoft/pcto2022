@@ -1,0 +1,8 @@
+{
+  "name": "test",
+	"description": "esempio di file package.json",
+  "version": "1.0.0",
+	"author": "Dino Olivieri",
+	"main": "index.js",
+	"license": "ISC"
+}
