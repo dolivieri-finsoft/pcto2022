@@ -1,0 +1,8 @@
+{
+  	"name": "Primo file json",
+	"description": "esempio di file package.json",
+  	"version": "1.0.1",
+	"author": "Matteo Barbessi",
+	"main": "index.js",
+	"license": "ISC"
+}
