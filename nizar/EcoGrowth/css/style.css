@@ -27,8 +27,8 @@
   }
   
  #titolologin{
-  border-bottom:1px solid blue;
-  height:25px;
+  border-bottom:solid blue;
+  height: 29px;
   width:425px;
   float:left;
   padding:20px 0 15px 25px;
@@ -53,25 +53,26 @@
  #register{
   margin-right:90px;}
   
- .button {
-  width:125px;
-  height:35px;
-  text-shadow:2px 2px 5px rgba(212,212,212,1);
-  color:#fff;
-  font-size:20px;
-  -webkit-border-radius:10px;
-  border:1px solid #fff;
+  .button {
+    width:125px;
+    height:35px;
+    text-shadow:2px 2px 5px rgba(212,212,212,1);
+    color:#fff;
+    font-size:20px;
+    -webkit-border-radius:10px;
+    border:1px solid #fff;
+   
+    background: #fc8600; /* Old browsers */
+    background: -moz-linear-gradient(top, #fc8600 0%, #f7d200 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fc8600), color-stop(100%,#f7d200)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #fc8600 0%,#f7d200 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #fc8600 0%,#f7d200 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #fc8600 0%,#f7d200 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #fc8600 0%,#f7d200 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fc8600', endColorstr='#f7d200',GradientType=0 ); /* IE6-9 */
+    box-shadow: 2px 2px 5px #000;
+    }
  
-  background: #fc8600; /* Old browsers */
-  background: -moz-linear-gradient(top, #fc8600 0%, #f7d200 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fc8600), color-stop(100%,#f7d200)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #fc8600 0%,#f7d200 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #fc8600 0%,#f7d200 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #fc8600 0%,#f7d200 100%); /* IE10+ */
-  background: linear-gradient(to bottom, #fc8600 0%,#f7d200 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fc8600', endColorstr='#f7d200',GradientType=0 ); /* IE6-9 */
-  box-shadow: 2px 2px 5px #000;
-  }
  .button:hover {
   box-shadow: 2px 2px 5px #000;}
  .button:active{
