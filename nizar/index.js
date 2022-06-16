@@ -1,9 +1,12 @@
 const express = require('express')
 const app = express()
-const port = 8000
+const port = 8080
+const path = require('path');
+
+app.use(express.static("EcoGrowth"));
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+res.sendFile(path.join(__dirname, 'EcoGrowth/index.html'));
 })
 
 app.listen(port, () => {
