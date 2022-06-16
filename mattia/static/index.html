@@ -14,16 +14,18 @@
         <form id="login" class="formLogin">
             <div class="row">
                 <label class="formLabel" for="Username">Username</label>
-                <input type="text" class="formInput" id="Username" name="Username" placeholder="Username" onkeyup="checkinput();">
+                <input type="text" class="formInput" id="Username" name="Username" placeholder="Username"
+                    onkeyup="checkinput();" required>
                 <span id="errorUsername" class="error" style="display: none"></span>
             </div>
             <div class="row">
                 <label class="formLabel" for="Password">Password</label>
-                <input type="password" class="formInput" id="Password" name="Password" placeholder="Password" onkeyup="checkinput();">
+                <input type="password" class="formInput" id="Password" name="Password" placeholder="Password"
+                    onkeyup="checkinput();" required>
                 <span id="errorPassword" class="error" style="display: none"></span>
             </div>
             <div class="row">
-                <button type="button" class="formButton" onclick="checkinput();">Login</button>
+                <button type="button" class="formButton" onclick="login();">Login</button>
             </div>
         </form>
     </div>
