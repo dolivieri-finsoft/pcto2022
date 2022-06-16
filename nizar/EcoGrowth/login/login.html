@@ -1,0 +1,45 @@
+<html>
+<head>
+<title>Form-Login</title>
+<link href="../css/style.css" rel="stylesheet">
+</head>
+<body>
+<div id="login"><div id="titolologin"><label>Login</label></div>
+<form action="#" class="formlogin" method="post">
+<label style="color:rgb(233, 236, 13)"><b>Username:</b></label>
+<input type="text" id="username" name="username" class="testo" placeholder="Username..." /><br>
+<label style="color:rgb(233, 236, 13)"><b>Password:</b></label>
+<input type="password" id="password" name="password" class="testo" placeholder="Password..." minlenght="8"/><br>
+<button type="button" class="button" value="Register" onclick="Register()">Register</button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<button type="button" class="button" value="Login" onclick="Enter()">Login</button>
+</form>
+</div>
+
+
+<script>
+
+var username = document.getElementById('username');
+var password= document.getElementById('password');
+
+
+function Enter(){
+    if(username != undefined && password != undefined)
+    {
+    window.location.href = "index";
+    }
+    
+}
+
+function Register(){
+    if(username != null && password != null){
+    window.location.href = "index";
+}
+}
+
+
+</script>
+
+
+
+</body>
+</html>

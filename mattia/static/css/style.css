@@ -1,0 +1,46 @@
+* {
+    font-family: sans-serif;
+}
+
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    margin: 0 0 10px 0;
+}
+
+.formLabel {
+    font-weight: 600;
+    margin: 10px 0;
+}
+
+.formInput {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+
+.formButton {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+
+.formButton:hover {
+    background-color: #ddd;
+    cursor: pointer;
+}
