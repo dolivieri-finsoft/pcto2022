@@ -1,0 +1,15 @@
+{
+  "name": "gabriele",
+  "version": "1.0.0",
+  "description": "PCTO 2022",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1",
+    "http": "^0.0.1-security"
+  }
+}
