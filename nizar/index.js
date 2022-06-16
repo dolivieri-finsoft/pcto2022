@@ -10,7 +10,7 @@ res.sendFile(path.join(__dirname, 'EcoGrowth/index.html'));
 })
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`Vai a vedere il mio sito! - ` + 'porta numero ' + port)
 })
 
 
