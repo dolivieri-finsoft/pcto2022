@@ -1,0 +1,12 @@
+#titolo {
+    color: maroon;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+#testo {
+    border: 3px;
+    border-style: dashed;
+    border-color: blue;
+    font-size: 20px;
+    width: fit-content;
+}
