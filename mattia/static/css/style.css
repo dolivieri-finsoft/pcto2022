@@ -3,8 +3,12 @@
 }
 
 .container {
-    max-width: 400px;
+    max-width: 80%;
     margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
 }
 
 .row {
@@ -43,4 +47,27 @@
 .formButton:hover {
     background-color: #ddd;
     cursor: pointer;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tr {
+    border-bottom: 1px solid #bbb;
+    padding: 10px;
+}
+
+.tr th {
+    padding: 10px;
+    background-color: #ccc;
+}
+
+.tr td {
+    padding: 10px;
+}
+
+.td {
+    text-align: center;
 }

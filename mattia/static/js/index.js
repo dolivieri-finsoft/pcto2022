@@ -33,17 +33,18 @@ const login = () => {
     if (checkinput()) window.location.href = "home";
 }
 
-function rgb(r, g, b) {
-    r = Math.floor(Math.random() * 256);
-    g = Math.floor(Math.random() * 256);
-    b = Math.floor(Math.random() * 256);
-    color = ["rgb(", r, ",", g, ",", b, ")"].join("");
-
-    console.log(color)
-    return color;
+const todoList = () => {
+    fetch("/json")
+        .then(response => response.json())
+        .then(data => {
+            html = '<tr class="tr th"><th>STATO</th><th>COSA</th></tr>';
+            for (var i = 0; i < data.length; i++) {
+                const element = data[i];
+                html += '<tr class="tr td"><td class="td">' + element.stato + '</td><td class="td">' + element.cosa + '</td></tr>';
+            }
+            document.getElementById("todoList").innerHTML = html;
+        })
+        .catch(error => console.log(error));
 }
 
-const cambiacolore = () => {
-    var bg = document.body;
-    bg.style.backgroundColor = rgb();
-}
+document.onloadeddata = todoList();

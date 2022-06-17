@@ -1,13 +1,15 @@
 [
-    {"cosa":"spesa", "stato": "todo"},
-
-    {"cosa":"riparare bici", "stato": "done"},
+    {"cosa":"Spesa", "stato": "TODO"},
 
 
-    {"cosa":"partita", "stato": "todo"},
+    {"cosa":"Riparare bici", "stato": "DONE"},
 
 
-    {"cosa":"doccia", "stato": "done"}
+    {"cosa":"Partita", "stato": "TODO"},
+
+
+    {"cosa":"Doccia", "stato": "DONE"}
+
 
 ]
 
