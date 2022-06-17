@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        
+
+        <link rel="stylesheet" href="stylesheet.css"/>
+
+
+    </head>
+    <body>
+        <p>Task da fare</p>
+        <div id="todo-location"></div>
+        <p id="samuele">Task fatte</p>
+        <div id="done-location"></div>
+
+        <script>
+
+    
+
+            fetch('data.json')
+                .then(response => {
+                    if(!response.ok){
+                        throw new Error('Errore fetch ' +response.status);
+                    }
+                    return response.json();
+                })
+                .then(json => initialize(json))
+                .catch(err => console.error('Errore creazione tabella' + err.message));
+                
+                function initialize(x){
+                    var list = document.createElement("ul");
+                    var list2 = document.createElement("ul");
+                    for(i = 0; i < x.tasks.length; i++){
+                        if(x.tasks[i].stato == "todo"){
+                            var child = document.createElement("li");
+                            child.innerHTML = x.tasks[i].cosa;
+                            list.appendChild(child);
+                            document.getElementById("todo-location").appendChild(list);
+                        } else{
+                            var child = document.createElement("l1");
+                            child.innerHTML = x.tasks[i].cosa;
+                            list2.appendChild(child);
+                            document.getElementById("done-location").appendChild(list2);
+                        }
+                    }
+            }
+                
+     
+        </script>
+        
+    </body>
+
+
+
+    
+
+</html>
