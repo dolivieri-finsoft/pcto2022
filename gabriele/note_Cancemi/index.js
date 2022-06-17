@@ -6,14 +6,14 @@ const path = require('path')
 
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'note_Cancemi/login/login.html'))
+    res.sendFile(path.join(__dirname, 'login/login.html'))
 })
 
 app.get('/home', (req, res) => {
-  res.sendFile(path.join(__dirname, 'note_Cancemi/index.html'))
+  res.sendFile(path.join(__dirname, 'index.html'))
 })
 
-app.use(express.static("note_Cancemi"));
+app.use(express.static("."));
 
 
 app.listen(port, () => {
