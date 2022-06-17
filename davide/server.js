@@ -7,7 +7,7 @@ app.use(express.static("public"));
 app.get('/',function (req,res) {
         res.sendFile(path.join(__dirname, '/public/login'));
         })
-.listen(8080);
+.listen(3000);
 
 app.get('/login',function (req,res) {
     res.sendFile(path.join(__dirname, './public/login'));
@@ -37,4 +37,4 @@ app.get('/todo', function (req, res){
     res.send('ciao');
 })
 
-console.log("Server hostato su http://localhost:8080");
+console.log("Server hostato su http://localhost:3000");
