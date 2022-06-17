@@ -5,13 +5,13 @@ const path = require('path');
 
 
 app.get('/', (req, res) => {
-res.sendFile(path.join(__dirname, 'EcoGrowth/login/login.html'));
+res.sendFile(path.join(__dirname, 'login/login.html'));
 })
 app.get('/index', (req, res) => {
-  res.sendFile(path.join(__dirname, 'EcoGrowth/index.html'));
+  res.sendFile(path.join(__dirname, 'index.html'));
   })
 
-app.use(express.static("EcoGrowth"));
+app.use(express.static("."));
 
 
 app.listen(port, () => {

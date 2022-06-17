@@ -5,6 +5,14 @@
 */
 
 (function ($) {
+   
+	function Carica()
+    {
+        
+    }
+
+
+
   "use strict";
 
   // Back to top button
