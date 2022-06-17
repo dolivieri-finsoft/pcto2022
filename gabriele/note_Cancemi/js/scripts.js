@@ -7,7 +7,11 @@
 
 
 $(document).ready(function(){
+    
 	
+
+	
+
 	aggiorna();
 		
 	if(localStorage.length == 0){
