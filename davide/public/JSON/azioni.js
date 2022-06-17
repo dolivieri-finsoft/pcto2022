@@ -17,5 +17,7 @@ const azioni = [
         cosa:"andare dal carrozziere",
         stato:"done"
         
-    },
+    }
 ]
+
+module.exports = {azioni}

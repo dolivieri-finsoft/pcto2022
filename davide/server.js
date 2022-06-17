@@ -2,6 +2,8 @@ var express = require('express'),
     app = express();
 const path = require('path');
 
+const {azioni} = require("./public/JSON/azioni")
+
 app.use(express.static("public"));
 
 app.get('/',function (req,res) {
@@ -30,8 +32,18 @@ app.get('/service', function (req, res){
 })
 
 app.get('/todo', function (req, res){
-    res.json([{"cosa":"spesa", "stato":"todo"},{"cosa":"riparare bici", "stato":"done"}])
-    res.sendFile(path.join(__dirname, './public/pages/todo/'))
+    res.json(azioni)
+
+    //res.send("<h1>TODOLIST</h1> <ul>")
+    //for (let i = 0; i < azioni.length; i++) {
+    //    res.send("<li>", azioni[i].cosa, azioni[i].stato, "</li>")
+    //}
+    //res.send("</ul>")
+
+})
+
+app.get('/data', function (req, res){
+    res.json(azioni)
 })
 
 app.all('*', function (req, res){
