@@ -6,9 +6,9 @@
 <body>
 <div id="login"><div id="titolologin"><label>Login</label></div>
 <form action="#" class="formlogin" method="post">
-<label style="color:rgb(233, 236, 13)"><b>Username:</b></label>
+<label style="color:black"><b>Username:</b></label>
 <input type="text" id="username" name="username" class="testo" placeholder="Username..." /><br>
-<label style="color:rgb(233, 236, 13)"><b>Password:</b></label>
+<label style="color:black"><b>Password:</b></label>
 <input type="password" id="password" name="password" class="testo" placeholder="Password..." minlenght="8"/><br>
 <button type="button" class="button" value="Register" onclick="Register()">Register</button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 <button type="button" class="button" value="Login" onclick="Enter()">Login</button>
@@ -18,22 +18,43 @@
 
 <script>
 
-var username = document.getElementById('username');
-var password= document.getElementById('password');
+
+   var username;
+   var password;
 
 
 function Enter(){
-    if(username != undefined && password != undefined)
+
+    username = document.getElementById('username').value;
+    password = document.getElementById('password').value;
+
+    if(username != "finsoft" || password != "finsoft")
     {
-    window.location.href = "index";
+        alert("Inserire i dati corretti");
+       
     }
+    else if(username == "finsoft" && password == "finsoft")
+    {
+        location.href = "index";     
+    }
+    
     
 }
 
 function Register(){
-    if(username != null && password != null){
-    window.location.href = "index";
-}
+
+    username = document.getElementById('username').value;
+    password = document.getElementById('password').value;
+    
+    if(username != "finsoft" && password != "finsoft")
+    {
+        alert("Inserire i dati corretti");
+       
+    }
+    else if(username == "finsoft" && password == "finsoft")
+    {
+        window.location.href = "index";     
+    }
 }
 
 
