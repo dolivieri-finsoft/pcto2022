@@ -1,7 +1,7 @@
 [
     {
         "cosa":"spesa",
-        "stato":"todo"
+        "stato":"to do"
         
     },
     {
@@ -10,12 +10,17 @@
     },
     {
         "cosa":"compreare biglietti concerto",
-        "stato":"todo"
+        "stato":"to do"
         
     },
     {
         "cosa":"andare dal carrozziere",
         "stato":"done"
+        
+    },
+    {
+        "cosa":"andare dal panettiere",
+        "stato":"to do"
         
     }
 ]
