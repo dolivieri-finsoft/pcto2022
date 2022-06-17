@@ -37,12 +37,11 @@ const todoList = () => {
     fetch("/json")
         .then(response => response.json())
         .then(data => {
-            html = "<ul>";
+            html = '<tr class="tr th"><th>STATO</th><th>COSA</th></tr>';
             for (var i = 0; i < data.length; i++) {
                 const element = data[i];
-                html += "<li>" + element.stato + ": " + element.cosa + "</li>";
+                html += '<tr class="tr td"><td class="td">' + element.stato + '</td><td class="td">' + element.cosa + '</td></tr>';
             }
-            html += "</ul>";
             document.getElementById("todoList").innerHTML = html;
         })
         .catch(error => console.log(error));
