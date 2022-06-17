@@ -4,9 +4,83 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-</head>
-<body>
+    <title>Page</title>
+
+    <style>
+        table, th, td {
+         border: 1px solid;
+         font-size: 30px;
+        }
+        #titolo{
+            color: white;
+            background-color: black;
+        }
+        h1{
+            color: red;
+            text-align: center;
+        }
+        .container{
+            text-align: center;
+            display: flex;
+            justify-content: space-around;
+        }
+        #todoList{
+            float: left;
+            width: 600px;
+        }
+        #doneList{
+            float: right;
+            width: 600px;
+
+        }
+ 
+ 
+
+    </style>
+
     
+</head>
+<body onload="Richiedi()">
+
+    <h1>TO DO / DONE LIST<br>Cancemi</h1>
+
+    <div class="container">
+        <table id="todoList">
+        </table>
+
+        <table id="doneList">
+        </table>
+    </div>
+
+
+    <script>
+        function Richiedi(){
+            const todoList = () => {
+            fetch("/request")
+             .then(response => response.json())
+             .then(data => {
+             htmlTodo = "<tr><th id='titolo'>To do</th></tr>";
+             htmlDone = "<tr><th id='titolo'>Done</th></tr>";
+             for (var i = 0; i < data.length; i++) {
+                 const element = data[i];
+                 if(element.stato == "todo"){
+                    htmlTodo += "<tr> <td>" + element.cosa + "</td> </tr>";
+
+                 }
+                 else{
+                    htmlDone += "<tr> <td>" + element.cosa + "</td> </tr>";
+
+                 }
+             }
+             document.getElementById("todoList").innerHTML = htmlTodo;
+             document.getElementById("doneList").innerHTML = htmlDone;
+
+             })
+             .catch(error => console.log(error));
+            }
+
+            document.onloadeddata = todoList();
+        }
+    </script>
 </body>
 </html>

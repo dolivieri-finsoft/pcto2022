@@ -6,10 +6,7 @@
 
 (function ($) {
    
-	function Carica()
-    {
-        
-    }
+	
 
 
 

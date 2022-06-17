@@ -1,0 +1,16 @@
+[
+    {"cosa":"Spesa", "stato": "TODO"},
+
+
+    {"cosa":"Riparare bici", "stato": "DONE"},
+
+
+    {"cosa":"Partita", "stato": "TODO"},
+
+
+    {"cosa":"Doccia", "stato": "DONE"}
+
+
+]
+
+
