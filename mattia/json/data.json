@@ -1,10 +1,10 @@
 [
     {
-        "datoA": "dato A",
-        "datoB": "dato B"
+        "cosa": "allenamento",
+        "stato": "todo"
     },
     {
-        "datoX": "dato X",
-        "datoY": "dato Y"
+        "cosa": "spesa",
+        "stato": "done"
     }
 ]
