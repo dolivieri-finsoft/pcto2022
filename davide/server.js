@@ -30,6 +30,7 @@ app.get('/service', function (req, res){
 })
 
 app.get('/todo', function (req, res){
+    res.json([{"cosa":"spesa", "stato":"todo"},{"cosa":"riparare bici", "stato":"done"}])
     res.sendFile(path.join(__dirname, './public/pages/todo/'))
 })
 
