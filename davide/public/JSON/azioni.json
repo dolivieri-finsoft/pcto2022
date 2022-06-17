@@ -1,0 +1,26 @@
+[
+    {
+        "cosa":"spesa",
+        "stato":"to do"
+        
+    },
+    {
+        "cosa":"riparare bici",
+        "stato":"done"
+    },
+    {
+        "cosa":"compreare biglietti concerto",
+        "stato":"to do"
+        
+    },
+    {
+        "cosa":"andare dal carrozziere",
+        "stato":"done"
+        
+    },
+    {
+        "cosa":"andare dal panettiere",
+        "stato":"to do"
+        
+    }
+]

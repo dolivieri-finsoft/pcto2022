@@ -1,16 +1,30 @@
 li{
     font-size: 25px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     list-style: square;
 }
 
 h1{
     border: 2px solid black;
-    font-family: Arial, Helvetica, sans-serif;
-    width: max-content;
-    padding: 10px;  
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 10px;
+    margin: 0px;
 }
 
 div{
-    margin-bottom: 30px;
+    color: #fff;
+    margin: 5px;
+}
+
+#todo-content{
+    width: fit-content;
+    float: left;
+    background-color:#4F628E;
+    
+}
+
+#done-content{
+    width: fit-content;
+    float: left;
+    background-color:#7887AB;
 }
