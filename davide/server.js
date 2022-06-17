@@ -5,16 +5,12 @@ const path = require('path');
 app.use(express.static("public"));
 
 app.get('/',function (req,res) {
-        res.sendFile(path.join(__dirname, '/public/login'));
+        res.sendFile(path.join(__dirname, '/public/'));
         })
 .listen(3000);
 
-app.get('/login',function (req,res) {
-    res.sendFile(path.join(__dirname, './public/login'));
-});
-
 app.get('/home',function (req,res) {
-    res.sendFile(path.join(__dirname, './public/index.html'));
+    res.sendFile(path.join(__dirname, './public/'));
 });
 
 app.get('/form', function (req, res){
@@ -34,7 +30,11 @@ app.get('/service', function (req, res){
 })
 
 app.get('/todo', function (req, res){
-    res.send('ciao');
+    res.sendFile(path.join(__dirname, './public/pages/todo/'))
+})
+
+app.all('*', function (req, res){
+    res.send('<h1 style="text-align: center">PAGINA NON GESTITA</h1>');
 })
 
 console.log("Server hostato su http://localhost:3000");
