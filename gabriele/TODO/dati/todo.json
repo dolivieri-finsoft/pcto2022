@@ -14,5 +14,13 @@
     {
      "cosa": "estetista",
      "stato": "todo"
+    },
+    {
+        "cosa": "gommista",
+        "stato": "todo"
+    },
+    {
+        "cosa": "dottore",
+        "stato": "done"
     }
 ]
