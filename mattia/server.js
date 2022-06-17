@@ -18,15 +18,7 @@ app.get('/home', function (req, res) {
 app.get('/json', function (req, res) {
     fs.readFile("json/data.json", "utf8", function(err, json){
         if(err) res.end("ERRORE: " + err);
-        
-        obj = JSON.parse(json);
-        
-        for(var i = 0; i < obj.length; i++){
-            const element = obj[i];
-            res.write(element.stato + ": " + element.cosa + "\n");
-        }
-
-        res.end();
+        res.send(json);
     });
 });
 
