@@ -17,16 +17,15 @@ app.get('/home', function (req, res) {
 
 app.get('/json', function (req, res) {
     fs.readFile("json/data.json", "utf8", function(err, json){
-        if(err) throw err;
+        if(err) res.end("ERRORE: " + err);
         
         obj = JSON.parse(json);
-        var arr0 = obj[0];
-        var arr1 = obj[1];
-    
-        res.write("DATO A: " + arr0.datoA + "\n");
-        res.write("DATO B: " + arr0.datoB + "\n");
-        res.write("DATO X: " + arr1.datoX + "\n");
-        res.write("DATO Y: " + arr1.datoY + "\n");
+        
+        for(var i = 0; i < obj.length; i++){
+            const element = obj[i];
+            res.write(element.stato + ": " + element.cosa + "\n");
+        }
+
         res.end();
     });
 });
