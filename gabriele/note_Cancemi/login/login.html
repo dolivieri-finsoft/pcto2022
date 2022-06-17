@@ -12,23 +12,44 @@
     </head>
     <body>
         
-        <form action="action_page.php" method="post" style="padding: 10px; background-color: orange; text-align: center; position: absolute; top: 40%; left: 40%;">
+        <form action="action_page.php" method="post" style="border-radius: 10px 10px 10px 10px; padding: 20px; background-color: orange; text-align: center; position: absolute; top: 50%; left: 50%; width: 450px; height: 190px; margin-top: -95px; margin-left: -225px;">
         
           
             <div class="container">
-              <label for="uname"><b>Username</b></label>
-              <input type="text" placeholder="Enter Username" name="uname" ><br><br>
+              <label for="uname" class="display-9 fw-bolder text-white"><b>Username</b></label>
+              <input style="border-radius: 10px 10px 10px 10px;" type="text" placeholder="Enter Username" name="uname" id="user"><br><br>
           
-              <label for="psw"><b>Password</b></label>
-              <input type="password" placeholder="Enter Password" name="psw" ><br><br>
+              <label for="psw" class="display-9 fw-bolder text-white"><b>Password</b></label>
+              <input type="password" style="border-radius: 10px 10px 10px 10px;" placeholder="Enter Password" id="pass" name="psw" ><br><br>
           
-              <a class="btn btn-outline-blue" href="home">
+              <a onclick="Control()" class="btn btn-outline-blue" >
                 Login
             </a>       
             </div>
           </form>
 
           <script>
+            function Control(){
+              var user = document.getElementById("user").value;
+              var pass = document.getElementById("pass").value;
+
+              if(user == "" || pass == ""){
+                alert("Inserire tutti i dati richiesti");
+
+              }
+              else if(user == "finsoft" || pass == "finsoft"){
+
+                location.href = "home";
+
+
+              }
+              else{
+                alert("Email o password errata");
+
+              }
+
+            }
+
             
           </script>
 
