@@ -1,20 +1,19 @@
 var express = require('express'),
     app = express();
+const { dir } = require('console');
 const path = require('path');
+
+const {azioni} = require("./public/JSON/azioni")
 
 app.use(express.static("public"));
 
 app.get('/',function (req,res) {
-        res.sendFile(path.join(__dirname, '/public/login'));
+        res.sendFile(path.join(__dirname, '/public/'));
         })
-.listen(8080);
-
-app.get('/login',function (req,res) {
-    res.sendFile(path.join(__dirname, './public/login'));
-});
+.listen(3000);
 
 app.get('/home',function (req,res) {
-    res.sendFile(path.join(__dirname, './public/index.html'));
+    res.sendFile(path.join(__dirname, './public/'));
 });
 
 app.get('/form', function (req, res){
@@ -34,7 +33,22 @@ app.get('/service', function (req, res){
 })
 
 app.get('/todo', function (req, res){
-    res.send('ciao');
+    res.sendFile(path.join(__dirname, './public/pages/todo/'))
+
+    //res.send("<h1>TODOLIST</h1> <ul>")
+    //for (let i = 0; i < azioni.length; i++) {
+    //    res.send("<li>", azioni[i].cosa, azioni[i].stato, "</li>")
+    //}
+    //res.send("</ul>")
+
 })
 
-console.log("Server hostato su http://localhost:8080");
+app.get('/data', function (req, res){
+    res.json(azioni)
+})
+
+app.all('*', function (req, res){
+    res.send('<h1 style="text-align: center">PAGINA NON GESTITA</h1>');
+})
+
+console.log("Server hostato su http://localhost:3000");
