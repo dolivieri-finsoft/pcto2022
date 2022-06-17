@@ -1,0 +1,39 @@
+h1 {
+
+    font-size: 300%;
+    color: black;
+    text-align: center;
+    color: red;
+    background-color: black;
+    
+}
+
+p {
+    color: blue;
+}
+
+
+body{
+    background-image: url("pesto2.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+}
+
+form{
+
+    background-color: gainsboro;
+    border: 5px;
+    padding-right: -100px;
+    border-color: black;
+    align-self: center;
+    padding-left: 9cm;
+    margin-right: 7cm;
+    margin-left: 7cm;
+}
+
+#ricetta{
+
+    background-color: gainsboro;
+    
+}

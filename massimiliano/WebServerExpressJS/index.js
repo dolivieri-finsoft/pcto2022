@@ -3,6 +3,13 @@ const app = express();
 const bodyParser = require('body-parser');
 const PORT = 8080;
 
+/*
+app.get('/*',(req,res,next) => {
+    console.log(req.ip + " su " + req.url);
+    next();
+})
+*/
+
 app.use(express.static('source'));
 app.use(bodyParser.urlencoded({extended:false}))
 
@@ -11,7 +18,7 @@ app.post('/home',(req,res) => {
         res.redirect('login');
         return;
     }
-    res.sendFile(__dirname + '/source/home.html');
+    res.sendFile(__dirname + '/source/home.html'); 
 })
 
 app.get('/login',(req,res) => {
