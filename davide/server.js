@@ -53,15 +53,15 @@ app.get('/data', function (req, res){
     res.json(azioni)
 })
 
-app.get('/:file', function(req, res) {
-    var html = fs.readFileSync(path.join(__dirname, './public/pages/todo/'));
+app.get('/try', function(req, res) {
+    var html = fs.readFileSync(__dirname, '/public/pages/service/todo/index.html', 'utf8');
     var $ = cheerio.load(html);
     var scriptNode = '<h1>TODOLIST</h1> <ul>';
     for (let i = 0; i < azioni.length; i++) {
         //res.write("<li>" + azioni[0].cosa + ' ' + azioni[i].stato + "</li>")
         scriptNode += "<li>" + azioni[0].cosa + " " + azioni[i].stato + "</li>"
      }
-     scriptNode += "</ul>"
+    scriptNode += "</ul>"
     $('body').append(scriptNode);
     res.send($.html());
   });
