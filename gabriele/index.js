@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = 8000
+const port = 8080
 const path = require('path')
 
 
@@ -17,5 +17,5 @@ app.use(express.static("note_Cancemi"));
 
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`Applicazione disponibile alla porta ${port}`)
 })
