@@ -1,6 +1,7 @@
 [
     {"cosa":"spesa", "stato": "todo"},
 
+
     {"cosa":"riparare bici", "stato": "done"},
 
 
@@ -9,6 +10,7 @@
 
     {"cosa":"doccia", "stato": "done"}
 
+    
 ]
 
 
