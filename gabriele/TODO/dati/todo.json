@@ -1,0 +1,18 @@
+[
+    {
+     "cosa": "spesa",
+     "stato": "todo"
+    },
+    {
+     "cosa": "riparare bici",
+     "stato": "done"
+    },
+    {
+     "cosa": "parrucchiere",
+     "stato": "done"
+    },
+    {
+     "cosa": "estetista",
+     "stato": "todo"
+    }
+]

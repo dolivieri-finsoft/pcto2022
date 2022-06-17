@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
+<body onload="Richiesta()">
+  
+
+  <div class="container">
+    <h1>TODO List</h1>
+    <div id="todoList">
+
+    </div>
+</div>
+
+
+  <script>
+
+  function Richiesta(){
+    
+    const todoList = () => {
+    fetch("/request")
+        .then(response => response.json())
+        .then(data => {
+            html = "<ul>";
+            for (var i = 0; i < data.length; i++) {
+                const element = data[i];
+                html += "<li>" + element.stato + ": " + element.cosa + "</li>";
+            }
+            html += "</ul>";
+            document.getElementById("todoList").innerHTML = html;
+        })
+        .catch(error => console.log(error));
+}
+
+document.onloadeddata = todoList();
+
+  }
+
+  </script>
+ 
+</body>
+</html>

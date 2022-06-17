@@ -5,6 +5,11 @@
 */
 
 (function ($) {
+   
+	
+
+
+
   "use strict";
 
   // Back to top button

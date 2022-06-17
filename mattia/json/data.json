@@ -1,0 +1,10 @@
+[
+    {
+        "cosa": "allenamento",
+        "stato": "todo"
+    },
+    {
+        "cosa": "spesa",
+        "stato": "done"
+    }
+]

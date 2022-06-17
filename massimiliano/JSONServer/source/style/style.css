@@ -1,0 +1,16 @@
+li{
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    list-style: square;
+}
+
+h1{
+    border: 2px solid black;
+    font-family: Arial, Helvetica, sans-serif;
+    width: max-content;
+    padding: 10px;  
+}
+
+div{
+    margin-bottom: 30px;
+}
