@@ -1,5 +1,6 @@
 var express = require('express'),
     app = express();
+const { dir } = require('console');
 const path = require('path');
 
 const {azioni} = require("./public/JSON/azioni")
@@ -32,7 +33,7 @@ app.get('/service', function (req, res){
 })
 
 app.get('/todo', function (req, res){
-    res.json(azioni)
+    res.sendFile(path.join(__dirname, './public/pages/todo/'))
 
     //res.send("<h1>TODOLIST</h1> <ul>")
     //for (let i = 0; i < azioni.length; i++) {
