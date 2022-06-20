@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../javascript/script.js"></script>
+
+    <style>
+        body{
+            background: linear-gradient(to left, rgb(156, 232, 255) , yellow);        
+        }
+        table{
+         border: 1px solid;
+         font-size: 30px;
+         border-radius: 10px;
+         background-color: black;
+        }
+        tr, td{
+         border: 1px solid;
+         font-size: 30px;
+         border-radius: 10px;
+         background-color: white;
+        }
+        #titolo{
+            color: white;
+            background-color: black;
+        }
+        h1{
+            text-shadow: 2px 2px 4px white;
+            color: black;
+            text-align: center;
+        }
+        .container{
+            text-align: center;
+            display: flex;
+            justify-content: space-around;
+        }
+        #todoList{
+            float: left;
+            width: 600px;
+        }
+        #doneList{
+            float: right;
+            width: 600px;
+
+        }
+ 
+ 
+
+    </style>
+
+    
+</head>
+<body>
+
+    <h1>TO DO / DONE LIST<br>Cancemi</h1>
+
+    <div class="container">
+        <table id="todoList">
+        </table>
+
+        <table id="doneList">
+        </table>
+    </div>
+</body>
+</html>
