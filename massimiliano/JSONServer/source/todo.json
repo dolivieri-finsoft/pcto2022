@@ -1,7 +1,12 @@
 {
-    "todoList":[{"cosa":"spesa", "stato":"todo"},
-                {"cosa":"riparare bicicletta","stato":"done"},
-                {"cosa":"compleanno","stato":"todo"},
-                {"cosa":"tagliare l'erba","stato":"done"},
-                {"cosa":"stendere vestiti","stato":"todo"}]
+  "todoList": [
+    {
+      "cosa": "montare piscina",
+      "stato": "done"
+    },
+    {
+      "cosa": "spesa",
+      "stato": "todo"
+    }
+  ]
 }

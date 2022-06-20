@@ -1,0 +1,26 @@
+[
+    {
+     "cosa": "spesa",
+     "stato": "todo"
+    },
+    {
+        "cosa": "colazione",
+        "stato": "todo"
+    },
+    {
+        "cosa": "parruccchiere",
+        "stato": "todo"
+    },
+    {
+     "cosa": "estetista",
+     "stato": "done"
+    },
+    {
+        "cosa": "gommista",
+        "stato": "done"
+    },
+    {
+        "cosa": "dottore",
+        "stato": "done"
+    }
+]

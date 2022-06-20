@@ -1,0 +1,40 @@
+body{
+    background: linear-gradient(to bottom, black , orange);   
+    min-height: 100vh;     
+}
+table{
+    border: 1px solid;
+    font-size: 30px;
+    border-radius: 10px;
+    background-color: black;
+}
+tr, td{
+    border: 1px solid;
+    font-size: 30px;
+    border-radius: 10px;
+    background-color: white;
+}
+h1{
+    color: black;
+    text-align: center;
+}
+.container{
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+}
+#todoList{
+    float: left;
+    width: 600px;
+}
+#doneList{
+    float: right;
+    width: 600px;
+}
+
+/*----TITOLO-----*/
+#titolo{
+    color: white;
+    background-color: black;
+    height: 30px;
+}

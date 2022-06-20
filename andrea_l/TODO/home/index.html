@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../javascript/script.js"></script>
+
+    <style>
+        body{
+            background: linear-gradient(to bottom, black , orange);   
+            min-height: 100vh;     
+        }
+        .container{
+            text-align: center;
+            display: flex;
+            justify-content: space-around;
+            margin-top:10vh;
+        }
+        
+
+        /*----LISTE----*/
+
+        #todoList{
+            float: left;
+            width: 600px;
+            height: auto;
+        }
+        #doneList{
+            float: right;
+            width: 600px;
+            height: auto;
+        }
+        tr, td{
+            border: 1px solid;
+            font-size: 30px;
+            border-radius: 10px;
+            background-color: white;
+        }
+        button{
+            font-size: 30px;
+            border-radius: 10px;
+        }
+        table{
+            border: 1px solid;
+            font-size: 30px;
+            border-radius: 10px;
+            background-color: black;
+        }
+
+        /*----TITOLO-----*/
+
+        #titolo{
+            color: white;
+            background-color: black;
+            height: 30px;
+        }
+        h1{
+            color: black;
+            text-align: center;
+        }
+
+        /*----ELEMENTI----*/
+
+        .elemento{
+            height: 30px;
+        }
+
+        /*----ADD----*/
+        #attivita{
+            font-size: 15px;   
+        }
+        .inserisci{
+            flex-direction: row;
+            width: 50vw;
+            margin-left: 25vw;
+            margin-top: 15vh;
+            padding: 10px;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+
+
+</head>
+
+<body onload="Richiedi()">
+
+    <h1 style="color: white">LISTA COSE DA FARE <br>Andrea Leva</h1>
+    <div class="container inserisci">
+        <p>AGGIUNGI: </p>
+        <input type="text" name="attività" id="attivita"></input>
+        <select name="ToDo/Done" class="CheckboxToDoDone">
+            <option id="todo"onclick="Add(this.id)">To Do</option>
+            <option id="done"onclick="Add(this.id)">Done</option>
+        </select>
+        <button>Invia</button>
+    </div>
+
+    <div class="container">
+        <table id="todoList">
+        </table>
+
+        <table id="doneList">
+        </table>
+    </div>
+
+    <script>
+        function Richiedi(){
+            const todoList = () => {
+            fetch("/request")
+             .then(response => response.json())
+             .then(data => {
+             htmlTodo = "<tr><th id='titolo' colspan='3'>To do</th></tr>";
+             htmlDone = "<tr><th id='titolo' colspan='2'>Done</th></tr>";
+             for (var i = 0; i < data.length; i++) {
+                 const element = data[i];
+                 if(element.stato == "todo"){
+                    htmlTodo += "<tr class='elemento'> <td>" + element.cosa + "</td> <td><button class='elimina' id='" + element.cosa + "' onclick='Elimina(this.id)'>✘</button></td> <td><button class='sposta' id='" + element.cosa + "' onclick='Sposta(this.id)'>✔</button></td> </tr>";
+
+                 }
+                 else{
+                    htmlDone += "<tr class='elemento'> <td>" + element.cosa + "</td> <td><button class='elimina' id='" + element.cosa + "' onclick='Elimina(this.id)'>✘</button></td> </tr>";
+
+                 }
+             }
+
+             htmlTodo += "<tr class='elemento'><td><button class='aggiungi' onclick='Mostra()'>AGGIUNGI</button></td></tr>";
+             document.getElementById("todoList").innerHTML = htmlTodo;
+             document.getElementById("doneList").innerHTML = htmlDone;
+
+             })
+             .catch(error => console.log(error));
+            }
+
+            document.onloadeddata = todoList();
+        }
+    </script>
+
+</body>
+</html>
