@@ -5,7 +5,7 @@ const path = require('path');
 const router = express.Router();
 
 
-router.get('/page',function(req,res){
+router.get('/',function(req,res){
   res.sendFile(path.join(__dirname + '/Home/index.html'));
 });
 
@@ -27,6 +27,6 @@ router.get('/request', function(req,res){
 
 //add the router
 app.use('/', router);
-app.listen(process.env.port || 8000);
+app.listen(process.env.port || 8080);
 
 console.log('Running at Port 8080');
