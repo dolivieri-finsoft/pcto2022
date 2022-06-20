@@ -16,7 +16,7 @@ function createList() {
 document.onloadeddata = createList();
 
 function CreateTab() {
-    fetch("/data")
+    fetch("/data?" + "cmd=getList")
     .then(response => response.json())
     .then(data => {
         html = "<table>";
