@@ -18,6 +18,14 @@ router.get('/request',function(req,res){
     });
 });
 
+router.get('/addTodo', function (req, res){
+  res.sendfile(path.join(__dirname, '/addTodo'));
+});
+
+router.get('/deleteTodo', function (req, res) {
+  res.sendfile(path.join(__dirname, '/deleteTodo'));
+})
+
 
 app.use('/', router);
 app.listen(process.env.port || 3000);
