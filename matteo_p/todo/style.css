@@ -1,0 +1,24 @@
+h2{
+    color: lightskyblue;
+}
+
+
+
+#todo{
+    float: left;
+    background-color: violet;
+    padding: 10px;
+    padding-top: 0px;
+    padding-inline-start: 82px;
+    padding-inline-end: 82px;
+
+}
+
+#done{
+    float: right;
+    background-color: pink;
+    padding: 10px;
+    padding-top: 0px;
+    padding-inline-start: 82px;
+    padding-inline-end: 82px;
+}

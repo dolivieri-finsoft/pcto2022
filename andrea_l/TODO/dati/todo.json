@@ -5,19 +5,19 @@
     },
     {
      "cosa": "riparare bici",
-     "stato": "done"
-    },
-    {
-     "cosa": "parrucchiere",
-     "stato": "done"
-    },
-    {
-     "cosa": "estetista",
      "stato": "todo"
     },
     {
+     "cosa": "parrucchiere",
+     "stato": "todo"
+    },
+    {
+     "cosa": "estetista",
+     "stato": "done"
+    },
+    {
         "cosa": "gommista",
-        "stato": "todo"
+        "stato": "done"
     },
     {
         "cosa": "dottore",

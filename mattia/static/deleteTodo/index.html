@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="utf-8">
+    <title>Static WebServer</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>TODO List</h1>
+        <form id="formAddTodo" method="get">
+            <div class="form-group">
+                <label class="formLabel" for="cosa">TODO da eliminare</label>
+                <div id="selectContent">
+
+                </div>
+            </div>
+        </form>
+        <div class="outer">
+            <div class="inner"><button class="btn btn-outline-danger" type="button" id="addTodo"
+                    onclick="deleteTodo();">Elimina</button></div>
+            <div class="inner"><a href="/home"><button class="btn btn-outline-info" type="button">Home</button></a>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/deleteTodo.js"></script>
+</body>
+
+</html>

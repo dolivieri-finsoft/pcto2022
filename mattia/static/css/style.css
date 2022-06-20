@@ -1,3 +1,27 @@
+:root {
+    --blue: #0d6efd;
+    --indigo: #6610f2;
+    --purple: #6f42c1;
+    --pink: #d63384;
+    --red: #dc3545;
+    --orange: #fd7e14;
+    --yellow: #ffc107;
+    --green: #198754;
+    --teal: #20c997;
+    --cyan: #0dcaf0;
+    --white: #fff;
+    --gray: #6c757d;
+    --gray-dark: #343a40;
+    --primary: #0d6efd;
+    --secondary: #6c757d;
+    --success: #198754;
+    --info: #0dcaf0;
+    --warning: #ffc107;
+    --danger: #dc3545;
+    --light: #f8f9fa;
+    --dark: #212529;
+}
+
 * {
     font-family: sans-serif;
 }
@@ -36,7 +60,7 @@ h1 {
     margin-bottom: 10px;
 }
 
-.formButton {
+.formSelect {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -44,7 +68,111 @@ h1 {
     margin-bottom: 10px;
 }
 
+.formButton {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin: 10px 0 10px 0;
+}
+
 .formButton:hover {
     background-color: #ddd;
     cursor: pointer;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+}
+
+.tr {
+    border-bottom: 1px solid #bbb;
+    padding: 10px;
+}
+
+.tr th {
+    padding: 10px;
+    background-color: #ccc;
+}
+
+.tr td {
+    padding: 10px;
+}
+
+.td {
+    text-align: center;
+}
+
+.td10 {
+    text-align: center;
+    width: 10%;
+}
+
+.btn {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin: 10px 0 0 0;
+}
+
+.btn-outline-success {
+    border: 1px solid var(--green);
+}
+
+.btn-outline-success:hover {
+    border: 1px solid var(--green);
+    background-color: var(--green);
+    color: #fff;
+}
+
+.btn-outline-danger {
+    border: 1px solid var(--danger);
+}
+
+.btn-outline-danger:hover {
+    border: 1px solid var(--danger);
+    background-color: var(--danger);
+    color: #fff;
+}
+
+.btn-outline-warning {
+    border: 1px solid var(--warning);
+}
+
+.btn-outline-warning:hover {
+    border: 1px solid var(--warning);
+    background-color: var(--warning);
+    color: #000;
+}
+
+.btn-outline-info {
+    border: 1px solid var(--info);
+}
+
+.btn-outline-info:hover {
+    border: 1px solid var(--info);
+    background-color: var(--info);
+    color: #000;
+}
+
+.div100 {
+    width: 100%;
+    display: inline-block;
+}
+
+.div50 {
+    width: 50%;
+    display: inline-block;
+}
+
+.outer {
+    width: 100%;
+    text-align: center;
+}
+
+.inner {
+    display: inline-block;
 }

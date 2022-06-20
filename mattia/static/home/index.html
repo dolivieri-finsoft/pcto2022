@@ -8,15 +8,21 @@
 </head>
 
 <body>
-
     <div class="container">
         <h1>TODO List</h1>
-        <div id="todoList">
+        <table id="todoList" class="table">
 
+        </table>
+        <div class="outer">
+            <div class="inner"><button class="btn btn-outline-info" type="button" class="btn"
+                    onclick="aggiornaLista();">Aggiorna Lista</button></div>
+            <div class="inner"><a href="/addTodo"><button class="btn btn-outline-success" type="button"
+                        class="btn">NuovoTODO</button></a></div>
+            <div class="inner"><a href="/deleteTodo"><button class="btn btn-outline-danger" type="button"
+                        class="btn">Elimina TODO</button></a></div>
         </div>
     </div>
-
-    <script src="../js/index.js"></script>
+    <script src="../js/home.js"></script>
 
 </body>
 
