@@ -78,7 +78,9 @@ document.onloadeddata = todoList();
 
 
   function elimina(id){
-    alert(id);
+    fetch("/delete?" + "cosa=" + id)
+    window.location.reload();
+
   }
 
   function cambia(id){
@@ -97,23 +99,14 @@ document.onloadeddata = todoList();
       alert("Compila il campo!!!");
     }
     else{
-      let newDati = {
-    cosa: cosa,
-    stato: select,
-    };
-
-    var req = {
-    method: 'POST',
-    url: '/write',
-    headers : 
-    {
-      'Content-Type' : 'application/json'
-    },
-    data: JSON.stringify({ newDati})
-    };
+      fetch("/write?" + "cmd=newTodo&cosa=" + cosa + "&stato=" + select)
+      window.location.reload();
+      
 
   }
-      
+     
+  
+ 
     
 
 }
@@ -158,12 +151,12 @@ document.onloadeddata = todoList();
 
   #todoList{
     float: left;
-    width: 600px;
+    width: 700px;
   }  
   
   #todoList1{
     float: right;
-    width: 600px;
+    width: 700px;
   }   
 
   .container{

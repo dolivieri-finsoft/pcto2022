@@ -1,24 +1,39 @@
 h2{
-    color: lightskyblue;
+
 }
 
+#title{
+    text-align: left;
+    background-color: rgb(172, 172, 172);
 
+}
+
+#all{
+    color:rgb(65, 56, 56);
+    padding: 20px;
+    background-color: gainsboro;
+}
 
 #todo{
     float: left;
-    background-color: violet;
-    padding: 10px;
-    padding-top: 0px;
-    padding-inline-start: 82px;
-    padding-inline-end: 82px;
-
 }
 
 #done{
-    float: right;
-    background-color: pink;
-    padding: 10px;
-    padding-top: 0px;
-    padding-inline-start: 82px;
-    padding-inline-end: 82px;
+    margin-left: 70px;
+    color:rgb(110, 110, 110);
+    padding-left: 20px;
+}
+
+#button1{
+    background-color: rgb(134, 189, 134);
+    border: none;
+    padding: 3px;
+    transition-duration: 0.3s;
+    border: 2px solid rgb(134, 189, 134);
+}
+
+#button1:hover{
+    background-color: gainsboro;
+    color:rgb(134, 189, 134);
+    border: 2px solid rgb(134, 189, 134);
 }

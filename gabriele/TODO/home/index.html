@@ -163,10 +163,12 @@
         }
 
         function Elimina(id){
-            alert(id);
+            fetch("/delete?" + "cosa=" + id)
+            window.location.reload();
         }
         function Sposta(id){
-            alert(id);
+            fetch("/change?" + "cosa=" + id)
+            window.location.reload();
         }
         function Add(){
             let cosa = document.getElementById("cosa").value;
@@ -176,12 +178,16 @@
              }
              else{
                 if(document.getElementById("todo").checked == true){
-                    stato = false;
+                    stato = "todo";
                 }
                 else{
-                    stato = true;
+                    stato = "done";
                 }
+                fetch("/write?" + "cosa=" + cosa + "&stato=" + stato)
+                window.location.reload();
              }
+
+             
              document.getElementById("cosa").value = "";
              document.getElementById("todo").checked = true;
 
