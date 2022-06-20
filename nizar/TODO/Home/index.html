@@ -4,20 +4,41 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
   <title></title>
 </head>
-<body onload="Richiesta()">
-  
+<body onload="Richiesta()"  >
+
+  <h1>To do / Done List </h1><br>
 
   <div class="container">
-    <h1>TODO List</h1>
-    <div id="todoList">
-
-    </div><br>
-    <div id="todoList1">
-
-    </div>
+    
+    <table id="todoList">
+    </table>
+    <table id="todoList1"></table>
+    
 </div>
+<br>
+
+
+
+<header class="w3-container w3-red w3-center" style="padding:68px" >
+  <h1 class="w3-margin w3-jumbo">Nuovo Elemento</h1>
+  <div>
+    <label id="label">Cosa: </label>
+  <input type="text" id="cosa" name="cosa" placeholder="es.gommista...">
+  <br>
+  <br>
+  <select name="stato" id="select">
+    <option value="todo" selected="selected">To Do</option>
+    <option value="done">Done </option>
+    </select>
+  </div>
+    <br>
+    <br>
+    <button type="button" id="aggiungi" onclick="aggiungi()">Aggiungi</button>
+</header>
 
 
   <script>
@@ -28,22 +49,21 @@
     fetch("/request")
         .then(response => response.json())
         .then(data => {
-            html = "<ul>";
-              html1 = "<ul>";
+            html = "<tr><th id='titolo'>To Do</th></tr>";
+              html1 = "<tr><th id='titolo'>Done</th></tr>";
 
             
             for (var i = 0; i < data.length; i++) {
                 const element = data[i];
-                if(element.stato == "TODO"){
-                  html += "<li>" + element.cosa + ": " + element.stato;
+                if(element.stato == "todo"){
+                  html += "<tr> <td>" + element.cosa + "</td> <td class='elimina' id =' " + element.cosa + "' onclick='elimina(this.id)'>Delete</td> <td class='cambia' id = '" + element.cosa + "' onclick='cambia(this.id)'>Change </td> </tr>";
 
                 }else{
-                  html1 += "<li>" + element.cosa + ": " + element.stato;
+                  html1 += "<tr> <td>" + element.cosa + "</td> <td class='elimina' id =' " + element.cosa + "' onclick='elimina(this.id)'>Delete</td>  </tr>";
 
                 }
             }
-            html += "</ul>";
-            html1 += "</ul>";
+            
 
             document.getElementById("todoList").innerHTML = html;
             document.getElementById("todoList1").innerHTML = html1;
@@ -53,20 +73,117 @@
 }
 
 document.onloadeddata = todoList();
+}
+  
 
+
+  function elimina(id){
+    alert(id);
   }
+
+  function cambia(id){
+    alert(id);
+    
+  }
+
+  
+
+
+  function aggiungi(){
+    let cosa = document.getElementById('cosa').value;
+    var select = document.getElementById("select").value;
+
+    if(cosa != ""){
+      alert(select);
+    }
+    else{
+      alert("Compila il campo!!!");
+
+    }
+      
+  }
+  
 
   </script>
 
   <style>
 
+    table{
+      border: 1px solid;
+      font-size: 30px;
+      border-radius: 10px;
+      background-color: black;
+
+    }
+    
+    tr,td{
+      border: 1px solid;
+      font-size: 30px;
+      border-radius: 10px;
+      background-color: yellow;
+
+    }
+
+    #titolo{
+      color: yellow;
+      background-color: black;
+      text-align: center;
+    }
+
+   .elimina{
+    color: rgb(110, 5, 5);
+   } 
+   .cambia{
+    color: green;
+   } 
+
+   h1{
+    text-align: center;
+   }
+
   #todoList{
-    font-size: large;
+    float: left;
+    width: 600px;
   }  
   
   #todoList1{
-    font-size: large;
+    float: right;
+    width: 600px;
   }   
+
+  .container{
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  #select{
+    font-size: 25px;
+    width: 100px;
+    height: 35px;
+  }
+
+  #cosa{
+    font-size: 20px;
+    height: 50px;
+    width: 350px;
+  }
+
+  #label{
+    font-size: 20px;
+  }
+
+  #aggiungi{
+    font-size: 25px;
+  }
+
+  .elimina{
+    width: 130px;
+  }
+
+  .cambia{
+    width: 130px;
+  }
 
   </style>
  
