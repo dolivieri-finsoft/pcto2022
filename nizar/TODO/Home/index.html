@@ -49,8 +49,8 @@
     fetch("/request")
         .then(response => response.json())
         .then(data => {
-            html = "<tr><th id='titolo'>To Do</th></tr>";
-              html1 = "<tr><th id='titolo'>Done</th></tr>";
+            html = "<tr><th id='titolo' colspan='5'>To Do</th></tr>";
+              html1 = "<tr><th id='titolo' colspan='5'>Done</th></tr>";
 
             
             for (var i = 0; i < data.length; i++) {
@@ -93,15 +93,30 @@ document.onloadeddata = todoList();
     let cosa = document.getElementById('cosa').value;
     var select = document.getElementById("select").value;
 
-    if(cosa != ""){
-      alert(select);
+    if(cosa == ""){
+      alert("Compila il campo!!!");
     }
     else{
-      alert("Compila il campo!!!");
+      let newDati = {
+    cosa: cosa,
+    stato: select,
+    };
 
-    }
-      
+    var req = {
+    method: 'POST',
+    url: '/write',
+    headers : 
+    {
+      'Content-Type' : 'application/json'
+    },
+    data: JSON.stringify({ newDati})
+    };
+
   }
+      
+    
+
+}
   
 
   </script>
