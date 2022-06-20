@@ -1,15 +1,15 @@
 [
-    {"cosa":"Spesa", "stato": "TODO"},
+    {"cosa":"Spesa", "stato": "todo"},
 
+    {"cosa":"Riparare bici", "stato": "done"},
 
-    {"cosa":"Riparare bici", "stato": "DONE"},
+    {"cosa":"Partita", "stato": "todo"},
 
+    {"cosa":"Doccia", "stato": "done"},
 
-    {"cosa":"Partita", "stato": "TODO"},
+    {"cosa":"Dentista", "stato": "todo"},
 
-
-    {"cosa":"Doccia", "stato": "DONE"}
-
+    {"cosa":"Meccanico", "stato": "done"}
 
 ]
 
