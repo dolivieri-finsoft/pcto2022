@@ -24,16 +24,18 @@ router.get('/request', function(req,res){
 
 router.get('/write', function(req,res){
   
-  
 // Storing the JSON format data in myObject
 var data = fs.readFileSync("./Cose/daFare.json");
 var myObject = JSON.parse(data);
   
 
-let newDati = req;
+var newData = {
+  "cosa": `${req.query.cosa}`,
+  "stato": `${req.query.stato}`
+};
   
 // Adding the new data to our object
-myObject.push(JSON.parse(newDati));
+myObject.push(newData);
   
 // Writing to our JSON file
 var newData2 = JSON.stringify(myObject);
@@ -43,6 +45,24 @@ fs.writeFile("./Cose/daFare.json", newData2, (err) => {
   console.log("New data added");
 });
 
+});
+
+router.get('/delete', function(req,res){
+
+  var data = fs.readFileSync("./Cose/daFare.json");
+  var myObject = JSON.parse(data);
+
+    for (var i = 0; i < myObject.length; i++) {
+        if (myObject[i].cosa == req.query.cosa) {
+            myObject.splice(i, 1);
+            break;
+        }
+    }
+
+    fs.writeFile("./Cose/daFare.json", JSON.stringify(myObject), (err) => {
+      if (err) throw err;
+      console.log("ok");
+    });
 });
 
 
