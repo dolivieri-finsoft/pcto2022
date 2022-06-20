@@ -1,0 +1,32 @@
+{
+"todoList":[
+    {
+        "oggetto":"task0",
+        "stato":"todo"
+    },
+
+    {
+        "oggetto":"task1",
+        "stato":"done"
+    },
+
+    {
+        "oggetto":"task2",
+        "stato":"todo"
+    },
+
+    {
+        "oggetto":"task3",
+        "stato":"done"
+    },
+
+    {
+        "oggetto":"task4",
+        "stato":"done"
+    },
+
+    {
+        "oggetto":"task5",
+        "stato":"todo"
+    }
+]}

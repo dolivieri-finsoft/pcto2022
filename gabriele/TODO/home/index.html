@@ -7,22 +7,49 @@
     <title>Page</title>
 
     <style>
-        table, th, td {
+        body{
+            background: linear-gradient(to left, rgb(156, 232, 255) , yellow);        
+        }
+        table{
          border: 1px solid;
          font-size: 30px;
+         border-radius: 10px;
+         background-color: black;
+        }
+        tr, td{
+         border: 1px solid;
+         font-size: 30px;
+         border-radius: 10px;
+         background-color: white;
         }
         #titolo{
             color: white;
             background-color: black;
+            font-size: 35px;
         }
         h1{
-            color: red;
+            text-shadow: 2px 2px 4px white;
+            color: black;
             text-align: center;
+            font-size: 38px;
         }
         .container{
             text-align: center;
             display: flex;
             justify-content: space-around;
+        }
+        .new{
+            /*text-align: center;*/
+            display: flex;
+            justify-content: center;
+            
+        }
+        #form{
+            background-color: black;
+            border-radius: 10px;
+            width: 50%;
+            text-align: center;
+            padding: 20px;
         }
         #todoList{
             float: left;
@@ -33,6 +60,44 @@
             width: 600px;
 
         }
+        .elimina{
+            background-color: red;
+            color: white;
+            border-radius: 10px;
+            font-size: 20px;
+
+        }
+        .sposta{
+            background-color: green;
+            color: white;
+            border-radius: 10px;
+            font-size: 20px;
+
+        }
+        #cosa{
+            border-radius: 10px;
+            font-size: 30px;
+            border: 1px solid;
+        }
+        #testo{
+            color: white;
+            font-size: 30px;
+        }
+        .add{
+            background-color: green;
+            color: white;
+            border-radius: 10px;
+            font-size: 30px;
+            border: 1px solid;
+            padding: 10px;
+
+        }
+        #cosa{
+            width: auto;
+        }
+        
+        
+        
  
  
 
@@ -50,6 +115,21 @@
 
         <table id="doneList">
         </table>
+    </div><br>
+    <div class="new">
+        <div id="form">
+            <h2 id="titolo"><b>New Element</b></h2>
+            <label id="testo" for="cosa"><b>Cosa: </b></label>
+            <input id="cosa" type="text"> <br>           
+            <label id="testo" for="todo"><b>Stato: </b></label>
+            <input id="todo" class="radio" type="radio" name="stato" checked>
+            <label id="testo" for="To do">To do</label>
+            <input id="done" class="radio" type="radio" name="stato">
+            <label id="testo" for="Done">Done</label><br><br>
+            <button class="add" onclick="Add()">Add</button>
+            
+
+        </div>
     </div>
 
 
@@ -59,16 +139,16 @@
             fetch("/request")
              .then(response => response.json())
              .then(data => {
-             htmlTodo = "<tr><th id='titolo'>To do</th></tr>";
-             htmlDone = "<tr><th id='titolo'>Done</th></tr>";
+             htmlTodo = "<tr><th id='titolo' colspan='3'>To do</th></tr>";
+             htmlDone = "<tr><th id='titolo' colspan='2'>Done</th></tr>";
              for (var i = 0; i < data.length; i++) {
                  const element = data[i];
                  if(element.stato == "todo"){
-                    htmlTodo += "<tr> <td>" + element.cosa + "</td> </tr>";
+                    htmlTodo += "<tr> <td>" + element.cosa + "</td> <td class='elimina' id='" + element.cosa + "' onclick='Elimina(this.id)'>✘</td> <td class='sposta' id='" + element.cosa + "' onclick='Sposta(this.id)'>✔</td> </tr>";
 
                  }
                  else{
-                    htmlDone += "<tr> <td>" + element.cosa + "</td> </tr>";
+                    htmlDone += "<tr> <td>" + element.cosa + "</td> <td class='elimina' id='" + element.cosa + "' onclick='Elimina(this.id)'>✘</td> </tr>";
 
                  }
              }
@@ -80,6 +160,37 @@
             }
 
             document.onloadeddata = todoList();
+        }
+
+        function Elimina(id){
+            fetch("/delete?" + "cosa=" + id)
+            window.location.reload();
+        }
+        function Sposta(id){
+            fetch("/change?" + "cosa=" + id)
+            window.location.reload();
+        }
+        function Add(){
+            let cosa = document.getElementById("cosa").value;
+            let stato;
+             if(cosa == ""){
+                alert("Compilare il campo 'Cosa'");
+             }
+             else{
+                if(document.getElementById("todo").checked == true){
+                    stato = "todo";
+                }
+                else{
+                    stato = "done";
+                }
+                fetch("/write?" + "cosa=" + cosa + "&stato=" + stato)
+                window.location.reload();
+             }
+
+             
+             document.getElementById("cosa").value = "";
+             document.getElementById("todo").checked = true;
+
         }
     </script>
 </body>

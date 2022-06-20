@@ -32,20 +32,3 @@ const checkinput = () => {
 const login = () => {
     if (checkinput()) window.location.href = "home";
 }
-
-const todoList = () => {
-    fetch("/json")
-        .then(response => response.json())
-        .then(data => {
-            html = "<ul>";
-            for (var i = 0; i < data.length; i++) {
-                const element = data[i];
-                html += "<li>" + element.stato + ": " + element.cosa + "</li>";
-            }
-            html += "</ul>";
-            document.getElementById("todoList").innerHTML = html;
-        })
-        .catch(error => console.log(error));
-}
-
-document.onloadeddata = todoList();
