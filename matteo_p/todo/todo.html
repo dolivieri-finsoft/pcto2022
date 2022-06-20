@@ -2,33 +2,27 @@
 
 <html>
     <head>
-        <meta http-equiv="refresh" content="1;URL= http://localhost:2424/">
-        <script>
-            var w = window.innerWidth;
-            var h = window.innerHeight;
-
-            var dim = (w+h)/26; 
-            
-            var x = document.getElementById("demo");
-            console.log("Browser width: " + w + ", height: " + h + ".")
-        </script>
-        <title>Lista To Do</title>
+        <!--<meta http-equiv="refresh" content="1;URL= http://localhost:2424/">-->
+        <title>To Do</title>
         <link rel="stylesheet" href="./style.css">
+        <script src="doc.js"></script>
+        
     </head>
 
     <body>
+        <h1 id = title>ToDo list</h1>
 
-        <div id="done">
-            <h2>Done:</h2>
+        <div id = all>
+            <div id="todo">
+                <h2>ToDo:</h2>
+            </div>
+
+            <div id="done">
+               <h2>Done:</h2>
+            </div>
+
+            <button id = button1 onclick="functionButton1()">add</button>
         </div>
- 
-        <div id="todo">
-            <h2>ToDo:</h2>
-        </div>
-        
-    <script type="module" src="doc.js"></script>
-    
-    
 
     </body>
 

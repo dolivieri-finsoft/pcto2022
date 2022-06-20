@@ -3,14 +3,23 @@
     <head>
         <title>Lettura contenuto JSON</title>
         <script src="script.js"></script>
+        <script>
+            window.onload = fetchLists();
+        </script>
         <link rel="stylesheet" href="./style/style.css">
     </head>
+
     <body>
-        <div id="todo-content">
+        <div id="todo-content" class="list">
             <h1>Lista cose da fare</h1>
         </div>
-         <div id="done-content">
+        <div id="done-content" class="list">
             <h1>Lista cose fatte</h1>
+        </div>
+        <div id="buttons">
+            <button type="button" id="add" onclick="addTask()">Nuovo TODO</button>
+            <button type="button" id="remove" onclick="toggleRemove(true)">Cancella</button>
+            <button type="button" id="move" onclick="alert('sposta')">Sposta</button>
         </div>
     </body>
 </html>
