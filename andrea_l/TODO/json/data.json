@@ -1,0 +1,8 @@
+[
+    {"cosa":"camera","stato":"todo"},
+    {"cosa":"letto","stato":"todo"},
+    {"cosa":"zaino","stato":"todo"},
+    {"cosa":"sacca","stato":"Done"},
+    {"cosa":"foto","stato":"Done"},
+    {"cosa":"spesa","stato":"Done"}
+]
