@@ -3,47 +3,55 @@
 <html>
     <head>
         
-
+        <title>todo</title>
         <link rel="stylesheet" href="stylesheet.css"/>
 
 
     </head>
     <body>
-        <p>Task da fare</p>
+        <p id="giacomo">Task da fare</p>
         <div id="todo-location"></div>
         <p id="samuele">Task fatte</p>
         <div id="done-location"></div>
-        <button type="button" onclick="addTask()">aggiungi task</button>
+        <button id="button1" type="button" onclick="addTask()">aggiungi task</button>
         
         
 
         <script>
-                
+                //Funzione per creare la tabella
                 function initialize(x){
                     
                     var list = document.createElement("ul");
-                    var list2 = document.createElement("ol");
+                    var list2 = document.createElement("ul");
                     for(i = 0; i < x.tasks.length; i++){
                         if(x.tasks[i].stato == "todo"){
                             var str = "" + x.tasks[i].cosa;
                             var child = document.createElement("li");
                             child.setAttribute("id", str);
                             child.innerHTML = x.tasks[i].cosa;
-                            child.setAttribute("onclick", "checkName(id)");
+                            child.setAttribute("onclick", "elimina(id)");
                             list.appendChild(child);
                             document.getElementById("todo-location").appendChild(list);
                         } else{
                             var str = "" + x.tasks[i].cosa;
-                            var child = document.createElement("l1");
+                            var child = document.createElement("li");
                             child.setAttribute("id", str);
                             child.innerHTML = x.tasks[i].cosa;
-                            child.setAttribute("onclick", "checkName(id)");
+                            child.setAttribute("onclick", "elimina(id)");
                             list2.appendChild(child);
                             document.getElementById("done-location").appendChild(list2);
                         }
                     }
             }
-
+                //funzione che fa comparire la conferma per eliminare
+            function elimina(x){
+                let text ="Vuoi eliminare l'elemento?";
+                if(confirm(text) == true){
+                    checkName(x);
+                    window.location.reload();
+                }
+            }
+                //funzione che nel concreto elimina
             function checkName(x){
                 console.log(x);
                 fetch('data.json')
@@ -106,16 +114,13 @@
                 request.open('POST', '/aaaa', true);
                 request.setRequestHeader('Content-Type', 'application/json');
                 request.send(oggettoStringato);
+                window.location.reload();
             }
 
-                
+            
      
         </script>
         
     </body>
-
-
-
-    
 
 </html>

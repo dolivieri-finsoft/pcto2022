@@ -26,4 +26,33 @@ function Richiedi(){
     document.onloadeddata = todoList();
 }
 
-document.onload = Richiedi();
+function Elimina(id){
+    fetch("/delete?" + "cosa=" + id)
+    window.location.reload();
+}
+function Sposta(id){
+    fetch("/change?" + "cosa=" + id)
+    window.location.reload();
+}
+function Add(){
+    let cosa = document.getElementById("cosa").value;
+    let stato;
+     if(cosa == ""){
+        alert("Compilare il campo 'Cosa'");
+     }
+     else{
+        if(document.getElementById("todo").checked == true){
+            stato = "todo";
+        }
+        else{
+            stato = "done";
+        }
+        fetch("/write?" + "cosa=" + cosa + "&stato=" + stato)
+        window.location.reload();
+     }
+
+     
+     document.getElementById("cosa").value = "";
+     document.getElementById("todo").checked = true;
+
+}

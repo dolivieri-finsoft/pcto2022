@@ -4,106 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page</title>
-
-    <style>
-        body{
-            background: linear-gradient(to left, rgb(156, 232, 255) , yellow);        
-        }
-        table{
-         border: 1px solid;
-         font-size: 30px;
-         border-radius: 10px;
-         background-color: black;
-        }
-        tr, td{
-         border: 1px solid;
-         font-size: 30px;
-         border-radius: 10px;
-         background-color: white;
-        }
-        #titolo{
-            color: white;
-            background-color: black;
-            font-size: 35px;
-        }
-        h1{
-            text-shadow: 2px 2px 4px white;
-            color: black;
-            text-align: center;
-            font-size: 38px;
-        }
-        .container{
-            text-align: center;
-            display: flex;
-            justify-content: space-around;
-        }
-        .new{
-            /*text-align: center;*/
-            display: flex;
-            justify-content: center;
-            
-        }
-        #form{
-            background-color: black;
-            border-radius: 10px;
-            width: 50%;
-            text-align: center;
-            padding: 20px;
-        }
-        #todoList{
-            float: left;
-            width: 600px;
-        }
-        #doneList{
-            float: right;
-            width: 600px;
-
-        }
-        .elimina{
-            background-color: red;
-            color: white;
-            border-radius: 10px;
-            font-size: 20px;
-
-        }
-        .sposta{
-            background-color: green;
-            color: white;
-            border-radius: 10px;
-            font-size: 20px;
-
-        }
-        #cosa{
-            border-radius: 10px;
-            font-size: 30px;
-            border: 1px solid;
-        }
-        #testo{
-            color: white;
-            font-size: 30px;
-        }
-        .add{
-            background-color: green;
-            color: white;
-            border-radius: 10px;
-            font-size: 30px;
-            border: 1px solid;
-            padding: 10px;
-
-        }
-        #cosa{
-            width: auto;
-        }
-        
-        
-        
- 
- 
-
-    </style>
-
-    
+    <link rel="stylesheet" href="./css/style.css">
+    <title>List</title>
 </head>
 <body onload="Richiedi()">
 
@@ -112,7 +14,6 @@
     <div class="container">
         <table id="todoList">
         </table>
-
         <table id="doneList">
         </table>
     </div><br>
@@ -127,65 +28,10 @@
             <input id="done" class="radio" type="radio" name="stato">
             <label id="testo" for="Done">Done</label><br><br>
             <button class="add" onclick="Add()">Add</button>
-            
-
         </div>
     </div>
 
-
-    <script>
-        function Richiedi(){
-            const todoList = () => {
-            fetch("/request")
-             .then(response => response.json())
-             .then(data => {
-             htmlTodo = "<tr><th id='titolo' colspan='3'>To do</th></tr>";
-             htmlDone = "<tr><th id='titolo' colspan='2'>Done</th></tr>";
-             for (var i = 0; i < data.length; i++) {
-                 const element = data[i];
-                 if(element.stato == "todo"){
-                    htmlTodo += "<tr> <td>" + element.cosa + "</td> <td class='elimina' id='" + element.cosa + "' onclick='Elimina(this.id)'>✘</td> <td class='sposta' id='" + element.cosa + "' onclick='Sposta(this.id)'>✔</td> </tr>";
-
-                 }
-                 else{
-                    htmlDone += "<tr> <td>" + element.cosa + "</td> <td class='elimina' id='" + element.cosa + "' onclick='Elimina(this.id)'>✘</td> </tr>";
-
-                 }
-             }
-             document.getElementById("todoList").innerHTML = htmlTodo;
-             document.getElementById("doneList").innerHTML = htmlDone;
-
-             })
-             .catch(error => console.log(error));
-            }
-
-            document.onloadeddata = todoList();
-        }
-
-        function Elimina(id){
-            alert(id);
-        }
-        function Sposta(id){
-            alert(id);
-        }
-        function Add(){
-            let cosa = document.getElementById("cosa").value;
-            let stato;
-             if(cosa == ""){
-                alert("Compilare il campo 'Cosa'");
-             }
-             else{
-                if(document.getElementById("todo").checked == true){
-                    stato = false;
-                }
-                else{
-                    stato = true;
-                }
-             }
-             document.getElementById("cosa").value = "";
-             document.getElementById("todo").checked = true;
-
-        }
+    <script src="./js/script.js">
     </script>
 </body>
 </html>

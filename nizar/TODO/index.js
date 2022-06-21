@@ -3,12 +3,13 @@ const app = express();
 const path = require('path');
 const router = express.Router();
 const fs = require('fs');
-const { request } = require('http');
+
+app.use(express.static("static"));
 
 
 
 router.get('/',function(req,res){
-  res.sendFile(path.join(__dirname + '/Home/index.html'));
+  res.sendFile(path.join(__dirname + '/static/index.html'));
 });
 
 router.get('/request', function(req,res){
@@ -24,29 +25,66 @@ router.get('/request', function(req,res){
 
 router.get('/write', function(req,res){
   
-  
 // Storing the JSON format data in myObject
 var data = fs.readFileSync("./Cose/daFare.json");
-var myObject = JSON.parse(data);
+var oggetto = JSON.parse(data);
   
 
-let newDati = req;
+var newData = {
+  "cosa": `${req.query.cosa}`,
+  "stato": `${req.query.stato}`
+};
   
 // Adding the new data to our object
-myObject.push(JSON.parse(newDati));
+oggetto.push(newData);
   
 // Writing to our JSON file
-var newData2 = JSON.stringify(myObject);
+var newData2 = JSON.stringify(oggetto);
 fs.writeFile("./Cose/daFare.json", newData2, (err) => {
   // Error checking
   if (err) throw err;
-  console.log("New data added");
+  console.log("Aggiunto");
 });
 
 });
 
+router.get('/delete', function(req,res){
+
+  var data = fs.readFileSync("./Cose/daFare.json");
+  var oggetto = JSON.parse(data);
+
+  for(var i = 0; i < oggetto.length; i++){
+    if(oggetto[i].cosa == req.query.cosa){
+      oggetto.splice(i, 1);
+      break;
+    }
+  }
+
+    fs.writeFile("./Cose/daFare.json", JSON.stringify(oggetto), (err) => {
+      if (err) throw err;
+      console.log("Eliminato: ✔");
+    });
+});
 
 
+router.get('/cambia', function(req,res){
+
+  var data = fs.readFileSync("./Cose/daFare.json");
+  var oggetto = JSON.parse(data);
+   
+
+    for(var i = 0; i < oggetto.length; i++){
+      if(oggetto[i].cosa == req.query.cosa){
+      oggetto[i].stato = "done";
+      break;
+     }
+   }
+
+    fs.writeFile("./Cose/daFare.json", JSON.stringify(oggetto), (err) => {
+      if (err) throw err;
+      console.log("Spostato: ✔");
+    });
+});
 
 
 
