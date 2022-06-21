@@ -21,14 +21,9 @@ const todoList = () => {
         })
         .catch(error => console.log(error));
 }
-
 /**
  * SPOSTAMENTO
  */
-
-const sposta = (sposta)=> {
-    
-}
 
 const todoFatto = (cosa) => {
     console.log('todo fatto')
@@ -64,14 +59,16 @@ const deleteTodo = (elimina) => {
 */
 
 const checkInsert = (id) => {
-    if (document.getElementById(id).value == "") return false;
-    return true;
+    if (document.getElementById(id).value == "") {
+        return false;
+    }else{
+        return true
+    }
 }
 
 const saveTodo = () => {
     var cosa = document.getElementById('cosa').value;
     var stato = document.getElementById('stato').value;
-
     console.log(`Cosa: ${cosa}, Stato: ${stato}`);
 
     if (checkInsert('cosa') && checkInsert('stato')) {
