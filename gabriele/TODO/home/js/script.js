@@ -40,7 +40,7 @@ function Add(){
     let cosa = document.getElementById("cosa").value;
     let stato;
      if(cosa == ""){
-        alert("Compilare il campo 'Cosa'");
+        alert("Fill in te field 'What'");
      }
      else{
         if(document.getElementById("todo").checked == true){
