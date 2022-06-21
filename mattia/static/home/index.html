@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <title>Static WebServer</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script src="../js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
@@ -14,16 +16,32 @@
 
         </table>
         <div class="outer">
-            <div class="inner"><button class="btn btn-outline-info" type="button" class="btn"
-                    onclick="aggiornaLista();">Aggiorna Lista</button></div>
-            <div class="inner"><a href="/addTodo"><button class="btn btn-outline-success" type="button"
-                        class="btn">NuovoTODO</button></a></div>
-            <div class="inner"><a href="/deleteTodo"><button class="btn btn-outline-danger" type="button"
-                        class="btn">Elimina TODO</button></a></div>
+            <div class="inner"><button class="btn btn-outline-info" type="button" onclick="aggiornaLista();">Aggiorna Lista</button></div>
+            <div class="inner"><a href="/addTodo"><button class="btn btn-outline-success" type="button">NuovoTODO</button></a></div>
+            <div class="inner"><a href="/deleteTodo"><button class="btn btn-outline-danger" type="button">Elimina TODO</button></a></div>
         </div>
     </div>
-    <script src="../js/home.js"></script>
 
+    <div class="modal fade" id="modaleModifica" tabindex="-1" aria-labelledby="modaleModifica" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="titoloModale">Modifica</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="bodyModale">
+                    <label for="inputModaleCosa" class="col-form-label">Cosa:</label>
+                    <input type="text" id="inputModaleCosa" class="form-control" placeholder="Cosa fare">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-outline-success" onclick="todoModifica();">Salva modifiche</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/home.js"></script>
 </body>
 
 </html>
