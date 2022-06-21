@@ -11,7 +11,7 @@ function Richiesta(){
             for (var i = 0; i < data.length; i++) {
                 const element = data[i];
                 if(element.stato == "todo"){
-                  html += "<tr> <td>" + element.oggetto + "</td>  <td class='elimina' id ='" + element.oggetto + "' onclick='elimina(this.id)'>Delete</td> <td class='cambia' id ='" + element.cosa + "' onclick='cambia(this.id)'>Change </td> </tr>";
+                  html += "<tr> <td>" + element.oggetto + "</td>  <td class='elimina' id ='" + element.oggetto + "' onclick='elimina(this.id)'>Delete</td> <td class='cambia' id ='" + element.oggetto + "' onclick='cambia(this.id)'>Change </td> </tr>";
 
                 }else{
                   html1 += "<tr> <td>" + element.oggetto + "</td> <td class='elimina' id ='" + element.oggetto + "' onclick='elimina(this.id)'>Delete</td>  </tr>";
