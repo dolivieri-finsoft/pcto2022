@@ -46,20 +46,20 @@ app.get('/data', function (req, res) {
     console.log(`Comando: ${comando}`);
 
     if (comando == "getList") {
-        fs.readFile("public/JSON/data.json", "utf8", function (err, json) {
+        fs.readFile("./public/JSON/data.json", "utf8", function (err, json) {
             if (err) res.end("ERRORE: " + err);
             res.send(json);
         });
     } else if (comando == "newTodo") {
-        fs.readFile("public/JSON/data.json", "utf8", function (err, json) {
+        fs.readFile("./public/JSON/data.json", "utf8", function (err, json) {
             if (err) res.end("ERRORE: " + err);
-
+            console.log(req.query.cosa, req.query.stato)
             data = JSON.parse(json);
-            var action = {
+            var task = {
                 "cosa": `${req.query.cosa}`,
                 "stato": `${req.query.stato}`
             };
-            data.push(action);
+            data.push(task);
 
             console.log(data);
 
