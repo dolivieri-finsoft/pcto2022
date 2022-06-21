@@ -6,7 +6,7 @@ const CreateTab = () => {
             html += '<tr><th>STATUS</th><th colspan="2">TASK</th></tr>';
             for (var i = 0; i < data.length; i++) {
                 const element = data[i];
-                if (element.stato == "to do") html += '<tr><td>' + element.stato + '</td><td>' + element.cosa + '</td><td><button class="bottoni" type="button" onclick="todoFatto('+ element.cosa +')">Fatto</button></td></tr>';
+                if (element.stato == "to do") html += '<tr><td>' + element.stato + '</td><td>' + element.cosa + '</td><td><button class="bottoni" id=' + element.cosa  +' type="button" onclick="todoFatto(this.id)">Done</button></td></tr>';
                 else html += '<tr><td>' + element.stato + '</td><td>' + element.cosa + '</td><td></td></tr>';
             }
             html += '</table>'
