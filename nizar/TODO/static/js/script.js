@@ -51,7 +51,7 @@ function aggiungi(){
     var select = document.getElementById("select").value;
 
     if(cosa == ""){
-      alert("Compila il campo!!!");
+      alert("Compila il campo sottostante!!!");
     }
     else{
       if(document.getElementById("aggiungi").outerHTML.length == 75)
