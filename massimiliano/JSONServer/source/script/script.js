@@ -1,7 +1,9 @@
 const toggleCheck = {lastOp: null, check: true};
 
+window.onload = fetchLists(); 
+
 function fetchLists(){
-    fetch('todo.json')
+    fetch('/json')
     .then(response => {
         if(!response.ok){
             throw new Error("Cant fecht " + response.status);
@@ -79,7 +81,8 @@ function removeTask(elemento){
     xhttp.setRequestHeader('Content-Type','application/json');
     if(confirm('Vuoi eliminare questa task?')){
         let taskName = elemento.innerHTML;
-        const send = {value: taskName};
+        let tasktype = elemento.parentNode.id.slice(0,-5);
+        const send = {value: taskName, type: tasktype};
         const json = JSON.stringify(send);
         xhttp.send(json);
         fetchLists();
@@ -93,10 +96,28 @@ function moveTask(elemento){
     xhttp.open('POST','/move',true);
     xhttp.setRequestHeader('Content-Type', 'application/json');
     let taskName = elemento.innerHTML;
-    const send = {value: taskName};
+    let tasktype = elemento.parentNode.id.slice(0,-5);
+    const send = {value: taskName, type: tasktype};
     const json = JSON.stringify(send);
     xhttp.send(json);
     fetchLists();
+}
+
+function renameTask(elemento){
+    const xhttp = new XMLHttpRequest();
+    xhttp.open('POST','/rename',true);
+    xhttp.setRequestHeader('Content-Type','application/json');
+    let oldName = elemento.innerHTML;
+    let tasktype = elemento.parentNode.id.slice(0,-5);
+    let newName = prompt('Inserire nuovo nome');
+    if(newName == null || newName == ''){
+        return;
+    } else {
+        const send = {oldValue: oldName, value: newName, type: tasktype};
+        const json = JSON.stringify(send);
+        xhttp.send(json);
+        fetchLists();
+    }
 }
 
 function toggleRemove(button){
@@ -154,5 +175,34 @@ function toggleMove(button){
     }
 
     toggleCheck.lastOp = 'move';
+    toggleCheck.check = !toggleCheck.check;
+}
+
+function toggleRename(button){
+    listaTodo = document.getElementById('todo-list');
+    listaDone = document.getElementById('done-list');
+    self = button;
+
+    if(toggleCheck.lastOp != 'rename'){
+        toggleCheck.check = true;
+    }
+
+    for(let x of listaTodo.childNodes){
+        if(toggleCheck.check){
+            x.setAttribute('onclick','renameTask(this)');
+            continue;
+        }
+        x.setAttribute('onclick','');
+    }
+
+    for(let x of listaDone.childNodes){
+        if(toggleCheck.check){
+            x.setAttribute('onclick','renameTask(this)');
+            continue;
+        }
+        x.setAttribute('onclick','');
+    }
+
+    toggleCheck.lastOp = 'rename';
     toggleCheck.check = !toggleCheck.check;
 }

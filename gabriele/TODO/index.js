@@ -28,6 +28,21 @@ router.get('/write',function(req,res){
     Write(myObject);
 });
 
+router.get('/modify',function(req,res){
+  var myObject = Read();
+  
+  for(var i = 0; i < myObject.length; i++){
+    if(myObject[i].cosa == req.query.cosaDaMo){
+      myObject[i].cosa = req.query.cosa;
+      myObject[i].stato = req.query.stato;
+
+      break;
+    }
+  }
+  
+  Write(myObject);
+});
+
 router.get('/delete',function(req,res){
     var myObject = Read();
 

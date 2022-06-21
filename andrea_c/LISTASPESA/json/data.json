@@ -1,0 +1,26 @@
+[
+    {
+        "cosa":"spesa",
+        "stato":"todo"
+    },
+    {
+        "cosa":"riparare la bici",
+        "stato":"done"
+    },
+    {
+        "cosa":"picchiare dei bambini",
+        "stato":"done"
+    },
+    {
+        "cosa":"lavare la macchina",
+        "stato":"todo"
+    },
+    {
+        "cosa":"buttare la spazzatura",
+        "stato":"todo"
+    },
+    {
+        "cosa":"comprare un cane",
+        "stato":"done"
+    }
+]
