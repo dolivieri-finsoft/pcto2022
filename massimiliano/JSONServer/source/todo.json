@@ -1,12 +1,1 @@
-{
-  "todoList": [
-    {
-      "cosa": "montare piscina",
-      "stato": "done"
-    },
-    {
-      "cosa": "spesa",
-      "stato": "todo"
-    }
-  ]
-}
+{"todoList":[{"cosa":"Marco","stato":"done"},{"cosa":"Marchetto","stato":"todo"}]}

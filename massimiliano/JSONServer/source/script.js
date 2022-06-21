@@ -1,3 +1,5 @@
+const toggleCheck = {lastOp: null, check: true};
+
 function fetchLists(){
     fetch('todo.json')
     .then(response => {
@@ -25,8 +27,10 @@ function initialize(json){
     const arrayElementi = json.todoList;
     const listaTodo = document.createElement("ul");
     listaTodo.id = "todo-list";
+    listaTodo.style.display = 'none';
     const listaDone = document.createElement("ul");
     listaDone.id = "done-list";
+    listaDone.style.display = 'none';
 
     for(let obj of arrayElementi){
         let text = obj.cosa;
@@ -39,11 +43,18 @@ function initialize(json){
         }
         listaDone.appendChild(elementoLista);
     }
-
+    if(listaTodo.childNodes.length >= 1){
+        listaTodo.style.display = 'block';
+    }
+    if(listaDone.childNodes.length >= 1){
+        listaDone.style.display = 'block';
+    }
     todoDiv.appendChild(listaTodo);
     doneDiv.appendChild(listaDone);
-    document.getElementById('remove').setAttribute('onclick','toggleRemove(true)');
-    document.getElementById('move').setAttribute('onclick','toggleMove(true)');
+
+
+    toggleCheck.lastOp = null;
+    toggleCheck.check = true;
 }
 
 function addTask(){
@@ -88,13 +99,17 @@ function moveTask(elemento){
     fetchLists();
 }
 
-function toggleRemove(bool){
+function toggleRemove(button){
     listaTodo = document.getElementById('todo-list');
     listaDone = document.getElementById('done-list');
-    self = document.getElementById('remove');
+    self = button;
+
+    if(toggleCheck.lastOp != 'remove'){
+        toggleCheck.check = true;
+    }
 
     for(let x of listaTodo.childNodes){
-        if(bool){
+        if(toggleCheck.check){
             x.setAttribute('onclick','removeTask(this)');
             continue;
         }
@@ -102,29 +117,28 @@ function toggleRemove(bool){
     }
 
     for(let x of listaDone.childNodes){
-        if(bool){
+        if(toggleCheck.check){
             x.setAttribute('onclick','removeTask(this)');
             continue;
         }
         x.setAttribute('onclick','');
     }
 
-    if(bool){
-        self.setAttribute('onclick','toggleRemove(false)');
-    }
-    else{
-        self.setAttribute('onclick','toggleRemove(true)');
-    }
-    document.getElementById('move').setAttribute('onclick','toggleMove(true)');
+    toggleCheck.lastOp = 'remove';
+    toggleCheck.check = !toggleCheck.check;
 }
 
-function toggleMove(bool){
+function toggleMove(button){
     listaTodo = document.getElementById('todo-list');
     listaDone = document.getElementById('done-list');
-    self = document.getElementById('move');
+    self = button;
+
+    if(toggleCheck.lastOp != 'move'){
+        toggleCheck.check = true;
+    }
 
     for(let x of listaTodo.childNodes){
-        if(bool){
+        if(toggleCheck.check){
             x.setAttribute('onclick','moveTask(this)');
             continue;
         }
@@ -132,18 +146,13 @@ function toggleMove(bool){
     }
 
     for(let x of listaDone.childNodes){
-        if(bool){
+        if(toggleCheck.check){
             x.setAttribute('onclick','moveTask(this)');
             continue;
         }
         x.setAttribute('onclick','');
     }
 
-    if(bool){
-        self.setAttribute('onclick','toggleMove(false)');
-    }
-    else{
-        self.setAttribute('onclick','toggleMove(true)');
-    }
-    document.getElementById('remove').setAttribute('onclick','toggleRemove(true)');
+    toggleCheck.lastOp = 'move';
+    toggleCheck.check = !toggleCheck.check;
 }

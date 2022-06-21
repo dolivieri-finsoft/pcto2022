@@ -20,6 +20,7 @@ app.post('/add',(req,res) => {
     data.todoList.push(newTask);
     json = JSON.stringify(data, null, 2);
     fs.writeFileSync('./source/todo.json',json);
+    res.sendStatus(200);
 })
 
 app.post('/remove',(req,res) => {
@@ -37,6 +38,7 @@ app.post('/remove',(req,res) => {
 
     json = JSON.stringify(data, null, 2);
     fs.writeFileSync('./source/todo.json',json);
+    res.sendStatus(200);
 })
 
 app.post('/move',(req,res) => {
@@ -57,6 +59,7 @@ app.post('/move',(req,res) => {
     }
     json = JSON.stringify(data);
     fs.writeFileSync('./source/todo.json',json);
+    res.sendStatus(200);
 })
 
 app.get('/*', (req,res) => {
