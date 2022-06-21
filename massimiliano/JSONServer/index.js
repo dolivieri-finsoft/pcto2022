@@ -57,7 +57,25 @@ app.post('/move',(req,res) => {
             break;
         }
     }
-    json = JSON.stringify(data);
+    json = JSON.stringify(data, null, 2);
+    fs.writeFileSync('./source/todo.json',json);
+    res.sendStatus(200);
+})
+
+app.post('/rename',(req,res) => {
+    const search = req.body.oldValue;
+    const newName = req.body.value;
+    let json = fs.readFileSync('./source/todo.json');
+    const data = JSON.parse(json);
+    let list = data.todoList;
+
+    for(let x of list){
+        if(search == x.cosa){
+            x.cosa = newName;
+            break;
+        }
+    }
+    json = JSON.stringify(data, null, 2);
     fs.writeFileSync('./source/todo.json',json);
     res.sendStatus(200);
 })
