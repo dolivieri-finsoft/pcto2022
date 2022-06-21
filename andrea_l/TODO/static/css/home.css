@@ -75,7 +75,15 @@ h1{
 }
 
 /*----MMODIFY----*/
-.ImgModify{
+.imgModify{
     height: 20px;
     width: auto;
+}
+.formLabelModifyTitle{
+    font-size: 50px;
+    color: white;
+}
+.formLabelModify{
+    font-size: 25px;
+    color: white;   
 }

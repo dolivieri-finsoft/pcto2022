@@ -30,7 +30,19 @@ app.get('/json', function (req, res) {
             if (err) res.end("ERRORE: " + err);
 
             data = JSON.parse(json);
-            console.log("modificare= " + `${req.query.modifica}`);
+
+            for(var i = 0; i<data.length; i++){
+                if(data[i].cosa == req.query.modificare){
+                    data[i].cosa = req.query.cosa;
+                    data[i].stato = req.query.stato;
+                }
+            }
+
+            fs.writeFile("json/data.json", JSON.stringify(data), function (err) {
+                if (err) res.end("ERRORE: " + err);
+                res.send("OK");
+            });
+
         });
     }else if (cmd == "newTodo") {
         fs.readFile("json/data.json", "utf8", function (err, json) {
