@@ -155,3 +155,9 @@ footer{
     background-color: #D68D2E;
     color: white;
 }
+
+.button-container{
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-around;
+}
