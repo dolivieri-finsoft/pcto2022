@@ -60,10 +60,6 @@ function Add(){
         window.location.reload();
      }
 
-     
-     document.getElementById("cosa").value = "";
-     document.getElementById("todo").checked = true;
-
 }
 
 function Modifica(id, stato){
