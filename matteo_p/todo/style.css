@@ -1,39 +1,65 @@
-h2{
+html{
+    background-color: gainsboro;
+}
 
+#table1{
+    background-color: rgb(172, 172, 172);
+    align-self: center;
+}
+
+#tableTitle{
+    background-color: grey;
 }
 
 #title{
     text-align: left;
-    background-color: rgb(172, 172, 172);
-
+    font-size: 30px;
+    padding-right: 100px;
 }
 
-#all{
-    color:rgb(65, 56, 56);
-    padding: 20px;
-    background-color: gainsboro;
-}
-
-#todo{
-    float: left;
-}
-
-#done{
-    margin-left: 70px;
-    color:rgb(110, 110, 110);
-    padding-left: 20px;
+h2{
+    font-size: 25px;
 }
 
 #button1{
     background-color: rgb(134, 189, 134);
-    border: none;
-    padding: 3px;
     transition-duration: 0.3s;
     border: 2px solid rgb(134, 189, 134);
+    margin-left:20px;
+    margin-right: 20px;
 }
 
 #button1:hover{
-    background-color: gainsboro;
-    color:rgb(134, 189, 134);
+    background-color: rgb(172, 172, 172);
+    color:black;
     border: 2px solid rgb(134, 189, 134);
+}
+
+#button3{
+    background-color: rgb(134, 158, 189);
+    transition-duration: 0.3s;
+    border: 2px solid rgb(134, 158, 189);
+    margin-left:20px;
+    margin-right: 20px;
+}
+
+#button3:hover{
+    background-color: rgb(172, 172, 172);
+    color:black;
+    border: 2px solid rgb(134, 158, 189);
+}
+
+
+#blockScreen{
+    z-index: 999;
+    filter: opacity(1);
+    height: 999px;
+    width: 999px;
+    position: absolute;
+    background-color: gainsboro;
+    transition-duration: 0.5s;
+}
+
+#blockScreen:hover{
+    filter: opacity(0.93);
 }

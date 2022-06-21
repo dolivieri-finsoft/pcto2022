@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 
 <html>
+
+    
     <head>
         <!--<meta http-equiv="refresh" content="1;URL= http://localhost:2424/">-->
         <title>To Do</title>
@@ -10,19 +12,34 @@
     </head>
 
     <body>
-        <h1 id = title>ToDo list</h1>
-
-        <div id = all>
-            <div id="todo">
-                <h2>ToDo:</h2>
-            </div>
-
-            <div id="done">
-               <h2>Done:</h2>
-            </div>
-
-            <button id = button1 onclick="functionButton1()">add</button>
+        
+        <div id = blockScreen onclick = "functionBlockScreen()">
         </div>
+        
+        <table id = table1>
+            <tr>
+                <th id = tableTitle><h1 id = "title">ToDo List</h1></th>
+                <th>
+                    <table>
+                        <tr>
+                            <th><button id = button1 onclick="functionButton1()">add</button></th>
+                        </tr>
+
+                        <tr>
+                            <th><button id = button3 onclick="functionButton3()">change</button></th>
+                        </tr>
+                    </table>
+                </th>
+            </tr>
+            <tr>
+                <td><h2>ToDo:</h2></td>
+                <td><h2>Done:</h2></td>
+            </tr>
+            <tr id = liste>
+                <td id = todo></td>
+                <td id = done></td>
+            </tr>
+        </table>
 
     </body>
 
