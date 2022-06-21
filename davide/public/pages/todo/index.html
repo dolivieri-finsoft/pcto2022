@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="CSS/style.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
     <title>Luxury Hotel</title>
 </head>
@@ -32,6 +33,61 @@
 
         </div>
         <h1>TODO</h1>
+        <div class="insert_data" id="aggiunta_task">
+                <label for="Status">Status: </label><br>
+                <select name="Status" id="status">
+                    <option value="to do">To do</option>
+                    <option value="done">Done</option>
+                </select>
+                <br>
+                <br>
+                <label for="task">Task: </label>
+                <br>
+                <textarea name="task" id="task" placeholder="Inserisci qui il testo della tua nuova task" rows="8" cols="50"></textarea><br>
+                <input type="button" name="nascondiinsert" class="bottoni" id="nascondiinsert" value="Chiudi menù">
+                <input type="button" id="conferma_add" class="bottoni" value="Conferma" onclick="newTodo();">
+                <br>
+                <br>
+        </div>
+        <div class="insert_data" id="pop_task">
+            <label for="WhatTask">What task do you want to delete? </label>
+            <br>
+            <br>
+            <select name="WhatTask" id="WhatTaskDelete">
+                
+            </select>
+            <br>
+            <br>
+            <input type="button" name="none_delete" class="bottoni" id="none_delete" value="Chiudi menù">
+            <input type="button" id="conferma_delete" class="bottoni" value="Conferma" onclick="deleteTodo();">
+            <br>
+            <br>
+        </div>
+        <div class="insert_data" id="modify_task">
+            <label for="WhatTask">What task do you want to modify? </label>
+            <br>
+            <br>
+            <select name="WhatTask" id="WhatTaskModify">
+                
+            </select>
+            <br>
+            <label for="Status_modify">Status: </label><br>
+                <select name="Status_modify" id="Status_modify">
+                    <option value="to do">To do</option>
+                    <option value="done">Done</option>
+                </select>
+                <br>
+                <br>
+                <label for="task_modify">Task: </label>
+                <br>
+                <textarea name="task_modify" id="task_modify" placeholder="Inserisci qui il testo della tua nuova task" rows="8" cols="50"></textarea><br>
+            <br>
+            <br>
+            <input type="button" name="none_modify" class="bottoni" id="none_modify" value="Chiudi menù">
+            <input type="button" id="conferma_modify" class="bottoni" value="Conferma" onclick="modifyTodo();">
+            <br>
+            <br>
+        </div>
         <div id="todo-table">
 
         </div>
@@ -40,10 +96,13 @@
                 <button type="button" class="bottoni" onclick="RefreshList();">Aggiorna Lista</button>
             </div>
             <div>
-                <button type="button" class="bottoni">Nuova task</button>
+                <button type="button" class="bottoni" id="AddMenu">Nuova task</button>
             </div>
             <div>
-                <button type="button" class="bottoni">Elimina task</button>
+                <button type="button" class="bottoni" id="PopTask">Elimina task</button>
+            </div>
+            <div>
+                <button type="button" class="bottoni" id="ModifyTask">Modify task</button>
             </div>
         </div>
     </div>

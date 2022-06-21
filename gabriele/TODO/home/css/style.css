@@ -2,10 +2,11 @@ body{
     background: linear-gradient(to left, rgb(156, 232, 255) , yellow);        
 }
 table{
-    border: 1px solid;
+    border: 3px white solid;
     font-size: 30px;
     border-radius: 10px;
     background-color: black;
+    padding: 5px;
 }
 tr, td{
     border: 1px solid;
@@ -13,16 +14,23 @@ tr, td{
     border-radius: 10px;
     background-color: white;
 }
-#titolo{
+.elimina:hover, .sposta:hover, .modifica:hover, .add:hover{
+    background-color: brown;
+    cursor: pointer;
+}
+.titolo{
     color: white;
     background-color: black;
     font-size: 35px;
 }
 h1{
-    text-shadow: 2px 2px 4px white;
     color: black;
+    border: 3px black solid;
     text-align: center;
     font-size: 38px;
+    background-color: white;
+    border-radius: 10px;
+    width: 40%;
 }
 .container{
     text-align: center;
@@ -32,7 +40,6 @@ h1{
 .new{
     display: flex;
     justify-content: center;
-    
 }
 #form{
     background-color: black;
@@ -40,6 +47,7 @@ h1{
     width: 50%;
     text-align: center;
     padding: 20px;
+    border: 3px white solid;
 }
 #todoList{
     float: left;
@@ -52,6 +60,13 @@ h1{
 }
 .elimina{
     background-color: red;
+    color: white;
+    border-radius: 10px;
+    font-size: 20px;
+
+}
+.modifica{
+    background-color: blue;
     color: white;
     border-radius: 10px;
     font-size: 20px;

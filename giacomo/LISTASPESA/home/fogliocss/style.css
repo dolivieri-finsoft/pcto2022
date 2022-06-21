@@ -1,11 +1,11 @@
 body{
-    background-color: yellow;
+    background-color: rgb(25, 0, 255);
 }
 table{
       border: 1px solid;
       font-size: 30px;
       border-radius: 10px;
-      background-color: black;
+      background-color: rgba(255, 201, 7, 0.53);
 
     }
     
@@ -13,7 +13,7 @@ table{
       border: 1px solid;
       font-size: 30px;
       border-radius: 10px;
-      background-color: yellow;
+      background-color: rgb(255, 135, 247);
 
     }
 
@@ -24,38 +24,24 @@ table{
     }
 
    .elimina{
-    color: rgb(110, 5, 5);
-    width: 130px;
-    cursor: default;
+    color: rgba(109, 7, 7, 0.708);
    } 
    .cambia{
-    color: green;
-    width: 130px;
-    cursor: default;
-
+    color: rgb(14, 94, 14);
    } 
-
-   .modifica{
-    width: 80px;
-    cursor: default;
-
-
-   }
 
    h1{
     text-align: center;
-    color: black;
-    text-shadow: 0 0 3px #FF0000;  
    }
 
   #todoList{
     float: left;
-    width: 700px;
+    width: 500px;
   }  
   
   #todoList1{
     float: right;
-    width: 700px;
+    width: 500px;
   }   
 
   .container{
@@ -84,5 +70,10 @@ table{
     font-size: 25px;
   }
 
-  
+  .elimina{
+    width: 130px;
+  }
 
+  .cambia{
+    width: 130px;
+  }
