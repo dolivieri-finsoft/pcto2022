@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <script src="./js/script.js"></script>
+
+  <title></title>
+</head>
+<body onload="Richiesta()"  >
+
+  <h1>To do / Done List </h1><br>
+
+  <div class="container">
+    
+    <table id="todoList">
+    </table>
+    <table id="todoList1"></table>
+    
+</div>
+<br>
+
+
+
+<header class="w3-container w3-red w3-center" style="padding:68px" >
+  <h1 class="w3-margin w3-jumbo">Nuovo Elemento</h1>
+  <div>
+    <label id="label">Cosa: </label>
+  <input type="text" id="cosa" name="cosa" placeholder="es.gommista...">
+  <br>
+  <br>
+  <select name="stato" id="select">
+    <option value="todo" selected="selected">To Do</option>
+    <option value="done">Done </option>
+    </select>
+  </div>
+    <br>
+    <br>
+    <button type="button" id="aggiungi" onclick="aggiungi()">Aggiungi</button>
+</header>
+
+
+  
+
+  
+ 
+</body>
+</html>

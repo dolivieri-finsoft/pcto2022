@@ -1,0 +1,80 @@
+body{
+    background-color: yellow;
+}
+table{
+      border: 1px solid;
+      font-size: 30px;
+      border-radius: 10px;
+      background-color: black;
+
+    }
+    
+    tr,td{
+      border: 1px solid;
+      font-size: 30px;
+      border-radius: 10px;
+      background-color: yellow;
+
+    }
+
+    #titolo{
+      color: yellow;
+      background-color: black;
+      text-align: center;
+    }
+
+   .elimina{
+    color: rgb(110, 5, 5);
+   } 
+   .cambia{
+    color: green;
+   } 
+
+   h1{
+    text-align: center;
+   }
+
+  #todoList{
+    float: left;
+    width: 700px;
+  }  
+  
+  #todoList1{
+    float: right;
+    width: 700px;
+  }   
+
+  .container{
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  #select{
+    font-size: 25px;
+    width: 100px;
+    height: 35px;
+  }
+
+  #cosa{
+    font-size: 20px;
+    height: 50px;
+    width: 350px;
+  }
+
+  #label{
+    font-size: 20px;
+  }
+
+  #aggiungi{
+    font-size: 25px;
+  }
+
+  .elimina{
+    width: 130px;
+  }
+
+  .cambia{
+    width: 130px;
+  }
+
