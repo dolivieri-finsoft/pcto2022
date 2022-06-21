@@ -1,3 +1,4 @@
+//#region creazione tabella, select, refresh
 const CreateTab = () => {
     fetch("/data?" + "cmd=getList")
         .then(response => response.json())
@@ -37,16 +38,7 @@ function RefreshList() {
     todoList();
 }
 
-const todoFatto = (cosa) => {
-    console.log('todo fatto')
-    fetch("/data?" + "cmd=todoFatto&cosa=" + cosa)
-        .then(response => {
-            if (response.status == 200 && response.statusText == "OK") {
-                RefreshList();
-            }
-        })
-        .catch(error => console.log(error));
-}
+//#endregion
 
 $(document).ready(function(){
 
@@ -79,14 +71,27 @@ $(document).ready(function(){
     $("#none_modify").click(function(){
         $("#modify_task").fadeOut(700)
       });
-});
+}); //animazione dei menu
+
+const todoFatto = (cosa) => {
+    console.log('todo fatto')
+    fetch("/data?" + "cmd=todoFatto&cosa=" + cosa)
+        .then(response => {
+            if (response.status == 200 && response.statusText == "OK") {
+                RefreshList();
+            }
+        })
+        .catch(error => console.log(error));
+}
+
+
 
 const checkInsert = (id) => {
     if (document.getElementById(id).value == "") return false;
     return true;
 }
 
-const saveTodo = () => {
+const newTodo = () => {
     var task = document.getElementById('task').value;
     var status = document.getElementById('status').value;
 
@@ -105,7 +110,7 @@ const saveTodo = () => {
 }
 
 const deleteTodo = () => {
-    var select = document.getElementById("selectCosa");
+    var select = document.getElementById("WhatTaskDelete");
     var cosa = select.value;
     fetch("/data?" + "cmd=deleteTodo&cosa=" + cosa)
         .then(response => {
@@ -114,4 +119,22 @@ const deleteTodo = () => {
             }
         })
         .catch(error => console.log(error));
+}
+
+const modifyTodo = () => {
+    var whatTask = document.getElementById("WhatTaskModify").value;
+    var status = document.getElementById('Status_modify').value;
+    var task = document.getElementById('task_modify').value;
+    
+    if (checkInsert('task_modify')) {
+        fetch("/data?" + "cmd=modifyTodo&whatTask=" + whatTask + "&status=" + status + "&task=" + task)
+        .then(response => {
+            if (response.status == 200 && response.statusText == "OK") {
+                window.location.href = '/todo';
+            }
+        })
+        .catch(error => console.log(error));
+    } else {
+        alert("COMPILARE IL MODULO TASK");
+    }
 }

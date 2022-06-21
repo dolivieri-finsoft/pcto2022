@@ -1,3 +1,4 @@
+var modificare;
 
 function Richiesta(){
     
@@ -12,15 +13,14 @@ function Richiesta(){
             for (var i = 0; i < data.length; i++) {
                 const element = data[i];
                 if(element.stato == "todo"){
-                  html += "<tr> <td>" + element.cosa + "</td>  <td class='elimina' id ='" + element.cosa + "' onclick='elimina(this.id)'>Delete</td> <td class='cambia' id ='" + element.cosa + "' onclick='cambia(this.id)'>Change </td> </tr>";
+                  html += "<tr> <td>" + element.cosa + "</td>  <td class='elimina' id ='" + element.cosa + "' onclick='elimina(this.id)'>Delete</td> <td class='cambia' id ='" + element.cosa + "' onclick='cambia(this.id)'>Move </td> <td class='modifica' id ='" + element.cosa + "' onclick='modifica(this.id, 0)'>✏️</td> </tr>";
 
                 }else{
-                  html1 += "<tr> <td>" + element.cosa + "</td> <td class='elimina' id ='" + element.cosa + "' onclick='elimina(this.id)'>Delete</td>  </tr>";
+                  html1 += "<tr> <td>" + element.cosa + "</td> <td class='elimina' id ='" + element.cosa + "' onclick='elimina(this.id)'>Delete</td> <td class='modifica' id ='" + element.cosa + "' onclick='modifica(this.id, 1)'>✏️</td> </tr>";
 
                 }
             }
             
-             
             document.getElementById("todoList").innerHTML = html;
             document.getElementById("todoList1").innerHTML = html1;
 
@@ -40,7 +40,7 @@ function elimina(id){
   }
 
 function cambia(id){
-    fetch("/cambia?" + "cosa=" + id)
+    fetch("/sposta?" + "cosa=" + id)
     window.location.reload();
     
   }
@@ -51,12 +51,42 @@ function aggiungi(){
     var select = document.getElementById("select").value;
 
     if(cosa == ""){
-      alert("Compila il campo!!!");
+      alert("Compila il campo sottostante!!!");
     }
     else{
-      fetch("/write?" + "cmd=newTodo&cosa=" + cosa + "&stato=" + select)
+      if(document.getElementById("aggiungi").outerHTML.length == 75)
+        {
+            fetch("/write?" + "cosa=" + cosa + "&stato=" + select)
+        }
+        else if (document.getElementById("aggiungi").outerHTML.length == 74){
+        
+        fetch("/modifica?" + "modificare=" + modificare + "&cosa=" + cosa + "&stato=" + select)
+
+        }
       window.location.reload();
+  }
+}
+
+
+
+function modifica(id, numero){
+  modificare = id;
+  let stato;
  
+   if(numero == 0)
+   {
+    stato = "todo";
+    document.getElementById('select').value = "todo";
+
+   }
+   else if(numero == 1){
+    stato = "done";
+    document.getElementById('select').value = "done";
+   }
+  document.getElementById('cosa').value = id;
+  document.getElementById('aggiungi').innerHTML = "Modifica";
+  document.getElementById('elemento').innerHTML = "Modifica Elemento";
+  
+
   }
 
-}

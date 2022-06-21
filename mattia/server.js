@@ -21,7 +21,7 @@ app.get('/addTodo', function (req, res) {
 
 app.get('/deleteTodo', function (req, res) {
     res.sendfile(path.join(__dirname, '/deleteTodo'));
-})
+});
 
 app.get('/json', function (req, res) {
     cmd = req.query.cmd;
