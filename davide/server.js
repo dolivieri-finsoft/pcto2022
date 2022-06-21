@@ -46,12 +46,12 @@ app.get('/data', function (req, res) {
     console.log(`Comando: ${comando}`);
 
     if (comando == "getList") {
-        fs.readFile("public/JSON/azioni.json", "utf8", function (err, json) {
+        fs.readFile("public/JSON/data.json", "utf8", function (err, json) {
             if (err) res.end("ERRORE: " + err);
             res.send(json);
         });
     } else if (comando == "newTodo") {
-        fs.readFile("public/JSON/azioni.jsonpublic/JSON/azioni.json", "utf8", function (err, json) {
+        fs.readFile("public/JSON/data.json", "utf8", function (err, json) {
             if (err) res.end("ERRORE: " + err);
 
             data = JSON.parse(json);
@@ -63,13 +63,13 @@ app.get('/data', function (req, res) {
 
             console.log(data);
 
-            fs.writeFile("public/JSON/azioni.json", JSON.stringify(data), function (err) {
+            fs.writeFile("public/JSON/data.json", JSON.stringify(data), function (err) {
                 if (err) res.end("ERRORE: " + err);
                 res.send("OK");
             });
         });
     } else if (comando == "deleteTodo") {
-        fs.readFile("public/JSON/azioni.json", "utf8", function (err, json) {
+        fs.readFile("public/JSON/data.json", "utf8", function (err, json) {
             if (err) res.end("ERRORE: " + err);
             data = JSON.parse(json);
 
@@ -80,24 +80,24 @@ app.get('/data', function (req, res) {
                 }
             }
 
-            fs.writeFile("public/JSON/azioni.json", JSON.stringify(data), function (err) {
+            fs.writeFile("public/JSON/data.json", JSON.stringify(data), function (err) {
                 if (err) res.end("ERRORE: " + err);
                 res.send("OK");
             });
         });
     } else if (comando == "todoFatto") {
-        fs.readFile("public/JSON/azioni.json", "utf8", function (err, json) {
+        fs.readFile("public/JSON/data.json", "utf8", function (err, json) {
             if (err) res.end("ERRORE: " + err);
             data = JSON.parse(json);
 
             for (var i = 0; i < data.length; i++) {
                 if (data[i].cosa == req.query.cosa) {
-                    data[i].stato = "Done";
+                    data[i].stato = "done";
                     break;
                 }
             }
 
-            fs.writeFile("public/JSON/azioni.json", JSON.stringify(data), function (err) {
+            fs.writeFile("public/JSON/data.json", JSON.stringify(data), function (err) {
                 if (err) res.end("ERRORE: " + err);
                 res.send("OK");
             });
