@@ -21,7 +21,7 @@ app.get('/addTodo', function (req, res) {
 
 app.get('/deleteTodo', function (req, res) {
     res.sendfile(path.join(__dirname, '/deleteTodo'));
-})
+});
 
 app.get('/json', function (req, res) {
     cmd = req.query.cmd;
@@ -55,6 +55,7 @@ app.get('/json', function (req, res) {
         fs.readFile("json/data.json", "utf8", function (err, json) {
             if (err) res.end("ERRORE: " + err);
             data = JSON.parse(json);
+            if (data.length == 0) res.send("[{'Cosa' : 'No data', 'Stato' : 'No data'}}");
 
             for (var i = 0; i < data.length; i++) {
                 if (data[i].cosa == req.query.cosa) {

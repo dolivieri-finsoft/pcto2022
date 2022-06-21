@@ -1,5 +1,9 @@
+const toggleCheck = {lastOp: null, check: true};
+
+window.onload = fetchLists(); 
+
 function fetchLists(){
-    fetch('todo.json')
+    fetch('/json')
     .then(response => {
         if(!response.ok){
             throw new Error("Cant fecht " + response.status);
@@ -25,8 +29,10 @@ function initialize(json){
     const arrayElementi = json.todoList;
     const listaTodo = document.createElement("ul");
     listaTodo.id = "todo-list";
+    listaTodo.style.display = 'none';
     const listaDone = document.createElement("ul");
     listaDone.id = "done-list";
+    listaDone.style.display = 'none';
 
     for(let obj of arrayElementi){
         let text = obj.cosa;
@@ -39,11 +45,18 @@ function initialize(json){
         }
         listaDone.appendChild(elementoLista);
     }
-
+    if(listaTodo.childNodes.length >= 1){
+        listaTodo.style.display = 'block';
+    }
+    if(listaDone.childNodes.length >= 1){
+        listaDone.style.display = 'block';
+    }
     todoDiv.appendChild(listaTodo);
     doneDiv.appendChild(listaDone);
-    document.getElementById('remove').setAttribute('onclick','toggleRemove(true)');
-    document.getElementById('move').setAttribute('onclick','toggleMove(true)');
+
+
+    toggleCheck.lastOp = null;
+    toggleCheck.check = true;
 }
 
 function addTask(){
@@ -68,7 +81,8 @@ function removeTask(elemento){
     xhttp.setRequestHeader('Content-Type','application/json');
     if(confirm('Vuoi eliminare questa task?')){
         let taskName = elemento.innerHTML;
-        const send = {value: taskName};
+        let tasktype = elemento.parentNode.id.slice(0,-5);
+        const send = {value: taskName, type: tasktype};
         const json = JSON.stringify(send);
         xhttp.send(json);
         fetchLists();
@@ -82,49 +96,70 @@ function moveTask(elemento){
     xhttp.open('POST','/move',true);
     xhttp.setRequestHeader('Content-Type', 'application/json');
     let taskName = elemento.innerHTML;
-    const send = {value: taskName};
+    let tasktype = elemento.parentNode.id.slice(0,-5);
+    const send = {value: taskName, type: tasktype};
     const json = JSON.stringify(send);
     xhttp.send(json);
     fetchLists();
 }
 
-function toggleRemove(bool){
-    listaTodo = document.getElementById('todo-list');
-    listaDone = document.getElementById('done-list');
-    self = document.getElementById('remove');
-
-    for(let x of listaTodo.childNodes){
-        if(bool){
-            x.setAttribute('onclick','removeTask(this)');
-            continue;
-        }
-        x.setAttribute('onclick','');
+function renameTask(elemento){
+    const xhttp = new XMLHttpRequest();
+    xhttp.open('POST','/rename',true);
+    xhttp.setRequestHeader('Content-Type','application/json');
+    let oldName = elemento.innerHTML;
+    let tasktype = elemento.parentNode.id.slice(0,-5);
+    let newName = prompt('Inserire nuovo nome');
+    if(newName == null || newName == ''){
+        return;
+    } else {
+        const send = {oldValue: oldName, value: newName, type: tasktype};
+        const json = JSON.stringify(send);
+        xhttp.send(json);
+        fetchLists();
     }
-
-    for(let x of listaDone.childNodes){
-        if(bool){
-            x.setAttribute('onclick','removeTask(this)');
-            continue;
-        }
-        x.setAttribute('onclick','');
-    }
-
-    if(bool){
-        self.setAttribute('onclick','toggleRemove(false)');
-    }
-    else{
-        self.setAttribute('onclick','toggleRemove(true)');
-    }
-    document.getElementById('move').setAttribute('onclick','toggleMove(true)');
 }
 
-function toggleMove(bool){
+function toggleRemove(button){
     listaTodo = document.getElementById('todo-list');
     listaDone = document.getElementById('done-list');
-    self = document.getElementById('move');
+    self = button;
+
+    if(toggleCheck.lastOp != 'remove'){
+        toggleCheck.check = true;
+    }
 
     for(let x of listaTodo.childNodes){
-        if(bool){
+        if(toggleCheck.check){
+            x.setAttribute('onclick','removeTask(this)');
+            continue;
+        }
+        x.setAttribute('onclick','');
+    }
+
+    for(let x of listaDone.childNodes){
+        if(toggleCheck.check){
+            x.setAttribute('onclick','removeTask(this)');
+            continue;
+        }
+        x.setAttribute('onclick','');
+    }
+
+    toggleCheck.lastOp = 'remove';
+    toggleCheck.check = !toggleCheck.check;
+}
+
+function toggleMove(button){
+    listaTodo = document.getElementById('todo-list');
+    listaDone = document.getElementById('done-list');
+    self = button;
+
+    if(toggleCheck.lastOp != 'move'){
+        toggleCheck.check = true;
+    }
+
+    for(let x of listaTodo.childNodes){
+        if(toggleCheck.check){
             x.setAttribute('onclick','moveTask(this)');
             continue;
         }
@@ -132,18 +167,42 @@ function toggleMove(bool){
     }
 
     for(let x of listaDone.childNodes){
-        if(bool){
+        if(toggleCheck.check){
             x.setAttribute('onclick','moveTask(this)');
             continue;
         }
         x.setAttribute('onclick','');
     }
 
-    if(bool){
-        self.setAttribute('onclick','toggleMove(false)');
+    toggleCheck.lastOp = 'move';
+    toggleCheck.check = !toggleCheck.check;
+}
+
+function toggleRename(button){
+    listaTodo = document.getElementById('todo-list');
+    listaDone = document.getElementById('done-list');
+    self = button;
+
+    if(toggleCheck.lastOp != 'rename'){
+        toggleCheck.check = true;
     }
-    else{
-        self.setAttribute('onclick','toggleMove(true)');
+
+    for(let x of listaTodo.childNodes){
+        if(toggleCheck.check){
+            x.setAttribute('onclick','renameTask(this)');
+            continue;
+        }
+        x.setAttribute('onclick','');
     }
-    document.getElementById('remove').setAttribute('onclick','toggleRemove(true)');
+
+    for(let x of listaDone.childNodes){
+        if(toggleCheck.check){
+            x.setAttribute('onclick','renameTask(this)');
+            continue;
+        }
+        x.setAttribute('onclick','');
+    }
+
+    toggleCheck.lastOp = 'rename';
+    toggleCheck.check = !toggleCheck.check;
 }

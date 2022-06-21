@@ -15,38 +15,42 @@ app.get('/',(req,res) => {
 app.post('/add',(req,res) => {
     let toAdd = req.body.value;
     const newTask = {cosa: toAdd, stato:"todo"};
-    let json = fs.readFileSync('./source/todo.json');
+    let json = fs.readFileSync('./source/json/todo.json');
     const data = JSON.parse(json);
     data.todoList.push(newTask);
     json = JSON.stringify(data, null, 2);
-    fs.writeFileSync('./source/todo.json',json);
+    fs.writeFileSync('./source/json/todo.json',json);
+    res.sendStatus(200);
 })
 
 app.post('/remove',(req,res) => {
     const search = req.body.value;
-    let json = fs.readFileSync('./source/todo.json');
+    const searchType = req.body.type;
+    let json = fs.readFileSync('./source/json/todo.json');
     const data = JSON.parse(json);
     let list = data.todoList;
 
     for(let x of list){
-        if(search == x.cosa){
+        if(search == x.cosa && searchType == x.stato){
             list.splice(list.indexOf(x),1);
             break;
         }
     }
 
     json = JSON.stringify(data, null, 2);
-    fs.writeFileSync('./source/todo.json',json);
+    fs.writeFileSync('./source/json/todo.json',json);
+    res.sendStatus(200);
 })
 
 app.post('/move',(req,res) => {
     const search = req.body.value;
-    let json = fs.readFileSync('./source/todo.json');
+    const searchType = req.body.type;
+    let json = fs.readFileSync('./source/json/todo.json');
     const data = JSON.parse(json);
     let list = data.todoList;
 
     for(let x of list){
-        if(search == x.cosa){
+        if(search == x.cosa && searchType == x.stato){
             if(x.stato == "todo"){
                 x.stato = "done";
                 break;
@@ -55,8 +59,32 @@ app.post('/move',(req,res) => {
             break;
         }
     }
-    json = JSON.stringify(data);
-    fs.writeFileSync('./source/todo.json',json);
+    json = JSON.stringify(data, null, 2);
+    fs.writeFileSync('./source/json/todo.json',json);
+    res.sendStatus(200);
+})
+
+app.post('/rename',(req,res) => {
+    const search = req.body.oldValue;
+    const searchType = req.body.type;
+    const newName = req.body.value;
+    let json = fs.readFileSync('./source/json/todo.json');
+    const data = JSON.parse(json);
+    let list = data.todoList;
+
+    for(let x of list){
+        if(search == x.cosa && searchType == x.stato){
+            x.cosa = newName;
+            break;
+        }
+    }
+    json = JSON.stringify(data, null, 2);
+    fs.writeFileSync('./source/json/todo.json',json);
+    res.sendStatus(200);
+})
+
+app.get('/json', (req,res) => {
+    res.sendFile(__dirname + '/source/json/todo.json');
 })
 
 app.get('/*', (req,res) => {
