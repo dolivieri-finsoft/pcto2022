@@ -1,0 +1,79 @@
+body{
+    background-color: rgb(25, 0, 255);
+}
+table{
+      border: 1px solid;
+      font-size: 30px;
+      border-radius: 10px;
+      background-color: rgba(255, 201, 7, 0.53);
+
+    }
+    
+    tr,td{
+      border: 1px solid;
+      font-size: 30px;
+      border-radius: 10px;
+      background-color: rgb(255, 135, 247);
+
+    }
+
+    #titolo{
+      color: yellow;
+      background-color: black;
+      text-align: center;
+    }
+
+   .elimina{
+    color: rgba(109, 7, 7, 0.708);
+   } 
+   .cambia{
+    color: rgb(14, 94, 14);
+   } 
+
+   h1{
+    text-align: center;
+   }
+
+  #todoList{
+    float: left;
+    width: 500px;
+  }  
+  
+  #todoList1{
+    float: right;
+    width: 500px;
+  }   
+
+  .container{
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  #select{
+    font-size: 25px;
+    width: 100px;
+    height: 35px;
+  }
+
+  #cosa{
+    font-size: 20px;
+    height: 50px;
+    width: 350px;
+  }
+
+  #label{
+    font-size: 20px;
+  }
+
+  #aggiungi{
+    font-size: 25px;
+  }
+
+  .elimina{
+    width: 130px;
+  }
+
+  .cambia{
+    width: 130px;
+  }

@@ -4,73 +4,48 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>lista spesa</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="./fogliocss/style.css">
+  <script src="./javascript/serve.js"></script>
+
+  <title>TODO/DONE</title>
 </head>
-<body onload="Richiesta()" bgcolor="red">
-  
+<body onload="Richiesta()"  >
+
+  <h1>To do / Done List </h1><br>
 
   <div class="container">
-    <h1>TODO List</h1>
-    <div id="todoList">
-
-    </div><br>
-    <div id="todoList1">
-
-    </div>
-</div>
-
-
-  <script>
-
-  function Richiesta(){
     
-    const todoList = () => {
-    fetch("/request")
-        .then(response => response.json())
-        .then(data => {
-            html = "<ul>";
-              html1 = "<ul>";
+    <table id="todoList">
+    </table>
+    <table id="todoList1"></table>
+    
+</div>
+<br>
 
-            
-            for (var i = 0; i < data.length; i++) {
-                const element = data[i];
-                if(element.stato == "TODO"){
-                  html += "<li>" + element.oggetto + ": " + element.stato;
 
-                }else{
-                  html1 += "<li>" + element.oggetto + ": " + element.stato;
 
-                }
-            }
-            html += "</ul>";
-            html1 += "</ul>";
+<header class="w3-container w3-black w3-center" style="padding: 50px;" >
+  <h1 class="w3-margin w3-jumbo">Nuovo Elemento</h1>
+  <div>
+    <label id="label">oggetto: </label>
+  <input type="text" id="oggetto" name="oggetto" placeholder="es.dentifricio...">
+  <br>
+  <br>
+  <select name="stato" id="select">
+    <option value="todo" selected="selected">To Do</option>
+    <option value="done">Done </option>
+    </select>
+  </div>
+    <br>
+    <br>
+    <button type="button" id="aggiungi" onclick="aggiungi()">Aggiungi</button>
+</header>
 
-            document.getElementById("todoList").innerHTML = html;
-            document.getElementById("todoList1").innerHTML = html1;
 
-        })
-        .catch(error => console.log(error));
-}
-
-document.onloadeddata = todoList();
-
-  }
-
-  </script>
-
-  <style>
-
-   
-
-  #todoList{
-    font-size: large;
-  }  
   
-  #todoList1{
-    font-size: large;
-  }   
 
-  </style>
+  
  
 </body>
 </html>
