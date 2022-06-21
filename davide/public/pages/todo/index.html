@@ -43,7 +43,7 @@
                 <br>
                 <label for="task">Testo: </label>
                 <br>
-                <textarea name="task" id="task" placeholder="Inserisci qui il testo della tua nuova nota" rows="8"></textarea><br>
+                <textarea name="task" id="task" placeholder="Inserisci qui il testo della tua nuova task" rows="8" cols="50"></textarea><br>
                 <input type="button" name="nascondiinsert" class="bottoni" id="nascondiinsert" value="Chiudi menù">
                 <input type="button" id="conferma_add" class="bottoni" value="Conferma" onclick="saveTodo();">
                 <br>
@@ -70,6 +70,17 @@
             <select name="WhatTask" id="WhatTaskModify">
                 
             </select>
+            <br>
+            <label for="Status_modify">Status: </label><br>
+                <select name="Status_modify" id="status">
+                    <option value="to do">To do</option>
+                    <option value="done">Done</option>
+                </select>
+                <br>
+                <br>
+                <label for="task_modify">Testo: </label>
+                <br>
+                <textarea name="task_modify" id="task_modify" placeholder="Inserisci qui il testo della tua nuova task" rows="8" cols="50"></textarea><br>
             <br>
             <br>
             <input type="button" name="none_modify" class="bottoni" id="none_modify" value="Chiudi menù">
