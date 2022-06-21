@@ -13,7 +13,7 @@ tr, td{
     border-radius: 10px;
     background-color: white;
 }
-#titolo{
+.titolo{
     color: white;
     background-color: black;
     font-size: 35px;
@@ -52,6 +52,13 @@ h1{
 }
 .elimina{
     background-color: red;
+    color: white;
+    border-radius: 10px;
+    font-size: 20px;
+
+}
+.modifica{
+    background-color: blue;
     color: white;
     border-radius: 10px;
     font-size: 20px;

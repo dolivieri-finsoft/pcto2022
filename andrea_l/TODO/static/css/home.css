@@ -60,6 +60,7 @@ h1{
 
 .elemento{
     height: 30px;
+    width: 50%;
 }
 
 /*----ADD----*/
@@ -67,4 +68,14 @@ h1{
 .AddButton{
     height: 30px;
     font-size: 15px;
+}
+
+.formLabelAdd{
+    color: white;
+}
+
+/*----MMODIFY----*/
+.ImgModify{
+    height: 20px;
+    width: auto;
 }

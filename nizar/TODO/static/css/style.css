@@ -25,10 +25,17 @@ table{
 
    .elimina{
     color: rgb(110, 5, 5);
+    width: 130px;
    } 
    .cambia{
     color: green;
+    width: 130px;
    } 
+
+   .modifica{
+    width: 80px;
+
+   }
 
    h1{
     text-align: center;
@@ -70,11 +77,5 @@ table{
     font-size: 25px;
   }
 
-  .elimina{
-    width: 130px;
-  }
-
-  .cambia{
-    width: 130px;
-  }
+  
 
