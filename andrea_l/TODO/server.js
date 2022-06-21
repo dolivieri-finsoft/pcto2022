@@ -25,11 +25,26 @@ app.get('/json', function (req, res) {
 
             res.send(json);
         });
+    }else if (cmd == "modifyTodo"){
+        fs.readFile("json/data.json", "utf8", function (err, json) {
+            if (err) res.end("ERRORE: " + err);
+
+            data = JSON.parse(json);
+            console.log("modificare= " + `${req.query.modifica}`);
+        });
     }else if (cmd == "newTodo") {
         fs.readFile("json/data.json", "utf8", function (err, json) {
             if (err) res.end("ERRORE: " + err);
 
             data = JSON.parse(json);
+
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].cosa == req.query.cosa) {
+                    data.splice(i, 1);
+                    break;
+                }
+            }
+
             var newObj = {
                 "cosa": `${req.query.cosa}`,
                 "stato": `${req.query.stato}`
