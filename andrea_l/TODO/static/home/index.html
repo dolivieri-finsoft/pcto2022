@@ -11,13 +11,14 @@
     <h1 style="color: white">LISTA COSE DA FARE <br>Andrea Leva</h1>
     <div class="container">
         <div class="row">
-            <label for="Username" class="formLabel">Aggiungi cosa da fare/fatta: </label>
+            <label for="Username" class="formLabelAdd">Aggiungi cosa da fare/fatta: </label>
             <input class="formInput" type="text" id="cosa" name="cosa" placeholder="Es Spesa....">
-            <label class="formLabel" for="stato">Stato</label>
-            <select class="formSelect" id="stato" name="stato">
-                <option value="todo">Todo</option>
-                <option value="Done">Done</option>
+            <label class="formLabelAdd" for="stato">Stato</label>
+            <select class='formSelect' id='stato' name='stato'>
+                <option value='todo'>Todo</option>
+                <option value='Done'>Done</option>
             </select>
+
             <button class="AddButton" type="button" id="addTodo" onclick="saveTodo();">Aggiungi</button>
         </div>
     </div>
@@ -29,7 +30,10 @@
                 <table id="doneList">
                 </table>
             </div>
-            
+        </div>
+        <div class="container">
+            <div class="row" id="rowModify" style="display:none;">
+            </div>
         </div>
     <script src="../js/home.js"></script>
 </body>
