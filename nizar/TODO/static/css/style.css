@@ -26,19 +26,26 @@ table{
    .elimina{
     color: rgb(110, 5, 5);
     width: 130px;
+    cursor: default;
    } 
    .cambia{
     color: green;
     width: 130px;
+    cursor: default;
+
    } 
 
    .modifica{
     width: 80px;
+    cursor: default;
+
 
    }
 
    h1{
     text-align: center;
+    color: black;
+    text-shadow: 0 0 3px #FF0000;  
    }
 
   #todoList{
