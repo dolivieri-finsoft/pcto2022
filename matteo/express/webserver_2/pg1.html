@@ -13,42 +13,122 @@
         <div id="todo-location"></div>
         <p id="samuele">Task fatte</p>
         <div id="done-location"></div>
-        <button id="button1" type="button" onclick="addTask()">aggiungi task</button>
-        
+        <button id="button1" type="button" onclick="addTask()">Aggiungi task</button>
+        <button id ="button2" type="button" onclick="scambio()">Elimina task</button>
+        <button id ="button3" type="button" onclick="modify()">Modifica task</button>
         
 
         <script>
+            
+           
                 //Funzione per creare la tabella
                 function initialize(x){
+                
                     
                     var list = document.createElement("ul");
+                    list.setAttribute("id", "todo-list");
                     var list2 = document.createElement("ul");
+                    list2.setAttribute("id", "done-list");
                     for(i = 0; i < x.tasks.length; i++){
+                       
                         if(x.tasks[i].stato == "todo"){
                             var str = "" + x.tasks[i].cosa;
+                            str = str.replace(/ /g, "_");
                             var child = document.createElement("li");
                             child.setAttribute("id", str);
                             child.innerHTML = x.tasks[i].cosa;
-                            child.setAttribute("onclick", "elimina(id)");
+                            child.setAttribute("onclick", "changeStatus(id)");
                             list.appendChild(child);
                             document.getElementById("todo-location").appendChild(list);
                         } else{
                             var str = "" + x.tasks[i].cosa;
+                            str = str.replace(/ /g, "_");
                             var child = document.createElement("li");
                             child.setAttribute("id", str);
                             child.innerHTML = x.tasks[i].cosa;
-                            child.setAttribute("onclick", "elimina(id)");
+                            child.setAttribute("onclick", "changeStatus(id)");
                             list2.appendChild(child);
                             document.getElementById("done-location").appendChild(list2);
                         }
                     }
             }
+
+            function scambio(){
+                var elementiLista = document.getElementById("todo-list");
+                var elementiLista2 = document.getElementById("done-list");
+                for(i = 0; i < elementiLista.childNodes.length; i++){
+                    var aux = elementiLista.childNodes[i].id;
+                    console.log(aux);
+                    var toPrint = "elimina(" + aux + ")";
+                    console.log(toPrint);
+                    elementiLista.childNodes[i].setAttribute("onclick", toPrint);
+                    elementiLista.childNodes[i].style.color = "red";
+                    console.log(elementiLista.childNodes[i]);
+                }
+
+                for(i = 0; i < elementiLista2.childNodes.length; i++){
+                    var aux = elementiLista2.childNodes[i].id;
+                    console.log(aux);
+                    var toPrint = "elimina(" + aux + ")";
+                    console.log(toPrint);
+                    elementiLista2.childNodes[i].setAttribute("onclick", toPrint);
+                    elementiLista2.childNodes[i].style.color = "red";
+                    console.log(elementiLista.childNodes[i]);
+                }
+                console.log(elementiLista.childNodes[0]);
+
+            }
+            function changeStatus(x){
+
+                console.log(x);
+                fetch('data.json')
+                .then(response => {
+                    if(!response.ok){
+                        throw new Error('Errore fetch ' +response.status);
+                    }
+                    return response.json();
+                })
+                .then(json => {
+                    var obj = json;
+                    truex = x.replace(/_/g," ");
+                    var auxvect = [0];
+                    for(i = 0; i < obj.tasks.length; i++){
+                        console.log(i);
+                        if(obj.tasks[i].cosa == truex){
+                            if(obj.tasks[i].stato == "todo"){
+                                obj.tasks[i].stato = "done";
+                            } else {
+                                obj.tasks[i].stato = "todo";
+                            }
+                        }
+
+                    }
+                    console.log(obj.tasks);
+
+                    
+
+                    xhttp = new XMLHttpRequest();
+                    xhttp.open('POST', '/rewrite', true);
+                    xhttp.setRequestHeader('Content-Type', 'application/json');
+                    xhttp.send(JSON.stringify(obj));
+
+
+                })
+                .catch(err => console.error('Errore creazione tabella' + err.message));
+                
+                window.location.reload();
+            }
+
+            
                 //funzione che fa comparire la conferma per eliminare
             function elimina(x){
+                console.log("entra?");
                 let text ="Vuoi eliminare l'elemento?";
+                    console.log("dentro ad elimina: " + x);
                 if(confirm(text) == true){
-                    checkName(x);
-                    window.location.reload();
+                    checkName(x.id);
+                    console.log(x.id);
+                    //window.location.reload();
                 }
             }
                 //funzione che nel concreto elimina
@@ -64,9 +144,11 @@
                 .then(json => {
                     var obj = json;
                     var auxvect = [0];
+                    var truex = x.replace(/_/g, " ");
+                    console.log(truex);
                     for(i = 0; i < obj.tasks.length; i++){
                         console.log(i);
-                        if(obj.tasks[i].cosa == x){
+                        if(obj.tasks[i].cosa == truex){
                             obj.tasks.splice(i,1);
                         }
 
@@ -80,7 +162,7 @@
                     xhttp.setRequestHeader('Content-Type', 'application/json');
                     xhttp.send(JSON.stringify(obj));
 
-
+                    window.location.reload();
                 })
                 .catch(err => console.error('Errore creazione tabella' + err.message));
                 
@@ -115,6 +197,70 @@
                 request.setRequestHeader('Content-Type', 'application/json');
                 request.send(oggettoStringato);
                 window.location.reload();
+            }
+
+
+            function modify(){
+                elementiLista = document.getElementById("todo-list");
+                elementiLista2 = document.getElementById("done-list");
+                for(i = 0; i < elementiLista.childNodes.length; i++){
+                    var aux = elementiLista.childNodes[i].id;
+                    console.log(aux);
+                    var toPrint = "modifyData(" + aux + ")";
+                    console.log(toPrint);
+                    elementiLista.childNodes[i].setAttribute("onclick", toPrint);
+                    elementiLista.childNodes[i].style.color = "green";
+                    console.log(elementiLista.childNodes[i]);
+                }
+
+                for(i = 0; i < elementiLista2.childNodes.length; i++){
+                    var aux = elementiLista2.childNodes[i].id;
+                    console.log(aux);
+                    var toPrint = "modifyData(" + aux + ")";
+                    console.log(toPrint);
+                    elementiLista2.childNodes[i].setAttribute("onclick", toPrint);
+                    elementiLista2.childNodes[i].style.color = "green";
+                    console.log(elementiLista.childNodes[i]);
+                }
+                console.log(elementiLista.childNodes[0]);
+
+            }
+
+
+            function modifyData(x){
+
+                fetch('data.json')
+                .then(response => {
+                    if(!response.ok){
+                        throw new Error('Errore fetch ' +response.status);
+                    }
+                    return response.json();
+                })
+                .then(json => {
+                    console.log(x);
+                    truex = x.id.replace(/_/g, " ");
+                    for(i = 0; i < json.tasks.length; i++){
+                        if(json.tasks[i].cosa == truex){
+                            var answer = prompt("Riscrivi il nome della task");
+                            var newObj = {
+                                cosa: answer,
+                                stato: json.tasks[i].stato
+                            }
+                            json.tasks.splice(i, 1);
+                            json.tasks.push(newObj);
+                            
+                            xhttp = new XMLHttpRequest();
+                        xhttp.open('POST', '/rewrite', true);
+                        xhttp.setRequestHeader('Content-Type', 'application/json');
+                        xhttp.send(JSON.stringify(json));
+
+                            window.location.reload();
+                            
+                        }
+                    }
+                })
+                .catch(err => console.error('Errore creazione tabella' + err.message));
+
             }
 
             
