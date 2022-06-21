@@ -1,15 +1,68 @@
-p {
+#giacomo {
 
     font-size: 40px;
-    color: blue;
+    width: fit-content;
+    color: black;
+    background-color: yellow;
+    border: 8px;
+    border-color: black;
+    padding: 10px;
 }
 
-div {
+#samuele {
+
+    font-size: 40px;
+    width: fit-content;
+    color: black;
+    background-color: yellow;
+    border: 8px;
+    border-color: black;
+    padding: 10px;
+}
+
+body {
+    background: url("https://images7.alphacoders.com/708/708805.jpg");
+}
+
+#todo-location {
 
     background-color:gainsboro;
-    margin-right: 60%;
     font-size: 24px;
+    width: fit-content;
+    margin: 10px;
+    border: 3px solid black;
+    padding: 5px;
+
 }
+
+#done-location {
+    background-color:gainsboro;
+    font-size: 24px;
+    width: fit-content;
+    margin: 10px;
+    border: 3px solid black;
+    padding: 15px;
+}
+
+
+
+button {
+
+    background-color: yellow;
+    border: none;
+    padding: 3px;
+    transition-duration: 0.3s;
+    border: 2px solid black;
+
+}
+
+#button1:hover{
+    background-color: gainsboro;
+    color:rgb(134, 189, 134);
+    border: 2px solid rgb(134, 189, 134);
+}
+
+
 
 
 

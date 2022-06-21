@@ -1,12 +1,1 @@
-{
-    "tasks": [
-    {"cosa":"spesa",
-    "stato":"todo"},
-
-    {"cosa":"riparare bici",
-    "stato":"done"},
-
-    {"cosa":"preparare da mangiare",
-    "stato":"todo"}
-    ]
-}
+{"tasks":[{"cosa":"spesa","stato":"todo"},{"cosa":"fare i compiti","stato":"done"},{"cosa":"scoppiare massimiliano","stato":"todo"}]}

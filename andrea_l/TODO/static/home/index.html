@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="utf-8">
+    <title>To Do/Done - Andrea Leva</title>
+    <link rel="stylesheet" href="../css/home.css">
+</head>
+
+<body>
+    <h1 style="color: white">LISTA COSE DA FARE <br>Andrea Leva</h1>
+    <div class="container">
+        <div class="row">
+            <label for="Username" class="formLabel">Aggiungi cosa da fare/fatta: </label>
+            <input class="formInput" type="text" id="cosa" name="cosa" placeholder="Es Spesa....">
+            <label class="formLabel" for="stato">Stato</label>
+            <select class="formSelect" id="stato" name="stato">
+                <option value="todo">Todo</option>
+                <option value="Done">Done</option>
+            </select>
+            <button class="AddButton" type="button" id="addTodo" onclick="saveTodo();">Aggiungi</button>
+        </div>
+    </div>
+        <div class="container">
+            <div class="row">
+                <table id="todoList">
+                </table>
+        
+                <table id="doneList">
+                </table>
+            </div>
+            
+        </div>
+    <script src="../js/home.js"></script>
+</body>
+
+</html>

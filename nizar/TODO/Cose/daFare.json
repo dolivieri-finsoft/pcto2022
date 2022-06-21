@@ -1,16 +1,1 @@
-[
-    {"cosa":"Spesa", "stato": "TODO"},
-
-
-    {"cosa":"Riparare bici", "stato": "DONE"},
-
-
-    {"cosa":"Partita", "stato": "TODO"},
-
-
-    {"cosa":"Doccia", "stato": "DONE"}
-
-
-]
-
-
+[{"cosa":"Riparare bici","stato":"todo"},{"cosa":"spesa","stato":"todo"},{"cosa":"meccanico","stato":"done"},{"cosa":"doccia","stato":"done"},{"cosa":"notaio","stato":"todo"},{"cosa":"benzinaio","stato":"done"}]
