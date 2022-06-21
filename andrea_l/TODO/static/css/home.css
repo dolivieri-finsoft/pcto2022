@@ -1,0 +1,89 @@
+body{
+    background: linear-gradient(to bottom, black , orange);   
+    min-height: 100vh;     
+}
+.container{
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    margin-top:10vh;
+    flex-direction: column;
+}
+
+button{
+    z-index: 1;
+}
+
+
+/*----LISTE----*/
+
+#todoList{
+    float: left;
+    width: 600px;
+    height: auto;
+}
+#doneList{
+    float: right;
+    width: 600px;
+    height: auto;
+}
+tr, td{
+    border: 1px solid;
+    font-size: 30px;
+    border-radius: 10px;
+    background-color: white;
+}
+button{
+    font-size: 30px;
+    border-radius: 10px;
+}
+table{
+    border: 1px solid;
+    font-size: 30px;
+    border-radius: 10px;
+    background-color: black;
+}
+
+/*----TITOLO-----*/
+
+#titolo{
+    color: white;
+    background-color: black;
+    height: 30px;
+}
+h1{
+    color: black;
+    text-align: center;
+}
+
+/*----ELEMENTI----*/
+
+.elemento{
+    height: 30px;
+    width: 50%;
+}
+
+/*----ADD----*/
+
+.AddButton{
+    height: 30px;
+    font-size: 15px;
+}
+
+.formLabelAdd{
+    color: white;
+}
+
+/*----MMODIFY----*/
+.imgModify{
+    height: 20px;
+    width: auto;
+}
+.formLabelModifyTitle{
+    font-size: 50px;
+    color: white;
+}
+.formLabelModify{
+    font-size: 25px;
+    color: white;   
+}

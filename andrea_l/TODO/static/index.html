@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="utf-8">
+    <title>Static WebServer</title>
+    <link rel="stylesheet" href="./css/login.css">
+</head>
+
+<body>
+
+    
+
+    <div class="container">
+        <div class="row" style="justify-content: center;">
+            <h1>Login</h1>
+        </div>
+        <form class="LoginForm" id="idLoginForm">
+            <div class="row">
+                <label for="Username" class="formLabel">Username</label>
+                <input type="text" class="formInput" id="Username" name="Username" placeholder="Username" onkeyup="checkinput();" required>  
+            </div>
+            <div class="row">
+                <span id="errorUsername" class="error" style="display: none"></span>
+            </div>
+            <div class="row">
+                <label for="Password" class="formLabel">Password</label>
+                <input type="text" class="formInput" id="Password" name="Password" placeholder="Password" onkeyup="checkinput();" required>
+            </div>
+            <div class="row">
+                <span id="errorPassword" class="error" style="display: none"></span>
+            </div>
+            <div class="row" style="justify-content: center;">
+                <button type="button" class="formButton" onclick="login()">Login</button>
+            </div>
+        </form>
+    </div>
+        
+    <script src="./js/login.js"></script>
+
+</body>
+
+</html>
