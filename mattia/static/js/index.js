@@ -45,6 +45,7 @@ const todoList = () => {
             document.getElementById("todoList").innerHTML = html;
         })
         .catch(error => console.log(error));
+
 }
 
-document.onloadeddata = todoList();
+document.onloadeddata = todoList();nloadeddata = todoList();

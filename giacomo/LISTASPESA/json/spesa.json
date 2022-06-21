@@ -1,0 +1,18 @@
+[
+    {
+        "oggetto":"latte",
+        "stato":"done"
+    },
+    {
+        "oggetto":"pane",
+        "stato":"done"
+    },
+    {
+        "oggetto":"pasta",
+        "stato":"todo"
+    },
+    {
+        "oggetto":"detersivo",
+        "stato":"todo"
+    }
+]
