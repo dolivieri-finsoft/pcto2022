@@ -61,3 +61,10 @@ h1{
 .elemento{
     height: 30px;
 }
+
+/*----ADD----*/
+
+.AddButton{
+    height: 30px;
+    font-size: 15px;
+}
