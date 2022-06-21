@@ -1,18 +1,20 @@
+var cosaDaModificare;
+
 function Richiedi(){
     const todoList = () => {
     fetch("/request")
      .then(response => response.json())
      .then(data => {
-     htmlTodo = "<tr><th id='titolo' colspan='3'>To do</th></tr>";
-     htmlDone = "<tr><th id='titolo' colspan='2'>Done</th></tr>";
+     htmlTodo = "<tr><th class='titolo' colspan='4'>To do</th></tr>";
+     htmlDone = "<tr><th class='titolo' colspan='3'>Done</th></tr>";
      for (var i = 0; i < data.length; i++) {
          const element = data[i];
          if(element.stato == "todo"){
-            htmlTodo += "<tr> <td>" + element.cosa + "</td> <td class='elimina' id='" + element.cosa + "' onclick='Elimina(this.id)'>✘</td> <td class='sposta' id='" + element.cosa + "' onclick='Sposta(this.id)'>✔</td> </tr>";
+            htmlTodo += "<tr> <td>" + element.cosa + "</td> <td class='elimina' id='" + element.cosa + "' onclick='Elimina(this.id)'>✘</td> <td class='sposta' id='" + element.cosa + "' onclick='Sposta(this.id)'>✔</td> <td class='modifica' id='" + element.cosa + "' onclick='Modifica(this.id, false)'>↻</td> </tr>";
 
          }
          else{
-            htmlDone += "<tr> <td>" + element.cosa + "</td> <td class='elimina' id='" + element.cosa + "' onclick='Elimina(this.id)'>✘</td> </tr>";
+            htmlDone += "<tr> <td>" + element.cosa + "</td> <td class='elimina' id='" + element.cosa + "' onclick='Elimina(this.id)'>✘</td> <td class='modifica' id='" + element.cosa + "' onclick='Modifica(this.id, true)'>↻</td> </tr>";
 
          }
      }
@@ -47,12 +49,36 @@ function Add(){
         else{
             stato = "done";
         }
-        fetch("/write?" + "cosa=" + cosa + "&stato=" + stato)
+
+        if(document.getElementById("testoR").outerHTML.length == 57)
+        {
+            fetch("/modify?" + "cosaDaMo=" + cosaDaModificare + "&cosa=" + cosa + "&stato=" + stato)
+        }
+        else{
+            fetch("/write?" + "cosa=" + cosa + "&stato=" + stato)
+        }
         window.location.reload();
      }
 
      
      document.getElementById("cosa").value = "";
      document.getElementById("todo").checked = true;
+
+}
+
+function Modifica(id, stato){
+    cosaDaModificare = id;
+    document.getElementById("testoR").innerHTML = "<b>Modify Element</b>";
+    document.getElementById("cosa").value = id;
+    document.getElementById("button").innerHTML = "Modify";
+
+
+    if(stato == false){
+        document.getElementById("todo").checked = true;
+    }
+    else{
+        document.getElementById("done").checked = true;
+
+    }
 
 }
