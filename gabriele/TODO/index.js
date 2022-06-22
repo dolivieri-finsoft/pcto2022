@@ -6,6 +6,18 @@ const fs = require("fs");
 
 app.use(express.static("home"));
 
+var mysql = require('mysql');
+
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "finsoft"
+});
+
+con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+});
 
 
 router.get('/',function(req,res){
