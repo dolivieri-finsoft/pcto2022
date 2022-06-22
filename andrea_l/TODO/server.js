@@ -23,6 +23,9 @@ app.get('/json', function (req, res) {
         fs.readFile("json/data.json", "utf8", function (err, json) {
             if (err) res.end("ERRORE: " + err);
 
+            data = JSON.parse(json);
+
+            console.log(data);
             res.send(json);
         });
     }else if (cmd == "modifyTodo"){
@@ -62,8 +65,6 @@ app.get('/json', function (req, res) {
                 "stato": `${req.query.stato}`
             };
             data.push(newObj);
-
-            console.log(data);
 
             fs.writeFile("json/data.json", JSON.stringify(data), function (err) {
                 if (err) res.end("ERRORE: " + err);
