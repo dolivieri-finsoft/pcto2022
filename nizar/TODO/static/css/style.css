@@ -64,6 +64,8 @@ table{
     justify-content: space-around;
   }
 
+  
+
   #select{
     font-size: 25px;
     width: 100px;
@@ -82,6 +84,12 @@ table{
 
   #aggiungi{
     font-size: 25px;
+    border-radius: 10px 10px 10px 10px;
+  }
+
+  #indietro{
+    font-size: 25px;
+    border-radius: 10px 10px 10px 10px;
   }
 
   
