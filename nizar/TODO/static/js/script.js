@@ -1,5 +1,14 @@
 var modificare;
 
+function myFunction() {
+  var x = document.getElementById("chiave");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+
 function Richiesta(){
     
     const todoList = () => {
@@ -113,10 +122,26 @@ function modifica(id, numero){
 
 
   function Signin(){
-   window.location.href = "../index.html";
+   window.location.href = "./home/index.html";
+   var username = document.getElementById('username').value;
+  var password = document.getElementById('password').value;
+
+
   }
 
   function Login(){
-    window.location.href = "../index.html";
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
 
+    if(username == "finsoft" && password == "finsoft"){
+      window.location.href = "./home/index.html";
+    }
+    else{
+      alert("Dati sbagliati");
+    }
+
+  
   }
+
+ 
+  

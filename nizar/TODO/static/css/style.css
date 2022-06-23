@@ -56,6 +56,15 @@ table{
     padding-bottom: 100px;
    }
 
+   #dati{
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    padding-bottom: 100px;
+    width: 300px;
+    
+    }
+
    #List2{
     display: flex;
     justify-content:center;
@@ -94,6 +103,25 @@ table{
     height: 50px;
     width: auto;    
   }
+
+  #chiave{
+    font-size: 20px;
+    border-radius: 10px 10px 10px 10px;
+  }
+
+  #username{
+    font-size: 20px;
+    height: 50px;
+    width: auto;    
+  }
+
+
+  #password{
+    font-size: 20px;
+    height: 50px;
+    width: auto;    
+  }
+
 
   #label{
     font-size: 20px;
