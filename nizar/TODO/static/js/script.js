@@ -111,3 +111,12 @@ function modifica(id, numero){
 
   }
 
+
+  function Signin(){
+   window.location.href = "../index.html";
+  }
+
+  function Login(){
+    window.location.href = "../index.html";
+
+  }
