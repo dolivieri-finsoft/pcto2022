@@ -1,12 +1,9 @@
-const checkinput = () => {
+const checkinputUsername = () => {
     username = document.getElementById("Username").value;
-    password = document.getElementById("Password").value;
-
     errorUsername = document.getElementById("errorUsername");
-    errorPassword = document.getElementById("errorPassword");
 
     usOK = false;
-    pwOK = false;
+
     if (username == "") {
         errorUsername.textContent = "Inserire l'username";
         errorUsername.style.display = "block";
@@ -18,6 +15,22 @@ const checkinput = () => {
         errorUsername.style.display = "none";
         usOK = true;
     }
+
+    if(username != "")
+        document.getElementById("Password").disabled = false;
+    else
+        document.getElementById("Password").disabled = true;
+
+    
+
+    return usOK;
+}
+
+const checkinputPassword = () => {
+    password = document.getElementById("Password").value;
+    errorPassword = document.getElementById("errorPassword");
+
+    pwOK = false;
 
     if (password == "") {
         errorPassword.textContent = "Inserire la password";
@@ -31,12 +44,23 @@ const checkinput = () => {
         pwOK = true;
     }
 
-    if (usOK && pwOK) return true;
-    else return false;
-}
+    return pwOK;
+}   
 
 const login = () => {
-    if (checkinput()){
+    if (checkinputUsername() && checkinputPassword()){
         window.location.href = "home";
+    }else if (checkinputUsername() == false && checkinputPassword() == false){
+        alert("Inserire nome utente e password corretti");
+        document.getElementById("Username").value = "";
+        document.getElementById("Password").value = "";
+        document.getElementById("Password").disabled = true;
+    }else if(checkinputUsername() == false && checkinputPassword() != false){
+        alert("Inserire nome utente corretto");
+        document.getElementById("Username").value = "";
+        document.getElementById("Password").disabled = true;
+    }else if(checkinputUsername() != false && checkinputPassword() == false){
+        alert("Inserire una password corretta");
+        document.getElementById("Password").value = "";
     }
 }
