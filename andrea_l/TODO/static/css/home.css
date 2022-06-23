@@ -87,3 +87,9 @@ h1{
     font-size: 25px;
     color: white;   
 }
+
+/*----CHECK----*/
+.imgCheck{
+    height: 20px;
+    width: auto;
+}
