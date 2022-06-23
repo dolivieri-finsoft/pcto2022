@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs');
+const mysql = require('mysql2');
 const app = express();
 const PORT = 8081;
 
@@ -8,83 +9,80 @@ app.use(express.static('source'));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
-app.get('/',(req,res) => {
-    res.sendFile(__dirname + '/source/content.html');
+var con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "Az-60427",
+    database: "lists"
 });
 
+con.connect((err) => {
+    if (err) throw err;
+    console.log("Connected to Database!");
+})
+
+app.get('/',(req,res) => {
+    res.sendFile(__dirname + '/source/content.html');
+})
+
 app.post('/add',(req,res) => {
-    let toAdd = req.body.value;
-    const newTask = {cosa: toAdd, stato:"todo"};
-    let json = fs.readFileSync('./source/json/todo.json');
-    const data = JSON.parse(json);
-    data.todoList.push(newTask);
-    json = JSON.stringify(data, null, 2);
-    fs.writeFileSync('./source/json/todo.json',json);
+    const newTask = req.body.value;
+
+    let sql = "INSERT INTO tasks (cosa, stato) VALUES ('" + newTask + "', 'todo')";
+    con.query(sql, (err, result) => {
+        if(err) throw err;
+    });
     res.sendStatus(200);
 })
 
 app.post('/remove',(req,res) => {
-    const search = req.body.value;
-    const searchType = req.body.type;
-    let json = fs.readFileSync('./source/json/todo.json');
-    const data = JSON.parse(json);
-    let list = data.todoList;
+    const taskSearch = req.body.value;
+    const taskStatus = req.body.type;
 
-    for(let x of list){
-        if(search == x.cosa && searchType == x.stato){
-            list.splice(list.indexOf(x),1);
-            break;
-        }
-    }
-
-    json = JSON.stringify(data, null, 2);
-    fs.writeFileSync('./source/json/todo.json',json);
+    let sql = "DELETE FROM tasks WHERE cosa='" + taskSearch + "' AND stato='" + taskStatus + "'";
+    con.query(sql, (err, result) => {
+        if(err) throw err;
+    });
     res.sendStatus(200);
 })
 
 app.post('/move',(req,res) => {
-    const search = req.body.value;
-    const searchType = req.body.type;
-    let json = fs.readFileSync('./source/json/todo.json');
-    const data = JSON.parse(json);
-    let list = data.todoList;
-
-    for(let x of list){
-        if(search == x.cosa && searchType == x.stato){
-            if(x.stato == "todo"){
-                x.stato = "done";
-                break;
-            }
-            x.stato = "todo";
-            break;
-        }
+    const taskSearch = req.body.value;
+    const taskStatus = req.body.type;
+    if (taskStatus == "todo"){
+        var newStatus = "done";
+    } else {
+        var newStatus = "todo";
     }
-    json = JSON.stringify(data, null, 2);
-    fs.writeFileSync('./source/json/todo.json',json);
+
+    let sql = "DELETE FROM tasks WHERE cosa='" + taskSearch + "' AND stato='"+ taskStatus +"'";
+    con.query(sql, (err, result) => {
+        if(err) throw err;
+    });
+    sql = "INSERT INTO tasks (cosa, stato) VALUES ('" + taskSearch + "','"+ newStatus+ "')";
+    con.query(sql, (err, result) => {
+        if(err) throw err;
+    });
     res.sendStatus(200);
 })
 
 app.post('/rename',(req,res) => {
-    const search = req.body.oldValue;
-    const searchType = req.body.type;
+    const taskSearch = req.body.oldValue;
+    const taskStatus = req.body.type;
     const newName = req.body.value;
-    let json = fs.readFileSync('./source/json/todo.json');
-    const data = JSON.parse(json);
-    let list = data.todoList;
-
-    for(let x of list){
-        if(search == x.cosa && searchType == x.stato){
-            x.cosa = newName;
-            break;
-        }
-    }
-    json = JSON.stringify(data, null, 2);
-    fs.writeFileSync('./source/json/todo.json',json);
+    
+    let sql = "UPDATE tasks SET cosa='" + newName + "' WHERE cosa='" + taskSearch + "' AND stato='"+ taskStatus + "'";
+    con.query(sql, (err, result) => {
+        if(err) throw err;
+    });
     res.sendStatus(200);
 })
 
-app.get('/json', (req,res) => {
-    res.sendFile(__dirname + '/source/json/todo.json');
+app.get('/requestData', (req,res) => {
+    let sql = "SELECT * FROM tasks"
+    con.query(sql, (err, result) => {
+        res.send(result);
+    })
 })
 
 app.get('/*', (req,res) => {

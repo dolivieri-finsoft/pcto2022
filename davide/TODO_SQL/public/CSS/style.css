@@ -1,0 +1,189 @@
+body{
+    text-align: center;
+    font-family: "Open Sans";
+    font-size: medium;
+    background-color: #F1F1F1;
+}
+
+.Container{
+    margin: auto;
+    width: 80%;
+}
+
+.logo{
+    width: 75px;
+    height: auto;
+}
+
+.Only{
+    color: #5093bd;
+}
+
+a{
+    text-decoration: none;
+    color: #D68D2E; 
+}
+
+nav li{
+    display: inline-block;
+}
+
+li a{
+
+    text-decoration: none;
+    display: inline-block;
+    font-size: 25px;
+    padding: 0 25px;
+
+}
+
+.animazione::after{
+    content:'';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #D68D2E;
+    transition: width .3s;
+
+}
+
+.animazione:hover::after{
+
+    width: 100%;
+    transition: width .3s;
+
+}
+
+#homeimg{
+    width: 750px;
+    margin: auto;
+    height: auto;
+}
+
+#storia{
+    width: 75%;
+    height: auto;
+    margin: auto;
+    font-size: 18px;
+}
+
+.imgs{
+    display: flex;
+}
+
+.imgs img{
+    width: 700px;
+    height: auto;
+    padding: 15px 15px 15px 15px;
+}
+
+.servizi_loghi , .sector{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 0px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.servizi_loghi p{
+    font-size: 25px;
+    color: #5093bd;
+    padding-left: 50px;
+}
+
+.loghi{
+    width: 175px;
+    height: auto;
+    margin: auto;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 2;
+    width: 75%;
+    margin: auto;
+    text-align: center;
+    border: solid black 2px;
+}
+
+tr{
+    border: solid black 2px;
+}
+
+td{
+    border: solid black 2px;
+}
+
+#titoli{
+    background-color: #5093bd;
+    color: white;
+}
+
+form{
+    border: solid black 2px;
+    border-radius: 25px;
+    margin: auto;
+    width: 30%;
+    font-size: 20px;
+}
+
+#titolo_form{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.dati{
+    padding-top: 15px;
+}
+
+#contact{
+    text-align: left;
+    font-size: 18px;
+}
+
+.bottoni{
+    width: 125px;
+    height: auto;
+    margin: auto;
+    background-color: #F1F1F1;
+    border-color:#D68D2E;
+    border-radius: 25px;
+}
+
+footer{
+    background-color: #D68D2E;
+    color: white;
+}
+
+.button-container{
+    padding-top: 25px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.insert_data{
+    position: fixed;
+    display: none;
+    border: 2px solid black;
+    background-color: #5093bd;
+    border-radius: 25px;
+    width: 50%;
+    height: auto;
+    margin: auto;
+    padding-top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.insert_data label{
+    font-weight: bold;
+    font-size: 24px;
+}
+
+#testo{
+    width: 80%;
+    height: auto;
+    resize: none;
+    border-radius: 15px;
+}
