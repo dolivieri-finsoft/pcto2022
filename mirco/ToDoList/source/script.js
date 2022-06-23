@@ -1,5 +1,3 @@
-const toggleCheck = {lastOp: null, check: true};
-
 function fetchLists(){
     fetch('todo.json')
     .then(response => {
@@ -27,15 +25,14 @@ function initialize(json){
     const arrayElementi = json.todoList;
     const listaTodo = document.createElement("ul");
     listaTodo.id = "todo-list";
-    listaTodo.style.display = 'none';
     const listaDone = document.createElement("ul");
     listaDone.id = "done-list";
-    listaDone.style.display = 'none';
 
     for(let obj of arrayElementi){
         let text = obj.cosa;
         //Creo elemento 'li' e aggiungo il testo, aggiungo 'li' a 'ul'
         const elementoLista = document.createElement("li");
+        elementoLista.setAttribute('onclick', 'moveTask(this)');
         elementoLista.innerHTML = text;
         if(obj.stato == 'todo'){
             listaTodo.appendChild(elementoLista);
@@ -43,18 +40,10 @@ function initialize(json){
         }
         listaDone.appendChild(elementoLista);
     }
-    if(listaTodo.childNodes.length >= 1){
-        listaTodo.style.display = 'block';
-    }
-    if(listaDone.childNodes.length >= 1){
-        listaDone.style.display = 'block';
-    }
+
     todoDiv.appendChild(listaTodo);
     doneDiv.appendChild(listaDone);
-
-
-    toggleCheck.lastOp = null;
-    toggleCheck.check = true;
+    document.getElementById('remove').setAttribute('onclick','toggleRemove(true)');
 }
 
 function addTask(){
@@ -99,60 +88,76 @@ function moveTask(elemento){
     fetchLists();
 }
 
-function toggleRemove(button){
+function toggleRemove(bool){
     listaTodo = document.getElementById('todo-list');
     listaDone = document.getElementById('done-list');
-    self = button;
-
-    if(toggleCheck.lastOp != 'remove'){
-        toggleCheck.check = true;
-    }
+    self = document.getElementById('remove');
 
     for(let x of listaTodo.childNodes){
-        if(toggleCheck.check){
+        if(bool){
             x.setAttribute('onclick','removeTask(this)');
             continue;
         }
-        x.setAttribute('onclick','');
+        x.setAttribute('onclick','moveTask(this)');
     }
 
     for(let x of listaDone.childNodes){
-        if(toggleCheck.check){
+        if(bool){
             x.setAttribute('onclick','removeTask(this)');
             continue;
         }
-        x.setAttribute('onclick','');
+        x.setAttribute('onclick','moveTask(this)');
     }
 
-    toggleCheck.lastOp = 'remove';
-    toggleCheck.check = !toggleCheck.check;
+    if(bool){
+        self.setAttribute('onclick','toggleRemove(false)');
+    }
+    else{
+        self.setAttribute('onclick','toggleRemove(true)');
+    }
+    document.getElementById('rename').setAttribute('onclick', 'toggleRename(true)')
 }
 
-function toggleMove(button){
-    listaTodo = document.getElementById('todo-list');
-    listaDone = document.getElementById('done-list');
-    self = button;
-
-    if(toggleCheck.lastOp != 'move'){
-        toggleCheck.check = true;
-    }
+function toggleRename(bool){
+    listaTodo=document.getElementById('todo-list');
+    listaDone=document.getElementById('done-list');
+    self = document.getElementById('rename');
 
     for(let x of listaTodo.childNodes){
-        if(toggleCheck.check){
-            x.setAttribute('onclick','moveTask(this)');
+        if(bool){
+            x.setAttribute('onclick', 'renameTask(this)');
             continue;
         }
-        x.setAttribute('onclick','');
+        x.setAttribute('onclick', 'moveTask(this)');
     }
-
+    
     for(let x of listaDone.childNodes){
-        if(toggleCheck.check){
-            x.setAttribute('onclick','moveTask(this)');
+        if(bool){
+            x.setAttribute('onclick', 'renameTask(this)');
             continue;
         }
-        x.setAttribute('onclick','');
+        x.setAttribute('onclick', 'moveTask(this)');
     }
 
-    toggleCheck.lastOp = 'move';
-    toggleCheck.check = !toggleCheck.check;
+    if(bool){
+        self.setAttribute('onclick', 'toggleRename(false)');
+    }else{
+        self.setAttribute('onclick', 'toggleRename(true)');
+    }
+    document.getElementById('remove').setAttribute('onclick', 'toggleRemove(true)')
+}
+
+function renameTask(elemento){
+    const xhttp = new XMLHttpRequest();
+    xhttp.open('POST', '/rename', true);
+    xhttp.setRequestHeader('Content-Type', 'application/json');
+    let newTaskName = prompt("Inserisci un nuovo nome per la task: ");
+    if(newTaskName == null || newTaskName == ''){
+        return;
+    }else{
+        const send = {value: elemento.innerHTML, newValue: newTaskName};
+        xhttp.send(JSON.stringify(send));
+        fetchLists();
+    }
+    document.getElementById('rename').setAttribute('onclick', 'toggleRename(true)');
 }

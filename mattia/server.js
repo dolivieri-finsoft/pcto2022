@@ -1,9 +1,22 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const mysql = require('mysql');
 
-app = express();
-const port = 8080;
+const conn = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "pcto2022"
+});
+
+conn.connect((err) => {
+    if (err) throw err;
+    console.log("Connected!");
+});
+
+const app = express();
+const port = 8000;
 
 app.use(express.static("static"));
 
@@ -21,7 +34,14 @@ app.get('/addTodo', function (req, res) {
 
 app.get('/deleteTodo', function (req, res) {
     res.sendfile(path.join(__dirname, '/deleteTodo'));
-})
+});
+
+app.get('/testMysql', function (req, res) {
+    conn.query('SELECT * FROM todo', function (err, response, fields) {
+        if (err) throw err;
+        res.send(response);
+    });
+});
 
 app.get('/json', function (req, res) {
     cmd = req.query.cmd;

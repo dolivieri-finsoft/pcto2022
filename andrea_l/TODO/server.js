@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs');
 
 app = express();
-const port = 3000;
+const port = 8080;
 
 app.use(express.static("static"));
 
@@ -15,14 +15,6 @@ app.get('/home', function (req, res) {
     res.sendfile(path.join(__dirname, '/home'));
 });
 
-app.get('/addTodo', function (req, res) {
-    res.sendfile(path.join(__dirname, '/addTodo'));
-});
-
-app.get('/deleteTodo', function (req, res) {
-    res.sendfile(path.join(__dirname, '/deleteTodo'));
-})
-
 app.get('/json', function (req, res) {
     cmd = req.query.cmd;
     console.log(`CMD: ${cmd}`);
@@ -31,20 +23,48 @@ app.get('/json', function (req, res) {
         fs.readFile("json/data.json", "utf8", function (err, json) {
             if (err) res.end("ERRORE: " + err);
 
+            data = JSON.parse(json);
+
+            console.log(data);
             res.send(json);
         });
-    } else if (cmd == "newTodo") {
+    }else if (cmd == "modifyTodo"){
         fs.readFile("json/data.json", "utf8", function (err, json) {
             if (err) res.end("ERRORE: " + err);
 
             data = JSON.parse(json);
+
+            for(var i = 0; i<data.length; i++){
+                if(data[i].cosa == req.query.modificare){
+                    data[i].cosa = req.query.cosa;
+                    data[i].stato = req.query.stato;
+                }
+            }
+
+            fs.writeFile("json/data.json", JSON.stringify(data), function (err) {
+                if (err) res.end("ERRORE: " + err);
+                res.send("OK");
+            });
+
+        });
+    }else if (cmd == "newTodo") {
+        fs.readFile("json/data.json", "utf8", function (err, json) {
+            if (err) res.end("ERRORE: " + err);
+
+            data = JSON.parse(json);
+
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].cosa == req.query.cosa) {
+                    data.splice(i, 1);
+                    break;
+                }
+            }
+
             var newObj = {
                 "cosa": `${req.query.cosa}`,
                 "stato": `${req.query.stato}`
             };
             data.push(newObj);
-
-            console.log(data);
 
             fs.writeFile("json/data.json", JSON.stringify(data), function (err) {
                 if (err) res.end("ERRORE: " + err);
@@ -62,6 +82,7 @@ app.get('/json', function (req, res) {
                     break;
                 }
             }
+
 
             fs.writeFile("json/data.json", JSON.stringify(data), function (err) {
                 if (err) res.end("ERRORE: " + err);

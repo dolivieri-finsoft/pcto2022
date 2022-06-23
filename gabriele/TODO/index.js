@@ -6,6 +6,18 @@ const fs = require("fs");
 
 app.use(express.static("home"));
 
+var mysql = require('mysql');
+
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "finsoft"
+});
+
+con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+});
 
 
 router.get('/',function(req,res){
@@ -26,6 +38,21 @@ router.get('/write',function(req,res){
     
     myObject.push(newData);
     Write(myObject);
+});
+
+router.get('/modify',function(req,res){
+  var myObject = Read();
+  
+  for(var i = 0; i < myObject.length; i++){
+    if(myObject[i].cosa == req.query.cosaDaMo){
+      myObject[i].cosa = req.query.cosa;
+      myObject[i].stato = req.query.stato;
+
+      break;
+    }
+  }
+  
+  Write(myObject);
 });
 
 router.get('/delete',function(req,res){

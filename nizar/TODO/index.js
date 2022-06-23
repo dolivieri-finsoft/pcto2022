@@ -6,6 +6,19 @@ const fs = require('fs');
 
 app.use(express.static("static"));
 
+var mysql = require('mysql');
+
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "finsoft",
+});
+
+con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+});
+
 
 
 router.get('/',function(req,res){
@@ -43,7 +56,7 @@ var newData2 = JSON.stringify(oggetto);
 fs.writeFile("./Cose/daFare.json", newData2, (err) => {
   // Error checking
   if (err) throw err;
-  console.log("Aggiunto");
+  console.log("Aggiunto: ✔");
 });
 
 });
@@ -67,7 +80,7 @@ router.get('/delete', function(req,res){
 });
 
 
-router.get('/cambia', function(req,res){
+router.get('/sposta', function(req,res){
 
   var data = fs.readFileSync("./Cose/daFare.json");
   var oggetto = JSON.parse(data);
@@ -83,6 +96,27 @@ router.get('/cambia', function(req,res){
     fs.writeFile("./Cose/daFare.json", JSON.stringify(oggetto), (err) => {
       if (err) throw err;
       console.log("Spostato: ✔");
+    });
+});
+
+router.get('/modifica', function(req,res){
+
+  var data = fs.readFileSync("./Cose/daFare.json");
+  var oggetto = JSON.parse(data);
+   
+
+  for(var i = 0; i < oggetto.length; i++){
+    if(oggetto[i].cosa == req.query.modificare){
+      oggetto[i].cosa = req.query.cosa;
+      oggetto[i].stato = req.query.stato;
+
+      break;
+    }
+  }
+
+    fs.writeFile("./Cose/daFare.json", JSON.stringify(oggetto), (err) => {
+      if (err) throw err;
+      console.log("Modificato: ✔");
     });
 });
 

@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 [{"cosa":"Pulire casa","stato":"Todo"},{"cosa":"Buttare la spazzatura","stato":"Todo"}]
+=======
+[{"cosa":"Lavare i piatti","stato":"Done"},{"cosa":"Buttare la spazzatura","stato":"Todo"},{"cosa":"Pulire la camera","stato":"Done"}]
+>>>>>>> 3c1df10ee56d529f011c252f3db3646f93bf83fd

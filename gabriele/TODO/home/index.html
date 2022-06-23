@@ -9,7 +9,9 @@
 </head>
 <body onload="Richiedi()">
 
-    <h1>TO DO / DONE LIST<br>Cancemi</h1>
+    <div class="new">
+        <h1>TO DO / DONE LIST<br>Cancemi</h1>
+    </div><br>
 
     <div class="container">
         <table id="todoList">
@@ -19,15 +21,15 @@
     </div><br>
     <div class="new">
         <div id="form">
-            <h2 id="titolo"><b>New Element</b></h2>
-            <label id="testo" for="cosa"><b>Cosa: </b></label>
+            <h2 class="titolo" id="testoR"><b>New Element</b></h2>
+            <label id="testo" for="cosa"><b>What: </b></label>
             <input id="cosa" type="text"> <br>           
-            <label id="testo" for="todo"><b>Stato: </b></label>
+            <label id="testo" for="todo"><b>State: </b></label>
             <input id="todo" class="radio" type="radio" name="stato" checked>
             <label id="testo" for="To do">To do</label>
             <input id="done" class="radio" type="radio" name="stato">
             <label id="testo" for="Done">Done</label><br><br>
-            <button class="add" onclick="Add()">Add</button>
+            <button class="add" id="button" onclick="Add()">Add</button>
         </div>
     </div>
 

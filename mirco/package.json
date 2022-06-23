@@ -1,8 +1,0 @@
-{
-    "name": "test",
-      "description": "Prova per il package .json",
-    "version": "1.0.0",
-      "author": "Mirco Bonazzi",
-      "main": "index.js",
-      "license": "ISC"
-  }

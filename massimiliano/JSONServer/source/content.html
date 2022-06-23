@@ -2,10 +2,7 @@
 <html>
     <head>
         <title>Lettura contenuto JSON</title>
-        <script src="script.js"></script>
-        <script>
-            window.onload = fetchLists();
-        </script>
+        <script src="./script/script.js"></script>
         <link rel="stylesheet" href="./style/style.css">
     </head>
 
@@ -20,6 +17,7 @@
             <button type="button" id="add" onclick="addTask()">Nuovo TODO</button>
             <button type="button" id="remove" onclick="toggleRemove(this)">Cancella</button>
             <button type="button" id="move" onclick="toggleMove(this)">Sposta</button>
+            <button type="button" id="rename" onclick="toggleRename(this)">Modifica</button>
         </div>
     </body>
 </html>

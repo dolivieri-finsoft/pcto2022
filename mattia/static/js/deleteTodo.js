@@ -31,7 +31,7 @@ const deleteTodo = () => {
     fetch("/json?" + "cmd=deleteTodo&cosa=" + cosa)
         .then(response => {
             if (response.status == 200 && response.statusText == "OK") {
-                window.location.href = '/home';
+                window.location.href = '/todo';
             }
         })
         .catch(error => console.log(error));

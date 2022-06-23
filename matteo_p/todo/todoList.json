@@ -1,9 +1,1 @@
-{"todoList":[
-    {"oggetto":"task0","stato":"todo"},
-    {"oggetto":"task1","stato":"todo"},
-    {"oggetto":"task2","stato":"done"},
-    {"oggetto":"task3","stato":"todo"},
-    {"oggetto":"task4","stato":"todo"},
-    {"oggetto":"task5","stato":"done"},
-    {"oggetto":"task6","stato":"todo"},
-    {"oggetto":"task7","stato":"todo"}]}
+{"todoList":[{"oggetto":"task1","stato":"todo"},{"oggetto":"task2","stato":"done"},{"oggetto":"task3","stato":"todo"},{"oggetto":"task4","stato":"todo"},{"oggetto":"task5","stato":"done"},{"oggetto":"task6","stato":"todo"},{"oggetto":"task7","stato":"todo"},{"oggetto":"","stato":"todo"},{"oggetto":null,"stato":"todo"},{"oggetto":null,"stato":"todo"}]}
