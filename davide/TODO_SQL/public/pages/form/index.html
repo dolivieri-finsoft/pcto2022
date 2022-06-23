@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../CSS/style.css" type="text/css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <title>Luxury Hotel</title>
+</head>
+<body>
+    <div class="Container">
+      <header>
+           <a href="/home">
+              <img src="../img/logo.svg" class="logo">
+              <h1>Luxury Hotel - ★★★★★</h1>
+           </a>
+           <h3 class="Only">Only luxury for our clients</h3>
+       </header>
+       <nav>
+           <ul>
+            <li><a href="/home" class="animazione">Home</a></li>
+            <li><a href="/room" class="animazione">Camere</a></li>
+            <li><a href="/service" class="animazione">Servizi</a></li>
+            <li><a href="/prieces" class="animazione">Listino prezzi</a></li>
+            <li><a href="/form" class="animazione">Contattaci</a></li>
+            <li><a href="/todo" class="animazione">TODO</a></li>
+           </ul>
+       </nav>
+       <h1>Compila il modulo sottostante per contattarci</h1>
+
+       <form method="POST">
+           <br>
+           <label id="titolo_form"> I tuoi dati personali</label><br><br>
+           <label for="nome">il tuo nome:  </label><input type="text" name="form" id="nome" value =""><br>
+           <label for="nome">il tuo cognome:  </label><input type="text" name="form" id="cognome" value =""><br>
+           <label for="numero">il tuo numero:  </label><input type="text" name="form" id="numero" value =""><br>
+           <label for="email">la tua email:  </label><input type="email" name="form" id="email" value =""><br>
+           <label for="persone"> numero adulti: </label><input type="number" name="form" id="adulti" value="2"><br>
+           <label for="minori"> numero minori:  </label><input type="number" name="form" id="minori" value="0"><br>
+           <label for="animali">Animali:  </label>
+           <select name="form" id="animali">
+            <option value="yes">Si</option>
+            <option value="no">No</option>
+           </select><br>
+           <label for="start">data di inizio soggiorno:  </label>
+           <input type="date" name="form" id="start"><br>
+           <label for="end">data di fine soggiorno:  </label>
+           <input type="date" name="form" id="end"><br><br>
+           <input type="submit" class="bottoni">
+           <input type="reset" class="bottoni"><br>
+           <br>
+        </form>
+        <p id="contact">
+            Numero: <a href="tel:0115628907">+34 658 88 53 24</a><br>
+            Mail: <a href="mailto:lux@cinema.com">luxury@Hotel.com</a> <br>
+            Indirizzo: <a href="https://www.google.it/maps/place/Av.+Mar%C3%ADtima,+35,+35660+Corralejo,+Las+Palmas,+Spagna/@28.7390857,-13.8679739,18.32z/data=!4m5!3m4!1s0xc4634fe0e1d1bf9:0x46303a4596e032c9!8m2!3d28.738996!4d-13.8669754" target="_blank">Av. Marítima, numero 35, 35660 Corralejo, Las Palmas, Spagna</a><br>
+        </p>
+       <footer>
+           <p>
+               All right reserved<br>
+               Luxury Hotel - 2004-2021©
+           </p>
+        </footer>
+   </div>
+</body>
+</html>
