@@ -53,9 +53,20 @@ function Add(){
         if(document.getElementById("testoR").outerHTML.length == 57)
         {
             fetch("/modify?" + "cosaDaMo=" + cosaDaModificare + "&cosa=" + cosa + "&stato=" + stato)
+            .then(data => {
+                if(data){
+                    alert("Element already present in the lists");
+                }
+            });
         }
         else{
             fetch("/write?" + "cosa=" + cosa + "&stato=" + stato)
+            .then(data => {
+                if(data){
+                    alert("Element already present in the lists");
+                }
+            });
+            
         }
         window.location.reload();
      }
