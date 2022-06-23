@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="utf-8">
+    <title>To Do/Done - Andrea Leva (JSON)</title>
+    <link rel="stylesheet" href="../css/home.css">
+</head>
+
+<body>
+    <h1 style="color: white">LISTA COSE DA FARE <br>Andrea Leva (JSON)</h1>
+    <div class="container">
+        <div class="row" id="rowAdd" style="display: none;">
+            <label for="Username" class="formLabelAdd">Aggiungi cosa da fare/fatta: </label>
+            <input class="formInput" type="text" id="cosa" name="cosa" placeholder="Es Spesa....">
+            <label class="formLabelAdd" for="stato">Stato</label>
+            <select class='formSelect' id='stato' name='stato'>
+                <option value='todo'>Todo</option>
+                <option value='Done'>Done</option>
+            </select>
+            <button class="AddButton" type="button" id="addTodo" onclick="saveTodo();">Aggiungi</button>
+            <button class="AddButton" type="button" id="addTodo" onclick="ADDTodoClose();" required>✘</button>
+        </div>
+        <div class="row" id="rowAggiorna">
+            <button class="buttonAggiungi" type="button" id="addTodo" onclick="showAdd();">Aggiungi</button>
+        </div>
+    </div>
+    <div class="container" id="containerModify" style="display:none;">
+        <div class="row" id="rowModify">
+            <label for="Cosa" class="formLabelModifyTitle">Modifica </label>
+            <label for="cosa" class="formLabelModifyTitle" id="LabelDaModifica"></label><br>
+            <form>
+                <label class="formLabelModify" for="cosa"> Nuova attività: </label>
+                <input class="formInput" type="text" id="SelectCosa" name="cosa" placeholder="" onkeyup="checkinput();" required>
+                <label class="formLabelModify" for="stato"> Stato: </label> 
+                <select class="formSelect" id="SelectStato" name="stato">
+                    <option value="todo">todo</option>
+                    <option value="Done">Done</option>
+                </select>
+                <button class="AddButton" type="button" id="addTodo" onclick="modifyTodo();" required>Modifica</button>
+                <button class="AddButton" type="button" id="addTodo" onclick="modifyTodoClose();" required>✘</button>
+            </form>
+        </div>
+    </div>
+        <div class="container">
+            <div class="row">
+                <table id="todoList">
+                </table>
+        
+                <table id="doneList">
+                </table>
+            </div>
+        </div>
+        
+    <script src="../js/home.js"></script>
+</body>
+
+</html>
