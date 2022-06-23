@@ -7,21 +7,20 @@ const checkinputUsername = () => {
     if (username == "") {
         errorUsername.textContent = "Inserire l'username";
         errorUsername.style.display = "block";
-    } else if(username != "finsoft" && username != ""){
-        errorUsername.textContent = "Inserire l'username corretto";
-        errorUsername.style.display = "block";
-    }else{
+        usOK = false;
+    }else if (username == "finsoft" || username != ""){
         errorUsername.textContent = "";
         errorUsername.style.display = "none";
-        usOK = true;
     }
+
+    if(username == "finsoft")
+        usOK = true;
+
 
     if(username != "")
         document.getElementById("Password").disabled = false;
     else
         document.getElementById("Password").disabled = true;
-
-    
 
     return usOK;
 }
@@ -35,14 +34,19 @@ const checkinputPassword = () => {
     if (password == "") {
         errorPassword.textContent = "Inserire la password";
         errorPassword.style.display = "block";
-    } else if(password != "finsoft" && password != ""){
-        errorPassword.textContent = "Inserire la password corretta";
-        errorPassword.style.display = "block";
-    } else {
+        pwOK = false;
+    } else if(password == "finsoft" || password != ""){
         errorPassword.textContent = "";
-        errorPassword.style.display = "none";
-        pwOK = true;
+        errorPassword.style.display = "nonde";  
     }
+
+    if(password != "")
+        document.getElementById("Password").disabled = false;
+    else
+        document.getElementById("Password").disabled = true;
+
+    if(password == "finsoft")
+        pwOK = true;
 
     return pwOK;
 }   
