@@ -39,10 +39,20 @@ router.get('/request', function(req,res){
 
 router.get('/write', function(req,res){
 
-  var sql = "INSERT INTO pcto2022.lista (cosa, stato) VALUES ('" + req.query.cosa + "', '" + req.query.stato + "');";
-  conn.query(sql, function (err, result) {
-    if (err) throw err;
-    console.log("Aggiunto: ✔");
+  
+  var sql1 = "SELECT cosa FROM pcto2022.lista where cosa = '" + req.query.cosa + "';";
+  conn.query(sql1, function (err, result) {
+    if (result.length == 0){
+      var sql = "INSERT INTO pcto2022.lista (cosa, stato) VALUES ('" + req.query.cosa + "', '" + req.query.stato + "');";
+      conn.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log("Aggiunto: ✔");
+      });
+    }
+    else{
+      console.log("Elemento già presente!");
+      res.send("Elemento già presente!");
+    }
   });
 
 
@@ -75,23 +85,25 @@ router.get('/sposta', function(req,res){
 router.get('/modifica', function(req,res){
 
 
-    var sql = "UPDATE pcto2022.lista SET cosa ='" + req.query.cosa + "', stato = '" + req.query.stato + "' where cosa= '" + req.query.modificare + "';";
-    conn.query(sql, function (err, result) {
-      if (err) throw err;
-      console.log("Modificato: ✔");
+   
+
+    var sql1 = "SELECT cosa FROM pcto2022.lista where cosa = '" + req.query.cosa + "';";
+    conn.query(sql1, function (err, result) {
+      if(result.length == 0 || result[0].cosa == req.query.modificare){
+        var sql = "UPDATE pcto2022.lista SET cosa = '" + req.query.cosa + "', stato = '" + req.query.stato + "' WHERE cosa = '" + req.query.modificare + "';";
+        conn.query(sql, function (err, result) {
+          if (err) throw err;
+          console.log("Modificato: ✔");
+        });
+      }
+      else{
+        console.log("Elemento già presente!");
+        res.send("Elemento già presente!");
+      }
     });
 
+
 });
-
-
-/*function read(){
-  conn.query('SELECT * FROM pcto2022.lista', function(err , result)
-  {
-  if (err) throw err;
-  return result;
-  });
-}*/
-
 
 
 //add the router

@@ -49,12 +49,10 @@ table{
    }
 
   #todoList{
-    float: left;
     width: 700px;
   }  
   
   #todoList1{
-    float: right;
     width: 700px;
   }   
 
@@ -75,7 +73,7 @@ table{
   #cosa{
     font-size: 20px;
     height: 50px;
-    width: 350px;
+    width: auto;    
   }
 
   #label{
