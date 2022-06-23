@@ -11,14 +11,14 @@ const todoList = () => {
                     htmlTodo += "<td ><button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`)'>✘</button>";
                     htmlTodo += "<button class='sposta' id='ButtonFatto' onclick='todoFatto(`"+ element.cosa +"`)'>✓</button>";
                     htmlTodo += "<button class='modifica' id='ButtonMostraModifica' onclick='MostraModifica(`"+ element.cosa +"`)'><img src='../src/modify.png' class='imgModify' alt='Modify'></button>";
-                   // htmlTodo += "<button class='sposta' id='ButtonFatto' onclick='Controllo()'><img src='../src/check.jpg' class='imgCheck' alt='Modify'></button>"; // Pulsante per il controllo
+                    htmlTodo += "<button class='sposta' id='ButtonFatto' onclick='Controllo()'><img src='../src/check.jpg' class='imgCheck' alt='Modify'></button>"; // Pulsante per il controllo
                     htmlTodo += "</td></tr>";
                 }
                 else{
                     htmlDone += "<tr> <td id="+ element.cosa +">" + element.cosa + "</td>";
                     htmlDone += "<td><button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`)'>✘</button>";
                     htmlDone += "<button class='modifica' id='ButtonMostraModifica' onclick='MostraModifica(`"+ element.cosa +"`)'><img src='../src/modify.png' class='imgModify' alt='Modify'></button>";
-                 //   htmlDone += "<button class='sposta' id='ButtonFatto' onclick='Controllo()'><img src='../src/check.jpg' class='imgCheck' alt='Modify'></button>";
+                    htmlDone += "<button class='sposta' id='ButtonFatto' onclick='Controllo()'><img src='../src/check.jpg' class='imgCheck' alt='Modify'></button>";
                     htmlDone += "</td></tr>"
                 }
             }
@@ -37,6 +37,8 @@ const MostraModifica = (modifica) => {
     containerModify.style.display = "block";
     document.getElementById("LabelDaModifica").textContent = modifica;
     document.getElementById("SelectCosa").value = modifica;
+    rowAggiorna = document.getElementById("rowAggiorna");
+    rowAggiorna.style.display = "none";
 }
 
 const modifyTodo = () =>{
@@ -54,8 +56,10 @@ const modifyTodo = () =>{
 
 const modifyTodoClose = () =>{
     containerModify = document.getElementById("containerModify");
-
     containerModify.style.display = "none";
+
+    rowAggiorna = document.getElementById("rowAggiorna");
+    rowAggiorna.style.display = "block";
 }
 
 

@@ -2,13 +2,23 @@ const express = require('express');
 const mysql = require('mysql');
 
 const app = express();
-var port = 8080;
+var port = 3000;
 
 app.listen(port, () =>{
     console.log(`Listening on port ${port}`);
 })
 
-// Create connection
+app.use(express.static("static"));
+
+app.get('/', function (req, res) {
+    res.sendfile(path.join(__dirname, '/'));
+});
+
+app.get('/home', function (req, res) {
+    res.sendfile(path.join(__dirname, '/home'));
+});
+
+// Create connection SQL
  const db = mysql.createConnection({
     host : 'localhost',
     user : 'root',
@@ -27,17 +37,6 @@ app.listen(port, () =>{
  // JSON
 const path = require('path');
 const fs = require('fs');
-
-
-app.use(express.static("static"));
-
-app.get('/', function (req, res) {
-    res.sendfile(path.join(__dirname, '/'));
-});
-
-app.get('/home', function (req, res) {
-    res.sendfile(path.join(__dirname, '/home'));
-});
 
 app.get('/json', function (req, res) {
     cmd = req.query.cmd;

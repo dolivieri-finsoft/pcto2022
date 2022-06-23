@@ -1,13 +1,35 @@
 body{
-    background: linear-gradient(to bottom, black , orange);   
-    min-height: 100vh;     
+    background-color: white;  
 }
 .container{
     text-align: center;
     display: flex;
     justify-content: space-around;
-    margin-top:10vh;
+    margin-top: 5vh;
     flex-direction: column;
+    
+}
+
+.navbar{
+    background-color: #66FF00;
+    margin: 0;
+}
+
+.ContainerAdd{
+    flex-direction: row;
+    width: 90vw;
+    margin-left: 5vw;
+}
+
+.containerElementi{
+    width: 90vw;
+    margin-left: 5vw;
+}
+
+.row{
+    position: relative;
+    width: 90%;
+    margin-left: 5%;
 }
 
 button{
@@ -19,19 +41,19 @@ button{
 
 #todoList{
     float: left;
-    width: 600px;
+    width: 45%;
     height: auto;
 }
 #doneList{
     float: right;
-    width: 600px;
+    width: 45%;
     height: auto;
 }
 tr, td{
     border: 1px solid;
     font-size: 30px;
     border-radius: 10px;
-    background-color: white;
+    background-color: lightgray;
 }
 button{
     font-size: 30px;
@@ -42,6 +64,10 @@ table{
     font-size: 30px;
     border-radius: 10px;
     background-color: black;
+}
+
+.rowList{
+    margin-top: 30px;
 }
 
 /*----TITOLO-----*/
@@ -71,7 +97,7 @@ h1{
 }
 
 .formLabelAdd{
-    color: white;
+    color: black;
 }
 
 /*----MMODIFY----*/
@@ -81,11 +107,11 @@ h1{
 }
 .formLabelModifyTitle{
     font-size: 50px;
-    color: white;
+    color: black;
 }
 .formLabelModify{
     font-size: 25px;
-    color: white;   
+    color: black;   
 }
 
 /*----CHECK----*/
