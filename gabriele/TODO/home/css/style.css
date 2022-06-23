@@ -14,7 +14,7 @@ tr, td{
     border-radius: 10px;
     background-color: white;
 }
-.elimina:hover, .sposta:hover, .modifica:hover, .add:hover{
+.elimina:hover, .sposta:hover, .modifica:hover, .add:hover, .back:hover{
     background-color: brown;
     cursor: pointer;
 }
@@ -44,40 +44,33 @@ h1{
 #form{
     background-color: black;
     border-radius: 10px;
-    width: 50%;
     text-align: center;
     padding: 20px;
     border: 3px white solid;
 }
 #todoList{
-    float: left;
     width: 600px;
 }
 #doneList{
-    float: right;
     width: 600px;
-
 }
 .elimina{
     background-color: red;
     color: white;
     border-radius: 10px;
     font-size: 20px;
-
 }
 .modifica{
     background-color: blue;
     color: white;
     border-radius: 10px;
     font-size: 20px;
-
 }
 .sposta{
     background-color: green;
     color: white;
     border-radius: 10px;
     font-size: 20px;
-
 }
 #cosa{
     border-radius: 10px;
@@ -95,8 +88,13 @@ h1{
     font-size: 30px;
     border: 1px solid;
     padding: 10px;
-
 }
-#cosa{
-    width: auto;
+.back{
+    background-color: red;
+    color: white;
+    border-radius: 10px;
+    font-size: 30px;
+    border: 1px solid;
+    padding: 10px;
+    display: none;
 }

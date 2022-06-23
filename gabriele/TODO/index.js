@@ -64,9 +64,6 @@ router.get('/modify',function(req,res){
       console.log("Errore");
     }
   });
-
-
-  
 });
 
 router.get('/delete',function(req,res){
