@@ -26,6 +26,10 @@ router.get('/',function(req,res){
   res.sendFile(path.join(__dirname + '/static/index.html'));
 });
 
+router.get('/login',function(req,res){
+  res.sendFile(path.join(__dirname + '/static/login/login.html'));
+});
+
 router.get('/request', function(req,res){
 
   conn.query('SELECT * FROM pcto2022.lista', function(err , result)
