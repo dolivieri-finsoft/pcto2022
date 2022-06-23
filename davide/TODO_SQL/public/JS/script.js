@@ -23,7 +23,7 @@ const todoList = () => {
             html = '';
             for (var i = 0; i < data.length; i++) {
                 const element = data[i];
-                html += '<option value="' + element.task + '">' + element.cosa + '</option>';
+                html += '<option value="' + element.task + '">' + element.task + '</option>';
             }
             document.getElementById("WhatTaskDelete").innerHTML = html;
             document.getElementById("WhatTaskModify").innerHTML = html;
@@ -75,7 +75,7 @@ $(document).ready(function(){
 
 const todoFatto = (cosa) => {
     console.log('todo fatto')
-    fetch("/data?" + "cmd=todoFatto&cosa=" + cosa)
+    fetch("/data?" + "cmd=todoFatto&task=" + cosa)
         .then(response => {
             if (response.status == 200 && response.statusText == "OK") {
                 RefreshList();
@@ -114,13 +114,14 @@ const newTodo = () => {
 const deleteTodo = () => {
     var select = document.getElementById("WhatTaskDelete");
     var cosa = select.value;
-    fetch("/data?" + "cmd=deleteTodo&cosa=" + cosa)
+    fetch("/data?" + "cmd=deleteTodo&task=" + cosa)
         .then(response => {
             if (response.status == 200 && response.statusText == "OK") {
                 RefreshList();
             }
         })
         .catch(error => console.log(error));
+        window.location.reload();
 }
 
 const modifyTodo = () => {
@@ -136,6 +137,7 @@ const modifyTodo = () => {
             }
         })
         .catch(error => console.log(error));
+        window.location.reload();
     } else {
         alert("COMPILARE IL MODULO TASK");
     }
