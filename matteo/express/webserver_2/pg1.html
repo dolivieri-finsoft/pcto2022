@@ -8,7 +8,7 @@
 
 
     </head>
-    <body>
+    <body onload="grossaTavola()">
         <p id="giacomo">Task da fare</p>
         <div id="todo-location"></div>
         <p id="samuele">Task fatte</p>
@@ -16,6 +16,7 @@
         <button id="button1" type="button" onclick="addTask()">Aggiungi task</button>
         <button id ="button2" type="button" onclick="scambio()">Elimina task</button>
         <button id ="button3" type="button" onclick="modify()">Modifica task</button>
+        
         
 
         <script>
@@ -168,20 +169,22 @@
                 
 
             }
-
-            fetch('/getTable')
-                .then(response => {            
-                    console.log(response);
-                    return response.json();
+            function grossaTavola(){
+                fetch('/getTable')
+                    .then(response => {            
+                        console.log(response);
+                        return response.json();
                     
-                })
-                .then(json => {
-                    denniscaneva = JSON.parse(json);
-                    console.log(denniscaneva.cosa);
-                    initialize(json)}
+                    })
+                    .then(json => {
+                        denniscaneva = JSON.parse(json);
+                        console.log(denniscaneva.cosa);
+                        initialize(json)}
                     
-                )
+                    )
                 .catch(err => console.error('Errore creazione tabella ' + err.message));
+
+            }
                 
                 function addTask(){
                 const request = new XMLHttpRequest();

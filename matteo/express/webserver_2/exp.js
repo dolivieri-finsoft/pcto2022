@@ -40,14 +40,13 @@ app.post("/aaaa", function(req, res){
     
     var auxVar = req.body.cosa;
     
-    con.connect(function(err){
-        if(err) throw err;
+   
         console.log("Entrato per aggiunta");
         var sql ="INSERT INTO pcto2022.todo (task, stato) VALUES( '" + auxVar + "', 'todo')";
         con.query(sql, function(err, result){
-            if(err) throw err;
-            console.log("operazione completata");
-        })
+        if(err) throw err;
+        console.log("operazione completata");
+        
     })
     
 })
@@ -55,12 +54,12 @@ app.post("/aaaa", function(req, res){
 
 app.get('/getTable', (req, res) =>{
     var txt = "SELECT * FROM pcto2022.todo";
-    con.connect((err) => {
-        if (err) throw err;
+    
+        
         con.query(txt, function(err, result, fields) {
-            console.log(JSON.stringify(result));
-            res.send(result);
-        });
+        console.log(JSON.stringify(result));
+        res.send(result);
+        
     });
 })
 
