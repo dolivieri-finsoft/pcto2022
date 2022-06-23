@@ -1,0 +1,27 @@
+/*----DIV----*/
+.container{
+    position: absolute;
+    margin-left: 10vw;
+    margin-top: 25vh;
+    background-color: lightgray;
+    height: 50vh;
+    width: 80vw;
+    border-radius: 50px;
+}
+
+/*----BUTTON----*/
+
+.BackButton{
+    position: absolute;
+    margin-top: 2%;
+    margin-left: 2%;
+    height: 10%;
+    width: 10%;
+}
+
+.ArrowBack{
+    height: 10px;
+    width: 20px;
+}
+
+/*----IMG----*/

@@ -18,20 +18,21 @@
         <form class="LoginForm" id="idLoginForm">
             <div class="row">
                 <label for="Username" class="formLabel">Username</label>
-                <input type="text" class="formInput" id="Username" name="Username" placeholder="Username" onkeyup="checkinput();" required>  
+                <input type="text" class="formInput" id="Username" name="Username" placeholder="Username" onkeyup="checkinputUsername();" required>  
             </div>
             <div class="row">
-                <span id="errorUsername" class="error" style="display: none"></span>
+                <span id="errorUsername" class="error" style="display: block">Inserire l'username</span>
             </div>
             <div class="row">
                 <label for="Password" class="formLabel">Password</label>
-                <input type="text" class="formInput" id="Password" name="Password" placeholder="Password" onkeyup="checkinput();" required>
+                <input disabled="disabled" type="password" class="formInput" id="Password" name="Password" placeholder="Password" onkeyup="checkinputPassword();" required>
             </div>
             <div class="row">
-                <span id="errorPassword" class="error" style="display: none"></span>
+                <span id="errorPassword" class="error" style="display: block">Inserire la password</span>
             </div>
             <div class="row" style="justify-content: center;">
                 <button type="button" class="formButton" onclick="login()">Login</button>
+                <button type="button" class="formButton" onclick="location.href='./home/register.html'">Registrati</button>
             </div>
         </form>
     </div>

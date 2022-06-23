@@ -45,6 +45,12 @@ function cambia(id){
     
   }
 
+  function indietro(id){
+    
+    window.location.href = "../index.html";
+    
+  }
+
 
 function aggiungi(){
     let cosa = document.getElementById('cosa').value;
@@ -57,10 +63,21 @@ function aggiungi(){
       if(document.getElementById("aggiungi").outerHTML.length == 75)
         {
             fetch("/write?" + "cosa=" + cosa + "&stato=" + select)
+            .then(data => {
+              if(data){
+                  alert("Elemento già presente nel Database");
+              }
+          });
         }
-        else if (document.getElementById("aggiungi").outerHTML.length == 74){
-        
+        else if (document.getElementById("aggiungi").outerHTML.length == 74)
+        {
+
         fetch("/modifica?" + "modificare=" + modificare + "&cosa=" + cosa + "&stato=" + select)
+        .then(data => {
+          if(data){
+              alert("Elemento già presente nel Database");
+          }
+      });
 
         }
       window.location.reload();
@@ -70,6 +87,10 @@ function aggiungi(){
 
 
 function modifica(id, numero){
+   
+  var bottoneI;
+  document.getElementById('indietro').style.display = "inline";
+
   modificare = id;
   let stato;
  
@@ -86,7 +107,7 @@ function modifica(id, numero){
   document.getElementById('cosa').value = id;
   document.getElementById('aggiungi').innerHTML = "Modifica";
   document.getElementById('elemento').innerHTML = "Modifica Elemento";
-  
+
 
   }
 

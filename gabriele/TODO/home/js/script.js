@@ -53,13 +53,23 @@ function Add(){
         if(document.getElementById("testoR").outerHTML.length == 57)
         {
             fetch("/modify?" + "cosaDaMo=" + cosaDaModificare + "&cosa=" + cosa + "&stato=" + stato)
+            .then(data => {
+                if(data){
+                    alert("Element already present in the lists");
+                }
+            });
         }
         else{
             fetch("/write?" + "cosa=" + cosa + "&stato=" + stato)
+            .then(data => {
+                if(data){
+                    alert("Element already present in the lists");
+                }
+            });
+            
         }
         window.location.reload();
      }
-
 }
 
 function Modifica(id, stato){
@@ -67,7 +77,7 @@ function Modifica(id, stato){
     document.getElementById("testoR").innerHTML = "<b>Modify Element</b>";
     document.getElementById("cosa").value = id;
     document.getElementById("button").innerHTML = "Modify";
-
+    document.getElementById("buttonB").style.display = "inline";
 
     if(stato == false){
         document.getElementById("todo").checked = true;
@@ -76,5 +86,8 @@ function Modifica(id, stato){
         document.getElementById("done").checked = true;
 
     }
+}
 
+function Back(){
+    window.location.reload();
 }
