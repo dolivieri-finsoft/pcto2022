@@ -1,9 +1,32 @@
 const express = require('express');
+const mysql = require('mysql');
+
+const app = express();
+var port = 3000;
+
+app.listen(port, () =>{
+    console.log(`Listening on port ${port}`);
+})
+
+// Create connection
+ const db = mysql.createConnection({
+    host : 'localhost',
+    user : 'root',
+    password : 'finsoft',
+    database : 'TODO_DONE'
+ });
+ db.connect((err) => {
+    if(err){
+        console.log(err);
+    }else{
+        console.log('mysql Connected.....');
+    }
+ })
+
+ // JSON
 const path = require('path');
 const fs = require('fs');
 
-app = express();
-const port = 8080;
 
 app.use(express.static("static"));
 
@@ -20,13 +43,11 @@ app.get('/json', function (req, res) {
     console.log(`CMD: ${cmd}`);
 
     if (cmd == "getList") {
-        fs.readFile("json/data.json", "utf8", function (err, json) {
-            if (err) res.end("ERRORE: " + err);
-
-            data = JSON.parse(json);
-
-            console.log(data);
-            res.send(json);
+        db.query("SELECT * FROM todo_done_DB", (err, result, fields) =>{
+            if(err)
+                console.log(err);
+            else
+                res.send(result);
         });
     }else if (cmd == "modifyTodo"){
         fs.readFile("json/data.json", "utf8", function (err, json) {
@@ -109,6 +130,4 @@ app.get('/json', function (req, res) {
     }
 });
 
-app.listen(port, () => {
-    console.log(`Listening on port ${port}`);
-});
+ 
