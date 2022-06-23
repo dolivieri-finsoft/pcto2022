@@ -23,6 +23,10 @@ router.get('/',function(req,res){
   res.sendFile(path.join(__dirname+'/home/index.html'));
 });
 
+router.get('/login',function(req,res){
+  res.sendFile(path.join(__dirname+'/home/login.html'));
+});
+
 router.get('/request',function(req,res){
   var sql = "SELECT * FROM pcto2022.todo";
   con.query(sql, function (err, result){
