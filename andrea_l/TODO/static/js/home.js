@@ -7,15 +7,19 @@ const todoList = () => {
             for (var i = 0; i < data.length; i++) {
                 const element = data[i];
                 if(element.stato == "todo"){
-                    htmlTodo += "<tr> <td class='elemento' id="+ element.cosa +">" + element.cosa + "</td>";
-                    htmlTodo += "<td ><button class='elimina' id='"+ element.cosa +"' onclick='deleteTodo(this.id)'>✘</button>";
-                    htmlTodo += "<button class='sposta' id='" + element.cosa +"' onclick='todoFatto(this.id)'>✓</button>";
-                    htmlTodo += "<button class='modifica' id='" + element.cosa +"' onclick='MostraModifica(this.id)'><img src='../src/modify.png' class='imgModify' alt='Modify'></button></td></tr>";
+                    htmlTodo += "<tr> <td class='elemento' id='cosa'>" + element.cosa + "</td>";
+                    htmlTodo += "<td ><button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`)'>✘</button>";
+                    htmlTodo += "<button class='sposta' id='ButtonFatto' onclick='todoFatto(`"+ element.cosa +"`)'>✓</button>";
+                    htmlTodo += "<button class='modifica' id='ButtonMostraModifica' onclick='MostraModifica(`"+ element.cosa +"`)'><img src='../src/modify.png' class='imgModify' alt='Modify'></button>";
+                   // htmlTodo += "<button class='sposta' id='ButtonFatto' onclick='Controllo()'><img src='../src/check.jpg' class='imgCheck' alt='Modify'></button>"; // Pulsante per il controllo
+                    htmlTodo += "</td></tr>";
                 }
                 else{
                     htmlDone += "<tr> <td id="+ element.cosa +">" + element.cosa + "</td>";
-                    htmlDone += "<td><button class='elimina' id='"+ element.cosa +"' onclick='deleteTodo(this.id)'>✘</button>";
-                    htmlDone += "<button class='modifica' id='" + element.cosa +"' onclick='MostraModifica(this.id)'><img src='../src/modify.png' class='imgModify' alt='Modify'></button></td></tr>";
+                    htmlDone += "<td><button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`)'>✘</button>";
+                    htmlDone += "<button class='modifica' id='ButtonMostraModifica' onclick='MostraModifica(`"+ element.cosa +"`)'><img src='../src/modify.png' class='imgModify' alt='Modify'></button>";
+                 //   htmlDone += "<button class='sposta' id='ButtonFatto' onclick='Controllo()'><img src='../src/check.jpg' class='imgCheck' alt='Modify'></button>";
+                    htmlDone += "</td></tr>"
                 }
             }
             document.getElementById("todoList").innerHTML = htmlTodo;
@@ -32,7 +36,7 @@ const MostraModifica = (modifica) => {
     containerModify = document.getElementById("containerModify");
     containerModify.style.display = "block";
     document.getElementById("LabelDaModifica").textContent = modifica;
-    document.getElementById("SelectCosa").placeholder = "Es " + modifica + ".......";
+    document.getElementById("SelectCosa").value = modifica;
 }
 
 const modifyTodo = () =>{
@@ -75,11 +79,8 @@ const todoFatto = (cosa) => {
  */
 
 const deleteTodo = (elimina) => {
-    var select = document.getElementById(elimina);
-    var cosa = select.textContent;
 
-
-    fetch("/json?" + "cmd=deleteTodo&cosa=" + cosa)
+    fetch("/json?" + "cmd=deleteTodo&cosa=" + elimina)
         .then(response => {
             if(response.status == 200 && response.statusText == "OK"){
                 window.location.href = '/home'; //aggiornamento pagina
@@ -131,4 +132,21 @@ const ADDTodoClose = () =>{
     rowAggiorna.style.display = "block";
 }
 
+/**
+ * CONTROLLO
+ */
+/*
+const Controllo = () => {
+    var cosa = document.getElementById('cosa').value;
+    var stato = document.getElementById('stato').value;
+    alert(`Cosa: ${cosa}, Stato: ${stato}`);
+    fetch("/Json?" + "cmd=Controllo&cosa=" + cosa + "&stato" + stato)
+        .then(response => {
+            if (response.status == 200 && response.statusText == "OK") {
+                window.location.href = '/home'; //aggiornamento pagina 
+            }
+        })
+        .catch(error => console.log(error));
+}
+*/
 document.onloadeddata = todoList();

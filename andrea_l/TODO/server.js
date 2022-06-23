@@ -15,6 +15,7 @@ app.listen(port, () =>{
     password : 'finsoft',
     database : 'TODO_DONE'
  });
+ 
  db.connect((err) => {
     if(err){
         console.log(err);
@@ -43,89 +44,70 @@ app.get('/json', function (req, res) {
     console.log(`CMD: ${cmd}`);
 
     if (cmd == "getList") {
-        db.query("SELECT * FROM todo_done_DB", (err, result, fields) =>{
+        var sqlSelect ="SELECT * FROM todo_done_DB";
+
+        db.query(sqlSelect, (err, result) =>{
             if(err)
                 console.log(err);
             else
                 res.send(result);
+                console.log(result);
         });
+    }else if(cmd == "Controllo"){
+        console.log(req.query.cosa);
+
+        var sqlControllo ="SELECT cosa FROM todo_done_DB WHERE cosa = '"+ req.query.cosa +"';"
+
+        db.query(sqlControllo, (err, result) =>{
+            if(err)
+                console.log(err);
+            else
+                console.log("Controllo: " + result);
+        })
+
     }else if (cmd == "modifyTodo"){
-        fs.readFile("json/data.json", "utf8", function (err, json) {
-            if (err) res.end("ERRORE: " + err);
-
-            data = JSON.parse(json);
-
-            for(var i = 0; i<data.length; i++){
-                if(data[i].cosa == req.query.modificare){
-                    data[i].cosa = req.query.cosa;
-                    data[i].stato = req.query.stato;
-                }
-            }
-
-            fs.writeFile("json/data.json", JSON.stringify(data), function (err) {
-                if (err) res.end("ERRORE: " + err);
+        var sqlUpdate ="UPDATE todo_done_DB SET cosa = '"+ req.query.cosa +"', stato = '"+ req.query.stato +"' WHERE cosa = '"+ req.query.modificare +"';";        
+        db.query(sqlUpdate, (err) => {
+            if (err)
+                console.log(err);
+            else{
+                console.log("Modificato");
                 res.send("OK");
-            });
-
+            }
         });
+
     }else if (cmd == "newTodo") {
-        fs.readFile("json/data.json", "utf8", function (err, json) {
-            if (err) res.end("ERRORE: " + err);
-
-            data = JSON.parse(json);
-
-            for (var i = 0; i < data.length; i++) {
-                if (data[i].cosa == req.query.cosa) {
-                    data.splice(i, 1);
-                    break;
-                }
-            }
-
-            var newObj = {
-                "cosa": `${req.query.cosa}`,
-                "stato": `${req.query.stato}`
-            };
-            data.push(newObj);
-
-            fs.writeFile("json/data.json", JSON.stringify(data), function (err) {
-                if (err) res.end("ERRORE: " + err);
+        var sqlInsert = "INSERT INTO todo_done_DB (cosa, stato) VALUES ('" + req.query.cosa + "', '" + req.query.stato + "');";
+        
+        db.query(sqlInsert, (err) => {
+            if (err)
+                console.log(err);
+            else{
+                console.log("Dati Inseriti");
                 res.send("OK");
-            });
+            }
         });
     } else if (cmd == "deleteTodo") {
-        fs.readFile("json/data.json", "utf8", function (err, json) {
-            if (err) res.end("ERRORE: " + err);
-            data = JSON.parse(json);
+       var sqlDelete = "DELETE FROM todo_done_DB WHERE cosa='"+ req.query.cosa +"';";
 
-            for (var i = 0; i < data.length; i++) {
-                if (data[i].cosa == req.query.cosa) {
-                    data.splice(i, 1);
-                    break;
-                }
-            }
-
-
-            fs.writeFile("json/data.json", JSON.stringify(data), function (err) {
-                if (err) res.end("ERRORE: " + err);
+        db.query(sqlDelete, (err) => {
+            if (err)
+                console.log(err);
+            else{
+                console.log("Dati Eliminati");
                 res.send("OK");
-            });
+            }
         });
     } else if (cmd == "todoFatto") {
-        fs.readFile("json/data.json", "utf8", function (err, json) {
-            if (err) res.end("ERRORE: " + err);
-            data = JSON.parse(json);
-
-            for (var i = 0; i < data.length; i++) {
-                if (data[i].cosa == req.query.cosa) {
-                    data[i].stato = "Done";
-                    break;
-                }
-            }
-
-            fs.writeFile("json/data.json", JSON.stringify(data), function (err) {
-                if (err) res.end("ERRORE: " + err);
+        var sqlSelect ="UPDATE todo_done_DB SET stato = 'Done' WHERE cosa = '"+ req.query.cosa +"';";
+        
+        db.query(sqlSelect, (err) => {
+            if (err)
+                console.log(err);
+            else{
+                console.log("Spostato");
                 res.send("OK");
-            });
+            }
         });
     }
 });
