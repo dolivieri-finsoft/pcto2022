@@ -3,15 +3,14 @@ const app = express();
 const path = require('path');
 const router = express.Router();
 const fs = require("fs");
-
 app.use(express.static("home"));
-
 var mysql = require('mysql');
 
 var con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "finsoft"
+  password: "finsoft",
+  database: "pcto2022"
 });
 
 con.connect(function(err) {
@@ -25,19 +24,20 @@ router.get('/',function(req,res){
 });
 
 router.get('/request',function(req,res){
-    res.send(Read());
+    //res.send(Read());
+    con.query("SELECT * FROM pcto2022.todo", function (err, result){
+      if(err) throw err;
+      res.send(result);
+    });
 });
 
 router.get('/write',function(req,res){
-    var myObject = Read();
-    
-    var newData = {
-      "cosa": `${req.query.cosa}`,
-      "stato": `${req.query.stato}`
-    };
-    
-    myObject.push(newData);
-    Write(myObject);
+  
+    var sql = "INSERT INTO pcto2022.todo (cosa, stato) VALUES ('" + req.query.cosa + "', '" + req.query.stato + "');";
+    con.query(sql, function (err, result) {
+      if (err) throw err;
+      console.log("1 record inserted");
+    });
 });
 
 router.get('/modify',function(req,res){
@@ -82,17 +82,23 @@ router.get('/change',function(req,res){
 });
 
 
-function Read(){
-    var data = fs.readFileSync("./dati/todo.json", "utf-8");
-    return JSON.parse(data);
-}
+/*function Read(){
+    con.query("SELECT * FROM pcto2022.todo", function (err, result){
+      if(err) throw err;
+      return result;
+    });
 
-function Write(myObject){
+
+    //var data = fs.readFileSync("./dati/todo.json", "utf-8");
+    //return JSON.parse(data);
+}*/
+
+/*function Write(myObject){
     fs.writeFile("./dati/todo.json", JSON.stringify(myObject), (err) => {
       if (err) throw err;
       console.log("ok");
     });
-}
+}*/
 
 
 
