@@ -7,8 +7,8 @@ const CreateTab = () => {
             html += '<tr><th>STATUS</th><th colspan="2">TASK</th></tr>';
             for (var i = 0; i < data.length; i++) {
                 const element = data[i];
-                if (element.stato == "to do") html += '<tr><td>' + element.stato + '</td><td>' + element.cosa + '</td><td><button class="bottoni" type="button" onclick="todoFatto(`' + element.cosa + '`)">Done</button></td></tr>';
-                else html += '<tr><td>' + element.stato + '</td><td>' + element.cosa + '</td><td></td></tr>';
+                if (element.stato == "to do") html += '<tr><td>' + element.stato + '</td><td>' + element.task + '</td><td><button class="bottoni" type="button" onclick="todoFatto(`' + element.task + '`)">Done</button></td></tr>';
+                else html += '<tr><td>' + element.stato + '</td><td>' + element.task + '</td><td></td></tr>';
             }
             html += '</table>'
             document.getElementById("todo-table").innerHTML = html;
@@ -23,7 +23,7 @@ const todoList = () => {
             html = '';
             for (var i = 0; i < data.length; i++) {
                 const element = data[i];
-                html += '<option value="' + element.cosa + '">' + element.cosa + '</option>';
+                html += '<option value="' + element.task + '">' + element.task + '</option>';
             }
             document.getElementById("WhatTaskDelete").innerHTML = html;
             document.getElementById("WhatTaskModify").innerHTML = html;
@@ -75,16 +75,16 @@ $(document).ready(function(){
 
 const todoFatto = (cosa) => {
     console.log('todo fatto')
-    fetch("/data?" + "cmd=todoFatto&cosa=" + cosa)
+    fetch("/data?" + "cmd=todoFatto&task=" + cosa)
         .then(response => {
             if (response.status == 200 && response.statusText == "OK") {
                 RefreshList();
             }
         })
         .catch(error => console.log(error));
+        window.location.reload();
+
 }
-
-
 
 const checkInsert = (id) => {
     if (document.getElementById(id).value == "") return false;
@@ -98,13 +98,15 @@ const newTodo = () => {
     console.log(`task: ${task}, Stato: ${status}`);
 
     if (checkInsert('task') && checkInsert('status')) {
-        fetch("/data?" + "cmd=newTodo&cosa=" + task + "&stato=" + status )
+        fetch("/data?" + "cmd=newTodo&task=" + task + "&stato=" + status )
             .then(response => {
                 if (response.status == 200 && response.statusText == "OK") {
-                    window.location.href = '/todo';
+                    RefreshList();
+                    
                 }
             })
             .catch(error => console.log(error));
+            window.location.reload();
     }
     else alert("ERRORE: compilare tutti i campi");
 }
@@ -112,13 +114,14 @@ const newTodo = () => {
 const deleteTodo = () => {
     var select = document.getElementById("WhatTaskDelete");
     var cosa = select.value;
-    fetch("/data?" + "cmd=deleteTodo&cosa=" + cosa)
+    fetch("/data?" + "cmd=deleteTodo&task=" + cosa)
         .then(response => {
             if (response.status == 200 && response.statusText == "OK") {
-                window.location.href = '/todo';
+                RefreshList();
             }
         })
         .catch(error => console.log(error));
+        window.location.reload();
 }
 
 const modifyTodo = () => {
@@ -130,10 +133,11 @@ const modifyTodo = () => {
         fetch("/data?" + "cmd=modifyTodo&whatTask=" + whatTask + "&status=" + status + "&task=" + task)
         .then(response => {
             if (response.status == 200 && response.statusText == "OK") {
-                window.location.href = '/todo';
+                RefreshList();
             }
         })
         .catch(error => console.log(error));
+        window.location.reload();
     } else {
         alert("COMPILARE IL MODULO TASK");
     }

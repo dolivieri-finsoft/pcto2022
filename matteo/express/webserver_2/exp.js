@@ -1,9 +1,27 @@
 const express = require('express');
 const fs = require('fs');
+const mysql = require('mysql');
 const bp = require('body-parser');
 const app = express();
 
+var con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "Az95637!",
+    database: "pcto2022"
+});
 
+
+
+
+
+var txt = "SELECT * FROM pcto2022.todo";
+con.connect((err) => {
+    if (err) throw err;
+    con.query(txt, function(err, result, fields) {
+        console.log(JSON.stringify(result));
+    });
+});
 
 app.use(express.static("/home/finsoft/Scrivania/github/pcto2022/matteo/express/webserver_2"));
 
@@ -19,25 +37,31 @@ app.get("/", function(req, res){
 
 app.post("/aaaa", function(req, res){
     
-    var auxObject = {
-        cosa:req.body.cosa,
-        stato:"todo"
-    }
-    console.log(req.body.cosa);
-    var data = fs.readFileSync('data.json');
-
-    var parsedJ = JSON.parse(data);
-
-    parsedJ.tasks.push(auxObject);
-    console.log(auxObject);
-
-    var dataCorrect = JSON.stringify(parsedJ);
-
-    fs.writeFile('data.json', dataCorrect, err =>{
+    
+    var auxVar = req.body.cosa;
+    
+    con.connect(function(err){
         if(err) throw err;
-
-        console.log("new data added");
+        console.log("Entrato per aggiunta");
+        var sql ="INSERT INTO pcto2022.todo (task, stato) VALUES( '" + auxVar + "', 'todo')";
+        con.query(sql, function(err, result){
+            if(err) throw err;
+            console.log("operazione completata");
+        })
     })
+    
+})
+
+
+app.get('/getTable', (req, res) =>{
+    var txt = "SELECT * FROM pcto2022.todo";
+    con.connect((err) => {
+        if (err) throw err;
+        con.query(txt, function(err, result, fields) {
+            console.log(JSON.stringify(result));
+            res.send(result);
+        });
+    });
 })
 
 
