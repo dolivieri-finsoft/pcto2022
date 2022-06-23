@@ -49,34 +49,28 @@ h1{
     border: 3px white solid;
 }
 #todoList{
-    float: left;
     width: 600px;
 }
 #doneList{
-    float: right;
     width: 600px;
-
 }
 .elimina{
     background-color: red;
     color: white;
     border-radius: 10px;
     font-size: 20px;
-
 }
 .modifica{
     background-color: blue;
     color: white;
     border-radius: 10px;
     font-size: 20px;
-
 }
 .sposta{
     background-color: green;
     color: white;
     border-radius: 10px;
     font-size: 20px;
-
 }
 #cosa{
     border-radius: 10px;
