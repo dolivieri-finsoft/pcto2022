@@ -10,11 +10,11 @@ function Richiedi(){
      for (var i = 0; i < data.length; i++) {
          const element = data[i];
          if(element.stato == "todo"){
-            htmlTodo += "<tr> <td>" + element.cosa + "</td> <td class='elimina' id='" + element.cosa + "' onclick='Elimina(this.id)'>✘</td> <td class='sposta' id='" + element.cosa + "' onclick='Sposta(this.id)'>✔</td> <td class='modifica' id='" + element.cosa + "' onclick='Modifica(this.id, false)'>↻</td> </tr>";
+            htmlTodo += "<tr> <td>" + element.cosa + "</td> <td class='opzioni rossa' id='" + element.cosa + "' onclick='Elimina(this.id)'>✘</td> <td class='opzioni verde' id='" + element.cosa + "' onclick='Sposta(this.id)'>✔</td> <td class='opzioni blu' id='" + element.cosa + "' onclick='Modifica(this.id, false)'>↻</td> </tr>";
 
          }
          else{
-            htmlDone += "<tr> <td>" + element.cosa + "</td> <td class='elimina' id='" + element.cosa + "' onclick='Elimina(this.id)'>✘</td> <td class='modifica' id='" + element.cosa + "' onclick='Modifica(this.id, true)'>↻</td> </tr>";
+            htmlDone += "<tr> <td>" + element.cosa + "</td> <td class='opzioni rossa' id='" + element.cosa + "' onclick='Elimina(this.id)'>✘</td> <td class='opzioni blu' id='" + element.cosa + "' onclick='Modifica(this.id, true)'>↻</td> </tr>";
 
          }
      }

@@ -1,20 +1,20 @@
 body{
     background: linear-gradient(to left, rgb(156, 232, 255) , yellow);        
 }
-table{
-    border: 3px white solid;
+table, tr, td{
     font-size: 30px;
     border-radius: 10px;
+}
+table{
+    border: 3px white solid;
     background-color: black;
     padding: 5px;
 }
 tr, td{
     border: 1px solid;
-    font-size: 30px;
-    border-radius: 10px;
     background-color: white;
 }
-.elimina:hover, .sposta:hover, .modifica:hover, .add:hover, .back:hover{
+.base:hover, .opzioni:hover{
     background-color: brown;
     cursor: pointer;
 }
@@ -54,20 +54,7 @@ h1{
 #doneList{
     width: 600px;
 }
-.elimina{
-    background-color: red;
-    color: white;
-    border-radius: 10px;
-    font-size: 20px;
-}
-.modifica{
-    background-color: blue;
-    color: white;
-    border-radius: 10px;
-    font-size: 20px;
-}
-.sposta{
-    background-color: green;
+.opzioni{
     color: white;
     border-radius: 10px;
     font-size: 20px;
@@ -81,20 +68,22 @@ h1{
     color: white;
     font-size: 30px;
 }
-.add{
-    background-color: green;
+.base{
     color: white;
     border-radius: 10px;
     font-size: 30px;
     border: 1px solid;
     padding: 10px;
 }
-.back{
+.blu{
+    background-color: blue;
+}
+.verde{
+    background-color: green;
+}
+.rossa{
     background-color: red;
-    color: white;
-    border-radius: 10px;
-    font-size: 30px;
-    border: 1px solid;
-    padding: 10px;
+}
+.invisibile{
     display: none;
 }

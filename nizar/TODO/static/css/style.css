@@ -46,6 +46,25 @@ table{
     text-align: center;
     color: black;
     text-shadow: 0 0 3px #FF0000;  
+    border: 3px solid black;
+    width:40%;
+   }
+
+   #List{
+    display: flex;
+    justify-content:center;
+    padding-bottom: 100px;
+   }
+
+   #List2{
+    display: flex;
+    justify-content:center;
+   }
+
+   h2{
+    text-align: center;
+    color: black;
+    text-shadow: 0 0 3px #FF0000;  
    }
 
   #todoList{
@@ -90,5 +109,16 @@ table{
     border-radius: 10px 10px 10px 10px;
   }
 
+  #Signin{
+    font-size: 25px;
+    border-radius: 10px 10px 10px 10px;
+
+  }
+
+  #Login{
+    font-size: 25px;
+    border-radius: 10px 10px 10px 10px;
+
+  }
   
 

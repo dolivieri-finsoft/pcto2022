@@ -1,5 +1,6 @@
 body{
-    background-color: rgb(25, 0, 255);
+    background-color: rgb(81, 14, 14);
+    
 }
 table{
       border: 1px solid;
@@ -32,6 +33,7 @@ table{
 
    h1{
     text-align: center;
+    color:white;
    }
 
   #todoList{
