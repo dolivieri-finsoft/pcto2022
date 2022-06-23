@@ -91,3 +91,11 @@ function Modifica(id, stato){
 function Back(){
     window.location.reload();
 }
+
+function Log(){
+    window.location.replace("/home");
+}
+
+function Sign(){
+    window.location.replace("/home");
+}
