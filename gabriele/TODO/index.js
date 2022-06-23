@@ -20,86 +20,70 @@ con.connect(function(err) {
 
 
 router.get('/',function(req,res){
-   res.sendFile(path.join(__dirname+'/home/index.html'));
+  res.sendFile(path.join(__dirname+'/home/index.html'));
 });
 
 router.get('/request',function(req,res){
-    //res.send(Read());
-    con.query("SELECT * FROM pcto2022.todo", function (err, result){
-      if(err) throw err;
-      res.send(result);
-    });
+  var sql = "SELECT * FROM pcto2022.todo";
+  con.query(sql, function (err, result){
+    if(err) throw err;
+    res.send(result);
+  });
 });
 
 router.get('/write',function(req,res){
-  
-    var sql = "INSERT INTO pcto2022.todo (cosa, stato) VALUES ('" + req.query.cosa + "', '" + req.query.stato + "');";
-    con.query(sql, function (err, result) {
-      if (err) throw err;
-      console.log("1 record inserted");
-    });
+  var sql1 = "select cosa from pcto2022.todo where cosa = '" + req.query.cosa + "';";
+  con.query(sql1, function (err, result) {
+    if (result.length == 0){
+      var sql = "INSERT INTO pcto2022.todo (cosa, stato) VALUES ('" + req.query.cosa + "', '" + req.query.stato + "');";
+      con.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log("1 record inserted");
+      });
+    }
+    else{
+      res.send("Errore");
+      console.log("Errore");
+    }
+  });
 });
 
 router.get('/modify',function(req,res){
-  var myObject = Read();
-  
-  for(var i = 0; i < myObject.length; i++){
-    if(myObject[i].cosa == req.query.cosaDaMo){
-      myObject[i].cosa = req.query.cosa;
-      myObject[i].stato = req.query.stato;
 
-      break;
+  var sql1 = "select cosa from pcto2022.todo where cosa = '" + req.query.cosa + "';";
+  con.query(sql1, function (err, result) {
+    if(result.length == 0 || result[0].cosa == req.query.cosaDaMo){
+      var sql = "UPDATE pcto2022.todo SET cosa = '" + req.query.cosa + "', stato = '" + req.query.stato + "' WHERE cosa = '" + req.query.cosaDaMo + "';";
+      con.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log("1 record modified");
+      });
     }
-  }
+    else{
+      res.send("Errore");
+      console.log("Errore");
+    }
+  });
+
+
   
-  Write(myObject);
 });
 
 router.get('/delete',function(req,res){
-    var myObject = Read();
-
-    for(var i = 0; i < myObject.length; i++){
-      if(myObject[i].cosa == req.query.cosa){
-        myObject.splice(i, 1);
-        break;
-      }
-    }
-  
-    Write(myObject);
+  var sql = "DELETE FROM pcto2022.todo WHERE cosa = '" + req.query.cosa + "';";
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log("1 record deleted");
+  });
 });
 
 router.get('/change',function(req,res){
-    var myObject = Read();
-  
-    for(var i = 0; i < myObject.length; i++){
-      if(myObject[i].cosa == req.query.cosa){
-        myObject[i].stato = "done";
-        break;
-      }
-    }
-  
-    Write(myObject);
+  var sql = "UPDATE pcto2022.todo SET stato = 'done' WHERE cosa = '" + req.query.cosa + "';";
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log("1 record changed");
+  });
 });
-
-
-/*function Read(){
-    con.query("SELECT * FROM pcto2022.todo", function (err, result){
-      if(err) throw err;
-      return result;
-    });
-
-
-    //var data = fs.readFileSync("./dati/todo.json", "utf-8");
-    //return JSON.parse(data);
-}*/
-
-/*function Write(myObject){
-    fs.writeFile("./dati/todo.json", JSON.stringify(myObject), (err) => {
-      if (err) throw err;
-      console.log("ok");
-    });
-}*/
-
 
 
 app.use('/', router);
