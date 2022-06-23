@@ -8,13 +8,14 @@ app.use(express.static("static"));
 
 var mysql = require('mysql');
 
-var con = mysql.createConnection({
+var conn = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "finsoft",
+  database: "pcto2022"
 });
 
-con.connect(function(err) {
+conn.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
 });
@@ -26,45 +27,60 @@ router.get('/',function(req,res){
 });
 
 router.get('/request', function(req,res){
-
-  fs.readFile('./Cose/daFare.json', (err,jsonString) => {
-  
+  /*fs.readFile('./Cose/daFare.json', (err,jsonString) => {
   var trasformazione = JSON.parse(jsonString);
-
   res.send(trasformazione);
-  })
+  //});*/
 
+  conn.query('SELECT * FROM pcto2022.lista', function(err , result)
+  {
+  if (err) throw err;
+  res.send(result);
+  });
+  //res.send(read());
 });
+
+
 
 router.get('/write', function(req,res){
   
 // Storing the JSON format data in myObject
-var data = fs.readFileSync("./Cose/daFare.json");
-var oggetto = JSON.parse(data);
-  
+/*var data = fs.readFileSync("./Cose/daFare.json");
+var oggetto = JSON.parse(data);*/
 
-var newData = {
+   /*var newData = {
   "cosa": `${req.query.cosa}`,
   "stato": `${req.query.stato}`
-};
-  
-// Adding the new data to our object
+  };
 oggetto.push(newData);
-  
-// Writing to our JSON file
-var newData2 = JSON.stringify(oggetto);
-fs.writeFile("./Cose/daFare.json", newData2, (err) => {
-  // Error checking
-  if (err) throw err;
-  console.log("Aggiunto: ✔");
-});
+
+  var newData2 = JSON.stringify(oggetto);
+  fs.writeFile("./Cose/daFare.json", newData2, (err) => {
+    if (err) throw err;
+    console.log("Aggiunto: ✔");
+  });*/
+
+  var sql = "INSERT INTO pcto2022.lista (cosa, stato) VALUES ('" + req.query.cosa + "', '" + req.query.stato + "');";
+  conn.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log("1 record inserted");
+  });
+
 
 });
 
 router.get('/delete', function(req,res){
 
-  var data = fs.readFileSync("./Cose/daFare.json");
-  var oggetto = JSON.parse(data);
+  /*var data = fs.readFileSync("./Cose/daFare.json");
+  var oggetto = JSON.parse(data);*/
+
+  conn.query('select * from pcto2022.lista', function(err , result)
+  {
+  if (err) throw err;
+  console.log(result);
+  });
+
+
 
   for(var i = 0; i < oggetto.length; i++){
     if(oggetto[i].cosa == req.query.cosa){
@@ -82,8 +98,14 @@ router.get('/delete', function(req,res){
 
 router.get('/sposta', function(req,res){
 
-  var data = fs.readFileSync("./Cose/daFare.json");
-  var oggetto = JSON.parse(data);
+  /*var data = fs.readFileSync("./Cose/daFare.json");
+  var oggetto = JSON.parse(data);*/
+
+  conn.query('select * from pcto2022.lista', function(err , result)
+  {
+  if (err) throw err;
+  console.log(result);
+  });
    
 
     for(var i = 0; i < oggetto.length; i++){
@@ -101,8 +123,14 @@ router.get('/sposta', function(req,res){
 
 router.get('/modifica', function(req,res){
 
-  var data = fs.readFileSync("./Cose/daFare.json");
-  var oggetto = JSON.parse(data);
+  /*var data = fs.readFileSync("./Cose/daFare.json");
+  var oggetto = JSON.parse(data);*/
+
+  conn.query('select * from pcto2022.lista', function(err , result)
+  {
+  if (err) throw err;
+  console.log(result);
+  });
    
 
   for(var i = 0; i < oggetto.length; i++){
@@ -119,6 +147,15 @@ router.get('/modifica', function(req,res){
       console.log("Modificato: ✔");
     });
 });
+
+
+/*function read(){
+  conn.query('SELECT * FROM pcto2022.lista', function(err , result)
+  {
+  if (err) throw err;
+  return result;
+  });
+}*/
 
 
 
