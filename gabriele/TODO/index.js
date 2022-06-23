@@ -3,7 +3,7 @@ const app = express();
 const path = require('path');
 const router = express.Router();
 const fs = require("fs");
-app.use(express.static("home"));
+app.use(express.static("pagine"));
 var mysql = require('mysql');
 
 var con = mysql.createConnection({
@@ -19,12 +19,12 @@ con.connect(function(err) {
 });
 
 
-router.get('/',function(req,res){
-  res.sendFile(path.join(__dirname+'/home/index.html'));
+router.get('/home',function(req,res){
+  res.sendFile(path.join(__dirname+'/pagine/home/index.html'));
 });
 
-router.get('/login',function(req,res){
-  res.sendFile(path.join(__dirname+'/home/login.html'));
+router.get('/',function(req,res){
+  res.sendFile(path.join(__dirname+'/pagine/index.html'));
 });
 
 router.get('/request',function(req,res){
