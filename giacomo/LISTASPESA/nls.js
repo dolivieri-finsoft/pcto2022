@@ -1,86 +1,89 @@
-const { fstat } = require('fs');
 const express = require('express');
 const app = express();
-const port = 8000;
 const path = require('path');
+const router = express.Router();
 const fs = require('fs');
 
+app.use(express.static("static"));
 
-app.use(express.static("home"));
+var mysql = require('mysql');
 
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, '/home/index.html'));
-})
-app.get('/request', function (req, res) {
-
-
-  fs.readFile('./json/spesa.json', (err, jsonString) => {
-
-    var trasformazione = JSON.parse(jsonString);
-
-    res.send(trasformazione);
-  })
-
+var conn = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "finsoft",
+  database: "pcto2022"
 });
 
-app.get('/write', function (req, res) {
-  var data = fs.readFileSync("./json/spesa.json", "utf-8");
-  return JSON.parse(data);
+conn.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+});
 
-  var newData = {
-    "oggetto": `${req.query.ogg}`,
-    "stato": `${req.query.stato}`
-  };
 
-  myObject.push(newData);
-  
-  fs.writeFile("./json/spesa.json", JSON.stringify(myObject), (err) => {
-    if (err) throw err;
-    console.log("ok");
+
+router.get('/',function(req,res){
+  res.sendFile(path.join(__dirname + '/home/index.html'));
+});
+
+router.get('/request', function(req,res){
+
+  conn.query('SELECT * FROM pcto2022.todo', function(err , result)
+  {
+  if (err) throw err;
+  res.send(result);
   });
 });
 
 
 
-app.get('/delete', function (req, res) {
+router.get('/write', function(req,res){
 
-  var data = fs.readFileSync("./json/spesa.json");
-  var oggetto = JSON.parse(data);
+  var sql = "INSERT INTO pcto2022.todo (cosa, stato) VALUES ('" + req.query.cosa + "', '" + req.query.stato + "');";
+  conn.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log("Aggiunto: ✔");
+  });
 
-  for (var i = 0; i < oggetto.length; i++) {
-    if (oggetto[i].oggetto == req.query.oggetto) {
-      oggetto.splice(i, 1);
-      break;
-    }
-  }
 
-  fs.writeFile("./json/spesa.json", JSON.stringify(oggetto), (err) => {
+
+
+});
+
+router.get('/delete', function(req,res){
+
+
+  var sql = "DELETE FROM pcto2022.todo WHERE cosa ='" + req.query.cosa + "';";
+  conn.query(sql, function (err, result) {
     if (err) throw err;
     console.log("Eliminato: ✔");
   });
+
 });
 
 
-app.get('/cambia', function (req, res) {
+router.get('/sposta', function(req,res){
 
-  var data = fs.readFileSync("./json/spesa.json");
-  var oggetto = JSON.parse(data);
-
-
-  for (var i = 0; i < oggetto.length; i++) {
-    if (oggetto[i].oggetto == req.query.oggetto) {
-      oggetto[i].stato = "done";
-      break;
-    }
-  }
-
-  fs.writeFile("./json/spesa.json", JSON.stringify(oggetto), (err) => {
+    var sql = "UPDATE pcto2022.todo SET stato ='done' where cosa ='" + req.query.cosa + "'; ";
+  conn.query(sql, function (err, result) {
     if (err) throw err;
     console.log("Spostato: ✔");
   });
+
 });
 
-app.listen(port, () => {
-  console.log('listening on port ' + port)
+router.get('/modifica', function(req,res){
+
+
+    var sql = "UPDATE pcto2022.todo SET cosa ='" + req.query.cosa + "', stato = '" + req.query.stato + "' where cosa= '" + req.query.modificare + "';";
+    conn.query(sql, function (err, result) {
+      if (err) throw err;
+      console.log("Modificato: ✔");
+    });
+
 });
 
+app.use('/', router);
+app.listen(process.env.port || 8080);
+
+console.log('Running at Port 8080');

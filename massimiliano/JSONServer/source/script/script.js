@@ -3,7 +3,7 @@ const toggleCheck = {lastOp: null, check: true};
 window.onload = fetchLists(); 
 
 function fetchLists(){
-    fetch('/json')
+    fetch('/requestData')
     .then(response => {
         if(!response.ok){
             throw new Error("Cant fecht " + response.status);
@@ -19,14 +19,15 @@ function initialize(json){
     const todoDiv = document.getElementById('todo-content');
     const doneDiv = document.getElementById('done-content');
 
-    if(todoDiv.childNodes.length > 1){
+    //Svuota liste
+    if(todoDiv.childNodes.length > 2){
         todoDiv.childNodes[2].remove();
     }
-    if(doneDiv.childNodes.length > 1){
+    if(doneDiv.childNodes.length > 2){
         doneDiv.childNodes[2].remove();
     }
 
-    const arrayElementi = json.todoList;
+    const arrayElementi = json;
     const listaTodo = document.createElement("ul");
     listaTodo.id = "todo-list";
     listaTodo.style.display = 'none';
@@ -45,6 +46,7 @@ function initialize(json){
         }
         listaDone.appendChild(elementoLista);
     }
+
     if(listaTodo.childNodes.length >= 1){
         listaTodo.style.display = 'block';
     }
@@ -60,9 +62,6 @@ function initialize(json){
 }
 
 function addTask(){
-    const xhttp = new XMLHttpRequest();
-    xhttp.open('POST','/add',true);
-    xhttp.setRequestHeader('Content-Type','application/json');
     let taskName = prompt("Inserire nuova task");
     if(taskName == null || taskName == ''){
         return;
@@ -70,43 +69,53 @@ function addTask(){
     else{
         const send = {value: taskName};
         const json = JSON.stringify(send);
-        xhttp.send(json);
-        fetchLists();
+        
+        fetch('/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: json
+        }).then(()=> fetchLists());
     }
 }
 
 function removeTask(elemento){
-    const xhttp = new XMLHttpRequest();
-    xhttp.open('POST','/remove',true);
-    xhttp.setRequestHeader('Content-Type','application/json');
     if(confirm('Vuoi eliminare questa task?')){
         let taskName = elemento.innerHTML;
-        let tasktype = elemento.parentNode.id.slice(0,-5);
-        const send = {value: taskName, type: tasktype};
+        let taskStatus = elemento.parentNode.id.slice(0,-5);
+        const send = {value: taskName, type: taskStatus};
         const json = JSON.stringify(send);
-        xhttp.send(json);
-        fetchLists();
+
+        fetch('/remove', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: json
+        }).then(()=> fetchLists());
+
     } else {
         return;
     }
 }
 
 function moveTask(elemento){
-    const xhttp = new XMLHttpRequest();
-    xhttp.open('POST','/move',true);
-    xhttp.setRequestHeader('Content-Type', 'application/json');
     let taskName = elemento.innerHTML;
     let tasktype = elemento.parentNode.id.slice(0,-5);
     const send = {value: taskName, type: tasktype};
     const json = JSON.stringify(send);
-    xhttp.send(json);
-    fetchLists();
+    
+    fetch('/move', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: json
+    }).then(()=> fetchLists());
 }
 
 function renameTask(elemento){
-    const xhttp = new XMLHttpRequest();
-    xhttp.open('POST','/rename',true);
-    xhttp.setRequestHeader('Content-Type','application/json');
     let oldName = elemento.innerHTML;
     let tasktype = elemento.parentNode.id.slice(0,-5);
     let newName = prompt('Inserire nuovo nome');
@@ -115,15 +124,20 @@ function renameTask(elemento){
     } else {
         const send = {oldValue: oldName, value: newName, type: tasktype};
         const json = JSON.stringify(send);
-        xhttp.send(json);
-        fetchLists();
+
+        fetch('/rename', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: json
+        }).then(()=> fetchLists());
     }
 }
 
-function toggleRemove(button){
+function toggleRemove(){
     listaTodo = document.getElementById('todo-list');
     listaDone = document.getElementById('done-list');
-    self = button;
 
     if(toggleCheck.lastOp != 'remove'){
         toggleCheck.check = true;
@@ -149,10 +163,9 @@ function toggleRemove(button){
     toggleCheck.check = !toggleCheck.check;
 }
 
-function toggleMove(button){
+function toggleMove(){
     listaTodo = document.getElementById('todo-list');
     listaDone = document.getElementById('done-list');
-    self = button;
 
     if(toggleCheck.lastOp != 'move'){
         toggleCheck.check = true;
@@ -178,10 +191,9 @@ function toggleMove(button){
     toggleCheck.check = !toggleCheck.check;
 }
 
-function toggleRename(button){
+function toggleRename(){
     listaTodo = document.getElementById('todo-list');
     listaDone = document.getElementById('done-list');
-    self = button;
 
     if(toggleCheck.lastOp != 'rename'){
         toggleCheck.check = true;

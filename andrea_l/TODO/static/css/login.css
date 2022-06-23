@@ -26,3 +26,8 @@
 .formButton:hover{
     cursor: pointer;
 }
+
+.registratiLink{
+    color: black;
+    text-decoration: none;
+}

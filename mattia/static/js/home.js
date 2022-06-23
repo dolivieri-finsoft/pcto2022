@@ -1,40 +1,61 @@
 const todoList = () => {
-    fetch("/json?" + "cmd=getList")
+    fetch("/mysql?" + "cmd=getList")
         .then(response => response.json())
         .then(data => {
-            html = '<tr class="tr th"><th>STATO</th><th>COSA</th></tr>';
-            for (var i = 0; i < data.length; i++) {
-                const element = data[i];
-                if (element.stato == "Todo") html += '<tr class="tr td"><td class="td">' + element.stato + '</td><td class="td">' + element.cosa + '</td><td class="td10"><button type="button" class="btn btn-outline-success" onclick="todoFatto(`' + element.cosa + '`)">Fatto</button><button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modaleModifica" onclick="apriModale(`' + element.cosa + '`)">Modifica</button></td></tr>';
-                else html += '<tr class="tr td"><td class="td">' + element.stato + '</td><td class="td">' + element.cosa + '</td><td class="td10"><button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modaleModifica" onclick="apriModale(`' + element.cosa + '`)">Modifica</button></td></tr>';
+            console.log(data)
+
+            if (data.status == 200) {
+                html = '<tr class="tr th"><th>ID</th><th>STATO</th><th>COSA</th></tr>';
+                for (var i = 0; i < data.response.length; i++) {
+                    const element = data.response[i];
+                    if (element.stato == "todo") html += '<tr class="tr td"><td class="td">' + element.id + '</td><td class="td">' + element.stato + '</td><td class="td">' + element.cosa + '</td><td class="td10"><button type="button" class="btn btn-outline-success" onclick="todoFatto(`' + element.id + '`)">Fatto</button><button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modaleModifica" onclick="apriModale(' + element.id + ', `' + element.cosa + '`)">Modifica</button></td></tr>';
+                    else html += '<tr class="tr td"><td class="td">' + element.id + '</td><td class="td">' + element.stato + '</td><td class="td">' + element.cosa + '</td><td class="td10"><button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modaleModifica" onclick="apriModale(' + element.id + ', `' + element.cosa + '`)">Modifica</button></td></tr>';
+                }
+                document.getElementById("todoList").innerHTML = html;
+            } else if (data.status == 500) {
+                console.log(`ERROR: ${data.error}`);
             }
-            document.getElementById("todoList").innerHTML = html;
         })
-        .catch(error => console.log(error));
+        .catch(error => console.log(`ERROR: ${error}`));
 }
 
 function aggiornaLista() {
     todoList();
 }
 
-const apriModale = (cosa) => {
-    console.log(`apri modale ${cosa}`);
+const apriModale = (id, cosa) => {
+    document.getElementById('inputModaleID').value = id;
     document.getElementById("inputModaleCosa").value = cosa;
 }
 
-const todoModifica = (cosa) => {
-    console.log(`todo modifica ${cosa}`)
+const todoModifica = () => {
+    let id = document.getElementById('inputModaleID').value;
+    let cosa = document.getElementById('inputModaleCosa').value;
+    console.log(`todo modifica ${id}, ${cosa}`);
 
-
+    fetch(`/mysql?cmd=updateTodo&id=${id}&cosa=${cosa}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status == 200) {
+                aggiornaLista();
+                $('#modaleModifica').modal('hide');
+            } else if (data.status == 500) {
+                console.log(data.error);
+            }
+        })
+        .catch(error => console.log(error));
 }
 
-const todoFatto = (cosa) => {
-    console.log(`todo fatto ${cosa}`)
+const todoFatto = (id) => {
+    console.log(`todo fatto ${id}`)
 
-    fetch("/json?" + "cmd=todoFatto&cosa=" + cosa)
-        .then(response => {
-            if (response.status == 200 && response.statusText == "OK") {
+    fetch(`/mysql?cmd=todoFatto&id=${id}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status == 200) {
                 aggiornaLista();
+            } else if (data.status == 500) {
+                console.log(data.error);
             }
         })
         .catch(error => console.log(error));

@@ -4,16 +4,20 @@ const checkInsert = (id) => {
 }
 
 const saveTodo = () => {
-    var cosa = document.getElementById('cosa').value;
-    var stato = document.getElementById('stato').value;
+    cosa = document.getElementById('cosa').value;
+    stato = document.getElementById('stato').value;
 
     console.log(`Cosa: ${cosa}, Stato: ${stato}`);
 
     if (checkInsert('cosa') && checkInsert('stato')) {
-        fetch("/json?" + "cmd=newTodo&cosa=" + cosa + "&stato=" + stato)
-            .then(response => {
-                if (response.status == 200 && response.statusText == "OK") {
+        fetch(`/mysql?cmd=newTodo&cosa=${cosa}&stato=${stato}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status == 200) {
                     window.location.href = '/home';
+                } else if (data.status == 500) {
+                    console.log(data.error);
+                    alert(data.error);
                 }
             })
             .catch(error => console.log(error));

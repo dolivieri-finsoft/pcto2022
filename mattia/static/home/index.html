@@ -6,7 +6,6 @@
     <title>Static WebServer</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <script src="../js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
@@ -30,6 +29,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="bodyModale">
+                    <label for="inputModaleCosa" class="col-form-label">ID:</label>
+                    <input type="text" id="inputModaleID" class="form-control" placeholder="ID" disabled>
                     <label for="inputModaleCosa" class="col-form-label">Cosa:</label>
                     <input type="text" id="inputModaleCosa" class="form-control" placeholder="Cosa fare">
                 </div>
@@ -41,6 +42,8 @@
         </div>
     </div>
 
+    <script src="../js/jquery-3.3.1.slim.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
     <script src="../js/home.js"></script>
 </body>
 

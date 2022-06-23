@@ -63,11 +63,21 @@ function aggiungi(){
       if(document.getElementById("aggiungi").outerHTML.length == 75)
         {
             fetch("/write?" + "cosa=" + cosa + "&stato=" + select)
+            .then(data => {
+              if(data){
+                  alert("Elemento già presente nel Database");
+              }
+          });
         }
         else if (document.getElementById("aggiungi").outerHTML.length == 74)
         {
 
         fetch("/modifica?" + "modificare=" + modificare + "&cosa=" + cosa + "&stato=" + select)
+        .then(data => {
+          if(data){
+              alert("Elemento già presente nel Database");
+          }
+      });
 
         }
       window.location.reload();
