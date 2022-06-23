@@ -4,7 +4,9 @@
   "description": "Server che fa vedere json e cose così",
   "main": "exp.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node exp.js"
+
   },
   "author": "Matteo Barbessi",
   "license": "ISC",
