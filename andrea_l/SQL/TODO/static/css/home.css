@@ -1,121 +1,194 @@
 body{
     background-color: white;  
-}
-.container{
-    text-align: center;
-    display: flex;
-    justify-content: space-around;
-    margin-top: 5vh;
-    flex-direction: column;
-    
+    margin: 0;
+    font-family: 'Permanent Marker', cursive;
 }
 
-.navbar{
-    background-color: #66FF00;
+button:hover{
+    cursor: pointer;
+}
+
+a:hover{
+    text-decoration: underline;
+    cursor: pointer;
+    color: white;
+}
+
+/*----HEADER----*/
+
+.attivo{
+    color: black;
+    font-size: 20px;
+}
+
+.menuButton{
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: hidden;
+    color: white;
+}
+
+.rowButton button:hover{
+    transition: 0.2s;
+    border-bottom-style: solid;
+    border-bottom-color: white;
+}
+
+header{
+    background-color: #00BB2D;
+    color: white;
+    position: sticky;
+    height: 15vh;
     margin: 0;
 }
 
-.ContainerAdd{
+.TitlePage{
+    width: 30%;
+    height: 100%;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    font-size: xx-large;
+    justify-content: center;
+    margin-right: 35%;
+}
+
+.rowButtonBackTitle{
+    width: 98%;
+    margin-left: 1%;
+    height: 45%;
+    display: flex;
     flex-direction: row;
-    width: 90vw;
-    margin-left: 5vw;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.containerElementi{
-    width: 90vw;
-    margin-left: 5vw;
+.rowButton{
+    width: 98%;
+    margin-left: 1%;
+    margin-bottom: 2.5%;
+    height: 47.5%;
+    display: flex;
+    align-items: flex-end;
 }
 
-.row{
-    position: relative;
-    width: 90%;
-    margin-left: 5%;
+.ButtonBack{
+    width: 5%;
+    height: 100%;
+    background: transparent;
+    border: none;
 }
 
-button{
-    z-index: 1;
+.arrowback{
+    color: white;
+    font-size: 30px;
 }
 
+.listButton{
+    font-size: x-large;
+    text-decoration: none;
+    color: white;
+}
 
-/*----LISTE----*/
+/*----LISTA----*/
+
+.containerElement{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
 
 #todoList{
-    float: left;
-    width: 45%;
+    width: 100%;
     height: auto;
 }
-#doneList{
-    float: right;
-    width: 45%;
-    height: auto;
-}
-tr, td{
-    border: 1px solid;
-    font-size: 30px;
-    border-radius: 10px;
-    background-color: lightgray;
-}
-button{
-    font-size: 30px;
-    border-radius: 10px;
-}
-table{
-    border: 1px solid;
-    font-size: 30px;
-    border-radius: 10px;
-    background-color: black;
+
+#inserisciTitoloListaBoth{
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: x-large;
+    border-bottom:0.5px solid black;
 }
 
-.rowList{
-    margin-top: 30px;
+.listTitle{
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: x-large;
+    border-bottom:0.5px solid black;
 }
-
-/*----TITOLO-----*/
-
-#titolo{
-    color: white;
-    background-color: black;
-    height: 30px;
+.tableRow{
+    width: 98vw;
+    border-bottom:0.5px solid black;
+    display: flex;
+    flex-direction: row;
+    color: gray;
 }
-h1{
-    color: black;
-    text-align: center;
-}
-
-/*----ELEMENTI----*/
 
 .elemento{
-    height: 30px;
-    width: 50%;
+    width: 75%;
+    padding-left: 5%;
+    font-size: 30px;
+    min-height: 60px;
+    overflow: auto;
+    border-right: 1px solid black;
+    display: flex;
+    align-items: center;
 }
 
-/*----ADD----*/
-
-.AddButton{
-    height: 30px;
-    font-size: 15px;
+.elementoButton{
+    width: 30%;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
-.formLabelAdd{
-    color: black;
+.elimina{
+    padding: 10px;
+    background-color: transparent;
+    border: none;
+}
+.fatto{
+    padding: 10px;
+    background-color: transparent;
+    border: none;
 }
 
-/*----MMODIFY----*/
-.imgModify{
-    height: 20px;
-    width: auto;
-}
-.formLabelModifyTitle{
-    font-size: 50px;
-    color: black;
-}
-.formLabelModify{
-    font-size: 25px;
-    color: black;   
+.elimina:hover{
+    transition: 1s;
+    background-color: red;
+    color: white;
 }
 
-/*----CHECK----*/
-.imgCheck{
-    height: 20px;
-    width: auto;
+.fatto:hover{
+    transition: 1s;
+    background-color: #00BB2D;
+    color: white;
 }
+
+/*----MEDIA----*/
+@media (max-width: 1600px) {
+    .TitlePage{
+        width: 50%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        font-size: x-large;
+        justify-content: center;
+        margin-right: 25%;
+    }
+}
+
+
+

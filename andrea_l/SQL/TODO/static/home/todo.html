@@ -28,24 +28,19 @@
         <div class="rowButton">
             <button class="menuButton" id="TodoButton" onclick="location.href='./todo.html'">Todo List</button>
             <button class="menuButton" id="DoneButton" onclick="location.href='./done.html'">Done List</button>
-            <button class="menuButton" id="BothButton" onclick="location.href='#'"">Both List</button>
-            <button class="menuButton" id="AddButton" onclick="location.href='./add.html'"">Aggiungi</button>
-            <button class="menuButton" id="ModButton" onclick="location.href='./modify.html'"">Modifica</button>
+            <button class="menuButton" id="BothButton" onclick="location.href='./index.html'">Both List</button>
+            <button class="menuButton" id="AddButton" onclick="location.href='./add.html'">Aggiungi</button>
+            <button class="menuButton" id="ModButton" onclick="location.href='./modify.html'">Modifica</button>
         </div>
     </header>
     <div class="containerElement animate__animated animate__backInDown">
         <div id="inserisciTitoloListaTodo" class='listTitle'>TODO LIST</div>
-        <table id='todoList'  style="display: none;">
-            <tbody id="inserisciTodo" class="w3-animate-top">
-            </tbody>
-        </table>
-        <div id="inserisciTitoloListaDone" class='listTitle'>DONE LIST</div>
-        <table id='doneList' style="display: none;">
-            <tbody id="inserisciDone">
+        <table id='todoList'>
+            <tbody id="inserisciTodo">
             </tbody>
         </table>
     </div>
-    <script src="../js/home.js"></script>
-</body>
+    <script src="../js/todo.js"></script>
 
+</body>
 </html>

@@ -42,8 +42,28 @@ app.get('/json', function (req, res) {
     cmd = req.query.cmd;
     console.log(`CMD: ${cmd}`);
 
-    if (cmd == "getList") {
+    if (cmd == "getListTodo") {
+        var sqlSelect ="SELECT * FROM todo_done_DB WHERE stato = 'todo'";
+
+        db.query(sqlSelect, (err, result) =>{
+            if(err)
+                console.log(err);
+            else
+                res.send(result);
+                console.log(result);
+        });
+    }else if(cmd == "getList"){
         var sqlSelect ="SELECT * FROM todo_done_DB";
+
+        db.query(sqlSelect, (err, result) =>{
+            if(err)
+                console.log(err);
+            else
+                res.send(result);
+                console.log(result);
+        });
+    }else if(cmd == "getListDone"){
+        var sqlSelect ="SELECT * FROM todo_done_DB WHERE stato = 'done'";
 
         db.query(sqlSelect, (err, result) =>{
             if(err)

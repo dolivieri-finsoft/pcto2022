@@ -16,6 +16,7 @@
     
 
     <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="../css/add.css">
     <script src="https://kit.fontawesome.com/728ba0677f.js" crossorigin="anonymous"></script>
 </head>
 
@@ -28,11 +29,31 @@
         <div class="rowButton">
             <button class="menuButton" id="TodoButton" onclick="location.href='./todo.html'">Todo List</button>
             <button class="menuButton" id="DoneButton" onclick="location.href='./done.html'">Done List</button>
-            <button class="menuButton" id="BothButton" onclick="location.href='#'"">Both List</button>
-            <button class="menuButton" id="AddButton" onclick="location.href='./add.html'"">Aggiungi</button>
-            <button class="menuButton" id="ModButton" onclick="location.href='./modify.html'"">Modifica</button>
+            <button class="menuButton" id="BothButton" onclick="location.href='./index.html'">Both List</button>
+            <button class="menuButton" id="AddButton" onclick="location.href='./add.html'">Aggiungi</button>
+            <button class="menuButton" id="ModButton" onclick="location.href='./modify.html'">Modifica</button>
         </div>
     </header>
+    <div class="ContainerAdd animate__animated animate__backInDown">
+        <div class="rowAdd" id="rowAdd">
+            <h2>AGGIUNGI</h2>
+        </div>
+        <div class="rowAdd" id="rowAdd">
+            <label for="Username" class="formLabelAdd">Aggiungi cosa da fare/fatta: </label>
+            <input class="formInput" type="text" id="cosa" name="cosa" placeholder="Es Spesa....">
+        </div>
+        <div class="rowAdd" id="rowAdd">
+            <label class="formLabelAdd" for="stato">Stato:</label>
+            <select class='formSelect' id='stato' name='stato'>
+                <option value='todo'>Todo</option>
+                <option value='Done'>Done</option>
+            </select>
+        </div>
+        <div class="rowAddButton" id="rowAdd">
+            <button class="AddButton" type="button" id="addTodo" onclick="saveTodo();">Aggiungi</button>
+            <button class="AddButtonClose" type="button" id="addTodo" onclick="ADDTodoClose();" required>✘</button>
+        </div>
+    </div>
     <div class="containerElement animate__animated animate__backInDown">
         <div id="inserisciTitoloListaTodo" class='listTitle'>TODO LIST</div>
         <table id='todoList'  style="display: none;">
@@ -45,7 +66,6 @@
             </tbody>
         </table>
     </div>
-    <script src="../js/home.js"></script>
+    <script src="../js/addTodo.js"></script>
 </body>
-
 </html>
