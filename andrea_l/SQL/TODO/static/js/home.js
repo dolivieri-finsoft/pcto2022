@@ -1,4 +1,5 @@
 const bothList = () => {
+
     document.getElementById('todoList').style.display = "block";
     document.getElementById('doneList').style.display = "block";
     document.getElementById('DoneButton').style.color = "white";
@@ -9,7 +10,8 @@ const bothList = () => {
     document.getElementById('BothButton').style.fontSize = "20px";
     document.getElementById('inserisciTitoloListaDone').style.display = "flex";
     document.getElementById('inserisciTitoloListaTodo').style.display = "flex";
-    fetch("/mysql?" + "cmd=getListDone")
+    alert(IdUser);
+    fetch("/mysql?" + "cmd=getListDone&IdUtente" + IdUser)
         .then(response => response.json())
         .then(data => {
             html = "";
@@ -25,7 +27,7 @@ const bothList = () => {
         })
         .catch(error => console.log(error));
 
-    fetch("/mysql?" + "cmd=getListTodo")
+    fetch("/mysql?" + "cmd=getListTodo&IdUtente=" + IdUser)
         .then(response => response.json())
         .then(data => {
             html = "";
@@ -63,6 +65,37 @@ const deleteTodo = async (elimina) => {
             }
         })
         .catch(error => console.log(error));
+}
+
+const log = () => {
+    var username = document.getElementById("Username").value;
+    var password = document.getElementById("Password").value;
+
+    if(username == "" || password == ""){
+        alert("Inserire username e password")
+    }else{
+        fetch("/mysql?" +  "cmd=loginUser&username=" + username)
+            .then(response => response.json())
+            .then(data => {
+                if(data[0] == undefined){
+                    alert("Utente non esistente");
+                }else if(password == data[0].Password){
+                    salvaIdUtente();
+                }else{
+                    alert("Password errata");
+                }
+            });
+    }
+}
+
+const salvaIdUtente = () =>{
+    var username = document.getElementById("Username").value;
+    fetch("/mysql?" + "cmd=getIdUtente&username="+ username)
+    .then(response => response.json())
+    .then(data => {
+        IdUser = data[0].IdUtente;
+        window.location.href = "home";
+    });
 }
 
 document.onload = bothList();
