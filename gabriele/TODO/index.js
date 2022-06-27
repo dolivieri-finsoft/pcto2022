@@ -36,10 +36,10 @@ router.get('/request',function(req,res){
 });
 
 router.get('/write',function(req,res){
-  var sql1 = "select cosa from pcto2022.todo where cosa = '" + req.query.cosa + "';";
+  var sql1 = "select what from pcto2022.todo where what = '" + req.query.cosa + "';";
   con.query(sql1, function (err, result) {
     if (result.length == 0){
-      var sql = "INSERT INTO pcto2022.todo (cosa, stato) VALUES ('" + req.query.cosa + "', '" + req.query.stato + "');";
+      var sql = "INSERT INTO pcto2022.todo (what, state, user) VALUES ('" + req.query.cosa + "', '" + req.query.stato + "', '" + req.query.user + "');";
       con.query(sql, function (err, result) {
         if (err) throw err;
         console.log("1 record inserted");
@@ -54,10 +54,10 @@ router.get('/write',function(req,res){
 
 router.get('/modify',function(req,res){
 
-  var sql1 = "select cosa from pcto2022.todo where cosa = '" + req.query.cosa + "';";
+  var sql1 = "select what from pcto2022.todo where what = '" + req.query.cosa + "';";
   con.query(sql1, function (err, result) {
-    if(result.length == 0 || result[0].cosa == req.query.cosaDaMo){
-      var sql = "UPDATE pcto2022.todo SET cosa = '" + req.query.cosa + "', stato = '" + req.query.stato + "' WHERE cosa = '" + req.query.cosaDaMo + "';";
+    if(result.length == 0 || result[0].what == req.query.cosaDaMo){
+      var sql = "UPDATE pcto2022.todo SET what = '" + req.query.cosa + "', state = '" + req.query.stato + "' WHERE what = '" + req.query.cosaDaMo + "';";
       con.query(sql, function (err, result) {
         if (err) throw err;
         console.log("1 record modified");
@@ -71,7 +71,7 @@ router.get('/modify',function(req,res){
 });
 
 router.get('/delete',function(req,res){
-  var sql = "DELETE FROM pcto2022.todo WHERE cosa = '" + req.query.cosa + "';";
+  var sql = "DELETE FROM pcto2022.todo WHERE what = '" + req.query.cosa + "';";
   con.query(sql, function (err, result) {
     if (err) throw err;
     console.log("1 record deleted");
@@ -79,7 +79,7 @@ router.get('/delete',function(req,res){
 });
 
 router.get('/change',function(req,res){
-  var sql = "UPDATE pcto2022.todo SET stato = 'done' WHERE cosa = '" + req.query.cosa + "';";
+  var sql = "UPDATE pcto2022.todo SET state = 'done' WHERE what = '" + req.query.cosa + "';";
   con.query(sql, function (err, result) {
     if (err) throw err;
     console.log("1 record changed");
