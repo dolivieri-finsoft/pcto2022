@@ -60,8 +60,8 @@ table{
     display: flex;
     flex-direction: column;
     justify-content:center;
-    padding-bottom: 100px;
     width: 300px;
+    margin-left: 650px;
     
     }
 
@@ -104,7 +104,7 @@ table{
     width: auto;    
   }
 
-  #chiave{
+  #password{
     font-size: 20px;
     border-radius: 10px 10px 10px 10px;
   }
@@ -113,18 +113,23 @@ table{
     font-size: 20px;
     height: 50px;
     width: auto;    
+    border-radius: 10px 10px 10px 10px;
+    
+
   }
 
 
-  #password{
-    font-size: 20px;
+  #labelPassword{
+    font-size: 25px;
     height: 50px;
     width: auto;    
+    color:black;
   }
 
 
-  #label{
-    font-size: 20px;
+  #labelUsername{
+    font-size: 25px;
+    color:black;
   }
 
   #aggiungi{
@@ -137,6 +142,13 @@ table{
     border-radius: 10px 10px 10px 10px;
   }
 
+  #logout{
+    font-size: 25px;
+    border-radius: 10px 10px 10px 10px;
+    background-color: red;
+    color:black;
+  }
+
   #Signin{
     font-size: 25px;
     border-radius: 10px 10px 10px 10px;
@@ -147,6 +159,10 @@ table{
     font-size: 25px;
     border-radius: 10px 10px 10px 10px;
 
+  }
+
+  #show{
+    margin-top: 8px;
   }
   
 
