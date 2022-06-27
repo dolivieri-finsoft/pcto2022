@@ -21,14 +21,15 @@ function Richiedi(){
              htmlDone = "<tr><th class='titolo' colspan='3'>Done</th></tr>";
              for (var i = 0; i < data.length; i++) {
                  const element = data[i];
-                 if(element.stato == "todo"){
-                    htmlTodo += "<tr> <td>" + element.cosa + "</td> <td class='opzioni rossa' id='" + element.cosa + "' onclick='Elimina(this.id)'>✘</td> <td class='opzioni verde' id='" + element.cosa + "' onclick='Sposta(this.id)'>✔</td> <td class='opzioni blu' id='" + element.cosa + "' onclick='Modifica(this.id, false)'>↻</td> </tr>";
-        
-                 }
-                 else{
-                    htmlDone += "<tr> <td>" + element.cosa + "</td> <td class='opzioni rossa' id='" + element.cosa + "' onclick='Elimina(this.id)'>✘</td> <td class='opzioni blu' id='" + element.cosa + "' onclick='Modifica(this.id, true)'>↻</td> </tr>";
-        
-                 }
+                 if(element.user == localStorage.user){
+                    if(element.state == "todo"){
+                        htmlTodo += "<tr> <td>" + element.what + "</td> <td class='opzioni rossa' id='" + element.what + "' onclick='Elimina(this.id)'>✘</td> <td class='opzioni verde' id='" + element.what + "' onclick='Sposta(this.id)'>✔</td> <td class='opzioni blu' id='" + element.what + "' onclick='Modifica(this.id, false)'>↻</td> </tr>";
+                     }
+                     else{
+                        htmlDone += "<tr> <td>" + element.what + "</td> <td class='opzioni rossa' id='" + element.what + "' onclick='Elimina(this.id)'>✘</td> <td class='opzioni blu' id='" + element.what + "' onclick='Modifica(this.id, true)'>↻</td> </tr>";
+                     }
+
+                 } 
              }
              document.getElementById("todoList").innerHTML = htmlTodo;
              document.getElementById("doneList").innerHTML = htmlDone;
@@ -55,6 +56,7 @@ function Sposta(id){
 function Add(){
     let cosa = document.getElementById("what").value;
     let stato;
+    let user = localStorage.user;
      if(cosa == ""){
         alert("Fill in te field 'What'");
      }
@@ -74,7 +76,7 @@ function Add(){
             });
         }
         else{
-            fetch("/write?" + "cosa=" + cosa + "&stato=" + stato)
+            fetch("/write?" + "cosa=" + cosa + "&stato=" + stato + "&user=" + user)
             .then(data => {
                     alert("Element already present in the lists");
             });
