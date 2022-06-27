@@ -85,6 +85,11 @@ header{
 .arrowback{
     color: white;
     font-size: 30px;
+    transition: all 0.6s ease;
+}
+
+.arrowback:hover{
+    font-size: 40px;
 }
 
 .listButton{
@@ -158,21 +163,21 @@ header{
     padding: 10px;
     background-color: transparent;
     border: none;
+    transition: all 0.6s ease;
 }
 .fatto{
     padding: 10px;
     background-color: transparent;
     border: none;
+    transition: all 0.6s ease;
 }
 
 .elimina:hover{
-    transition: 1s;
     background-color: red;
     color: white;
 }
 
 .fatto:hover{
-    transition: 1s;
     background-color: #00BB2D;
     color: white;
 }

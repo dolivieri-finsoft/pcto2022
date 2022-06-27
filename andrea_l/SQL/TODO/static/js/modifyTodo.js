@@ -1,7 +1,7 @@
 const todoList = () => {
     document.getElementById('ModButton').style.color = "black";
     document.getElementById('ModButton').style.fontSize = "20px";
-    fetch("/json?" + "cmd=getList")
+    fetch("/mysql?" + "cmd=getList")
         .then(response => response.json())
         .then(data => {
             html = "<label for='text' class='formLabelModify'>Cosa vuoi modificare? </label>";
@@ -17,7 +17,7 @@ const todoList = () => {
 
     document.getElementById('todoList').style.display = "block";
     document.getElementById('doneList').style.display = "block";
-    fetch("/json?" + "cmd=getListDone")
+    fetch("/mysql?" + "cmd=getListDone")
         .then(response => response.json())
         .then(data => {
             html = "";
@@ -33,7 +33,7 @@ const todoList = () => {
         })
         .catch(error => console.log(error));
 
-    fetch("/json?" + "cmd=getListTodo")
+    fetch("/mysql?" + "cmd=getListTodo")
         .then(response => response.json())
         .then(data => {
             html = "";
@@ -60,7 +60,7 @@ const modifyTodo = () =>{
     var DaModificare = document.getElementById('formSelectCosa').value;
     var stato = document.getElementById('SelectStato').value;
 
-    fetch("/json?" + "cmd=modifyTodo&cosa=" + nuovaCosa + "&stato=" + stato + "&modificare=" + DaModificare)
+    fetch("/mysql?" + "cmd=modifyTodo&cosa=" + nuovaCosa + "&stato=" + stato + "&modificare=" + DaModificare)
         .then(response => {
             if (response.status == 200 && response.statusText == "OK") {
                 window.location.href = '/home/modify.html'; //aggiornamento pagina
@@ -74,7 +74,7 @@ const modifyTodoClose = () =>{
 
 const deleteTodo = async (elimina) => {
 
-    fetch("/json?" + "cmd=deleteTodo&cosa=" + elimina)
+    fetch("/mysql?" + "cmd=deleteTodo&cosa=" + elimina)
         .then(response => {
             if(response.status == 200 && response.statusText == "OK"){
                 window.location.href = '/home/modify.html'; //aggiornamento pagina

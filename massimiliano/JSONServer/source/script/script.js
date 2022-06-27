@@ -20,10 +20,10 @@ function initialize(json){
     const doneDiv = document.getElementById('done-content');
 
     //Svuota liste
-    if(todoDiv.childNodes.length > 2){
+    if(todoDiv.childNodes.length > 1){
         todoDiv.childNodes[2].remove();
     }
-    if(doneDiv.childNodes.length > 2){
+    if(doneDiv.childNodes.length > 1){
         doneDiv.childNodes[2].remove();
     }
 
