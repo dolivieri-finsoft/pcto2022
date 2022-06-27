@@ -20,14 +20,16 @@
     <header class="w3-container w3-red w3-center" style="padding:68px" >
        
         <div id="dati">
-          <label id="label">Username: </label>
+          <label id="labelUsername">Username: </label>
         <input type="text" id="username" name="username" placeholder="username">
                <br>
-         <label id="password">Password:</label>
-        <input type="password" value="" id="chiave">
-        <input type="checkbox" onclick="myFunction()">Show Password
-
+               <br>
+         <label id="labelPassword">Password:</label>
+        <input type="password" value="" id="password">
+        <input type="checkbox" onclick="myFunction()" id="show">Show Password
+         
         </div>
+
           <br>
           <br>
           <button type="button" id="Signin" onclick="Signin()">Sign in </button>

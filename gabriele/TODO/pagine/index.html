@@ -7,16 +7,16 @@
     <link rel="stylesheet" href="./css/style.css">
     <title>Login</title>
 </head>
-<body>
+<body onload = Accesso()>
     <div class="new">
         <h1>LOGIN</h1>
     </div><br>
     <div class="new">
         <div id="form">
-            <label id="testo"><b>Username: </b></label>
-            <input id="cosa" type="text"> <br> <br>
-            <label id="testo"><b>Password: </b></label>
-            <input id="cosa" type="password"> <br> <br>
+            <label id="testo" for="username"><b>Username: </b></label>
+            <input class="cosa" id="username" type="text"> <br> <br>
+            <label id="testo" for="password"><b>Password: </b></label>
+            <input class="cosa" id="password" type="password"> <br> <br>
             <button class="base blu" id="buttonR" onclick="Sign()">Sign in</button>
             <button class="base verde" id="buttonL" onclick="Log()">Log in</button>
         </div>

@@ -46,7 +46,7 @@ router.get('/write',function(req,res){
       });
     }
     else{
-      res.send("Errore");
+      res.send(result);
       console.log("Errore");
     }
   });
@@ -64,7 +64,7 @@ router.get('/modify',function(req,res){
       });
     }
     else{
-      res.send("Errore");
+      res.send(result);
       console.log("Errore");
     }
   });
@@ -83,6 +83,32 @@ router.get('/change',function(req,res){
   con.query(sql, function (err, result) {
     if (err) throw err;
     console.log("1 record changed");
+  });
+});
+
+router.get('/login',function(req,res){
+  var sql1 = "select password from pcto2022.users where username = '" + req.query.user + "';";
+  con.query(sql1, function (err, result) {
+      if(err) throw err;
+      res.send(result);
+  });
+});
+
+router.get('/sign',function(req,res){
+
+  var sql1 = "select username from pcto2022.users where username = '" + req.query.user + "';";
+  con.query(sql1, function (err, result) {
+    if (result.length == 0){
+      var sql1 = "insert into pcto2022.users(username, password) values ('" + req.query.user + "', '" + req.query.pass + "');";
+      con.query(sql1, function (err, result) {
+          if(err) throw err;
+          console.log("1 user inserted");
+      });
+    }
+    else{
+      console.log("Errore");
+    }
+    res.send(result);
   });
 });
 
