@@ -1,0 +1,128 @@
+body{
+    font-family: 'Permanent Marker', cursive;
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+/*----DIV----*/
+.container{
+    position: absolute;
+    margin-left: 10vw;
+    margin-top: 12.5vh;
+    background-color: #00BB2D;
+    height: 75vh;
+    width: 80vw;
+    border-radius: 50px;
+    border: 1px dashed black;
+}
+
+.row{
+    width: 98%;
+    height: 16%;
+    margin-left: 1%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.rowButton{
+    justify-content: center;
+}
+
+/*----TITLE----*/
+h1{
+    width: 20%;
+    margin-right: 40%;  
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+}
+
+/*----BUTTON----*/
+
+.ButtonBack{
+    width: 5%;
+    height: 100%;
+    margin-right: 3%;
+    background: transparent;
+    border: none;
+}
+
+.ButtonBack:hover{
+    cursor: pointer;
+}
+
+.arrowback{
+    color: black;
+    font-size: 30px;
+    transition: all 0.6s ease;  
+}
+
+.arrowback:hover{
+    font-size: 40px;
+}
+
+/*----IMG----*/
+
+/*----FORM----*/
+
+.formInputPsw{
+    width: 80%;
+    margin-right: 5%;
+}
+.ShowPassword{
+    width: auto;
+    height: auto;
+    padding-left: 2%;
+    padding-right: 2%;
+    border: 0;
+    background-color: transparent;
+    font-size: 15px;
+}
+
+.formLabel{
+    width: 25%;
+    display: flex;
+    margin-left: 10%;
+}
+
+.formInput{
+    width: 80%;
+    margin-right: 10%;
+}
+
+.formSelect{
+    width: 25%;
+}
+
+.formInputDatiPers{
+    width: 25%;
+}
+
+.formLabelDatiPers{
+    width: 25%;
+    margin-left: 10%;
+}
+
+.formButton{
+    padding: 15px;
+    font-family: 'Permanent Marker', cursive;
+    background-color: transparent;
+    border-radius: 10px;
+    border: 2px solid black;
+    transition: all 0.6s ease;
+}
+
+.formButton:hover{
+    cursor: pointer;
+    color:#00BB2D;
+    box-shadow: 0 0 0 5vw white inset;
+}
+
+.column{
+    display: flex;
+    flex-direction: column;
+}

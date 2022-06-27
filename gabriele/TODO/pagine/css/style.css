@@ -1,0 +1,92 @@
+body{
+    background: linear-gradient(to left, rgb(156, 232, 255) , yellow);        
+}
+table, tr, td{
+    font-size: 30px;
+    border-radius: 10px;
+}
+table{
+    border: 3px white solid;
+    background-color: black;
+    padding: 5px;
+}
+tr, td{
+    border: 1px solid;
+    background-color: white;
+}
+.base:hover, .opzioni:hover{
+    background-color: brown;
+    cursor: pointer;
+}
+.titolo{
+    color: white;
+    background-color: black;
+    font-size: 35px;
+}
+h1{
+    color: black;
+    border: 3px black solid;
+    text-align: center;
+    font-size: 38px;
+    background-color: white;
+    border-radius: 10px;
+    width: 40%;
+}
+.container{
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+}
+.new{
+    display: flex;
+    justify-content: space-around;
+}
+#form{
+    background-color: black;
+    border-radius: 10px;
+    text-align: center;
+    padding: 20px;
+    border: 3px white solid;
+}
+#todoList{
+    width: 600px;
+}
+#doneList{
+    width: 600px;
+}
+.opzioni{
+    color: white;
+    border-radius: 10px;
+    font-size: 20px;
+}
+.cosa{
+    border-radius: 10px;
+    font-size: 30px;
+    border: 1px solid;
+}
+#testo{
+    color: white;
+    font-size: 30px;
+}
+.base{
+    color: white;
+    border-radius: 10px;
+    font-size: 30px;
+    border: 1px solid;
+    padding: 10px;
+}
+.blu{
+    background-color: blue;
+}
+.verde{
+    background-color: green;
+}
+.rossa{
+    background-color: red;
+}
+.invisibile{
+    display: none;
+}
+.largo{
+    width: 10%;
+}
