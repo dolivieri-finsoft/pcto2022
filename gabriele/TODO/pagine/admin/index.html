@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Admin</title>
+</head>
+<body onload = RichiediAdmin()>
+
+    <div class="new">
+        <button class="opzioni bordi rossa largo" onclick="DeleteAccount()">Delete account</button>
+        <h1 id="benvenuto">ADMIN PAGE<br></h1>
+        <button class="opzioni bordi rossa largo" onclick="Logout()">Log out</button>
+    </div><br>
+
+    <div class="container">
+        <table id="todoList">
+        </table>
+        <table id="doneList">
+        </table>
+    </div><br>
+    <div class="new">
+        <div id="form">
+            <h2 class="titolo" id="testoR"><b>New Element</b></h2>
+            <label id="testo" for="what"><b>What: </b></label>
+            <input class="cosa" id="what" type="text"> <br>           
+            <label id="testo" for="todo"><b>State: </b></label>
+            <input id="todo" class="radio" type="radio" name="stato" checked>
+            <label id="testo" for="todo">To do</label>
+            <input id="done" class="radio" type="radio" name="stato">
+            <label id="testo" for="done">Done</label><br><br>
+            <button class="base rossa invisibile" id="buttonB" onclick="Back()">Back</button>
+            <button class="base verde" id="button" onclick="Add()">Add</button>
+        </div>
+    </div><br>
+    <div class="container">
+        <table id="usersList">
+        </table>
+    </div>
+
+    <script src="../js/script.js">
+    </script>
+</body>
+</html>
