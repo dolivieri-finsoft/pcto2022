@@ -12,7 +12,7 @@ const saveTodo = () => {
     console.log(`Cosa: ${cosa}, Stato: ${stato}`);
 
     if (checkInsert('cosa') && checkInsert('stato')) {
-        fetch("/mysql?" + "cmd=newTodo&cosa=" + cosa + "&stato=" + stato)
+        fetch("/mysql?" + "cmd=newTodo&cosa=" + cosa + "&stato=" + stato )
             .then(response => {
                 if (response.status == 200 && response.statusText == "OK") {
                     window.location.href = '/home/add.html'
