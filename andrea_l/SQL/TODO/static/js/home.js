@@ -9,7 +9,7 @@ const bothList = () => {
     document.getElementById('BothButton').style.fontSize = "20px";
     document.getElementById('inserisciTitoloListaDone').style.display = "flex";
     document.getElementById('inserisciTitoloListaTodo').style.display = "flex";
-    fetch("/json?" + "cmd=getListDone")
+    fetch("/mysql?" + "cmd=getListDone")
         .then(response => response.json())
         .then(data => {
             html = "";
@@ -25,7 +25,7 @@ const bothList = () => {
         })
         .catch(error => console.log(error));
 
-    fetch("/json?" + "cmd=getListTodo")
+    fetch("/mysql?" + "cmd=getListTodo")
         .then(response => response.json())
         .then(data => {
             html = "";
@@ -45,7 +45,7 @@ const bothList = () => {
 
 const todoFatto = (cosa) => {
     console.log('todo fatto')
-    fetch("/json?" + "cmd=todoFatto&cosa=" + cosa)
+    fetch("/mysql?" + "cmd=todoFatto&cosa=" + cosa)
         .then(response => {
             if (response.status == 200 && response.statusText == "OK") {
                 window.location.href = '/home'; //aggiornamento pagina
@@ -56,7 +56,7 @@ const todoFatto = (cosa) => {
 
 const deleteTodo = async (elimina) => {
 
-    fetch("/json?" + "cmd=deleteTodo&cosa=" + elimina)
+    fetch("/mysql?" + "cmd=deleteTodo&cosa=" + elimina)
         .then(response => {
             if(response.status == 200 && response.statusText == "OK"){
                 window.location.href = '/home'; //aggiornamento pagina

@@ -12,7 +12,7 @@ const saveTodo = () => {
     console.log(`Cosa: ${cosa}, Stato: ${stato}`);
 
     if (checkInsert('cosa') && checkInsert('stato')) {
-        fetch("/json?" + "cmd=newTodo&cosa=" + cosa + "&stato=" + stato)
+        fetch("/mysql?" + "cmd=newTodo&cosa=" + cosa + "&stato=" + stato)
             .then(response => {
                 if (response.status == 200 && response.statusText == "OK") {
                     window.location.href = '/home/add.html'
@@ -39,7 +39,7 @@ const AddGrafica = () => {
     document.getElementById('AddButton').style.fontSize = "20px";
     document.getElementById('todoList').style.display = "block";
     document.getElementById('doneList').style.display = "block";
-    fetch("/json?" + "cmd=getListDone")
+    fetch("/mysql?" + "cmd=getListDone")
         .then(response => response.json())
         .then(data => {
             html = "";
@@ -55,7 +55,7 @@ const AddGrafica = () => {
         })
         .catch(error => console.log(error));
 
-    fetch("/json?" + "cmd=getListTodo")
+    fetch("/mysql?" + "cmd=getListTodo")
         .then(response => response.json())
         .then(data => {
             html = "";
@@ -75,7 +75,7 @@ const AddGrafica = () => {
 
 const deleteTodo = async (elimina) => {
 
-    fetch("/json?" + "cmd=deleteTodo&cosa=" + elimina)
+    fetch("/mysql?" + "cmd=deleteTodo&cosa=" + elimina)
         .then(response => {
             if(response.status == 200 && response.statusText == "OK"){
                 window.location.href = '/home/add.html'; //aggiornamento pagina

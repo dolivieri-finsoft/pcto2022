@@ -5,7 +5,7 @@ const doneList = () => {
     document.getElementById('DoneButton').style.fontSize = "20px";
     document.getElementById('BothButton').style.color = "white";
     document.getElementById('BothButton').style.fontSize = "";
-    fetch("/json?" + "cmd=getListDone")
+    fetch("/mysql?" + "cmd=getListDone")
         .then(response => response.json())
         .then(data => {
             html = "";
@@ -24,7 +24,7 @@ const doneList = () => {
 
 const deleteTodo = async (elimina) => {
 
-    fetch("/json?" + "cmd=deleteTodo&cosa=" + elimina)
+    fetch("/mysql?" + "cmd=deleteTodo&cosa=" + elimina)
         .then(response => {
             if(response.status == 200 && response.statusText == "OK"){
                 window.location.href = '/home/done.html'; //aggiornamento pagina
