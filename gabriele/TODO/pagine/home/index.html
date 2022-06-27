@@ -7,10 +7,12 @@
     <link rel="stylesheet" href="../css/style.css">
     <title>List</title>
 </head>
-<body onload="Richiedi()">
+<body onload = Richiedi()>
 
     <div class="new">
+        <button class="base rossa largo" onclick="Logout()">Delete<br>account</button>
         <h1>TO DO / DONE LIST<br>Cancemi</h1>
+        <button class="base rossa largo" onclick="Logout()">Log<br>out</button>
     </div><br>
 
     <div class="container">
@@ -22,8 +24,8 @@
     <div class="new">
         <div id="form">
             <h2 class="titolo" id="testoR"><b>New Element</b></h2>
-            <label id="testo" for="cosa"><b>What: </b></label>
-            <input id="cosa" type="text"> <br>           
+            <label id="testo" for="what"><b>What: </b></label>
+            <input class="cosa" id="what" type="text"> <br>           
             <label id="testo" for="todo"><b>State: </b></label>
             <input id="todo" class="radio" type="radio" name="stato" checked>
             <label id="testo" for="todo">To do</label>
