@@ -48,7 +48,7 @@ router.get('/write', function(req,res){
   var sql1 = "SELECT cosa FROM pcto2022.lista where cosa = '" + req.query.cosa + "';";
   conn.query(sql1, function (err, result) {
     if (result.length == 0){
-      var sql = "INSERT INTO pcto2022.lista (cosa, stato) VALUES ('" + req.query.cosa + "', '" + req.query.stato + "');";
+      var sql = "INSERT INTO pcto2022.lista (cosa, stato, username) VALUES ('" + req.query.cosa + "', '" + req.query.stato + "', '" + localStorage.username + "');";
       conn.query(sql, function (err, result) {
         if (err) throw err;
         console.log("Aggiunto: ✔");
@@ -113,7 +113,7 @@ router.get('/signin', function(req,res){
   var sql1 = "SELECT username FROM pcto2022.utenti where username = '" + req.query.username + "';";
   conn.query(sql1, function (err, result) {
     if (result.length == 0){
-      var sql = "INSERT INTO pcto2022.utenti (username, password) VALUES ('" + req.query.username + "', '" + req.query.password + "');";
+      var sql = "INSERT INTO pcto2022.utenti (username, password, ruolo) VALUES ('" + req.query.username + "', '" + req.query.password + "', 'utente');";
       conn.query(sql, function (err, result) {
         if (err) throw err;
         console.log("Aggiunto utente: ✔");
@@ -133,6 +133,17 @@ router.get('/login', function(req,res){
     res.send(result);
     
   });
+});
+
+router.get('/deleteAccount', function(req,res){
+
+
+  var sql = "DELETE FROM pcto2022.utenti WHERE username ='" + req.query.username + "';";
+  conn.query(sql, function (err, result) {
+    if (err) throw err;
+    res.send(result);
+  });
+
 });
 
 
