@@ -29,7 +29,7 @@ app.get('/', function (req, res) {
     .listen(3000);
 
 app.get('/home', function (req, res) {
-    res.sendFile(path.join(__dirname, './public/index.html'));
+    res.sendFile(path.join(__dirname, './public/pages/home/index.html'));
 });
 
 app.get('/form', function (req, res) {
@@ -95,6 +95,20 @@ app.get('/data', function (req, res) {
         con.query(sql, function (err, result) {
             if (err) throw err;
             console.log(result.affectedRows + " record updated");
+        });
+    } else if (comando === "check_user"){
+        var sql = "SELECT * FROM utenti WHERE username = '"+ req.query.user + "' AND password = '" + req.query.password + "'"; 
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+            console.log(result);
+            res.send(result);
+
+        });
+    } else if (comando === "add_user"){
+        var sql = "INSERT INTO utenti (username, password) VALUES ('" + req.query.user + "', '" + req.query.password + "')";
+        con.query(sql, function (err, result) {
+            if (err) throw err;
+            console.log("1 record inserted");
         });
     }
 });
