@@ -16,6 +16,8 @@
     
 
     <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="../css/modify.css">
+
     <script src="https://kit.fontawesome.com/728ba0677f.js" crossorigin="anonymous"></script>
 </head>
 
@@ -28,11 +30,34 @@
         <div class="rowButton">
             <button class="menuButton" id="TodoButton" onclick="location.href='./todo.html'">Todo List</button>
             <button class="menuButton" id="DoneButton" onclick="location.href='./done.html'">Done List</button>
-            <button class="menuButton" id="BothButton" onclick="location.href='./both.html'">Both List</button>
-            <button class="menuButton" id="AddButton" onclick="location.href='./add.html'"">Aggiungi</button>
-            <button class="menuButton" id="ModButton" onclick="location.href='./modify.html'"">Modifica</button>
+            <button class="menuButton" id="BothButton" onclick="location.href='./index.html'">Both List</button>
+            <button class="menuButton" id="AddButton" onclick="location.href='./add.html'">Aggiungi</button>
+            <button class="menuButton" id="ModButton" onclick="location.href='./modify.html'">Modifica</button>
         </div>
     </header>
+    <div class="containerModify animate__animated animate__backInDown" id="containerModify">
+        <div class="rowMod" id="rowMod">
+            <h2>Modifica</h2>
+        </div>
+        <div class="rowMod" id="rowModCosa">
+        
+        </div>
+        <div class="rowMod" id="rowMod">
+            <label class="formLabelModify" for="cosa"> Nuova attività: </label>
+            <input class="formInput" type="text" id="SelectCosa" name="cosa" placeholder="" onkeyup="checkinput();" required>
+        </div>
+        <div class="rowMod" id="rowMod">
+            <label class="formLabelModify" for="stato">Stato</label>
+            <select class='formSelect' id='SelectStato' name='stato'>
+                <option value='todo'>Todo</option>
+                <option value='Done'>Done</option>
+            </select>
+        </div>
+        <div class="rowModButton" id="rowMod">
+            <button class="ModifyButton" type="button" id="ModifyButton" onclick="modifyTodo();">Modifica</button>
+            <button class="ModifyButtonClose" type="button" id="ModifyButtonClose" onclick="modifyTodoClose();" required>✘</button>
+        </div>
+    </div>
     <div class="containerElement animate__animated animate__backInDown">
         <div id="inserisciTitoloListaTodo" class='listTitle'>TODO LIST</div>
         <table id='todoList'  style="display: none;">
@@ -45,7 +70,6 @@
             </tbody>
         </table>
     </div>
-    <script src="../js/home.js"></script>
+    <script src="../js/modifyTodo.js"></script>
 </body>
-
 </html>

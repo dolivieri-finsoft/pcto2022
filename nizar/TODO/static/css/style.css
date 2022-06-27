@@ -56,6 +56,15 @@ table{
     padding-bottom: 100px;
    }
 
+   #dati{
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    width: 300px;
+    margin-left: 650px;
+    
+    }
+
    #List2{
     display: flex;
     justify-content:center;
@@ -95,8 +104,32 @@ table{
     width: auto;    
   }
 
-  #label{
+  #password{
     font-size: 20px;
+    border-radius: 10px 10px 10px 10px;
+  }
+
+  #username{
+    font-size: 20px;
+    height: 50px;
+    width: auto;    
+    border-radius: 10px 10px 10px 10px;
+    
+
+  }
+
+
+  #labelPassword{
+    font-size: 25px;
+    height: 50px;
+    width: auto;    
+    color:black;
+  }
+
+
+  #labelUsername{
+    font-size: 25px;
+    color:black;
   }
 
   #aggiungi{
@@ -109,6 +142,13 @@ table{
     border-radius: 10px 10px 10px 10px;
   }
 
+  #logout{
+    font-size: 25px;
+    border-radius: 10px 10px 10px 10px;
+    background-color: red;
+    color:black;
+  }
+
   #Signin{
     font-size: 25px;
     border-radius: 10px 10px 10px 10px;
@@ -119,6 +159,10 @@ table{
     font-size: 25px;
     border-radius: 10px 10px 10px 10px;
 
+  }
+
+  #show{
+    margin-top: 8px;
   }
   
 

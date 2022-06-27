@@ -1,0 +1,66 @@
+.containerModify{
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    border-bottom:0.5px solid black;
+}
+
+.rowMod{
+    width: 90%;
+    margin-left: 5%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+.rowModButton{
+    width: 50%;
+    margin-left: 25%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 30px;
+}
+
+.formLabelModify{
+    width: 25%;
+}
+
+.formInput{
+    width: 75%;
+}
+
+.formSelect{
+    width: 75%;
+}
+
+.ModifyButton{
+    padding: 10px;
+    width: 20%;
+    border:0.5px solid black;    
+    background-color: transparent;
+}
+
+.ModifyButton:hover{
+    transition: 1s;
+    background-color: #00BB2D;
+    color: white;
+}
+
+.ModifyButtonClose{
+    padding: 10px;
+    width: 20%;
+    border:0.5px solid black;    
+    background-color: transparent;
+}
+
+.ModifyButtonClose:hover{
+    transition: 1s;
+    background-color: red;
+    color: white;
+}

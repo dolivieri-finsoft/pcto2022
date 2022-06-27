@@ -1,95 +1,194 @@
 body{
-    background: linear-gradient(to bottom, black , orange);   
-    min-height: 100vh;     
+    background-color: white;  
+    margin: 0;
+    font-family: 'Permanent Marker', cursive;
 }
-.container{
-    text-align: center;
+
+button:hover{
+    cursor: pointer;
+}
+
+a:hover{
+    text-decoration: underline;
+    cursor: pointer;
+    color: white;
+}
+
+/*----HEADER----*/
+
+.attivo{
+    color: black;
+    font-size: 20px;
+}
+
+.menuButton{
+    width: auto;
     display: flex;
-    justify-content: space-around;
-    margin-top:10vh;
-    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: hidden;
+    color: white;
 }
 
-button{
-    z-index: 1;
+.rowButton button:hover{
+    transition: 0.2s;
+    border-bottom-style: solid;
+    border-bottom-color: white;
 }
 
-
-/*----LISTE----*/
-
-#todoList{
-    float: left;
-    width: 600px;
-    height: auto;
+header{
+    background-color: #00BB2D;
+    color: white;
+    position: sticky;
+    height: 15vh;
+    margin: 0;
 }
-#doneList{
-    float: right;
-    width: 600px;
-    height: auto;
+
+.TitlePage{
+    width: 30%;
+    height: 100%;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    font-size: xx-large;
+    justify-content: center;
+    margin-right: 35%;
 }
-tr, td{
-    border: 1px solid;
+
+.rowButtonBackTitle{
+    width: 98%;
+    margin-left: 1%;
+    height: 45%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.rowButton{
+    width: 98%;
+    margin-left: 1%;
+    margin-bottom: 2.5%;
+    height: 47.5%;
+    display: flex;
+    align-items: flex-end;
+}
+
+.ButtonBack{
+    width: 5%;
+    height: 100%;
+    background: transparent;
+    border: none;
+}
+
+.arrowback{
+    color: white;
     font-size: 30px;
-    border-radius: 10px;
+}
+
+.listButton{
+    font-size: x-large;
+    text-decoration: none;
+    color: white;
+}
+
+/*----LISTA----*/
+
+.containerElement{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
     background-color: white;
 }
-button{
-    font-size: 30px;
-    border-radius: 10px;
-}
-table{
-    border: 1px solid;
-    font-size: 30px;
-    border-radius: 10px;
-    background-color: black;
+
+#todoList{
+    width: 100%;
+    height: auto;
 }
 
-/*----TITOLO-----*/
-
-#titolo{
-    color: white;
-    background-color: black;
-    height: 30px;
-}
-h1{
-    color: black;
-    text-align: center;
+#inserisciTitoloListaBoth{
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: x-large;
+    border-bottom:0.5px solid black;
 }
 
-/*----ELEMENTI----*/
+.listTitle{
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: x-large;
+    border-bottom:0.5px solid black;
+}
+.tableRow{
+    width: 98vw;
+    border-bottom:0.5px solid black;
+    display: flex;
+    flex-direction: row;
+    color: gray;
+}
 
 .elemento{
-    height: 30px;
-    width: 50%;
+    width: 75%;
+    padding-left: 5%;
+    font-size: 30px;
+    min-height: 60px;
+    overflow: auto;
+    border-right: 1px solid black;
+    display: flex;
+    align-items: center;
 }
 
-/*----ADD----*/
-
-.AddButton{
-    height: 30px;
-    font-size: 15px;
+.elementoButton{
+    width: 30%;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
-.formLabelAdd{
+.elimina{
+    padding: 10px;
+    background-color: transparent;
+    border: none;
+}
+.fatto{
+    padding: 10px;
+    background-color: transparent;
+    border: none;
+}
+
+.elimina:hover{
+    transition: 1s;
+    background-color: red;
     color: white;
 }
 
-/*----MMODIFY----*/
-.imgModify{
-    height: 20px;
-    width: auto;
-}
-.formLabelModifyTitle{
-    font-size: 50px;
+.fatto:hover{
+    transition: 1s;
+    background-color: #00BB2D;
     color: white;
 }
-.formLabelModify{
-    font-size: 25px;
-    color: white;   
+
+/*----MEDIA----*/
+@media (max-width: 1600px) {
+    .TitlePage{
+        width: 50%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        font-size: x-large;
+        justify-content: center;
+        margin-right: 25%;
+    }
 }
 
-/*----CHECK----*/
-.imgCheck{
-    height: 20px;
-    width: auto;
-}
+
+

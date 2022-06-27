@@ -2,13 +2,23 @@ const express = require('express');
 const mysql = require('mysql');
 
 const app = express();
-var port = 8080;
+var port = 3000;
 
 app.listen(port, () =>{
     console.log(`Listening on port ${port}`);
 })
 
-// Create connection
+app.use(express.static("static"));
+
+app.get('/', function (req, res) {
+    res.sendfile(path.join(__dirname, '/'));
+});
+
+app.get('/home', function (req, res) {
+    res.sendfile(path.join(__dirname, '/home'));
+});
+
+// Create connection SQL
  const db = mysql.createConnection({
     host : 'localhost',
     user : 'root',
@@ -28,23 +38,32 @@ app.listen(port, () =>{
 const path = require('path');
 const fs = require('fs');
 
-
-app.use(express.static("static"));
-
-app.get('/', function (req, res) {
-    res.sendfile(path.join(__dirname, '/'));
-});
-
-app.get('/home', function (req, res) {
-    res.sendfile(path.join(__dirname, '/home'));
-});
-
 app.get('/json', function (req, res) {
     cmd = req.query.cmd;
     console.log(`CMD: ${cmd}`);
 
-    if (cmd == "getList") {
+    if (cmd == "getListTodo") {
+        var sqlSelect ="SELECT * FROM todo_done_DB WHERE stato = 'todo'";
+
+        db.query(sqlSelect, (err, result) =>{
+            if(err)
+                console.log(err);
+            else
+                res.send(result);
+                console.log(result);
+        });
+    }else if(cmd == "getList"){
         var sqlSelect ="SELECT * FROM todo_done_DB";
+
+        db.query(sqlSelect, (err, result) =>{
+            if(err)
+                console.log(err);
+            else
+                res.send(result);
+                console.log(result);
+        });
+    }else if(cmd == "getListDone"){
+        var sqlSelect ="SELECT * FROM todo_done_DB WHERE stato = 'done'";
 
         db.query(sqlSelect, (err, result) =>{
             if(err)

@@ -1,14 +1,44 @@
-const bothList = () => {
+const checkInsert = (id) => {
+    if (document.getElementById(id).value == "") {
+        return false;
+    }else{
+        return true
+    }
+}
+
+const saveTodo = () => {
+    var cosa = document.getElementById('cosa').value;
+    var stato = document.getElementById('stato').value;
+    console.log(`Cosa: ${cosa}, Stato: ${stato}`);
+
+    if (checkInsert('cosa') && checkInsert('stato')) {
+        fetch("/json?" + "cmd=newTodo&cosa=" + cosa + "&stato=" + stato)
+            .then(response => {
+                if (response.status == 200 && response.statusText == "OK") {
+                    window.location.href = '/home/add.html'
+                }
+            })
+            .catch(error => console.log(error));
+    }
+    else alert("Inserire tutti i campi prima di confermare");
+}
+
+const showAdd = () => {
+    rowAdd = document.getElementById("rowAdd");
+    rowAdd.style.display = "block";
+    rowAggiorna = document.getElementById("rowAggiorna");
+    rowAggiorna.style.display = "none";
+}
+
+const ADDTodoClose = () =>{
+    window.location.href = '/home';
+}
+
+const AddGrafica = () => {
+    document.getElementById('AddButton').style.color = "black";
+    document.getElementById('AddButton').style.fontSize = "20px";
     document.getElementById('todoList').style.display = "block";
     document.getElementById('doneList').style.display = "block";
-    document.getElementById('DoneButton').style.color = "white";
-    document.getElementById('DoneButton').style.fontSize = "";
-    document.getElementById('TodoButton').style.color = "white";
-    document.getElementById('TodoButton').style.fontSize = "";
-    document.getElementById('BothButton').style.color = "black";
-    document.getElementById('BothButton').style.fontSize = "20px";
-    document.getElementById('inserisciTitoloListaDone').style.display = "flex";
-    document.getElementById('inserisciTitoloListaTodo').style.display = "flex";
     fetch("/json?" + "cmd=getListDone")
         .then(response => response.json())
         .then(data => {
@@ -43,26 +73,15 @@ const bothList = () => {
         .catch(error => console.log(error));
 }
 
-const todoFatto = (cosa) => {
-    console.log('todo fatto')
-    fetch("/json?" + "cmd=todoFatto&cosa=" + cosa)
-        .then(response => {
-            if (response.status == 200 && response.statusText == "OK") {
-                window.location.href = '/home'; //aggiornamento pagina
-            }
-        })
-        .catch(error => console.log(error));
-}
-
 const deleteTodo = async (elimina) => {
 
     fetch("/json?" + "cmd=deleteTodo&cosa=" + elimina)
         .then(response => {
             if(response.status == 200 && response.statusText == "OK"){
-                window.location.href = '/home'; //aggiornamento pagina
+                window.location.href = '/home/add.html'; //aggiornamento pagina
             }
         })
         .catch(error => console.log(error));
 }
 
-document.onload = bothList();
+document.onload = AddGrafica();

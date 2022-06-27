@@ -2,10 +2,10 @@
     position: absolute;
     width: 50vw;
     margin-left: 25vw;
-    margin-top: 33vh;
+    margin-top: 25vh;
     align-items: center;
     justify-content: space-around;
-    background-color: lightgray;
+    background-color: #00BB2D;
     border-radius: 50px;
 }
 .row{

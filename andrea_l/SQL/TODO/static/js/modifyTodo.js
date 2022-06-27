@@ -1,14 +1,22 @@
-const bothList = () => {
+const todoList = () => {
+    document.getElementById('ModButton').style.color = "black";
+    document.getElementById('ModButton').style.fontSize = "20px";
+    fetch("/json?" + "cmd=getList")
+        .then(response => response.json())
+        .then(data => {
+            html = "<label for='text' class='formLabelModify'>Cosa vuoi modificare? </label>";
+            html += "<select class='formSelect' id='formSelectCosa' name='cosa' onclick='aggiungi()'>";
+            for (var i = 0; i < data.length; i++) {
+                const element = data[i];
+                html += "<option value = '"+ element.cosa +"'>"+ element.cosa +"</oprion>";
+            }
+            html += "</select>";
+            document.getElementById("rowModCosa").innerHTML = html;
+        })
+        .catch(error => console.log(error));
+
     document.getElementById('todoList').style.display = "block";
     document.getElementById('doneList').style.display = "block";
-    document.getElementById('DoneButton').style.color = "white";
-    document.getElementById('DoneButton').style.fontSize = "";
-    document.getElementById('TodoButton').style.color = "white";
-    document.getElementById('TodoButton').style.fontSize = "";
-    document.getElementById('BothButton').style.color = "black";
-    document.getElementById('BothButton').style.fontSize = "20px";
-    document.getElementById('inserisciTitoloListaDone').style.display = "flex";
-    document.getElementById('inserisciTitoloListaTodo').style.display = "flex";
     fetch("/json?" + "cmd=getListDone")
         .then(response => response.json())
         .then(data => {
@@ -43,15 +51,25 @@ const bothList = () => {
         .catch(error => console.log(error));
 }
 
-const todoFatto = (cosa) => {
-    console.log('todo fatto')
-    fetch("/json?" + "cmd=todoFatto&cosa=" + cosa)
+const aggiungi = () =>{
+    document.getElementById('SelectCosa').value = document.getElementById('formSelectCosa').value;
+}
+
+const modifyTodo = () =>{
+    var nuovaCosa = document.getElementById('SelectCosa').value;
+    var DaModificare = document.getElementById('formSelectCosa').value;
+    var stato = document.getElementById('SelectStato').value;
+
+    fetch("/json?" + "cmd=modifyTodo&cosa=" + nuovaCosa + "&stato=" + stato + "&modificare=" + DaModificare)
         .then(response => {
             if (response.status == 200 && response.statusText == "OK") {
-                window.location.href = '/home'; //aggiornamento pagina
+                window.location.href = '/home/modify.html'; //aggiornamento pagina
             }
         })
-        .catch(error => console.log(error));
+}
+
+const modifyTodoClose = () =>{
+    window.location.href = '/home';
 }
 
 const deleteTodo = async (elimina) => {
@@ -59,10 +77,11 @@ const deleteTodo = async (elimina) => {
     fetch("/json?" + "cmd=deleteTodo&cosa=" + elimina)
         .then(response => {
             if(response.status == 200 && response.statusText == "OK"){
-                window.location.href = '/home'; //aggiornamento pagina
+                window.location.href = '/home/modify.html'; //aggiornamento pagina
             }
         })
         .catch(error => console.log(error));
 }
 
-document.onload = bothList();
+document.onload = todoList();
+
