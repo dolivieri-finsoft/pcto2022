@@ -112,6 +112,14 @@ router.get('/sign',function(req,res){
   });
 });
 
+router.get('/deleteAccount',function(req,res){
+  var sql = "DELETE FROM pcto2022.users WHERE username = '" + req.query.user + "';";
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log("1 user deleted");
+  });
+});
+
 
 app.use('/', router);
 app.listen(process.env.port || 3000);

@@ -89,4 +89,8 @@ h1{
 }
 .largo{
     width: 10%;
+    height: min-content;
+}
+.bordi{
+    border: 1px solid;
 }
