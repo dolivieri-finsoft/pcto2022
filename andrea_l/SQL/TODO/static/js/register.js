@@ -19,14 +19,6 @@ const ShowPassword = () => {
     }
 }
 
-const checkInsert = (id) => {
-    if (document.getElementById(id).value == "") {
-        return false;
-    }else{
-        return true
-    }
-}
-
 const registrati = () => {
     var username = document.getElementById('Username').value;
     var password = document.getElementById('Password').value;
@@ -40,6 +32,7 @@ const registrati = () => {
         .then(data => {
             if(data[0] == undefined){
                 alert("Utente Creato");
+                window.location.href = '/';
             }else{
                 alert("Utente già presente");
             }

@@ -1,11 +1,20 @@
 const doneList = () => {
+    var titolo = "Lista - ";
+    titolo += localStorage.username; 
+    document.getElementById("titolo").innerHTML = titolo;
+
+    if(localStorage.username == "admin")
+        document.getElementById("AdminButton").style.display = "block";
+    else
+        document.getElementById("AdminButton").style.display = "none";
+    
     document.getElementById('TodoButton').style.color = "white";
     document.getElementById('TodoButton').style.fontSize = "";
     document.getElementById('DoneButton').style.color = "black";
     document.getElementById('DoneButton').style.fontSize = "20px";
     document.getElementById('BothButton').style.color = "white";
     document.getElementById('BothButton').style.fontSize = "";
-    fetch("/mysql?" + "cmd=getListDone")
+    fetch("/mysql?" + "cmd=getListDone&IdUtente=" + localStorage.Id)
         .then(response => response.json())
         .then(data => {
             html = "";
@@ -24,7 +33,7 @@ const doneList = () => {
 
 const deleteTodo = async (elimina) => {
 
-    fetch("/mysql?" + "cmd=deleteTodo&cosa=" + elimina)
+    fetch("/mysql?" + "cmd=deleteTodo&cosa=" + elimina + "&IdUtente=" + localStorage.Id)
         .then(response => {
             if(response.status == 200 && response.statusText == "OK"){
                 window.location.href = '/home/done.html'; //aggiornamento pagina
