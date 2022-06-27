@@ -1,6 +1,7 @@
 var cosaDaModificare;
 if(localStorage.length == 0){
     localStorage.setItem("access", "no");
+    localStorage.setItem("user", "");
 }
 
 function Accesso(){
@@ -11,6 +12,7 @@ function Accesso(){
 
 function Richiedi(){
     if(localStorage.access == "si"){
+        document.getElementById("benvenuto").innerHTML = "HI, " + localStorage.user;
         const todoList = () => {
             fetch("/request")
              .then(response => response.json())
@@ -119,6 +121,7 @@ function Log(){
             }
             else if(pass == data[0].password){
                 localStorage.access = "si";
+                localStorage.user = user;
                 window.location.replace("/home");
             }
             else{
@@ -141,12 +144,30 @@ function Sign(){
         .then(response => response.json())
         .then(data => {
             if(data[0] == undefined){
-                alert("Success");
+                alert("Registration was successful");
             }
             else{
                 alert("User already registered, please log in");
             }
         });
     }
+}
+
+function Logout(){
+    Reset();
+    window.location.reload();
+}
+
+function DeleteAccount(){
+    let user = localStorage.user;
+    fetch("/deleteAccount?" + "user=" + user)
+    alert("Account '" + user + "' deleted");
+    Reset();
+    window.location.reload();
+}
+
+function Reset(){
+    localStorage.access = "no";
+    localStorage.user = "";
 }
 

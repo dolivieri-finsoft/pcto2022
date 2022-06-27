@@ -99,7 +99,7 @@ router.get('/sign',function(req,res){
   var sql1 = "select username from pcto2022.users where username = '" + req.query.user + "';";
   con.query(sql1, function (err, result) {
     if (result.length == 0){
-      var sql1 = "insert into pcto2022.users(username, password) values ('" + req.query.user + "', '" + req.query.pass + "');";
+      var sql1 = "insert into pcto2022.users(username, password, role) values ('" + req.query.user + "', '" + req.query.pass + "', 'user');";
       con.query(sql1, function (err, result) {
           if(err) throw err;
           console.log("1 user inserted");
@@ -109,6 +109,14 @@ router.get('/sign',function(req,res){
       console.log("Errore");
     }
     res.send(result);
+  });
+});
+
+router.get('/deleteAccount',function(req,res){
+  var sql = "DELETE FROM pcto2022.users WHERE username = '" + req.query.user + "';";
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log("1 user deleted");
   });
 });
 
