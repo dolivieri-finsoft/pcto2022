@@ -23,12 +23,24 @@ router.get('/home',function(req,res){
   res.sendFile(path.join(__dirname+'/pagine/home/index.html'));
 });
 
+router.get('/admin',function(req,res){
+  res.sendFile(path.join(__dirname+'/pagine/admin/index.html'));
+});
+
 router.get('/',function(req,res){
   res.sendFile(path.join(__dirname+'/pagine/index.html'));
 });
 
 router.get('/request',function(req,res){
   var sql = "SELECT * FROM pcto2022.todo";
+  con.query(sql, function (err, result){
+    if(err) throw err;
+    res.send(result);
+  });
+});
+
+router.get('/requestUsers',function(req,res){
+  var sql = "SELECT * FROM pcto2022.users";
   con.query(sql, function (err, result){
     if(err) throw err;
     res.send(result);
@@ -87,7 +99,7 @@ router.get('/change',function(req,res){
 });
 
 router.get('/login',function(req,res){
-  var sql1 = "select password from pcto2022.users where username = '" + req.query.user + "';";
+  var sql1 = "select password, role from pcto2022.users where username = '" + req.query.user + "';";
   con.query(sql1, function (err, result) {
       if(err) throw err;
       res.send(result);

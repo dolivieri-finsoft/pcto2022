@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="CSS/style.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
     <title>Luxury Hotel</title>
 </head>
@@ -17,30 +18,45 @@
                 </a>
                 <h3 class="Only">Only luxury for our clients</h3>
             </header>
-            <nav>
-                <ul>
-                    <li><a href="/home" class="animazione">Home</a></li>
-                    <li><a href="/room" class="animazione">Camere</a></li>
-                    <li><a href="/service" class="animazione">Servizi</a></li>
-                    <li><a href="/prieces" class="animazione">Listino prezzi</a></li>
-                    <li><a href="/form" class="animazione">Contattaci</a></li>
-                    <li><a href="/todo" class="animazione">TODO</a></li>
-                </ul>
-            </nav>
+
         </div>
-        <div>
-            <h1>La nostra storia</h1>
-            <img src="img/hotel.jpeg" id="homeimg"><br><br>
-            <p id="storia">
-                La famiglia <strong>Paltracino</strong>, già hôteliers a Fuerteventura fin dal 1963, gestisce il <strong>Luxury Hotel</strong> a partire dal 1988. Costruito agli inizi degli anni 60, il progetto di questo hotel di <strong>80 camere</strong>,
-                tutte con le finestre e le terrazze rivolte tutte verso il mare, è stato ispirazione per eleganti edifici turistici costruiti successivamente.
-                Mantenendo l’originalità e la bellezza di questa struttura fronte mare, nel corso degli anni vengono apportati vari interventi di rinnovo e restyling, anche di <strong>design</strong>. 
-                Sempre si praticano miglioramenti dei servizi offerti agli ospiti.
-                <strong>Qui la vostra vacanza viene prima di tutto</strong> e l’obiettivo dell'affiatato team è, di creare un’atmosfera positiva per un soggiorno rilassante per l’ospite, che può contare su professionalità, 
-                gentilezza e disponibilità. L’atmosfera romantica, gli eleganti ed ampi spazi, il panorama mozzafiato con la migliore vista mare, rendono perfetto il Luxury Hotel  
-                per vivere la vacanza al mare in completa armonia.
-            </p>
+        <div class="index_menu">
+            <button class="bottoni" id="menu_login">Log In</button>
+            <BUtton class="bottoni" id="menu_signin">Sign In</BUtton>
         </div>
+        <div class="forms_log">
+            <div id="logIN">
+                <form>
+                    <br>
+                    <label id="titolo_form">Log In</label><br><br>
+                    <label for="user">Email : </label><input type="email" name="user" value ="" id="user_log"><br>
+                    <label for="password">Password : </label><input type="password" name="password" value ="" id="password_log"><br>
+                    <div class="buttonsform">
+                        <input type="button" class="bottoni" id="LOGIN" onclick="fun_log_IN()" value="Accedi">
+                        <input type="reset" class="bottoni" id="Reset_logIN">
+                    </div>
+                    <br>
+                 </form>
+            </div>
+            <div id="signIN">
+                <form>
+                    <br>
+                    <label id="titolo_form">Sign In</label><br><br>
+                    <label for="nome">Email : </label><input type="email" name="form" id="user" value ="" itemid="user_sign"><br>
+                    <label for="nome">Password : </label><input type="password" name="form" id="password_sign" value =""><br>
+                    <div class="buttonsform">
+                        <input type="submit" class="bottoni" id="SIGNIN">
+                        <input type="reset" class="bottoni" id="Reset_signIn">
+                    </div>
+                    <br>
+                 </form>
+            </div>
+        </div>
+        <br>
+        <br>
+        <p id="error"></p>
+        <br>
+        <br>
         <footer>
             <p>
                 All right reserved <br>
@@ -48,5 +64,6 @@
             </p>
         </footer>
     </div>
+    <script src="./JS/login.js"></script>
 </body>
 </html>

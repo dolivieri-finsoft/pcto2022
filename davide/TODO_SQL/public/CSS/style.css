@@ -187,3 +187,15 @@ footer{
     resize: none;
     border-radius: 15px;
 }
+
+.buttonsform{
+    padding-top: 10px;
+}
+
+.forms_log{
+    padding-top: 25px;
+}
+
+#logIN, #signIN{
+    display: none;
+}

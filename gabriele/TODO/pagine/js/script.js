@@ -2,6 +2,7 @@ var cosaDaModificare;
 if(localStorage.length == 0){
     localStorage.setItem("access", "no");
     localStorage.setItem("user", "");
+    localStorage.setItem("role", "");
 }
 
 function Accesso(){
@@ -12,7 +13,7 @@ function Accesso(){
 
 function Richiedi(){
     if(localStorage.access == "si"){
-        document.getElementById("benvenuto").innerHTML = "HI, " + localStorage.user;
+        document.getElementById("benvenuto").innerHTML += "HI, " + localStorage.user;
         const todoList = () => {
             fetch("/request")
              .then(response => response.json())
@@ -124,7 +125,14 @@ function Log(){
             else if(pass == data[0].password){
                 localStorage.access = "si";
                 localStorage.user = user;
-                window.location.replace("/home");
+                localStorage.role = data[0].role;
+
+                if(data[0].role == "admin"){
+                    window.location.replace("/admin");
+                }
+                else{
+                    window.location.replace("/home");
+                }
             }
             else{
                 alert("Incorrect password");
@@ -173,3 +181,51 @@ function Reset(){
     localStorage.user = "";
 }
 
+function RichiediAdmin(){
+    if(localStorage.access == "si" && localStorage.role == "admin"){
+        document.getElementById("benvenuto").innerHTML += "HI, " + localStorage.user;
+        const todoList = () => {
+            fetch("/request")
+             .then(response => response.json())
+             .then(data => {
+             htmlTodo = "<tr><th class='titolo' colspan='5'>To do</th></tr>";
+             htmlDone = "<tr><th class='titolo' colspan='4'>Done</th></tr>";
+             for (var i = 0; i < data.length; i++) {
+                 const element = data[i];
+                    if(element.state == "todo"){
+                        htmlTodo += "<tr> <td id='user'>" + element.user + "</td> <td>" + element.what + "</td> <td class='opzioni rossa' id='" + element.what + "' onclick='Elimina(this.id)'>✘</td> <td class='opzioni verde' id='" + element.what + "' onclick='Sposta(this.id)'>✔</td> <td class='opzioni blu' id='" + element.what + "' onclick='Modifica(this.id, false)'>↻</td> </tr>";
+                     }
+                     else{
+                        htmlDone += "<tr> <td id='user'>" + element.user + "</td> <td>" + element.what + "</td> <td class='opzioni rossa' id='" + element.what + "' onclick='Elimina(this.id)'>✘</td> <td class='opzioni blu' id='" + element.what + "' onclick='Modifica(this.id, true)'>↻</td> </tr>";
+                     }
+             }
+             document.getElementById("todoList").innerHTML = htmlTodo;
+             document.getElementById("doneList").innerHTML = htmlDone;
+        
+             })
+             .catch(error => console.log(error));
+            }
+        
+            document.onloadeddata = todoList();
+
+        const usersList = () => {
+            fetch("/requestUsers")
+             .then(response => response.json())
+             .then(data => {
+                 htmlUsers = "<tr><th class='titolo' colspan='5'>Users</th></tr><tr><td id='user'>Username</td><td id='user'>Password</td><td id='user'>Role</td></tr>";
+                 for (var i = 0; i < data.length; i++) {
+                    const element = data[i]; 
+                    htmlUsers += "<tr> <td>" + element.username + "</td> <td>" + element.password + "</td> <td>" + element.role + "</td> <td class='opzioni rossa' id='" + element.username + "' onclick='EliminaUser(this.id)'>✘</td>"; //"<td class='opzioni blu' id='" + element.what + "' onclick='Modifica(this.id, true)'>↻</td> </tr>";    
+                 }
+                 document.getElementById("usersList").innerHTML = htmlUsers;
+            
+             })
+             .catch(error => console.log(error));
+             }
+            
+            document.onloadeddata = usersList();    
+    }
+    else{
+        window.location.replace("/");
+    }
+}

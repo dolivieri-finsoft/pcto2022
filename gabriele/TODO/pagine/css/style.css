@@ -94,3 +94,7 @@ h1{
 .bordi{
     border: 1px solid;
 }
+#user{
+    background-color: black;
+    color: white;
+}
