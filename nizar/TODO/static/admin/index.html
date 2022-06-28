@@ -11,16 +11,13 @@
 
   <title></title>
 </head>
-<body onload="Richiesta()"  >
+<body onload="Richiesta2()"  >
 
   <div id="List2">
-    <h1> To do / Done List </h1><br>
+    <h1 id="benvenuto">ADMIN PAGE<br></h1>
 </div><br>
 
-<div id="adminPage">
-  <button type="button" id="amministratore" onclick="admin()" style="display:none" >Admin Page </button>
 
-</div>
 
 
   <div class="container">
@@ -30,7 +27,7 @@
     <table id="todoList1"></table>
     
 </div>
-<br>
+
 
 
 
@@ -49,20 +46,42 @@
     <br>
     <button type="button" id="indietro" onclick="indietro()" style="display:none">Return </button>
     <button type="button" id="aggiungi" onclick="aggiungi()">Aggiungi </button>
-    <br>
-    <br>
-    <br>
-    <button type="button" id="deleteAccount" onclick="deleteAccount()" >Delete Account </button>
-    <button type="button" id="logout" onclick="logout()" >Logout </button>
-
     
- 
+    
 </header>
 
+<div class="container2">
+    <table id="utenti">
+    </table>
+</div>
 
-  
+<div class="w3-container w3-red w3-center " style="padding:68px">
+    <h2 class="w3-margin w3-jumbo" id="elemento">Nuovo Utente</h2>
+    <div>
+      <label id="label">Username: </label>
+    <input type="text" id="userUtente" name="userUtente" placeholder="username">
+    <br>
+    <br>
+    <label id="label">Password: </label>
+    <input type="text" id="passUtente" name="passUtente" placeholder="password">
+    <br>
+    <br>
+    <select name="statoUtenti" id="selectUtenti">
+      <option value="utente" >Admin</option>
+      <option value="admin" selected="selected">Utente</option>
+      </select>
+    </div>
+      <br>
+      <button type="button" id="indietro" onclick="indietro()" style="display:none">Return </button>
+      <button type="button" id="aggiungi" onclick="aggiungi()">Aggiungi </button>
+      
+      
+</div>
 
-  
+  <div id="insieme">
+<button type="button" id="deleteAccount" onclick="deleteAccount()" >Delete Account </button>
+    <button type="button" id="logout" onclick="logout()" >Logout </button>
+</div>
  
 </body>
 </html>
