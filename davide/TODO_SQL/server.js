@@ -51,6 +51,10 @@ app.get('/service', function (req, res) {
 app.get('/todo', function (req, res) {
     res.sendFile(path.join(__dirname, './public/pages/todo/index.html'))
 })
+
+app.get('/userManager', function (req, res) {
+    res.sendFile(path.join(__dirname, './public/pages/userManager/index.html'))
+})
 //#endregion
 
 app.get('/data', function (req, res) {
