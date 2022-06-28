@@ -64,8 +64,24 @@ router.get('/write',function(req,res){
   });
 });
 
-router.get('/modify',function(req,res){
+router.get('/writeUser',function(req,res){
+  var sql1 = "select username from pcto2022.users where username = '" + req.query.username + "';";
+  con.query(sql1, function (err, result) {
+    if (result.length == 0){
+      var sql = "INSERT INTO pcto2022.users (username, password, role) VALUES ('" + req.query.username + "', '" + req.query.password + "', '" + req.query.role + "');";
+      con.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log("1 user inserted");
+      });
+    }
+    else{
+      res.send(result);
+      console.log("Errore");
+    }
+  });
+});
 
+router.get('/modify',function(req,res){
   var sql1 = "select what from pcto2022.todo where what = '" + req.query.cosa + "';";
   con.query(sql1, function (err, result) {
     if(result.length == 0 || result[0].what == req.query.cosaDaMo){
@@ -73,6 +89,23 @@ router.get('/modify',function(req,res){
       con.query(sql, function (err, result) {
         if (err) throw err;
         console.log("1 record modified");
+      });
+    }
+    else{
+      res.send(result);
+      console.log("Errore");
+    }
+  });
+});
+
+router.get('/modifyUser',function(req,res){
+  var sql1 = "select username from pcto2022.users where username = '" + req.query.username + "';";
+  con.query(sql1, function (err, result) {
+    if(result.length == 0 || result[0].username == req.query.userDaMo){
+      var sql = "UPDATE pcto2022.users SET username = '" + req.query.username + "', password = '" + req.query.password + "', role = '" + req.query.role + "' WHERE username = '" + req.query.userDaMo + "';";
+      con.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log("1 user modified");
       });
     }
     else{
@@ -129,6 +162,11 @@ router.get('/deleteAccount',function(req,res){
   con.query(sql, function (err, result) {
     if (err) throw err;
     console.log("1 user deleted");
+  });
+  var sql1 = "DELETE FROM pcto2022.todo WHERE user = '" + req.query.user + "';";
+  con.query(sql1, function (err, result) {
+    if (err) throw err;
+    console.log("Elements deleted");
   });
 });
 

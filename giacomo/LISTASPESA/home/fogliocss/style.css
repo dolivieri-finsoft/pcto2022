@@ -1,81 +1,168 @@
 body{
-    background-color: rgb(81, 14, 14);
-    
+  background-color: rgb(152, 3, 3);
 }
 table{
-      border: 1px solid;
-      font-size: 30px;
-      border-radius: 10px;
-      background-color: rgba(255, 201, 7, 0.53);
+    border: 2px solid;
+    font-size: 30px;
+    border-radius: 10px;
+    background-color: rgb(255, 0, 0);
 
-    }
-    
-    tr,td{
-      border: 1px solid;
-      font-size: 30px;
-      border-radius: 10px;
-      background-color: rgb(255, 135, 247);
+  }
 
-    }
+  th,tr,td{
+    border: 2px solid;
+    font-size: 30px;
+    border-radius: 10px;
+    background-color: yellow;
 
-    #titolo{
-      color: yellow;
-      background-color: black;
-      text-align: center;
-    }
+  }
 
-   .elimina{
-    color: rgba(109, 7, 7, 0.708);
-   } 
-   .cambia{
-    color: rgb(14, 94, 14);
-   } 
-
-   h1{
+  #titolo{
+    color: yellow;
+    background-color: black;
     text-align: center;
-    color:white;
-   }
+  }
 
-  #todoList{
-    float: left;
-    width: 500px;
-  }  
+ .elimina{
+  color: rgb(110, 5, 5);
+  width: 130px;
+  cursor: default;
+ } 
+ .cambia{
+  color: green;
+  width: 130px;
+  cursor: default;
+
+ } 
+
+ .modifica{
+  width: 80px;
+  cursor: default;
+
+
+ }
+
+ h1{
+  text-align: center;
+  color: black;
+  text-shadow: 0 0 3px #FF0000;  
+  border: 3px solid black;
+  width:40%;
+ }
+
+ #List{
+  display: flex;
+  justify-content:center;
+  padding-bottom: 100px;
+ }
+
+ #dati{
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  width: 300px;
+  margin-left: 650px;
   
-  #todoList1{
-    float: right;
-    width: 500px;
-  }   
-
-  .container{
-    text-align: center;
-    display: flex;
-    justify-content: space-around;
   }
 
-  #select{
-    font-size: 25px;
-    width: 100px;
-    height: 35px;
-  }
+ #List2{
+  display: flex;
+  justify-content:center;
+ }
 
-  #cosa{
-    font-size: 20px;
-    height: 50px;
-    width: 350px;
-  }
+ h2{
+  text-align: center;
+  color: black;
+  text-shadow: 0 0 3px #FF0000;  
+ }
 
-  #label{
-    font-size: 20px;
-  }
+#todoList{
+  width: 700px;
+}  
 
-  #aggiungi{
-    font-size: 25px;
-  }
+#todoList1{
+  width: 700px;
+}   
 
-  .elimina{
-    width: 130px;
-  }
+.container{
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+}
 
-  .cambia{
-    width: 130px;
-  }
+
+
+#select{
+  font-size: 25px;
+  width: 100px;
+  height: 35px;
+}
+
+#cosa{
+  font-size: 20px;
+  height: 50px;
+  width: auto;    
+}
+
+#password{
+  font-size: 20px;
+  border-radius: 10px 10px 10px 10px;
+}
+
+#username{
+  font-size: 20px;
+  height: 50px;
+  width: auto;    
+  border-radius: 10px 10px 10px 10px;
+  
+
+}
+
+
+#labelPassword{
+  font-size: 25px;
+  height: 50px;
+  width: auto;    
+  color:black;
+}
+
+
+#labelUsername{
+  font-size: 25px;
+  color:black;
+}
+
+#aggiungi{
+  font-size: 25px;
+  border-radius: 10px 10px 10px 10px;
+}
+
+#indietro{
+  font-size: 25px;
+  border-radius: 10px 10px 10px 10px;
+}
+
+#logout{
+  font-size: 25px;
+  border-radius: 10px 10px 10px 10px;
+  background-color: rgb(68, 0, 255);
+  color:black;
+}
+
+#Signin{
+  font-size: 25px;
+  border-radius: 10px 10px 10px 10px;
+
+}
+
+#Login{
+  font-size: 25px;
+  border-radius: 10px 10px 10px 10px;
+
+}
+
+#show{
+  margin-top: 8px;
+}
+
+

@@ -51,6 +51,10 @@ app.get('/service', function (req, res) {
 app.get('/todo', function (req, res) {
     res.sendFile(path.join(__dirname, './public/pages/todo/index.html'))
 })
+
+app.get('/userManager', function (req, res) {
+    res.sendFile(path.join(__dirname, './public/pages/userManager/index.html'))
+})
 //#endregion
 
 app.get('/data', function (req, res) {
@@ -85,7 +89,6 @@ app.get('/data', function (req, res) {
             console.log(result.affectedRows + " record updated");
         });
     } else if (comando === "modifyTodo") {
-        //console.log(req.query.whatTask, req.query.status, req.query.task)
         var sql = "UPDATE lista SET task = '"+ req.query.task +"' WHERE task = '"+ req.query.whatTask +"'";
         con.query(sql, function (err, result) {
             if (err) throw err;

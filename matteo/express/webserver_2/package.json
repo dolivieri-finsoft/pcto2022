@@ -6,11 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node exp.js"
-
   },
   "author": "Matteo Barbessi",
   "license": "ISC",
   "dependencies": {
+    "ejs": "^3.1.6",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3"
   }
