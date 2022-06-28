@@ -1,3 +1,4 @@
+//#region animazioni menu
 $("#menu_login").click(function(){
     console.log('prova')
     $("#logIN").fadeIn(700)
@@ -8,12 +9,15 @@ $("#menu_signin").click(function(){
     $("#signIN").fadeIn(700)
     $("#logIN").hide()
 });
-
+//#endregion
 const checkInsert = (id) => {
     if (document.getElementById(id).value == "") return false;
     return true;
 }
 
+var currentUser;
+
+//#region funzioni log e sign
 const fun_log_IN = () =>{
     var user = document.getElementById('user_log').value;
     var password = document.getElementById('password_log').value;
@@ -27,6 +31,8 @@ const fun_log_IN = () =>{
                 console.log(data);
                 if(data != 0){
                     window.location.replace("/home");
+                    currentUser = data;
+                    console.log(currentUser);
                 }
                 else{
                     document.getElementById("error").innerText = "ERRORE!!!";
@@ -38,17 +44,18 @@ const fun_log_IN = () =>{
 }
 
 
+
 const fun_sign_IN = () =>{
-    var user = document.getElementById('user_log').value;
-    var password = document.getElementById('password_log').value;
+    var user = document.getElementById('user_sign').value;
+    var password = document.getElementById('password_sign').value;
 
     console.log(`user: ${user}, password: ${password}`);
 
-    if (checkInsert('user') && checkInsert('password')) {
+    if (checkInsert('user_sign') && checkInsert('password_sign')) {
         fetch("/data?" + "cmd=add_user&user=" + user + "&password=" + password )
             .then(response => {
                 if (response.status == 200 && response.statusText == "OK") {
-                    // windos.location.reload();
+                    console.log('eseguito correttamente');
                     document.getElementById("error").innerText = "Registrazione effettuata, logga";
                 }
             })
@@ -57,3 +64,4 @@ const fun_sign_IN = () =>{
     }
     else alert("ERRORE: compilare tutti i campi");
 }
+//#endregion

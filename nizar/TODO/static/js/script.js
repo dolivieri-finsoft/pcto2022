@@ -21,6 +21,7 @@ function Richiesta(){
               
               for (var i = 0; i < data.length; i++) {
                   const element = data[i];
+                  if(element.username == localStorage.username){
                   if(element.stato == "todo"){
                     html += "<tr> <td>" + element.cosa + "</td>  <td class='elimina' id ='" + element.cosa + "' onclick='elimina(this.id)'>Delete</td> <td class='cambia' id ='" + element.cosa + "' onclick='cambia(this.id)'>Move </td> <td class='modifica' id ='" + element.cosa + "' onclick='modifica(this.id, 0)'>✏️</td> </tr>";
   
@@ -28,6 +29,7 @@ function Richiesta(){
                     html1 += "<tr> <td>" + element.cosa + "</td> <td class='elimina' id ='" + element.cosa + "' onclick='elimina(this.id)'>Delete</td> <td class='modifica' id ='" + element.cosa + "' onclick='modifica(this.id, 1)'>✏️</td> </tr>";
   
                   }
+                }
               }
               
               document.getElementById("todoList").innerHTML = html;
@@ -67,13 +69,15 @@ function aggiungi(){
     let cosa = document.getElementById('cosa').value;
     var select = document.getElementById("select").value;
 
+    let username = localStorage.username;
+
     if(cosa == ""){
       alert("Compila il campo sottostante!!!");
     }
     else{
       if(document.getElementById("aggiungi").outerHTML.length == 75)
         {
-            fetch("/write?" + "cosa=" + cosa + "&stato=" + select)
+            fetch("/write?" + "cosa=" + cosa + "&stato=" + select + "&username=" + username)
             .then(data => {
               if(data){
                   alert("Elemento già presente nel Database");
@@ -127,6 +131,8 @@ function modifica(id, numero){
 
 
   function Signin(){
+
+
    var username = document.getElementById('username').value;
   var password = document.getElementById('password').value;
 
@@ -135,7 +141,7 @@ function modifica(id, numero){
    alert("Compila i campi sottostanti!!!");
   }
   else{
-    fetch("/signin?" + "username=" + username + "&password=" + password)
+    fetch("/signin?" + "username=" + username + "&password=" + password + "&ruolo=" + "")
     .then(response => response.json())
     .then(data => {
       if(data[0] == undefined){
@@ -147,19 +153,14 @@ function modifica(id, numero){
       
     });
   }
-   
-  
 
-
-        
-
-
-  }
+}
 
   function Login(){
+   
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
-
+    
     if(username == "" || password == ""){
       alert("Compila i campi sottostanti!!!");
     }
@@ -168,24 +169,44 @@ function modifica(id, numero){
     .then(response => response.json())
     .then(data => {
       
-      
     if(data[0] == undefined){
         alert("Utente inesistente. Registrati");
     }
     else if(data[0].password == password){
       window.location.href = "../home/index.html";
+      localStorage.setItem("username",username);
+
     }
     else{
       alert("Email o Username Errati");
     }
-    
 
-  });
- }
+    });
+}
+
 }
 
 function logout(){
   window.location.href = "../index.html";
+}
+
+function deleteAccount(){
+   
+  var valore = localStorage.username;
+
+    
+  fetch("/deleteAccount?" + "username=" + valore) 
+  .then(response => response.json())
+    .then(data => {  
+    if(data[0] == undefined){
+        alert("Account eliminato correttamente");
+        window.location.href = "../index.html";
+
+    }
+    
+    
+  });
+
 }
 
  
