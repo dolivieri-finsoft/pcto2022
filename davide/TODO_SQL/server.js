@@ -5,6 +5,8 @@ const path = require('path');
 
 var mysql = require('mysql');
 
+app.engine('html', require('ejs').renderFile);
+
 var con = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -104,7 +106,9 @@ app.get('/data', function (req, res) {
         con.query(sql, function (err, result) {
             if (err) throw err;
             console.log(result);
-            res.send(result);
+            console.log(__dirname + "/public/pages/home/index.html")
+            console.log(result[0].role);
+            res.render(__dirname + "/public/pages/home/index.html", {role:result[0].role});
 
         });
     } else if (comando === "add_user"){
