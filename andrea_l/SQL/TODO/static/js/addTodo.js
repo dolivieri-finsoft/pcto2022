@@ -12,7 +12,7 @@ const saveTodo = () => {
     console.log(`Cosa: ${cosa}, Stato: ${stato}`);
 
     if (checkInsert('cosa') && checkInsert('stato')) {
-        fetch("/mysql?" + "cmd=newTodo&cosa=" + cosa + "&stato=" + stato + "&IdUtente=" + localStorage.Id + "&username=" + localStorage.username)
+        fetch("/mysql?" + "cmd=newTodo&cosa=" + cosa + "&stato=" + stato + "&IdUtente=" + localStorage.Id + "&username=" + localStorage.username + "&Ruolo=" + localStorage.ruolo)
             .then(response => {
                 if (response.status == 200 && response.statusText == "OK") {
                     window.location.href = '/home/add.html'
@@ -39,7 +39,7 @@ const AddGrafica = () => {
     titolo += localStorage.username; 
     document.getElementById("titolo").innerHTML = titolo;
 
-    if(localStorage.username == "admin")
+    if(localStorage.ruolo == "admin" || localStorage.ruolo == "super admin")
         document.getElementById("AdminButton").style.display = "block";
     else
         document.getElementById("AdminButton").style.display = "none";
@@ -48,7 +48,7 @@ const AddGrafica = () => {
     document.getElementById('AddButton').style.fontSize = "20px";
     document.getElementById('todoList').style.display = "block";
     document.getElementById('doneList').style.display = "block";
-    fetch("/mysql?" + "cmd=getListDone&IdUtente=" + localStorage.Id)
+    fetch("/mysql?" + "cmd=getListDone&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo)
         .then(response => response.json())
         .then(data => {
             html = "";
@@ -56,6 +56,9 @@ const AddGrafica = () => {
                 const element = data[i];
                 html += "<tr class='tableRow'>";
                 html += "<td class='elemento' id='stato'>" + element.cosa + "</td>";
+                if(localStorage.ruolo == "admin" || localStorage.ruolo == "super admin"){
+                    html += "<td class='autore elemento'>"+ element.Username +"</td>";
+                }
                 html += "<td class='elementoButton'>";
                 html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`)'>ELIMINA</button>";
                 html += "</td></tr>";
@@ -64,7 +67,7 @@ const AddGrafica = () => {
         })
         .catch(error => console.log(error));
 
-    fetch("/mysql?" + "cmd=getListTodo&IdUtente=" + localStorage.Id)
+    fetch("/mysql?" + "cmd=getListTodo&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo)
         .then(response => response.json())
         .then(data => {
             html = "";
@@ -72,6 +75,9 @@ const AddGrafica = () => {
                 const element = data[i];
                 html += "<tr class='tableRow'>";
                 html += "<td class='elemento' id='cosa'>" + element.cosa + "</td>";
+                if(localStorage.ruolo == "admin" || localStorage.ruolo == "super admin"){
+                    html += "<td class='autore elemento'>"+ element.Username +"</td>";
+                }
                 html += "<td class='elementoButton'>";
                 html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`)'>ELIMINA</button>";
                 html += "<button class='fatto' id='ButtonFatto' onclick='todoFatto(`"+ element.cosa +"`, `"+ element.stato +"`)'>FATTO</button></td></tr>";
@@ -84,7 +90,7 @@ const AddGrafica = () => {
 
 const deleteTodo = async (elimina) => {
 
-    fetch("/mysql?" + "cmd=deleteTodo&cosa=" + elimina + "&IdUtente=" + localStorage.Id)
+    fetch("/mysql?" + "cmd=deleteTodo&cosa=" + elimina + "&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo)
         .then(response => {
             if(response.status == 200 && response.statusText == "OK"){
                 window.location.href = '/home/add.html'; //aggiornamento pagina
@@ -95,7 +101,7 @@ const deleteTodo = async (elimina) => {
 
 const todoFatto = (cosa) => {
     console.log('todo fatto')
-    fetch("/mysql?" + "cmd=todoFatto&cosa=" + cosa + "&IdUtente=" + localStorage.Id)
+    fetch("/mysql?" + "cmd=todoFatto&cosa=" + cosa + "&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo)
         .then(response => {
             if (response.status == 200 && response.statusText == "OK") {
                 window.location.href = '/home/add.html'; //aggiornamento pagina

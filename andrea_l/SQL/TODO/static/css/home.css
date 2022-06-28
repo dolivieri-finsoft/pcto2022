@@ -2,6 +2,7 @@ body{
     background-color: white;  
     margin: 0;
     font-family: 'Permanent Marker', cursive;
+    overflow-x: hidden;
 }
 
 button:hover{
@@ -43,6 +44,7 @@ header{
     position: sticky;
     height: 15vh;
     margin: 0;
+    width: 100%;
 }
 
 .TitlePage{
@@ -133,11 +135,14 @@ header{
     border-bottom:0.5px solid black;
 }
 .tableRow{
-    width: 98vw;
+    width: 100vw;
     border-bottom:0.5px solid black;
     display: flex;
     flex-direction: row;
     color: gray;
+}
+td,tr{
+    overflow: auto;
 }
 
 .elemento{
@@ -145,7 +150,7 @@ header{
     padding-left: 5%;
     font-size: 30px;
     min-height: 60px;
-    overflow: auto;
+    
     border-right: 1px solid black;
     display: flex;
     align-items: center;

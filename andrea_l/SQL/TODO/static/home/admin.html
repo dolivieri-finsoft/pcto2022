@@ -16,6 +16,8 @@
     
 
     <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="../css/admin.css">
+
     <script src="https://kit.fontawesome.com/728ba0677f.js" crossorigin="anonymous"></script>
 </head>
 
@@ -35,7 +37,58 @@
             <button style="display: none;" class="menuButton" id="AdminButton" onclick="location.href='./admin.html'">Admin Page</button>
         </div>
     </header>
-    <script src="../js/home.js"></script>
+    <div class="ContainerAddUser" id="AddUserDiv" style="display: none;">
+        <div class="rowAdd" id="rowAdd">
+            <h2>AGGIUNGI</h2>
+        </div>
+        <div class="rowAdd" id="rowAdd">
+            <label for="Username" class="formLabel">Username:</label>
+            <input type="text" class="formInput" id="Username" name="Username" placeholder="Username" onkeyup="checkinputUsername();" required>  
+        </div>
+        <div class="rowAdd" id="rowAdd">
+            <label for="Password" class="formLabel">Password:</label>
+            <input type="password" class="formInputPsw" id="Password" name="Password" placeholder="Password" onkeyup="checkinputPassword();" required>
+            <button class="ShowPassword" id="ShowPassword" onclick="ShowPassword()"></button>
+        </div>
+        <div class="rowAdd" id="rowAdd">
+            <label for="nome" class="formLabelDatiPers">Nome:</label>
+            <input type="text" class="formInputDatiPers" id="Nome" name="nome" placeholder="Nome" onkeyup="" required>
+            <label for="cognome" class="formLabelDatiPers">Cognome:</label>
+            <input type="text" class="formInputDatiPers" id="Cognome" name="cognome" placeholder="Cognome" onkeyup="" required>
+        </div>
+        <div class="rowAdd" id="rowAdd">
+            <label for="Eta" class="formLabelDatiPers">Età:*</label>
+            <select class='formSelect' id='formSelectEtà' name='eta'>
+
+            </select>
+            
+            <label for="Eta" class="formLabelDatiPers">Sesso:*</label>
+            <select class='formSelect' id='formSelectSesso' name='stato'>
+                <option value="undefined">Undefined</option>
+                <option value='maschio'>Maschio</option>
+                <option value='femmina'>Femmina</option>
+            </select>
+            <label for="Eta" class="formLabelDatiPers">Ruolo:</label>
+            <select class='formSelect' id='formSelectRuolo' name='stato'>
+                <option value="utente">utente</option>
+                <option value="admin">admin</option>
+            </select>
+        </div>
+        <div class="rowAdd rowButtonAdd" id="rowAdd">
+            <button type="button" class="formButton formButtonSignIn" onclick="AggiungiUtente()">Aggiungi User</button>
+            <button type="button" class="formButton formButtonClose" onclick="AddCloseUser()">Annulla</button>
+        </div>
+    </div>
+    <div class="containerElement animate__animated animate__backInDown">
+        <table id='UserList'  style="display: none;">
+            <tbody id="inserisciUser" class="inserisciUser">
+                <tr class='tableRow'>                    
+                    <td class='elemento' id='IdUtente'><button class="">AGGIUNGI</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="../js/admin.js"></script>
 </body>
 
 </html>

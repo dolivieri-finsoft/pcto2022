@@ -23,20 +23,28 @@ table{
       text-align: center;
     }
 
+    #autore{
+      color: black;
+      background-color: orange;
+      text-align: center;
+      width: 170px;
+
+    }
+
    .elimina{
     color: rgb(110, 5, 5);
-    width: 130px;
+    width: 120px;
     cursor: default;
    } 
    .cambia{
     color: green;
-    width: 130px;
+    width: 100px;
     cursor: default;
 
    } 
 
    .modifica{
-    width: 80px;
+    width: 70px;
     cursor: default;
 
 
@@ -88,11 +96,34 @@ table{
     text-align: center;
     display: flex;
     justify-content: space-around;
+    margin-top: 20px;
+    margin-bottom: 50px;
   }
 
+  .container2{
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 50px;
+    margin-bottom: 70px;
+  }
+
+#insieme{
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+
+}
   
 
   #select{
+    font-size: 25px;
+    width: 100px;
+    height: 35px;
+  }
+
+  #selectUtenti{
     font-size: 25px;
     width: 100px;
     height: 35px;
@@ -102,6 +133,18 @@ table{
     font-size: 20px;
     height: 50px;
     width: auto;    
+  }
+
+  #userUtente{
+    font-size: 20px;
+    height: 50px;
+    width: auto;
+  }
+
+  #passUtente{
+    font-size: 20px;
+    height: 50px;
+    width: auto;
   }
 
   #password{
@@ -183,3 +226,20 @@ table{
   }
   
 
+#amministratore{
+  font-size: 25px;
+  border-radius: 10px 10px 10px 10px;
+  background-color: black;
+  color:yellow;
+}
+
+#adminPage{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+#lis{
+  width:200px;
+  background-color: orange;
+}

@@ -5,6 +5,16 @@ const eta = () => {
     }
     document.getElementById("formSelectEtà").innerHTML = html;
     document.getElementById("ShowPassword").innerHTML = "<i class='fa-solid fa-eye'></i>";
+
+    fetch("/mysql?" + "cmd=ControlloRuolo")
+        .then(response => response.json())
+        .then(data => {
+            if(data[0] == undefined){
+                alert("admin non presente");
+            }else{
+                alert("admin presente");
+            }
+    });
 }
 
 const ShowPassword = () => {
@@ -26,8 +36,9 @@ const registrati = () => {
     var cognome = document.getElementById('Cognome').value;
     var eta = document.getElementById('formSelectEtà').value;
     var sesso = document.getElementById('formSelectSesso').value;
+    var ruolo = document.getElementById("formSelectRuolo").value;
 
-    fetch("/mysql?" + "cmd=addUser&username=" + username + "&password=" + password + "&nome=" + nome + "&cognome=" + cognome + "&eta=" + eta + "&sesso=" + sesso)
+    fetch("/mysql?" + "cmd=addUser&username=" + username + "&password=" + password + "&nome=" + nome + "&cognome=" + cognome + "&eta=" + eta + "&sesso=" + sesso + "&ruolo=" + ruolo)
         .then(response => response.json())
         .then(data => {
             if(data[0] == undefined){

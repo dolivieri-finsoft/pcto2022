@@ -1,5 +1,9 @@
 var modificare;
 
+if(localStorage.length == 0){
+  localStorage.setItem("username", "");
+  localStorage.setItem("ruolo", "");
+}
 function myFunction() {
   var x = document.getElementById("password");
   if (x.type === "password") {
@@ -10,6 +14,10 @@ function myFunction() {
 }
 
 function Richiesta(){
+
+  if(localStorage.ruolo == "admin"){
+    document.getElementById('amministratore').style.display = "inline";
+  }
     
     const todoList = () => {
       fetch("/request")
@@ -21,6 +29,7 @@ function Richiesta(){
               
               for (var i = 0; i < data.length; i++) {
                   const element = data[i];
+                  
                   if(element.username == localStorage.username){
                   if(element.stato == "todo"){
                     html += "<tr> <td>" + element.cosa + "</td>  <td class='elimina' id ='" + element.cosa + "' onclick='elimina(this.id)'>Delete</td> <td class='cambia' id ='" + element.cosa + "' onclick='cambia(this.id)'>Move </td> <td class='modifica' id ='" + element.cosa + "' onclick='modifica(this.id, 0)'>✏️</td> </tr>";
@@ -172,11 +181,15 @@ function modifica(id, numero){
     if(data[0] == undefined){
         alert("Utente inesistente. Registrati");
     }
-    else if(data[0].password == password){
-      window.location.href = "../home/index.html";
-      localStorage.setItem("username",username);
+    else if(password == data[0].password){
+      localStorage.username = username;
+      localStorage.ruolo = data[0].ruolo;
+      
 
-    }
+      window.location.href = "../home/index.html";
+
+      
+  }
     else{
       alert("Email o Username Errati");
     }
@@ -208,6 +221,75 @@ function deleteAccount(){
   });
 
 }
+
+function admin(){
+  window.location.href = "../admin/index.html";
+}
+
+
+function Richiesta2(){
+      const todoList = () => {
+          fetch("/request")
+           .then(response => response.json())
+           .then(data => {
+           html = "<tr><th id='autore' colspan='1'>Autore</th><th id='titolo' colspan='8'>To do</th></tr>";
+           html1 = "<tr><th id='autore' colspan='1'>Autore</th><th id='titolo' colspan='8'>Done</th></tr>";
+           for (var i = 0; i < data.length; i++) {
+               const element = data[i];
+                  if(element.stato == "todo"){
+                    html += "<tr> <td id='user'>" + element.username + "</td> <td>" + element.cosa + "</td>  <td class='elimina' id ='" + element.cosa + "' onclick='elimina(this.id)'>Delete</td> <td class='cambia' id ='" + element.cosa + "' onclick='cambia(this.id)'>Move </td> <td class='modifica' id ='" + element.cosa + "' onclick='modifica(this.id, 0)'>✏️</td> </tr>";
+                   }
+                   else{
+                    html1 += "<tr> <td id='user'>" + element.username + "</td> <td>" + element.cosa + "</td> <td class='elimina' id ='" + element.cosa + "' onclick='elimina(this.id)'>Delete</td> <td class='modifica' id ='" + element.cosa + "' onclick='modifica(this.id, 1)'>✏️</td> </tr>";
+                   }
+           }
+           document.getElementById("todoList").innerHTML = html;
+          document.getElementById("todoList1").innerHTML = html1;
+      
+           })
+           .catch(error => console.log(error));
+          }
+      
+          document.onloadeddata = todoList();
+
+          const utenti = () => {
+            fetch("/lista")
+             .then(response => response.json())
+             .then(data => {
+                 lista = "<tr><th id='titolo' colspan='8'>Autori</th></tr><tr><td id='lis'>Username</td><td id='lis'>Password</td><td id='lis'>Ruolo</td></tr>";
+                 for (var i = 0; i < data.length; i++) {
+                    const element = data[i]; 
+                    lista += "<tr> <td>" + element.username + "</td> <td>" + element.password + "</td> <td>" + element.ruolo + "</td> <td class='elimina' id ='" + element.cosa + "' onclick='eliminaAutore(this.id)'>Delete</td> <td class='modifica' id ='" + element.cosa + "' onclick='modificaAutore(this.id, 1)'>✏️</td>";    
+                 }
+                 document.getElementById("utenti").innerHTML = lista;
+            
+             })
+             .catch(error => console.log(error));
+             }
+            
+            document.onloadeddata = utenti();    
+    }    
+
+function eliminaAutore(){
+
+  var valore = localStorage.username;
+
+    
+  fetch("/deleteAccount?" + "username=" + valore) 
+  .then(response => response.json())
+    .then(data => {  
+     alert(data[0]);
+    if(data[0] == undefined){
+        alert("Utente eliminato correttamente");
+        window.location.href = "../index.html";
+    }
+    
+    
+  });
+
+}
+
+  
 
  
   
