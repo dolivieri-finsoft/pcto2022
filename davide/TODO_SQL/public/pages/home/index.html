@@ -58,10 +58,11 @@
         // }
 
         //prova 2
-        // if("<%= role %>" !== "admin"){
-        //             console.log("<%= role %>");
-        //             document.getElementById("userManagerli").style.display = 'none';
-        // } 
+        console.log('<%= role %>')
+        if("<%= role %>" !== "admin"){
+                    console.log("<%= role %>");
+                    document.getElementById("userManagerli").style.display = 'none';
+        } 
     </script>
 </body>
 </html>
