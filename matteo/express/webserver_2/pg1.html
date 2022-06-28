@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
+    <head onload="isSU()">
         
         <title>todo</title>
         <link rel="stylesheet" href="stylesheet.css"/>
 
 
     </head>
-    <body onload="grossaTavola()">
+    <body onload="grossaTavola()" >
         <p id="giacomo">Task da fare</p>
         <div id="todo-location"></div>
         <p id="samuele">Task fatte</p>
@@ -16,13 +16,23 @@
         <button id="button1" type="button" onclick="addTask()">Aggiungi task</button>
         <button id ="button2" type="button" onclick="scambio()">Elimina task</button>
         <button id ="button3" type="button" onclick="modify()">Modifica task</button>
+        <button id="button4" type="button" onclick="addUser()">Aggiungi utente</button>
         
         
 
         <script>
             
            
-                //Funzione per creare la tabella
+                
+            
+                if("<%= isSU %>" == 0){
+                    console.log("<%= isSU %>");
+                    document.getElementById("button4").style.display = 'none';
+                }
+            
+            console.log("<%= isSU %>");
+            
+            //Funzione per creare la tabella
                 function initialize(x){
                 
                     
@@ -55,6 +65,28 @@
                     }
             }
 
+            function addUser(){
+
+                usn = prompt("Nome dell'utente:");
+                pwd = prompt("Password dell'utente:");
+                isSuper = confirm("Vuoi inserire l'utente come amministratore?");
+                truex = usn + " " + pwd + " " + isSuper;
+                fetch("/addUser", {
+                    method: "post",
+                    headers: {
+                        "Content-Type" : "text/plain"
+                    },
+                    body: truex
+                })
+                .then(response => {
+                    if(!response.ok){
+                        throw new Error('Errore fetch ' +response.status);
+                    }
+                    return response.json();
+                })
+                
+
+            }
             function scambio(){
                 var elementiLista = document.getElementById("todo-list");
                 var elementiLista2 = document.getElementById("done-list");
@@ -102,6 +134,8 @@
                 
             
             }
+
+            
 
             
                 //funzione che fa comparire la conferma per eliminare
@@ -213,43 +247,33 @@
 
 
             function modifyData(x){
-
-                fetch('data.json')
+                console.log(x);
+                spliced = x.id.replace(/_/g, " ");
+                console.log("wewe");
+                modify = prompt("Scrivi la roba");
+                truex = {
+                    nomeElemento : spliced, 
+                    modifica : modify
+                }
+                truex = JSON.stringify(truex);
+                fetch("/modify", {
+                    method: "post",
+                    headers: {
+                        "Content-Type" : "application/json"
+                    },
+                    body: truex
+                })
                 .then(response => {
                     if(!response.ok){
                         throw new Error('Errore fetch ' +response.status);
                     }
                     return response.json();
                 })
-                .then(json => {
-                    console.log(x);
-                    truex = x.id.replace(/_/g, " ");
-                    for(i = 0; i < json.tasks.length; i++){
-                        if(json.tasks[i].cosa == truex){
-                            var answer = prompt("Riscrivi il nome della task");
-                            var newObj = {
-                                cosa: answer,
-                                stato: json.tasks[i].stato
-                            }
-                            json.tasks.splice(i, 1);
-                            json.tasks.push(newObj);
+
+                window.location.reload();
                             
-                        xhttp = new XMLHttpRequest();
-                        xhttp.open('POST', '/rewrite', true);
-                        xhttp.setRequestHeader('Content-Type', 'application/json');
-                        xhttp.send(JSON.stringify(json));
-
-                        
-
-
-                            window.location.reload();
-                            
-                        }
-                    }
-                })
-                .catch(err => console.error('Errore creazione tabella' + err.message));
-
             }
+
 
             
      
