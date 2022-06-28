@@ -1,34 +1,47 @@
 var modificare;
 
+function myFunction() {
+  var x = document.getElementById("password");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+
 function Richiesta(){
     
     const todoList = () => {
-    fetch("/request")
-        .then(response => response.json())
-        .then(data => {
-            html = "<tr><th id='titolo' colspan='5'>To Do</th></tr>";
-              html1 = "<tr><th id='titolo' colspan='5'>Done</th></tr>";
-
-            
-            for (var i = 0; i < data.length; i++) {
-                const element = data[i];
-                if(element.stato == "todo"){
-                  html += "<tr> <td>" + element.cosa + "</td>  <td class='elimina' id ='" + element.cosa + "' onclick='elimina(this.id)'>Delete</td> <td class='cambia' id ='" + element.cosa + "' onclick='cambia(this.id)'>Move </td> <td class='modifica' id ='" + element.cosa + "' onclick='modifica(this.id, 0)'>✏️</td> </tr>";
-
-                }else{
-                  html1 += "<tr> <td>" + element.cosa + "</td> <td class='elimina' id ='" + element.cosa + "' onclick='elimina(this.id)'>Delete</td> <td class='modifica' id ='" + element.cosa + "' onclick='modifica(this.id, 1)'>✏️</td> </tr>";
-
+      fetch("/request")
+          .then(response => response.json())
+          .then(data => {
+              html = "<tr><th id='titolo' colspan='5'>To Do</th></tr>";
+                html1 = "<tr><th id='titolo' colspan='5'>Done</th></tr>";
+  
+              
+              for (var i = 0; i < data.length; i++) {
+                  const element = data[i];
+                  if(element.username == localStorage.username){
+                  if(element.stato == "todo"){
+                    html += "<tr> <td>" + element.cosa + "</td>  <td class='elimina' id ='" + element.cosa + "' onclick='elimina(this.id)'>Delete</td> <td class='cambia' id ='" + element.cosa + "' onclick='cambia(this.id)'>Move </td> <td class='modifica' id ='" + element.cosa + "' onclick='modifica(this.id, 0)'>✏️</td> </tr>";
+  
+                  }else{
+                    html1 += "<tr> <td>" + element.cosa + "</td> <td class='elimina' id ='" + element.cosa + "' onclick='elimina(this.id)'>Delete</td> <td class='modifica' id ='" + element.cosa + "' onclick='modifica(this.id, 1)'>✏️</td> </tr>";
+  
+                  }
                 }
-            }
-            
-            document.getElementById("todoList").innerHTML = html;
-            document.getElementById("todoList1").innerHTML = html1;
-
-        })
-        .catch(error => console.log(error));
-}
-
-document.onloadeddata = todoList();
+              }
+              
+              document.getElementById("todoList").innerHTML = html;
+              document.getElementById("todoList1").innerHTML = html1;
+  
+          })
+          .catch(error => console.log(error));
+  }
+  
+  document.onloadeddata = todoList();
+  
+    
 }
   
 
@@ -47,7 +60,7 @@ function cambia(id){
 
   function indietro(id){
     
-    window.location.href = "../index.html";
+    window.location.href = "../home/index.html";
     
   }
 
@@ -56,13 +69,15 @@ function aggiungi(){
     let cosa = document.getElementById('cosa').value;
     var select = document.getElementById("select").value;
 
+    let username = localStorage.username;
+
     if(cosa == ""){
       alert("Compila il campo sottostante!!!");
     }
     else{
       if(document.getElementById("aggiungi").outerHTML.length == 75)
         {
-            fetch("/write?" + "cosa=" + cosa + "&stato=" + select)
+            fetch("/write?" + "cosa=" + cosa + "&stato=" + select + "&username=" + username)
             .then(data => {
               if(data){
                   alert("Elemento già presente nel Database");
@@ -88,8 +103,11 @@ function aggiungi(){
 
 function modifica(id, numero){
    
-  var bottoneI;
+  
   document.getElementById('indietro').style.display = "inline";
+  document.getElementById('logout').style.display = "none";
+
+
 
   modificare = id;
   let stato;
@@ -111,3 +129,85 @@ function modifica(id, numero){
 
   }
 
+
+  function Signin(){
+
+
+   var username = document.getElementById('username').value;
+  var password = document.getElementById('password').value;
+
+   
+  if(username == "" || password == ""){
+   alert("Compila i campi sottostanti!!!");
+  }
+  else{
+    fetch("/signin?" + "username=" + username + "&password=" + password + "&ruolo=" + "")
+    .then(response => response.json())
+    .then(data => {
+      if(data[0] == undefined){
+        alert("Registrazione Effettuata");
+      }
+      else{
+        alert("Utente già esistente");
+      }
+      
+    });
+  }
+
+}
+
+  function Login(){
+   
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
+    
+    if(username == "" || password == ""){
+      alert("Compila i campi sottostanti!!!");
+    }
+    else{
+      fetch("/login?" + "username=" + username)
+    .then(response => response.json())
+    .then(data => {
+      
+    if(data[0] == undefined){
+        alert("Utente inesistente. Registrati");
+    }
+    else if(data[0].password == password){
+      window.location.href = "../home/index.html";
+      localStorage.setItem("username",username);
+
+    }
+    else{
+      alert("Email o Username Errati");
+    }
+
+    });
+}
+
+}
+
+function logout(){
+  window.location.href = "../index.html";
+}
+
+function deleteAccount(){
+   
+  var valore = localStorage.username;
+
+    
+  fetch("/deleteAccount?" + "username=" + valore) 
+  .then(response => response.json())
+    .then(data => {  
+    if(data[0] == undefined){
+        alert("Account eliminato correttamente");
+        window.location.href = "../index.html";
+
+    }
+    
+    
+  });
+
+}
+
+ 
+  

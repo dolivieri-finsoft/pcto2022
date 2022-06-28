@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="utf-8">
+    <title>Static WebServer</title>
+    <link rel="stylesheet" href="./css/login.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/728ba0677f.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body background="./src/sfondo.jpg">
+
+    
+
+    <div class="container">
+        <div class="row" style="justify-content: center;">
+            <h1>Login</h1>
+        </div>
+        <form class="LoginForm" id="idLoginForm">
+            <div class="row">
+                <label for="Username" class="formLabel">Username</label>
+                <input type="text" class="formInput" id="Username" name="Username" placeholder="Username" onkeyup="checkinputUsername();" required>  
+            </div>
+            <div class="row">
+                <label for="Password" class="formLabel">Password</label>
+                <input type="password" class="formInput" id="Password" name="Password" placeholder="Password" onkeyup="checkinputPassword();" required>
+                </button>
+            </div>
+            <div class="row rowButton">
+                <button type="button" class="formButton" onclick="log()">Login</button>
+                <button type="button" class="formButton" onclick="location.href='./home/register.html'">Sign In</button>
+            </div>
+        </form>
+    </div>
+        
+    <script src="./js/login.js"></script>
+
+</body>
+
+</html>

@@ -13,7 +13,7 @@ var con = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "Az-60427",
-    database: "lists"
+    database: "tasks"
 });
 
 con.connect((err) => {
@@ -28,7 +28,7 @@ app.get('/',(req,res) => {
 app.post('/add',(req,res) => {
     const newTask = req.body.value;
 
-    let sql = "INSERT INTO tasks (cosa, stato) VALUES ('" + newTask + "', 'todo')";
+    let sql = "INSERT INTO todo (nome) VALUES ('" + newTask  + "')";
     con.query(sql, (err, result) => {
         if(err) throw err;
     });
@@ -39,7 +39,7 @@ app.post('/remove',(req,res) => {
     const taskSearch = req.body.value;
     const taskStatus = req.body.type;
 
-    let sql = "DELETE FROM tasks WHERE cosa='" + taskSearch + "' AND stato='" + taskStatus + "'";
+    let sql = "DELETE FROM "+ taskStatus +" WHERE nome='" + taskSearch + "'";
     con.query(sql, (err, result) => {
         if(err) throw err;
     });
@@ -49,17 +49,18 @@ app.post('/remove',(req,res) => {
 app.post('/move',(req,res) => {
     const taskSearch = req.body.value;
     const taskStatus = req.body.type;
+
     if (taskStatus == "todo"){
-        var newStatus = "done";
+        const newStatus = "done";
     } else {
-        var newStatus = "todo";
+        const newStatus = "todo";
     }
 
-    let sql = "DELETE FROM tasks WHERE cosa='" + taskSearch + "' AND stato='"+ taskStatus +"'";
+    let sql = "DELETE FROM "+ taskStatus +" WHERE nome='" + taskSearch + "'";
     con.query(sql, (err, result) => {
         if(err) throw err;
     });
-    sql = "INSERT INTO tasks (cosa, stato) VALUES ('" + taskSearch + "','"+ newStatus+ "')";
+    sql = "INSERT INTO "+ newStatus +" (cosa) VALUES ('" + taskSearch + "')";
     con.query(sql, (err, result) => {
         if(err) throw err;
     });
@@ -71,18 +72,41 @@ app.post('/rename',(req,res) => {
     const taskStatus = req.body.type;
     const newName = req.body.value;
     
-    let sql = "UPDATE tasks SET cosa='" + newName + "' WHERE cosa='" + taskSearch + "' AND stato='"+ taskStatus + "'";
+    let sql = "UPDATE "+ taskStatus +" SET nome='" + newName + "' WHERE nome='" + taskSearch + "'";
     con.query(sql, (err, result) => {
         if(err) throw err;
     });
     res.sendStatus(200);
 })
 
-app.get('/requestData', (req,res) => {
-    let sql = "SELECT * FROM tasks"
-    con.query(sql, (err, result) => {
-        res.send(result);
+//Funzioni per /requestData
+
+function getData(tableToRequest){
+    return new Promise((resolve,reject)=>{
+        let sql = "SELECT * FROM " + tableToRequest;
+        con.query(sql,(err, result) => {
+            if(err) reject(err);
+            resolve(result);
+        })
     })
+}
+
+
+//formato [nome: "nome", stato: "nomeTabella"]
+app.get('/requestData', async function(req,res){
+    const tableTodo = await getData("todo");
+    const tableDone = await getData("done");
+    const tableTotal = [];
+    
+    tableTodo.forEach(element => {
+        tableTotal.push({nome: element.nome, stato: "todo"})
+    });
+
+    tableDone.forEach(element => {
+        tableTotal.push({nome: element.nome, stato: "done"});
+    });
+    console.log(tableTotal);
+    res.send(JSON.stringify(tableTotal));
 })
 
 app.get('/*', (req,res) => {

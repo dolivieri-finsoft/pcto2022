@@ -154,6 +154,7 @@ form{
 footer{
     background-color: #D68D2E;
     color: white;
+    border-radius: 25px;
 }
 
 .button-container{
@@ -186,4 +187,16 @@ footer{
     height: auto;
     resize: none;
     border-radius: 15px;
+}
+
+.buttonsform{
+    padding-top: 10px;
+}
+
+.forms_log{
+    padding-top: 25px;
+}
+
+#logIN, #signIN{
+    display: none;
 }
