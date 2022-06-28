@@ -9,6 +9,7 @@ table{
     border: 3px white solid;
     background-color: black;
     padding: 5px;
+    width: 35%;
 }
 tr, td{
     border: 1px solid;
@@ -47,12 +48,6 @@ h1{
     text-align: center;
     padding: 20px;
     border: 3px white solid;
-}
-#todoList{
-    width: 600px;
-}
-#doneList{
-    width: 600px;
 }
 .opzioni{
     color: white;
@@ -97,4 +92,12 @@ h1{
 #user{
     background-color: black;
     color: white;
+}
+.section{
+    padding: 20px;
+    border: 3px black solid;
+    border-radius: 10px;
+}
+#my{
+    background-color:yellow;
 }
