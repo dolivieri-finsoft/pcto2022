@@ -6,15 +6,32 @@ const eta = () => {
     document.getElementById("formSelectEtà").innerHTML = html;
     document.getElementById("ShowPassword").innerHTML = "<i class='fa-solid fa-eye'></i>";
 
-    fetch("/mysql?" + "cmd=ControlloRuolo")
-        .then(response => response.json())
-        .then(data => {
-            if(data[0] == undefined){
-                alert("admin non presente");
-            }else{
-                alert("admin presente");
+    html = "<option value='utente'>utente</option>"
+
+    controlloAdmin();
+    controlloSuperAdmin();
+}
+
+const controlloSuperAdmin = () =>{
+    superAdmin = "super admin";
+    fetch("/mysql?" + "cmd=ControlloRuolo&ruolo=" + superAdmin)
+        .then(response => {
+            if(response.status == 200 && response.statusText == "OK"){
+                html += "<option value='super admin'>super admin</option>"
             }
-    });
+            document.getElementById("formSelectRuolo").innerHTML = html;
+        });
+}
+
+const controlloAdmin = () =>{
+    admin = "admin";
+    fetch("/mysql?" + "cmd=ControlloRuolo&ruolo=" + admin)
+        .then(response => {
+            if(response.status == 200 && response.statusText == "OK"){
+                html += "<option value='admin'>admin</option>"
+            }
+            document.getElementById("formSelectRuolo").innerHTML = html;
+        });
 }
 
 const ShowPassword = () => {

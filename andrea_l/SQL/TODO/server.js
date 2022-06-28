@@ -44,7 +44,11 @@ app.get('/mysql', function (req, res) {
     cmd = req.query.cmd;
     console.log(`CMD: ${cmd}`);
 
-    if(cmd == "deleteUser"){
+    if(cmd == "getSpecificoTodo"){
+        var sqlGet = "SELECT * FROM todo_done_DB WHERE id = '"+ req.query.IdCosa +"';";
+        
+
+    }else if(cmd == "deleteUser"){
         var sqlDelete = "DELETE FROM todo_done_DB WHERE IdUtente = '"+ req.query.IdUtente +"';";
         var sqlDeleteUser ="DELETE FROM Users WHERE IdUtente = '"+ req.query.IdUtente +"';";
         db.query(sqlDelete, (err) => {
@@ -105,6 +109,17 @@ app.get('/mysql', function (req, res) {
                 res.send(result);
             }
         });
+    }else if(cmd == "ControlloRuolo"){
+        var sqlAdmin = "SELECT Ruolo FROM Users WHERE Ruolo = '"+ req.query.ruolo +"';";
+        
+        db.query(sqlAdmin, (err, result)=>{
+            if(result.length == 0){
+                console.log(req.query.ruolo + " non trovato");
+                res.send("OK");
+            }else{
+                console.log(req.query.ruolo + " trovato");
+            }
+        });
     }else if(cmd == "addUser"){
         var sqlSelect = "SELECT Nome_utente FROM Users WHERE Nome_utente = '" + req.query.username +"';";
 
@@ -113,7 +128,7 @@ app.get('/mysql', function (req, res) {
                 var sql = "INSERT INTO Users(Nome_utente, Password, Nome, Cognome, Anni, Sesso, Ruolo) VALUES ('"+ req.query.username +"', '"+ req.query.password +"', '"+ req.query.nome +"', '"+ req.query.cognome +"', '"+ req.query.eta +"', '"+ req.query.sesso +"', '"+ req.query.ruolo +"');";
                 db.query(sql, (err, result) =>{
                     if(err)
-                        console.log(ERROE);
+                        console.log(err);
                     else
                         console.log("1 user inserted");
                 });
@@ -175,11 +190,11 @@ app.get('/mysql', function (req, res) {
     }else if (cmd == "modifyTodo"){
         if(req.query.Ruolo == "admin" || req.query.Ruolo == "super admin"){
             console.log("sono admin");
-            var sqlUpdate ="UPDATE todo_done_DB SET cosa = '"+ req.query.cosa +"', stato = '"+ req.query.stato +"' WHERE cosa = '"+ req.query.modificare +"';";        
+            var sqlUpdate ="UPDATE todo_done_DB SET cosa = '"+ req.query.cosa +"', stato = '"+ req.query.stato +"' WHERE cosa = '"+ req.query.modificare +"'AND id = '"+ req.query.IdModifica +"';";        
         }
         else{
             console.log("non sono admin");
-            var sqlUpdate ="UPDATE todo_done_DB SET cosa = '"+ req.query.cosa +"', stato = '"+ req.query.stato +"' WHERE cosa = '"+ req.query.modificare +"' AND IdUtente = '"+ req.query.IdUtente +"';";        
+            var sqlUpdate ="UPDATE todo_done_DB SET cosa = '"+ req.query.cosa +"', stato = '"+ req.query.stato +"' WHERE cosa = '"+ req.query.modificare +"' AND IdUtente = '"+ req.query.IdUtente +"'AND id = '"+ req.query.IdModifica +"';";        
         }
 
         db.query(sqlUpdate, (err) => {
@@ -206,11 +221,11 @@ app.get('/mysql', function (req, res) {
     }else if (cmd == "deleteTodo") {
         if(req.query.Ruolo == "admin" || req.query.Ruolo == "super admin"){
             console.log("sono admin");
-            var sqlDelete = "DELETE FROM todo_done_DB WHERE cosa='"+ req.query.cosa +"';";
+            var sqlDelete = "DELETE FROM todo_done_DB WHERE cosa='"+ req.query.cosa +"' AND id = '"+ req.query.IdEliminare +"';";
         }
         else{
             console.log("non sono admin");
-            var sqlDelete = "DELETE FROM todo_done_DB WHERE cosa='"+ req.query.cosa +"' AND IdUtente = '"+ req.query.IdUtente +"';";
+            var sqlDelete = "DELETE FROM todo_done_DB WHERE cosa='"+ req.query.cosa +"' AND id = '"+ req.query.IdEliminare +"';";
         }
         
 
@@ -225,11 +240,11 @@ app.get('/mysql', function (req, res) {
     } else if (cmd == "todoFatto") {
         if(req.query.Ruolo == "admin" || req.query.Ruolo == "super admin"){
             console.log("sono admin");
-            var sqlSelect ="UPDATE todo_done_DB SET stato = 'Done' WHERE cosa = '"+ req.query.cosa +"';";
+            var sqlSelect ="UPDATE todo_done_DB SET stato = 'Done' WHERE cosa = '"+ req.query.cosa +"'AND id = '"+ req.query.IdSpostare +"';";
         }
         else{
             console.log("non sono admin");
-            var sqlSelect ="UPDATE todo_done_DB SET stato = 'Done' WHERE cosa = '"+ req.query.cosa +"' AND IdUtente = '"+ req.query.IdUtente +"';";
+            var sqlSelect ="UPDATE todo_done_DB SET stato = 'Done' WHERE cosa = '"+ req.query.cosa +"' AND IdUtente = '"+ req.query.IdUtente +"'AND id = '"+ req.query.IdSpostare +"';";
         }
         
         db.query(sqlSelect, (err) => {
