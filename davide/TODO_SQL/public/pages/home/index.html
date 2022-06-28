@@ -56,7 +56,11 @@
         // document.getElementById("userManagerli").style.display = "none";
         // }
 
-        //prova 2 
+        //prova 2
+        if("<%= role %>" == "admin"){
+                    console.log("<%= role %>");
+                    document.getElementById("userManagerli").style.display = 'block';
+        } 
     </script>
 </body>
 </html>
