@@ -1,7 +1,7 @@
 var userDaModificare;
 var cosaDaModificareUser;
 
-if(localStorage.length == 0){
+if(localStorage.length == 0 || localStorage.length == 1 || localStorage.length == 2){
     localStorage.setItem("access", "no");
     localStorage.setItem("user", "");
     localStorage.setItem("role", "");

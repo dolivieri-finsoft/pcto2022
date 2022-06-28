@@ -97,7 +97,11 @@ h1{
     padding: 20px;
     border: 3px black solid;
     border-radius: 10px;
+    background-color: #ffffff6c;
 }
 #my{
     background-color:yellow;
+}
+#sinistra{
+    width: 10%;
 }
