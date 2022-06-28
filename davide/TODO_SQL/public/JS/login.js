@@ -15,7 +15,6 @@ const checkInsert = (id) => {
     return true;
 }
 
-var currentUser;
 
 //#region funzioni log e sign
 const fun_log_IN = () =>{
@@ -30,9 +29,11 @@ const fun_log_IN = () =>{
             .then(data => {
                 console.log(data);
                 if(data != 0){
-                    window.location.replace("/home");
-                    currentUser = data;
-                    console.log(currentUser);
+                    localStorage.clear();
+                    console.log(data)
+                    localStorage.setItem("access", data[0].role);
+                    console.log(localStorage);
+                    //window.location.replace("/home");
                 }
                 else{
                     document.getElementById("error").innerText = "ERRORE!!!";

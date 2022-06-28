@@ -103,6 +103,7 @@ app.get('/data', function (req, res) {
         var sql = "SELECT * FROM utenti WHERE username = '"+ req.query.user + "' AND password = '" + req.query.password + "'"; 
         con.query(sql, function (err, result) {
             if (err) throw err;
+            console.log(__dirname + "/public/pages/home/index.html")
             console.log(result);
             res.send(result);
 

@@ -107,11 +107,18 @@ router.get('/modifyUser',function(req,res){
         if (err) throw err;
         console.log("1 user modified");
       });
+
+      var sql2 = "UPDATE pcto2022.todo SET user = '" + req.query.username + "' WHERE user = '" + req.query.userDaMo + "';";
+      con.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log("Elements modified");
+      });
     }
     else{
       res.send(result);
       console.log("Errore");
     }
+
   });
 });
 
