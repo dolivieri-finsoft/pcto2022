@@ -5,19 +5,19 @@ function Richiesta(){
     const todoList = () => {
     fetch("/request")
         .then(response => response.json())
-        .then(data => {
-            html = "<tr><th id='titolo' colspan='5'>To Do</th></tr>";
-              html1 = "<tr><th id='titolo' colspan='5'>Done</th></tr>";
+        .then(data => { 
+          console.log(data)
+            html = "<tr><th>To Do</th></tr>";
+              html1 = "<tr><th>Done</th></tr>";
 
             
             for (var i = 0; i < data.length; i++) {
                 const element = data[i];
                 if(element.stato == "todo"){
-                  html += "<tr> <td>" + element.cosa + "</td>  <td class='elimina' id ='" + element.cosa + "' onclick='elimina(this.id)'>Delete</td> <td class='cambia' id ='" + element.cosa + "' onclick='cambia(this.id)'>Move </td> <td class='modifica' id ='" + element.cosa + "' onclick='modifica(this.id, 0)'>✏️</td> </tr>";
-
-                }else{
-                  html1 += "<tr> <td>" + element.cosa + "</td> <td class='elimina' id ='" + element.cosa + "' onclick='elimina(this.id)'>Delete</td> <td class='modifica' id ='" + element.cosa + "' onclick='modifica(this.id, 1)'>✏️</td> </tr>";
-
+                  html += '<tr><td>' +element.cosa + '</td><td><button type="button" onclick="elimina( `'+element.id+'`);">Delete</button></td><td><button type="button" onclick="cambia( `'+element.id+'`);">Move</button></td></tr>';
+                }
+                else if (element.stato== "done"){
+                  html1 += '<tr><td>' +element.cosa + '</td><td><button type="button" onclick="elimina(`'+element.id+'`);">Delete</button></td></tr>';
                 }
             }
             
@@ -34,13 +34,13 @@ document.onloadeddata = todoList();
 
 
 function elimina(id){
-    fetch("/delete?" + "cosa=" + id)
+    fetch("/delete?" + "id=" + id)
     window.location.reload();
     
   }
 
 function cambia(id){
-    fetch("/sposta?" + "cosa=" + id)
+    fetch("/sposta?" + "id=" + id)
     window.location.reload();
     
   }
@@ -53,51 +53,81 @@ function cambia(id){
 
 
 function aggiungi(){
-    let cosa = document.getElementById('cosa').value;
-    var select = document.getElementById("select").value;
+    var cosa = document.getElementById('cosa').value;
+    var stato = document.getElementById('select').value;
 
     if(cosa == ""){
       alert("Compila il campo sottostante!!!");
     }
     else{
-      if(document.getElementById("aggiungi").outerHTML.length == 75)
         {
-            fetch("/write?" + "cosa=" + cosa + "&stato=" + select)
-        }
-        else if (document.getElementById("aggiungi").outerHTML.length == 74)
-        {
-
-        fetch("/modifica?" + "modificare=" + modificare + "&cosa=" + cosa + "&stato=" + select)
-
-        }
-      window.location.reload();
+            fetch("/write?" + "cosa=" + cosa + "&stato=" + stato)
+        }window.location.reload();
   }
 }
 
+document.onloadedmetadata=Richiesta();
 
 
-function modifica(id, numero){
-   
-  var bottoneI;
-  document.getElementById('indietro').style.display = "inline";
 
-  modificare = id;
-  let stato;
+function Signin(){
+  var username = document.getElementById('username').value;
+ var password = document.getElementById('password').value;
+
+  
+ if(username == "" || password == ""){
+  alert("Compila i campi sottostanti!!!");
+ }
+ else{
+   fetch("/signin?" + "username=" + username + "&password=" + password)
+   .then(response => response.json())
+   .then(data => {
+     if(data[0] == undefined){
+       alert("Registrazione Effettuata");
+     }
+     else{
+       alert("Utente già esistente");
+     }
+     
+   });
+ }
+  
  
-   if(numero == 0)
-   {
-    stato = "todo";
-    document.getElementById('select').value = "todo";
 
+
+       
+
+
+ }
+
+ function Login(){
+   var username = document.getElementById('username').value;
+   var password = document.getElementById('password').value;
+
+   if(username == "" || password == ""){
+     alert("Compila i campi sottostanti!!!");
    }
-   else if(numero == 1){
-    stato = "done";
-    document.getElementById('select').value = "done";
-   }
-  document.getElementById('cosa').value = id;
-  document.getElementById('aggiungi').innerHTML = "Modifica";
-  document.getElementById('elemento').innerHTML = "Modifica Elemento";
+   else{
+  //    fetch("/login?" + "username=" + username+"&password=" + password)
+  //  .then(response => response.json())
+  //  .then(data => {
+     
+     
+  //  if(data[0] == undefined){
+  //      alert("Utente inesistente. Registrati");
+  //  }
+  //  else if(data[0].password == password){
+     window.location.href = "LISTASPESA/home/index.html";
+  //  }
+  //  else{
+  //    alert("Email o Username Errati");
+  //  }
+   
 
+//  });
+}
+}
 
-  }
-
+function logout(){
+ window.location.href = "LISTASPESA/index.html";
+}

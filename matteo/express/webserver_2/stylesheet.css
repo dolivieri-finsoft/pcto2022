@@ -1,4 +1,4 @@
-#giacomo {
+p {
 
     font-size: 40px;
     width: fit-content;
@@ -7,6 +7,11 @@
     border: 8px;
     border-color: black;
     padding: 10px;
+}
+
+label {
+
+    color: white;
 }
 
 #samuele {

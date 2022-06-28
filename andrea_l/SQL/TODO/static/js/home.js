@@ -1,4 +1,12 @@
 const bothList = () => {
+    var titolo = "Lista - ";
+    titolo += localStorage.username; 
+    document.getElementById("titolo").innerHTML = titolo;
+
+    if(localStorage.ruolo == "admin" || localStorage.ruolo == "super admin")
+        document.getElementById("AdminButton").style.display = "block";
+    else
+        document.getElementById("AdminButton").style.display = "none";
 
     document.getElementById('todoList').style.display = "block";
     document.getElementById('doneList').style.display = "block";
@@ -10,8 +18,7 @@ const bothList = () => {
     document.getElementById('BothButton').style.fontSize = "20px";
     document.getElementById('inserisciTitoloListaDone').style.display = "flex";
     document.getElementById('inserisciTitoloListaTodo').style.display = "flex";
-    alert(IdUser);
-    fetch("/mysql?" + "cmd=getListDone&IdUtente" + IdUser)
+    fetch("/mysql?" + "cmd=getListDone&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo)
         .then(response => response.json())
         .then(data => {
             html = "";
@@ -19,6 +26,9 @@ const bothList = () => {
                 const element = data[i];
                 html += "<tr class='tableRow'>";
                 html += "<td class='elemento' id='stato'>" + element.cosa + "</td>";
+                if(localStorage.ruolo == "admin" || localStorage.ruolo == "super admin"){
+                    html += "<td class='autore elemento'>"+ element.Username +"</td>";
+                }
                 html += "<td class='elementoButton'>";
                 html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`)'>ELIMINA</button>";
                 html += "</td></tr>";
@@ -27,7 +37,7 @@ const bothList = () => {
         })
         .catch(error => console.log(error));
 
-    fetch("/mysql?" + "cmd=getListTodo&IdUtente=" + IdUser)
+    fetch("/mysql?" + "cmd=getListTodo&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo)
         .then(response => response.json())
         .then(data => {
             html = "";
@@ -35,6 +45,9 @@ const bothList = () => {
                 const element = data[i];
                 html += "<tr class='tableRow'>";
                 html += "<td class='elemento' id='cosa'>" + element.cosa + "</td>";
+                if(localStorage.ruolo == "admin" || localStorage.ruolo == "super admin"){
+                    html += "<td class='autore elemento'>"+ element.Username +"</td>";
+                }
                 html += "<td class='elementoButton'>";
                 html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`)'>ELIMINA</button>";
                 html += "<button class='fatto' id='ButtonFatto' onclick='todoFatto(`"+ element.cosa +"`, `"+ element.stato +"`)'>FATTO</button></td></tr>";
@@ -47,7 +60,7 @@ const bothList = () => {
 
 const todoFatto = (cosa) => {
     console.log('todo fatto')
-    fetch("/mysql?" + "cmd=todoFatto&cosa=" + cosa)
+    fetch("/mysql?" + "cmd=todoFatto&cosa=" + cosa + "&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo)
         .then(response => {
             if (response.status == 200 && response.statusText == "OK") {
                 window.location.href = '/home'; //aggiornamento pagina
@@ -58,7 +71,7 @@ const todoFatto = (cosa) => {
 
 const deleteTodo = async (elimina) => {
 
-    fetch("/mysql?" + "cmd=deleteTodo&cosa=" + elimina)
+    fetch("/mysql?" + "cmd=deleteTodo&cosa=" + elimina + "&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo)
         .then(response => {
             if(response.status == 200 && response.statusText == "OK"){
                 window.location.href = '/home'; //aggiornamento pagina
@@ -67,35 +80,6 @@ const deleteTodo = async (elimina) => {
         .catch(error => console.log(error));
 }
 
-const log = () => {
-    var username = document.getElementById("Username").value;
-    var password = document.getElementById("Password").value;
 
-    if(username == "" || password == ""){
-        alert("Inserire username e password")
-    }else{
-        fetch("/mysql?" +  "cmd=loginUser&username=" + username)
-            .then(response => response.json())
-            .then(data => {
-                if(data[0] == undefined){
-                    alert("Utente non esistente");
-                }else if(password == data[0].Password){
-                    salvaIdUtente();
-                }else{
-                    alert("Password errata");
-                }
-            });
-    }
-}
-
-const salvaIdUtente = () =>{
-    var username = document.getElementById("Username").value;
-    fetch("/mysql?" + "cmd=getIdUtente&username="+ username)
-    .then(response => response.json())
-    .then(data => {
-        IdUser = data[0].IdUtente;
-        window.location.href = "home";
-    });
-}
 
 document.onload = bothList();

@@ -44,8 +44,49 @@ app.get('/mysql', function (req, res) {
     cmd = req.query.cmd;
     console.log(`CMD: ${cmd}`);
 
-    if(cmd == "getIdUtente"){
-        var sql = "SELECT IdUtente FROM Users WHERE Nome_Utente = '"+ req.query.username +"';";
+    if(cmd == "deleteUser"){
+        var sqlDelete = "DELETE FROM todo_done_DB WHERE IdUtente = '"+ req.query.IdUtente +"';";
+        var sqlDeleteUser ="DELETE FROM Users WHERE IdUtente = '"+ req.query.IdUtente +"';";
+        db.query(sqlDelete, (err) => {
+            if (err)
+                console.log(err);
+            else{
+                console.log("Dati Eliminati");
+                db.query(sqlDeleteUser, (err) =>{
+                    if(err)
+                        console.log(err);
+                    else{
+                        console.log("UTENTE ELIMINATO");
+                        res.send("OK");
+                    }
+                });
+            }
+        });
+    }else if(cmd == "getListUser"){
+        var sql ="SELECT * FROM Users;"
+
+        db.query(sql, (err, result) =>{
+            if(err)
+                console.log("ERRORE");
+            else{
+                console.log("lista utenti trovata");
+                console.log(result);
+                res.send(result);
+            }
+        });
+    }else if(cmd =="getNomeUtente"){
+        var sql = "SELECT Nome_utente FROM Users WHERE IdUtente = '"+ req.query.IdUtente +"';";
+
+        db.query(sql, (err, result)=> {
+            if(err)
+                console.log("ERRORE");
+            else{
+                console.log("Nome utente trovato");
+                res.send(result);
+            }
+        });
+    }else if(cmd == "getIdUtente"){
+        var sql = "SELECT * FROM Users WHERE Nome_Utente = '"+ req.query.username +"';";
         db.query(sql, (err, result)=> {
             if(err)
                 console.log("ERRORE");
@@ -60,7 +101,7 @@ app.get('/mysql', function (req, res) {
             if(err)
                 console.log("ERRORE");
             else{
-                console.log("TROVATO");
+                console.log("User trovato");
                 res.send(result);
             }
         });
@@ -69,7 +110,7 @@ app.get('/mysql', function (req, res) {
 
         db.query(sqlSelect, (err, result) =>{
             if(result.length == 0){
-                var sql = "INSERT INTO Users(Nome_utente, Password, Nome, Cognome, Anni, Sesso) VALUES ('"+ req.query.username +"', '"+ req.query.password +"', '"+ req.query.nome +"', '"+ req.query.cognome +"', '"+ req.query.eta +"', '"+ req.query.sesso +"');";
+                var sql = "INSERT INTO Users(Nome_utente, Password, Nome, Cognome, Anni, Sesso, Ruolo) VALUES ('"+ req.query.username +"', '"+ req.query.password +"', '"+ req.query.nome +"', '"+ req.query.cognome +"', '"+ req.query.eta +"', '"+ req.query.sesso +"', '"+ req.query.ruolo +"');";
                 db.query(sql, (err, result) =>{
                     if(err)
                         console.log(ERROE);
@@ -82,17 +123,31 @@ app.get('/mysql', function (req, res) {
             res.send(result);
         });
     }else if (cmd == "getListTodo") {
-        var sqlSelect ="SELECT * FROM todo_done_DB WHERE stato = 'todo' AND IdUtente = '"+ req.query.IdUtente +"'";
+        if(req.query.Ruolo == "admin" || req.query.Ruolo == "super admin"){
+            console.log("sono admin");
+            var sqlSelect ="SELECT * FROM todo_done_DB WHERE stato = 'todo';";
+        }
+        else{
+            console.log("non sono admin");
+            var sqlSelect ="SELECT * FROM todo_done_DB WHERE stato = 'todo' AND IdUtente = "+ req.query.IdUtente +";";
+        }
+
 
         db.query(sqlSelect, (err, result) =>{
             if(err)
                 console.log(err);
             else
                 res.send(result);
-                console.log(result);
         });
     }else if(cmd == "getList"){
-        var sqlSelect ="SELECT * FROM todo_done_DB WHERE IdUtente = '"+ req.query.IdUtente +"'";
+        if(req.query.Ruolo == "admin" || req.query.Ruolo == "super admin"){
+            console.log("sono admin");
+            var sqlSelect ="SELECT * FROM todo_done_DB;";
+        }
+        else{
+            console.log("non sono admin");
+            var sqlSelect ="SELECT * FROM todo_done_DB WHERE IdUtente = "+ req.query.IdUtente +";";
+        }
 
         db.query(sqlSelect, (err, result) =>{
             if(err)
@@ -102,17 +157,31 @@ app.get('/mysql', function (req, res) {
                 console.log(result);
         });
     }else if(cmd == "getListDone"){
-        var sqlSelect ="SELECT * FROM todo_done_DB WHERE stato = 'done' AND IdUtente = '"+ req.query.IdUtente +"'";
+        if(req.query.Ruolo == "admin" || req.query.Ruolo == "super admin"){
+            console.log("sono admin");
+            var sqlSelect ="SELECT * FROM todo_done_DB WHERE stato = 'Done';";
+        }
+        else{
+            console.log("non sono admin");
+            var sqlSelect ="SELECT * FROM todo_done_DB WHERE stato = 'Done' AND IdUtente = "+ req.query.IdUtente +";";
+        }
 
         db.query(sqlSelect, (err, result) =>{
             if(err)
                 console.log(err);
             else
                 res.send(result);
-                console.log(result);
         });
     }else if (cmd == "modifyTodo"){
-        var sqlUpdate ="UPDATE todo_done_DB SET cosa = '"+ req.query.cosa +"', stato = '"+ req.query.stato +"' WHERE cosa = '"+ req.query.modificare +"' AND IdUtente = '"+ req.query.IdUtente +"';";        
+        if(req.query.Ruolo == "admin" || req.query.Ruolo == "super admin"){
+            console.log("sono admin");
+            var sqlUpdate ="UPDATE todo_done_DB SET cosa = '"+ req.query.cosa +"', stato = '"+ req.query.stato +"' WHERE cosa = '"+ req.query.modificare +"';";        
+        }
+        else{
+            console.log("non sono admin");
+            var sqlUpdate ="UPDATE todo_done_DB SET cosa = '"+ req.query.cosa +"', stato = '"+ req.query.stato +"' WHERE cosa = '"+ req.query.modificare +"' AND IdUtente = '"+ req.query.IdUtente +"';";        
+        }
+
         db.query(sqlUpdate, (err) => {
             if (err)
                 console.log(err);
@@ -123,7 +192,8 @@ app.get('/mysql', function (req, res) {
         });
 
     }else if (cmd == "newTodo") {
-        var sqlInsert = "INSERT INTO todo_done_DB (cosa, stato, IdUtente) VALUES ('" + req.query.cosa + "', '" + req.query.stato + "', '"+ req.query.IdUtente +"');";
+        var sqlInsert = "INSERT INTO todo_done_DB (cosa, stato, IdUtente, Username) VALUES ('" + req.query.cosa + "', '" + req.query.stato + "', '"+ req.query.IdUtente +"', '"+ req.query.username +"');";
+
         
         db.query(sqlInsert, (err) => {
             if (err)
@@ -134,7 +204,15 @@ app.get('/mysql', function (req, res) {
             }
         });
     }else if (cmd == "deleteTodo") {
-       var sqlDelete = "DELETE FROM todo_done_DB WHERE cosa='"+ req.query.cosa +"' AND IdUtente = '"+ req.query.IdUtente +"';";
+        if(req.query.Ruolo == "admin" || req.query.Ruolo == "super admin"){
+            console.log("sono admin");
+            var sqlDelete = "DELETE FROM todo_done_DB WHERE cosa='"+ req.query.cosa +"';";
+        }
+        else{
+            console.log("non sono admin");
+            var sqlDelete = "DELETE FROM todo_done_DB WHERE cosa='"+ req.query.cosa +"' AND IdUtente = '"+ req.query.IdUtente +"';";
+        }
+        
 
         db.query(sqlDelete, (err) => {
             if (err)
@@ -145,7 +223,14 @@ app.get('/mysql', function (req, res) {
             }
         });
     } else if (cmd == "todoFatto") {
-        var sqlSelect ="UPDATE todo_done_DB SET stato = 'Done' WHERE cosa = '"+ req.query.cosa +"' AND IdUtente = '"+ req.query.IdUtente +"';";
+        if(req.query.Ruolo == "admin" || req.query.Ruolo == "super admin"){
+            console.log("sono admin");
+            var sqlSelect ="UPDATE todo_done_DB SET stato = 'Done' WHERE cosa = '"+ req.query.cosa +"';";
+        }
+        else{
+            console.log("non sono admin");
+            var sqlSelect ="UPDATE todo_done_DB SET stato = 'Done' WHERE cosa = '"+ req.query.cosa +"' AND IdUtente = '"+ req.query.IdUtente +"';";
+        }
         
         db.query(sqlSelect, (err) => {
             if (err)
