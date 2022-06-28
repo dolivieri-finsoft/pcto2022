@@ -19,14 +19,6 @@ const ShowPassword = () => {
     }
 }
 
-const checkInsert = (id) => {
-    if (document.getElementById(id).value == "") {
-        return false;
-    }else{
-        return true
-    }
-}
-
 const registrati = () => {
     var username = document.getElementById('Username').value;
     var password = document.getElementById('Password').value;
@@ -34,19 +26,16 @@ const registrati = () => {
     var cognome = document.getElementById('Cognome').value;
     var eta = document.getElementById('formSelectEtà').value;
     var sesso = document.getElementById('formSelectSesso').value;
-    fetch("/mysql?" + "cmd=controllUser&username=" + username)
-    .then(response =>{
 
-    })
-   alert("TUTTO OK");
     fetch("/mysql?" + "cmd=addUser&username=" + username + "&password=" + password + "&nome=" + nome + "&cognome=" + cognome + "&eta=" + eta + "&sesso=" + sesso)
-        .then(response => {
-            if (response.status == 200 && response.statusText == "OK") {
-                alert("UTENTE CREATO");
+        .then(response => response.json())
+        .then(data => {
+            if(data[0] == undefined){
+                alert("Utente Creato");
+                window.location.href = '/';
             }else{
-                alert("UTENTE NON CREATO")
+                alert("Utente già presente");
             }
-        })
-        .catch(error => console.log(error));
+        });
 }
 document.onload = eta();

@@ -26,9 +26,6 @@ const bothList = () => {
                 const element = data[i];
                 html += "<tr class='tableRow'>";
                 html += "<td class='elemento' id='stato'>" + element.cosa + "</td>";
-                if(localStorage.username == "admin"){
-                    html += "<td class='autore elemento'>"+ element.Username +"</td>";
-                }
                 html += "<td class='elementoButton'>";
                 html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`)'>ELIMINA</button>";
                 html += "</td></tr>";
@@ -45,9 +42,6 @@ const bothList = () => {
                 const element = data[i];
                 html += "<tr class='tableRow'>";
                 html += "<td class='elemento' id='cosa'>" + element.cosa + "</td>";
-                if(localStorage.username == "admin"){
-                    html += "<td class='autore elemento'>"+ element.Username +"</td>";
-                }
                 html += "<td class='elementoButton'>";
                 html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`)'>ELIMINA</button>";
                 html += "<button class='fatto' id='ButtonFatto' onclick='todoFatto(`"+ element.cosa +"`, `"+ element.stato +"`)'>FATTO</button></td></tr>";
@@ -57,29 +51,3 @@ const bothList = () => {
         })
         .catch(error => console.log(error));
 }
-
-const todoFatto = (cosa) => {
-    console.log('todo fatto')
-    fetch("/mysql?" + "cmd=todoFatto&cosa=" + cosa + "&IdUtente=" + localStorage.Id)
-        .then(response => {
-            if (response.status == 200 && response.statusText == "OK") {
-                window.location.href = '/home'; //aggiornamento pagina
-            }
-        })
-        .catch(error => console.log(error));
-}
-
-const deleteTodo = async (elimina) => {
-
-    fetch("/mysql?" + "cmd=deleteTodo&cosa=" + elimina + "&IdUtente=" + localStorage.Id)
-        .then(response => {
-            if(response.status == 200 && response.statusText == "OK"){
-                window.location.href = '/home'; //aggiornamento pagina
-            }
-        })
-        .catch(error => console.log(error));
-}
-
-
-
-document.onload = bothList();

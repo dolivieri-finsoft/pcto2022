@@ -28,18 +28,12 @@
                 <input type="text" class="formInput" id="Username" name="Username" placeholder="Username" onkeyup="checkinputUsername();" required>  
             </div>
             <div class="row">
-                <span id="errorUsername" class="error" style="display: block">Inserire l'username</span>
-            </div>
-            <div class="row">
                 <label for="Password" class="formLabel">Password</label>
                 <input type="password" class="formInput" id="Password" name="Password" placeholder="Password" onkeyup="checkinputPassword();" required>
                 </button>
             </div>
-            <div class="row">
-                <span id="errorPassword" class="error" style="display: block">Inserire la password</span>
-            </div>
             <div class="row rowButton">
-                <button type="button" class="formButton" onclick="login()">Login</button>
+                <button type="button" class="formButton" onclick="log()">Login</button>
                 <button type="button" class="formButton" onclick="location.href='./home/register.html'">Sign In</button>
             </div>
         </form>
