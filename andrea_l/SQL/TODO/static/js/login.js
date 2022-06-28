@@ -24,8 +24,12 @@ const salvaIdUtente = () =>{
     fetch("/mysql?" + "cmd=getIdUtente&username="+ username)
     .then(response => response.json())
     .then(data => {
-        localStorage.Id = data[0].IdUtente;
-        localStorage.username = username;
+        for(var i = 0; i<data.length; i++){
+            const user = data[i];
+            localStorage.username = user.Nome_utente;
+            localStorage.Id = user.IdUtente;
+            localStorage.ruolo = user.Ruolo;
+        }
         window.location.href = '/home';
     });
 }

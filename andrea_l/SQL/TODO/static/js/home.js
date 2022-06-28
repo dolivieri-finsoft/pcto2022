@@ -3,7 +3,7 @@ const bothList = () => {
     titolo += localStorage.username; 
     document.getElementById("titolo").innerHTML = titolo;
 
-    if(localStorage.username == "admin")
+    if(localStorage.ruolo == "admin" || localStorage.ruolo == "super admin")
         document.getElementById("AdminButton").style.display = "block";
     else
         document.getElementById("AdminButton").style.display = "none";
@@ -18,7 +18,7 @@ const bothList = () => {
     document.getElementById('BothButton').style.fontSize = "20px";
     document.getElementById('inserisciTitoloListaDone').style.display = "flex";
     document.getElementById('inserisciTitoloListaTodo').style.display = "flex";
-    fetch("/mysql?" + "cmd=getListDone&IdUtente=" + localStorage.Id)
+    fetch("/mysql?" + "cmd=getListDone&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo)
         .then(response => response.json())
         .then(data => {
             html = "";
@@ -26,7 +26,7 @@ const bothList = () => {
                 const element = data[i];
                 html += "<tr class='tableRow'>";
                 html += "<td class='elemento' id='stato'>" + element.cosa + "</td>";
-                if(localStorage.username == "admin"){
+                if(localStorage.ruolo == "admin" || localStorage.ruolo == "super admin"){
                     html += "<td class='autore elemento'>"+ element.Username +"</td>";
                 }
                 html += "<td class='elementoButton'>";
@@ -37,7 +37,7 @@ const bothList = () => {
         })
         .catch(error => console.log(error));
 
-    fetch("/mysql?" + "cmd=getListTodo&IdUtente=" + localStorage.Id)
+    fetch("/mysql?" + "cmd=getListTodo&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo)
         .then(response => response.json())
         .then(data => {
             html = "";
@@ -45,7 +45,7 @@ const bothList = () => {
                 const element = data[i];
                 html += "<tr class='tableRow'>";
                 html += "<td class='elemento' id='cosa'>" + element.cosa + "</td>";
-                if(localStorage.username == "admin"){
+                if(localStorage.ruolo == "admin" || localStorage.ruolo == "super admin"){
                     html += "<td class='autore elemento'>"+ element.Username +"</td>";
                 }
                 html += "<td class='elementoButton'>";
@@ -60,7 +60,7 @@ const bothList = () => {
 
 const todoFatto = (cosa) => {
     console.log('todo fatto')
-    fetch("/mysql?" + "cmd=todoFatto&cosa=" + cosa + "&IdUtente=" + localStorage.Id)
+    fetch("/mysql?" + "cmd=todoFatto&cosa=" + cosa + "&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo)
         .then(response => {
             if (response.status == 200 && response.statusText == "OK") {
                 window.location.href = '/home'; //aggiornamento pagina
@@ -71,7 +71,7 @@ const todoFatto = (cosa) => {
 
 const deleteTodo = async (elimina) => {
 
-    fetch("/mysql?" + "cmd=deleteTodo&cosa=" + elimina + "&IdUtente=" + localStorage.Id)
+    fetch("/mysql?" + "cmd=deleteTodo&cosa=" + elimina + "&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo)
         .then(response => {
             if(response.status == 200 && response.statusText == "OK"){
                 window.location.href = '/home'; //aggiornamento pagina

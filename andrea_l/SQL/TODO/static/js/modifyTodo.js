@@ -3,14 +3,14 @@ const todoList = () => {
     titolo += localStorage.username; 
     document.getElementById("titolo").innerHTML = titolo;
 
-    if(localStorage.username == "admin")
+    if(localStorage.ruolo == "admin" || localStorage.ruolo == "super admin")
         document.getElementById("AdminButton").style.display = "block";
     else
         document.getElementById("AdminButton").style.display = "none";
     
     document.getElementById('ModButton').style.color = "black";
     document.getElementById('ModButton').style.fontSize = "20px";
-    fetch("/mysql?" + "cmd=getList&IdUtente=" + localStorage.Id)
+    fetch("/mysql?" + "cmd=getList&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo)
         .then(response => response.json())
         .then(data => {
             html = "<label for='text' class='formLabelModify'>Cosa vuoi modificare? </label>";
@@ -26,7 +26,8 @@ const todoList = () => {
 
     document.getElementById('todoList').style.display = "block";
     document.getElementById('doneList').style.display = "block";
-    fetch("/mysql?" + "cmd=getListDone&IdUtente=" + localStorage.Id)
+
+    fetch("/mysql?" + "cmd=getListDone&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo)
         .then(response => response.json())
         .then(data => {
             html = "";
@@ -34,6 +35,9 @@ const todoList = () => {
                 const element = data[i];
                 html += "<tr class='tableRow'>";
                 html += "<td class='elemento' id='stato'>" + element.cosa + "</td>";
+                if(localStorage.ruolo == "admin" || localStorage.ruolo == "super admin"){
+                    html += "<td class='autore elemento'>"+ element.Username +"</td>";
+                }
                 html += "<td class='elementoButton'>";
                 html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`)'>ELIMINA</button>";
                 html += "</td></tr>";
@@ -42,7 +46,7 @@ const todoList = () => {
         })
         .catch(error => console.log(error));
 
-    fetch("/mysql?" + "cmd=getListTodo&IdUtente=" + localStorage.Id)
+    fetch("/mysql?" + "cmd=getListTodo&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo)
         .then(response => response.json())
         .then(data => {
             html = "";
@@ -50,6 +54,9 @@ const todoList = () => {
                 const element = data[i];
                 html += "<tr class='tableRow'>";
                 html += "<td class='elemento' id='cosa'>" + element.cosa + "</td>";
+                if(localStorage.ruolo == "admin" || localStorage.ruolo == "super admin"){
+                    html += "<td class='autore elemento'>"+ element.Username +"</td>";
+                }
                 html += "<td class='elementoButton'>";
                 html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`)'>ELIMINA</button>";
                 html += "<button class='fatto' id='ButtonFatto' onclick='todoFatto(`"+ element.cosa +"`, `"+ element.stato +"`)'>FATTO</button></td></tr>";
@@ -69,7 +76,7 @@ const modifyTodo = () =>{
     var DaModificare = document.getElementById('formSelectCosa').value;
     var stato = document.getElementById('SelectStato').value;
 
-    fetch("/mysql?" + "cmd=modifyTodo&cosa=" + nuovaCosa + "&stato=" + stato + "&modificare=" + DaModificare + "&IdUtente=" + localStorage.Id)
+    fetch("/mysql?" + "cmd=modifyTodo&cosa=" + nuovaCosa + "&stato=" + stato + "&modificare=" + DaModificare + "&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo)
         .then(response => {
             if (response.status == 200 && response.statusText == "OK") {
                 window.location.href = '/home/modify.html'; //aggiornamento pagina

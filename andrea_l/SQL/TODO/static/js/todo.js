@@ -3,7 +3,7 @@ const todoList = () => {
     titolo += localStorage.username; 
     document.getElementById("titolo").innerHTML = titolo;
 
-    if(localStorage.username == "admin")
+    if(localStorage.ruolo == "admin" || localStorage.ruolo == "super admin")
         document.getElementById("AdminButton").style.display = "block";
     else
         document.getElementById("AdminButton").style.display = "none";
@@ -15,7 +15,7 @@ const todoList = () => {
     document.getElementById('BothButton').style.color = "white";
     document.getElementById('BothButton').style.fontSize = "";
 
-    fetch("/mysql?" + "cmd=getListTodo&IdUtente=" + localStorage.Id)
+    fetch("/mysql?" + "cmd=getListTodo&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo)
         .then(response => response.json())
         .then(data => {
             html = "";
@@ -23,6 +23,9 @@ const todoList = () => {
                 const element = data[i];
                 html += "<tr class='tableRow'>";
                 html += "<td class='elemento' id='cosa'>" + element.cosa + "</td>";
+                if(localStorage.ruolo == "admin" || localStorage.ruolo == "super admin"){
+                    html += "<td class='autore elemento'>"+ element.Username +"</td>";
+                }
                 html += "<td class='elementoButton'>";
                 html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`)'>ELIMINA</button>";
                 html += "<button class='fatto' id='ButtonFatto' onclick='todoFatto(`"+ element.cosa +"`, `"+ element.stato +"`)'>FATTO</button></td></tr>";
@@ -35,7 +38,7 @@ const todoList = () => {
 
 const deleteTodo = async (elimina) => {
 
-    fetch("/mysql?" + "cmd=deleteTodo&cosa=" + elimina + "&IdUtente=" + localStorage.Id)
+    fetch("/mysql?" + "cmd=deleteTodo&cosa=" + elimina + "&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo)
         .then(response => {
             if(response.status == 200 && response.statusText == "OK"){
                 window.location.href = '/home/todo.html'; //aggiornamento pagina
@@ -46,7 +49,7 @@ const deleteTodo = async (elimina) => {
 
 const todoFatto = (cosa) => {
     console.log('todo fatto')
-    fetch("/mysql?" + "cmd=todoFatto&cosa=" + cosa + "&IdUtente=" + localStorage.Id)
+    fetch("/mysql?" + "cmd=todoFatto&cosa=" + cosa + "&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo)
         .then(response => {
             if (response.status == 200 && response.statusText == "OK") {
                 window.location.href = '/home/todo.html'; //aggiornamento pagina
