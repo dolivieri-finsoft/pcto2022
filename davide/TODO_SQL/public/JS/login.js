@@ -39,16 +39,16 @@ const fun_log_IN = () =>{
 
 
 const fun_sign_IN = () =>{
-    var user = document.getElementById('user_log').value;
-    var password = document.getElementById('password_log').value;
+    var user = document.getElementById('user_sign').value;
+    var password = document.getElementById('password_sign').value;
 
     console.log(`user: ${user}, password: ${password}`);
 
-    if (checkInsert('user') && checkInsert('password')) {
+    if (checkInsert('user_sign') && checkInsert('password_sign')) {
         fetch("/data?" + "cmd=add_user&user=" + user + "&password=" + password )
             .then(response => {
                 if (response.status == 200 && response.statusText == "OK") {
-                    // windos.location.reload();
+                    console.log('eseguito correttamente');
                     document.getElementById("error").innerText = "Registrazione effettuata, logga";
                 }
             })
