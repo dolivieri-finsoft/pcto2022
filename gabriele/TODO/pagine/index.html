@@ -13,13 +13,20 @@
     </div><br>
     <div class="new">
         <div id="form">
-            <label id="testo" for="username"><b>Username: </b></label>
-            <input class="cosa" id="username" type="text"> <br> <br>
-            <label id="testo" for="password"><b>Password: </b></label>
-            <input class="cosa" id="password" type="password"> <br> <br>
-            <button class="base blu" id="buttonR" onclick="Sign()">Sign in</button>
-            <button class="base verde" id="buttonL" onclick="Log()">Log in</button>
-        </div>
+            <div>
+                <label id="testo" for="username"><b>Username: </b></label>
+                <input class="cosa" id="username" type="text"> <br> <br>
+                <label id="testo" for="password"><b>Password: </b></label>
+                <input class="cosa" id="password" type="password"> <br> <br>
+            </div>
+            <div>
+                <button class="base blu" id="buttonR" onclick="Sign()">Sign in</button>
+                <button class="base verde" id="buttonL" onclick="Log()">Log in</button>
+            </div>
+            <div class="error">
+                <label id="errore"></label>
+            </div>
+        </div>            
     </div>
     <script src="./js/script.js">
     </script>

@@ -25,7 +25,7 @@ const fun_log_IN = () =>{
 
     if (checkInsert('user_log') && checkInsert('password_log')) {
         fetch("/data?" + "cmd=check_user&user=" + user + "&password=" + password )
-            .then(response => response.json())
+            //.then(response => response.json())
             .then(data => {
                 console.log(data);
                 if(data != 0){

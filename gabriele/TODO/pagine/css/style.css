@@ -83,7 +83,7 @@ h1{
     display: none;
 }
 .largo{
-    width: 10%;
+    width: 150px;
     height: min-content;
 }
 .bordi{
@@ -103,5 +103,10 @@ h1{
     background-color:yellow;
 }
 #sinistra{
-    width: 10%;
+    width: 170px;
+}
+.error{
+    color: rgb(255, 30, 0);
+    font-size: 25px;
+    padding-top: 15px;
 }
