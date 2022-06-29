@@ -65,12 +65,12 @@ table{
    }
 
    #dati{
-    display: flex;
-    flex-direction: column;
-    justify-content:center;
     width: 300px;
-    margin-left: 650px;
-    
+    }
+
+    #dati1{
+      display: flex;
+      justify-content: center;
     }
 
    #List2{
@@ -109,10 +109,7 @@ table{
   }
 
 #insieme{
-  display: flex;
-  justify-content: center;
-  justify-content: space-between;
-  margin:700px;
+  
   margin-top: 50px;
   margin-bottom: 50px;
 
@@ -193,8 +190,7 @@ table{
   }
    
   #accesso{
-    display: flex;
-    justify-content: center;
+    width:200px;
   }
 
   #indietro{

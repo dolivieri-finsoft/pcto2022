@@ -297,10 +297,19 @@ function Richiesta2(){
             document.onloadeddata = utenti();    
     }    
 
-function eliminaAutore(username){
-  fetch("/deleteAccount?" + "username=" + username) 
+function eliminaAutore(id){
+
+  if(id == localStorage.username){
+  fetch("/deleteAccount?" + "username=" + id) 
   alert("Utente eliminato correttamente");
-      window.location.reload();
+      window.location.replace("/");
+  }
+  else{
+    fetch("/deleteAccount?" + "username=" + id) 
+  alert("Utente eliminato correttamente");
+      window.location.reload();   
+  }
+      
 
   };
 
