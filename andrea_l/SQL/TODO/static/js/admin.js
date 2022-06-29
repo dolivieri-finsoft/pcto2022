@@ -3,10 +3,10 @@ const UserList = () => {
     document.getElementById('AdminButton').style.fontSize = "20px";
 
     var titolo = "Lista - ";
-    titolo += localStorage.username + " ("+ localStorage.ruolo +")"; 
+    titolo += sessionStorage.username + " ("+ sessionStorage.ruolo +")"; 
     document.getElementById("titolo").innerHTML = titolo;
 
-    if(localStorage.ruolo == "admin" || localStorage.ruolo == "super admin")
+    if(sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin")
         document.getElementById("AdminButton").style.display = "block";
     else
         document.getElementById("AdminButton").style.display = "none";
@@ -17,7 +17,7 @@ const UserList = () => {
         .then(data => {
             html = "<tr class='tableRow tableRowButton' style='color:  black;'>";
             html += "<td class='elemento pulsanti' id='IdUtente'><button class='ButtonAddAdmin' onclick='AddCloseUser()'>AGGIUNGI</button></td>";
-            html += "<td class='elemento pulsanti' id='IdUtente'><button class='ButtonModAdmin' onclick='ModifyUser()'>MODIFICA</button></td>";
+            html += "<td class='elemento pulsanti' id='IdUtente'><button class='ButtonModAdmin' onclick='OpenCloseModUser()'>MODIFICA</button></td>";
             html += "<tr class='tableRow' style='color: black;'>";
             html += "<td class='titolo'>USER LIST</td></tr>";   
             html += "<tr class='tableRow' style='color:  black;'>";
@@ -36,14 +36,17 @@ const UserList = () => {
                     html += "<td class='elemento' id='NomeUtente'> // </td>";
                 else
                     html += "<td class='elemento' id='NomeUtente'>"+ element.Nome +"</td>";
+
                 if(element.Cognome == "")
                     html += "<td class='elemento' id='NomeUtente'> // </td>";
                 else
                     html += "<td class='elemento' id='CognomeUtente'>"+ element.Cognome +"</td>";
+
                 html += "<td class='elemento' id='RuoloUtente'>"+ element.Ruolo +"</td>";
-                if(localStorage.ruolo == element.Ruolo)
-                    html += "<td class='elemento pulsanti' id='ButtoneliminaUser'><button class='ButtonDeleteAdmin' onclick='DeleteUser(`"+ element.IdUtente +"`)'>ELIMINA</button></td>";
-                else if(localStorage.ruolo == "admin" && element.Ruolo == "admin" || element.Ruolo == "super admin" && localStorage.ruolo == "admin")
+                
+                if(sessionStorage.ruolo == "admin" && element.Ruolo == "admin")
+                    html += "<td class='elemento pulsanti' style='color: black;'> IMPOSSIBILE ELIMINARE </td>";
+                else if(element.Ruolo == "super admin" && sessionStorage.ruolo == "admin")
                     html += "<td class='elemento pulsanti' style='color: black;'> IMPOSSIBILE ELIMINARE </td>";
                 else
                     html += "<td class='elemento pulsanti' id='ButtoneliminaUser'><button class='ButtonDeleteAdmin' onclick='DeleteUser(`"+ element.IdUtente +"`)'>ELIMINA</button></td>";
@@ -52,28 +55,7 @@ const UserList = () => {
             document.getElementById("inserisciUser").innerHTML = html;
         })
         .catch(error => console.log(error));
-
-    html = "";
-    for(var i  = 1; i<100 ; i++){
-        html += "<option id='"+ i +"' value='"+ i +"'>"+ i +"</option>";
-    }
-    document.getElementById("formSelectEtà").innerHTML = html;
     document.getElementById("ShowPassword").innerHTML = "<i class='fa-solid fa-eye'></i>";
-
-    html = "<option value='utente'>utente</option>"
-    if(localStorage.ruolo != "admin"){
-        html += "<option value='admin'>admin</option>";
-    }
-    document.getElementById("formSelectRuolo").innerHTML = html;
-}
-
-const AddCloseUser = () => {
-    AddUserDiv = document.getElementById("AddUserDiv");
-
-    if(AddUserDiv.style.display == "none")
-        AddUserDiv.style.display = "flex";
-    else
-        AddUserDiv.style.display = "none";
 }
 
 const DeleteUser = (IdUtente) => {
@@ -81,7 +63,7 @@ const DeleteUser = (IdUtente) => {
     fetch("/mysql?" + "cmd=deleteUser&IdUtente=" + IdUtente)
         .then(response => {
             if(response.status == 200 && response.statusText == "OK"){
-                if(localStorage.Id == IdUtente)
+                if(sessionStorage.Id == IdUtente)
                     window.location.href = '/';
                 else
                     window.location.href = '/home/admin.html'; //aggiornamento pagina
@@ -101,9 +83,14 @@ const ShowPassword = () => {
     }
 }
 
+/**
+ * AGGIUNGI
+ */
+
 const AggiungiUtente = () => {
     var username = document.getElementById('Username').value;
-    var password = document.getElementById('Password').value;
+    var password = document.getElementById('PasswordAdd').value;
+    alert(password);
     var nome = document.getElementById('Nome').value;
     var cognome = document.getElementById('Cognome').value;
     var eta = document.getElementById('formSelectEtà').value;
@@ -122,4 +109,130 @@ const AggiungiUtente = () => {
         });
 }
 
-document.onload = UserList();
+const AddCloseUser = () => {
+    AddUserDiv = document.getElementById("AddUserDiv");
+    ModDiv = document.getElementById("ModUserDiv");
+
+    if(ModDiv.style.display == "flex"){
+        ModDiv.style.display = "none";
+    }
+
+    if(AddUserDiv.style.display == "none"){
+        AddUserDiv.style.display = "flex";
+
+        html1 = "";
+        for(var i = 1; i<100 ; i++){
+            html1 += "<option id='"+ i +"' value='"+ i +"'>"+ i +"</option>";
+        }
+        document.getElementById("formSelectEtà").innerHTML = html1;
+
+        html = "<option value='utente'>utente</option>";
+        if(sessionStorage.ruolo != "admin")
+            html += "<option value='admin'>admin</option>";
+        document.getElementById("formSelectRuolo").innerHTML = html;
+    }
+    else
+        AddUserDiv.style.display = "none";
+}
+
+/**
+ * MODIFICA
+ */
+
+const OpenCloseModUser = () =>{
+    ModDiv = document.getElementById("ModUserDiv");
+    AddUserDiv = document.getElementById("AddUserDiv");
+
+    if(AddUserDiv.style.display == "flex"){
+        AddUserDiv.style.display = "none";
+    }
+
+    if(ModDiv.style.display == "none"){
+        ModDiv.style.display = "flex";
+
+        fetch("/mysql?" + "cmd=getListUser")
+        .then(response => response.json())
+        .then(data => {
+            html = "";
+            for(var i = 0; i<data.length; i++){
+                const element  = data[i];
+                if(element.Ruolo != "super admin")
+                    html +=" <option value='"+ element.Nome_utente +"'>"+ element.Nome_utente +"</option>";
+            }
+
+            document.getElementById("SelectUsername").innerHTML = html;
+        });
+
+        html1 = "";
+        for(var i = 1; i<100 ; i++){
+            html1 += "<option id='"+ i +"' value='"+ i +"'>"+ i +"</option>";
+        }
+        document.getElementById("formSelectEtàMod").innerHTML = html1;
+
+        html = "<option value='utente'>utente</option>";
+        if(sessionStorage.ruolo != "admin")
+            html += "<option value='admin'>admin</option>";
+        document.getElementById("formSelectRuoloMod").innerHTML = html;
+
+    }else{
+        ModDiv.style.display = "none";
+    }
+}
+
+const CompilaForm = () => {
+    const username = document.getElementById("SelectUsername").value;
+    fetch("/mysql?" + "cmd=getIdUtente&username="+ username)
+        .then(response => response.json())
+        .then(data => {
+            const element = data[0];
+            document.getElementById("UsernameMod").value = element.Password;
+            document.getElementById("Password").value = element.Password;
+            document.getElementById("NomeMod").value = element.Nome;
+            document.getElementById("CognomeMod").value = element.Cognome;
+            document.getElementById("formSelectEtàMod").value = element.Anni;
+            document.getElementById("formSelectSessoMod").value = element.Sesso;
+            document.getElementById("formSelectRuoloMod").value = element.Ruolo;  
+        })
+}
+
+const ModificaUtente = () => {
+    var oldusername = document.getElementById("SelectUsername").value;
+    var username = document.getElementById("UsernameMod").value;
+    var password = document.getElementById("Password").value;
+    var nome = document.getElementById("NomeMod").value;
+    var cognome = document.getElementById("CognomeMod").value;
+    var anni = document.getElementById("formSelectEtàMod").value;
+    var sesso = document.getElementById("formSelectSessoMod").value;
+    var ruolo = document.getElementById("formSelectRuoloMod").value;
+
+    fetch("/mysql?" + "cmd=ModifyUser&username= "+ username +"&password="+ password +"&nome="+ nome +"&cognome="+  cognome +"&anni="+ anni +"&sesso="+ sesso + "&ruolo="+ ruolo +"&oldusername="+ oldusername)
+    .then(response => response.json())
+    .then(data => {
+        if(data[0] == undefined){
+            alert("Utente Aggiornato");
+            window.location.href = '/home/admin.html';
+        }else{
+            alert("Utente già presente");
+        }
+    })
+}
+
+/**
+ * LOG OUT
+ */
+
+const chiudiSessione = () => {
+    sessionStorage.clear();
+    window.location.href = '/'; //aggiornamento pagina
+}
+
+const ControlloAccesso = () => {
+    if(sessionStorage.access == "si")
+    UserList();
+    else{
+        alert("Accesso vietato");
+        window.location.href = '/'; //aggiornamento pagina
+    }
+}
+
+document.onload = ControlloAccesso();

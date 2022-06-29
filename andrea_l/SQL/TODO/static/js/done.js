@@ -1,9 +1,9 @@
 const doneList = () => {
     var titolo = "Lista - ";
-    titolo += localStorage.username; 
+    titolo += sessionStorage.username; 
     document.getElementById("titolo").innerHTML = titolo;
 
-    if(localStorage.ruolo == "admin" || localStorage.ruolo == "super admin")
+    if(sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin")
         document.getElementById("AdminButton").style.display = "block";
     else
         document.getElementById("AdminButton").style.display = "none";
@@ -14,20 +14,31 @@ const doneList = () => {
     document.getElementById('DoneButton').style.fontSize = "20px";
     document.getElementById('BothButton').style.color = "white";
     document.getElementById('BothButton').style.fontSize = "";
-    fetch("/mysql?" + "cmd=getListDone&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo)
+    fetch("/mysql?" + "cmd=getListDone&IdUtente=" + sessionStorage.Id + "&Ruolo=" + sessionStorage.ruolo)
         .then(response => response.json())
         .then(data => {
             html = "";
             for (var i = 0; i < data.length; i++) {
                 const element = data[i];
-                html += "<tr class='tableRow'>";
-                html += "<td class='elemento' id='stato'>" + element.cosa + "</td>";
-                if(localStorage.ruolo == "admin" || localStorage.ruolo == "super admin"){
-                    html += "<td class='autore elemento'>"+ element.Username +"</td>";
-                }
-                html += "<td class='elementoButton'>";
-                html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`,`"+ element.id +"`)'>ELIMINA</button>";
-                html += "</td></tr>";
+                if(i%2 == 0){
+                    html += "<tr class='tableRow'  style='background-color: #F7F7F7;'>";
+                    html += "<td class='elemento' id='stato'>" + element.cosa + "</td>";
+                    if(sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin"){
+                        html += "<td class='autore elemento'>"+ element.Username +"</td>";
+                    }
+                    html += "<td class='elementoButton'>";
+                    html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`,`"+ element.id +"`)'>ELIMINA</button>";
+                    html += "</td></tr>";
+                }else{
+                    html += "<tr class='tableRow'>";
+                    html += "<td class='elemento' id='stato'>" + element.cosa + "</td>";
+                    if(sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin"){
+                        html += "<td class='autore elemento'>"+ element.Username +"</td>";
+                    }
+                    html += "<td class='elementoButton'>";
+                    html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`,`"+ element.id +"`)'>ELIMINA</button>";
+                    html += "</td></tr>";
+                }     
             }
             document.getElementById("inserisciDone").innerHTML = html;
         })
@@ -36,7 +47,7 @@ const doneList = () => {
 
 const deleteTodo =  (elimina, IdElimina) => {
 
-    fetch("/mysql?" + "cmd=deleteTodo&cosa=" + elimina + "&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo + "&IdEliminare=" + IdElimina)
+    fetch("/mysql?" + "cmd=deleteTodo&cosa=" + elimina + "&IdUtente=" + sessionStorage.Id + "&Ruolo=" + sessionStorage.ruolo + "&IdEliminare=" + IdElimina)
         .then(response => {
             if(response.status == 200 && response.statusText == "OK"){
                 window.location.href = '/home/done.html'; //aggiornamento pagina
@@ -45,4 +56,19 @@ const deleteTodo =  (elimina, IdElimina) => {
         .catch(error => console.log(error));
 }
 
-document.onload = doneList();
+
+const chiudiSessione = () => {
+    sessionStorage.clear();
+    window.location.href = '/'; //aggiornamento pagina
+}
+
+const ControlloAccesso = () => {
+    if(sessionStorage.access == "si")
+    doneList();
+    else{
+        alert("Accesso vietato");
+        window.location.href = '/'; //aggiornamento pagina
+    }
+}
+
+document.onload = ControlloAccesso();

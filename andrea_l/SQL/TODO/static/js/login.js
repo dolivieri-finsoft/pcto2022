@@ -1,3 +1,10 @@
+function Accesso(){
+    if(sessionStorage.access == "si"){
+        window.location.replace("/home");
+    }
+}
+
+
 const log = () => {
     var username = document.getElementById("Username").value;
     var password = document.getElementById("Password").value;
@@ -26,10 +33,13 @@ const salvaIdUtente = () =>{
     .then(data => {
         for(var i = 0; i<data.length; i++){
             const user = data[i];
-            localStorage.username = user.Nome_utente;
-            localStorage.Id = user.IdUtente;
-            localStorage.ruolo = user.Ruolo;
+            sessionStorage.username = user.Nome_utente;
+            sessionStorage.Id = user.IdUtente;
+            sessionStorage.ruolo = user.Ruolo;
+            sessionStorage.access = "si";
         }
-        window.location.href = '/home';
+        if(sessionStorage.access == "si"){
+            window.location.href = '/home';
+        }
     });
 }

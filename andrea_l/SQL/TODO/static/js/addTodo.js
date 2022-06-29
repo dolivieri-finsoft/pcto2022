@@ -12,7 +12,7 @@ const saveTodo = () => {
     console.log(`Cosa: ${cosa}, Stato: ${stato}`);
 
     if (checkInsert('cosa') && checkInsert('stato')) {
-        fetch("/mysql?" + "cmd=newTodo&cosa=" + cosa + "&stato=" + stato + "&IdUtente=" + localStorage.Id + "&username=" + localStorage.username + "&Ruolo=" + localStorage.ruolo)
+        fetch("/mysql?" + "cmd=newTodo&cosa=" + cosa + "&stato=" + stato + "&IdUtente=" + sessionStorage.Id + "&username=" + sessionStorage.username + "&Ruolo=" + sessionStorage.ruolo)
             .then(response => {
                 if (response.status == 200 && response.statusText == "OK") {
                     window.location.href = '/home/add.html'
@@ -36,10 +36,10 @@ const ADDTodoClose = () =>{
 
 const AddGrafica = () => {
     var titolo = "Lista - ";
-    titolo += localStorage.username; 
+    titolo += sessionStorage.username; 
     document.getElementById("titolo").innerHTML = titolo;
 
-    if(localStorage.ruolo == "admin" || localStorage.ruolo == "super admin")
+    if(sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin")
         document.getElementById("AdminButton").style.display = "block";
     else
         document.getElementById("AdminButton").style.display = "none";
@@ -48,39 +48,62 @@ const AddGrafica = () => {
     document.getElementById('AddButton').style.fontSize = "20px";
     document.getElementById('todoList').style.display = "block";
     document.getElementById('doneList').style.display = "block";
-    fetch("/mysql?" + "cmd=getListDone&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo)
+    
+    fetch("/mysql?" + "cmd=getListDone&IdUtente=" + sessionStorage.Id + "&Ruolo=" + sessionStorage.ruolo)
         .then(response => response.json())
         .then(data => {
             html = "";
             for (var i = 0; i < data.length; i++) {
                 const element = data[i];
-                html += "<tr class='tableRow'>";
-                html += "<td class='elemento' id='stato'>" + element.cosa + "</td>";
-                if(localStorage.ruolo == "admin" || localStorage.ruolo == "super admin"){
-                    html += "<td class='autore elemento'>"+ element.Username +"</td>";
-                }
-                html += "<td class='elementoButton'>";
-                html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`,`"+ element.id +"`)'>ELIMINA</button>";
-                html += "</td></tr>";
+                if(i%2 == 0){
+                    html += "<tr class='tableRow'  style='background-color: #F7F7F7;'>";
+                    html += "<td class='elemento' id='stato'>" + element.cosa + "</td>";
+                    if(sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin"){
+                        html += "<td class='autore elemento'>"+ element.Username +"</td>";
+                    }
+                    html += "<td class='elementoButton'>";
+                    html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`,`"+ element.id +"`)'>ELIMINA</button>";
+                    html += "</td></tr>";
+                }else{
+                    html += "<tr class='tableRow'>";
+                    html += "<td class='elemento' id='stato'>" + element.cosa + "</td>";
+                    if(sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin"){
+                        html += "<td class='autore elemento'>"+ element.Username +"</td>";
+                    }
+                    html += "<td class='elementoButton'>";
+                    html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`,`"+ element.id +"`)'>ELIMINA</button>";
+                    html += "</td></tr>";
+                }     
             }
             document.getElementById("inserisciDone").innerHTML = html;
         })
         .catch(error => console.log(error));
 
-    fetch("/mysql?" + "cmd=getListTodo&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo)
+    fetch("/mysql?" + "cmd=getListTodo&IdUtente=" + sessionStorage.Id + "&Ruolo=" + sessionStorage.ruolo)
         .then(response => response.json())
         .then(data => {
             html = "";
             for (var i = 0; i < data.length; i++) {
                 const element = data[i];
-                html += "<tr class='tableRow'>";
-                html += "<td class='elemento' id='cosa'>" + element.cosa + "</td>";
-                if(localStorage.ruolo == "admin" || localStorage.ruolo == "super admin"){
-                    html += "<td class='autore elemento'>"+ element.Username +"</td>";
+                if(i%2 == 0){
+                    html += "<tr class='tableRow' style='background-color: #F7F7F7;'>";
+                    html += "<td class='elemento' id='cosa'>" + element.cosa + "</td>";
+                    if(sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin"){
+                        html += "<td class='autore elemento'>"+ element.Username +"</td>";
+                    }
+                    html += "<td class='elementoButton'>";
+                    html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`,`"+ element.id +"`)'>ELIMINA</button>";
+                    html += "<button class='fatto' id='ButtonFatto' onclick='todoFatto(`"+ element.cosa +"`, `"+ element.id +"`)'>FATTO</button></td></tr>";
+                }else{
+                    html += "<tr class='tableRow'>";
+                    html += "<td class='elemento' id='cosa'>" + element.cosa + "</td>";
+                    if(sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin"){
+                        html += "<td class='autore elemento'>"+ element.Username +"</td>";
+                    }
+                    html += "<td class='elementoButton'>";
+                    html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`,`"+ element.id +"`)'>ELIMINA</button>";
+                    html += "<button class='fatto' id='ButtonFatto' onclick='todoFatto(`"+ element.cosa +"`, `"+ element.id +"`)'>FATTO</button></td></tr>";
                 }
-                html += "<td class='elementoButton'>";
-                html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`,`"+ element.id +"`)'>ELIMINA</button>";
-                html += "<button class='fatto' id='ButtonFatto' onclick='todoFatto(`"+ element.cosa +"`, `"+ element.id +"`)'>FATTO</button></td></tr>";
             }
             html += "</body></table>"
             document.getElementById("inserisciTodo").innerHTML = html;
@@ -90,7 +113,7 @@ const AddGrafica = () => {
 
 const deleteTodo = async (elimina, IdElimina) => {
 
-    fetch("/mysql?" + "cmd=deleteTodo&cosa=" + elimina + "&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo)
+    fetch("/mysql?" + "cmd=deleteTodo&cosa=" + elimina + "&IdUtente=" + sessionStorage.Id + "&Ruolo=" + sessionStorage.ruolo + "&IdEliminare=" + IdElimina)
         .then(response => {
             if(response.status == 200 && response.statusText == "OK"){
                 window.location.href = '/home/add.html'; //aggiornamento pagina
@@ -101,7 +124,7 @@ const deleteTodo = async (elimina, IdElimina) => {
 
 const todoFatto = (cosa, IdSposta) => {
     console.log('todo fatto')
-    fetch("/mysql?" + "cmd=todoFatto&cosa=" + cosa + "&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo + "&IdSpostare=" + IdSposta)
+    fetch("/mysql?" + "cmd=todoFatto&cosa=" + cosa + "&IdUtente=" + sessionStorage.Id + "&Ruolo=" + sessionStorage.ruolo + "&IdSpostare=" + IdSposta)
         .then(response => {
             if (response.status == 200 && response.statusText == "OK") {
                 window.location.href = '/home/add.html'; //aggiornamento pagina
@@ -110,4 +133,18 @@ const todoFatto = (cosa, IdSposta) => {
         .catch(error => console.log(error));
 }
 
-document.onload = AddGrafica();
+const chiudiSessione = () => {
+    sessionStorage.clear();
+    window.location.href = '/'; //aggiornamento pagina
+}
+
+const ControlloAccesso = () => {
+    if(sessionStorage.access == "si")
+        AddGrafica();
+    else{
+        alert("Accesso vietato");
+        window.location.href = '/'; //aggiornamento pagina
+    }
+}
+
+document.onload = ControlloAccesso();

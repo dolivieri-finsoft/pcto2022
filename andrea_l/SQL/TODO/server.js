@@ -44,13 +44,47 @@ app.get('/mysql', function (req, res) {
     cmd = req.query.cmd;
     console.log(`CMD: ${cmd}`);
 
-    if(cmd == "getSpecificoTodo"){
+    if(cmd == "getListSpecific"){
+        var sql ="SELECT * FROM todo_done_DB WHERE Username = '"+ req.query.username +"';";
+        
+        db.query(sql, (err, result) =>{
+            if(err)
+                console.log(err);
+            else
+                res.send(result);
+                console.log(result);
+        });
+    }else if(cmd == "ModifyUser"){
+        var sql ="SELECT Nome_utente FROM Users WHERE Nome_utente = '"+ req-query.oldusername +"'; ";
+        
+        db.query(sqlSelect, (err, result) =>{
+            if(result.length == 0){
+                var sql = "UPDATE Users SET Nome_utente = '"+ req.query.username +"', Password = '"+ req.query.password +"', Nome = '"+ req.query.nome +"', Cognome = '"+ req.query.cognome +"', Anni = '"+ req.query.anni +"', Sesso = '"+ req.query.sesso +"', Ruolo = '"+ req.query.ruolo +"'WHERE Nome_utente = '"+ req.query.oldusername +"';";
+                db.query(sql, (err, result) =>{
+                    if(err)
+                        console.log(err);
+                    else
+                        console.log("1 user inserted");
+                });
+            }else{
+                console.log(err);
+            }
+            res.send(result);
+        });
+    }else if(cmd == "getSpecificoTodo"){
         var sqlGet = "SELECT * FROM todo_done_DB WHERE id = '"+ req.query.IdCosa +"';";
         
-
+        db.query(sqlGet, (err, result) =>{
+            if(err)
+                console.log(err);
+            else
+                res.send(result);
+                console.log(result);
+        });
     }else if(cmd == "deleteUser"){
         var sqlDelete = "DELETE FROM todo_done_DB WHERE IdUtente = '"+ req.query.IdUtente +"';";
         var sqlDeleteUser ="DELETE FROM Users WHERE IdUtente = '"+ req.query.IdUtente +"';";
+        
         db.query(sqlDelete, (err) => {
             if (err)
                 console.log(err);
@@ -74,7 +108,6 @@ app.get('/mysql', function (req, res) {
                 console.log("ERRORE");
             else{
                 console.log("lista utenti trovata");
-                console.log(result);
                 res.send(result);
             }
         });
@@ -190,11 +223,11 @@ app.get('/mysql', function (req, res) {
     }else if (cmd == "modifyTodo"){
         if(req.query.Ruolo == "admin" || req.query.Ruolo == "super admin"){
             console.log("sono admin");
-            var sqlUpdate ="UPDATE todo_done_DB SET cosa = '"+ req.query.cosa +"', stato = '"+ req.query.stato +"' WHERE cosa = '"+ req.query.modificare +"'AND id = '"+ req.query.IdModifica +"';";        
+            var sqlUpdate ="UPDATE todo_done_DB SET cosa = '"+ req.query.cosa +"', stato = '"+ req.query.stato +"' WHERE id = '"+ req.query.IdModifica +"';";        
         }
         else{
             console.log("non sono admin");
-            var sqlUpdate ="UPDATE todo_done_DB SET cosa = '"+ req.query.cosa +"', stato = '"+ req.query.stato +"' WHERE cosa = '"+ req.query.modificare +"' AND IdUtente = '"+ req.query.IdUtente +"'AND id = '"+ req.query.IdModifica +"';";        
+            var sqlUpdate ="UPDATE todo_done_DB SET cosa = '"+ req.query.cosa +"', stato = '"+ req.query.stato +"' WHERE IdUtente = '"+ req.query.IdUtente +"'AND id = '"+ req.query.IdModifica +"';";        
         }
 
         db.query(sqlUpdate, (err) => {
@@ -235,6 +268,23 @@ app.get('/mysql', function (req, res) {
             else{
                 console.log("Dati Eliminati");
                 res.send("OK");
+            }
+        });
+
+        var sqlControllaLista = "SELECT * FROM todo_done_DB;";
+
+        db.query(sqlControllaLista, (err, result) =>{
+            if(result.length == 0){
+                console.log("auto");
+                var sqlIncrement = "ALTER TABLE todo_done_DB AUTO_INCREMENT = 1;";
+                db.query(sqlIncrement, (err) =>{
+                    if(err)
+                        console.log(err);
+                    else    
+                        console.log("LISTA VUOTA E INCREMENT = 0");
+                })
+            }else{
+                console.log("controllo fallito utenti");
             }
         });
     } else if (cmd == "todoFatto") {

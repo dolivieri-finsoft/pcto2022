@@ -146,7 +146,7 @@
 
 .formButton{
     padding: 15px;
-    font-family: 'Permanent Marker', cursive;
+    font-family: 'Genos', sans-serif;
     background-color: transparent;
     border-radius: 10px;
     border: 2px solid black;
@@ -171,5 +171,33 @@
 }
 
 .rowButtonAdd{
+    justify-content: space-evenly;
+}
+
+/*----MODIFICA----*/
+
+.ContainerModUser{
+    width: 99vw;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    border-bottom:0.5px solid black;
+}
+
+.rowMod{
+    width: 90%;
+    margin-left: 5%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    border-left: 0.5px solid black;
+    border-right: 0.5px solid black;
+    margin-bottom: 0;
+}
+
+.rowButtonMod{
     justify-content: space-evenly;
 }

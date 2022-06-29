@@ -1,7 +1,7 @@
 body{
     background-color: white;  
     margin: 0;
-    font-family: 'Permanent Marker', cursive;
+    font-family: 'Genos', sans-serif;
     overflow-x: hidden;
 }
 
@@ -30,6 +30,7 @@ a:hover{
     background: none;
     border: hidden;
     color: white;
+    font-weight: bold;
 }
 
 .rowButton button:hover{
@@ -53,9 +54,10 @@ header{
     margin-top: 10px;
     display: flex;
     align-items: center;
-    font-size: xx-large;
+    font-size: 30px;
     justify-content: center;
     margin-right: 35%;
+    font-weight: bold;
 }
 
 .rowButtonBackTitle{
@@ -133,6 +135,7 @@ header{
     justify-content: center;
     font-size: x-large;
     border-bottom:0.5px solid black;
+    font-weight: bold;
 }
 .tableRow{
     width: 100vw;
