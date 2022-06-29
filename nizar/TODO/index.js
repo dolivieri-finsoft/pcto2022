@@ -127,7 +127,10 @@ router.get('/signin', function(req,res){
   });
 });
 
-router.get('/login', function(req,res){ 
+let bodyParser = require("body-parser");
+let urlencodedParser = bodyParser.json({ extended: false });
+
+router.post('/login',urlencodedParser, function(req,res){ 
   var sql1 = "select password, ruolo from pcto2022.utenti where username = '" + req.query.username + "';";
   conn.query(sql1, function (err, result) {
     if(err) throw err;
@@ -142,6 +145,7 @@ router.get('/deleteAccount', function(req,res){
   var sql = "DELETE FROM pcto2022.utenti WHERE username ='" + req.query.username + "';";
   conn.query(sql, function (err, result) {
     if (err) throw err;
+    console.log("Eliminato utente: ✔");
     res.send(result);
   });
 
@@ -167,12 +171,12 @@ router.get('/writeUtente', function(req,res){
       var sql = "INSERT INTO pcto2022.utenti (username, password, ruolo) VALUES ('" + req.query.username + "', '" + req.query.password + "', '" + req.query.ruolo + "');";
       conn.query(sql, function (err, result) {
         if (err) throw err;
-        console.log("Aggiunto: ✔");
+        console.log("Aggiunto utente: ✔");
       });
     }
     else{
-      console.log("Elemento già presente!");
-      res.send("Elemento già presente!");
+      console.log("Utente già presente!");
+      res.send("Utente già presente!");
     }
   });
 
@@ -188,13 +192,20 @@ router.get('/modificaUtente', function(req,res){
       var sql = "UPDATE pcto2022.utenti SET username = '" + req.query.username + "', password = '" + req.query.password + "', ruolo = '" + req.query.ruolo + "' WHERE username = '" + req.query.usernameVecchio + "';";
       conn.query(sql, function (err, result) {
         if (err) throw err;
-        console.log("Modificato: ✔");
+        console.log("Modificato Utente: ✔");
       });
+
+      var sql2 = "UPDATE pcto2022.lista SET username = '" + req.query.username + "' WHERE username = '" + req.query.usernameVecchio + "';";
+    conn.query(sql2, function (err, result) {
+      if (err) throw err;
+      console.log("Modificato elemento: ✔");
+    });
     }
     else{
-      console.log("Elemento già presente!");
-      res.send("Elemento già presente!");
+      console.log("Utente già presente!");
+      res.send("Utente già presente!");
     }
+    
   });
 
 

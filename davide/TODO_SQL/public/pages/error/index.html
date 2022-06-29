@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html lang="it">
-
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="CSS/style.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
     <title>Luxury Hotel</title>
 </head>
-
-<body onload="fun_tab_user()">
+<body>
     <div class="Container">
         <div class="top">
             <header>
@@ -28,25 +25,14 @@
                     <li><a href="/prieces" class="animazione">Listino prezzi</a></li>
                     <li><a href="/form" class="animazione">Contattaci</a></li>
                     <li><a href="/todo" class="animazione">To Do</a></li>
-                    <li><a href="/userManager" id="userManagerli" class="animazione">User Manager</a></li>
+                    <li id="userManagerli"><a href="/userManager" class="animazione">User Manager</a></li>
                 </ul>
             </nav>
-
         </div>
-        <h1>USER MANAGER</h1>
-        <div id="tabellauser">
-
-        </div>
-        <div class="containercolonne">
-            <div class="colonna1">
-                <button class="bottoni">Aggiungi utente</button>
-            </div>
-            <div class="colonna2">
-                <button class="bottoni">Modifica utente</button>
-            </div>
-            <div class="colonna3">
-                <button class="bottoni">Elimina utente</button>
-            </div>
+        <div>
+            <h1>Errore</h1>
+            <h2>pagina non trovata o permesso non consentito</h2>
+            <h4>torna nelle altre pagine con la navbar qui sopra o rieffetta il login cliccando <a href="/">QUI</a></h4>
         </div>
         <footer>
             <p>
@@ -55,11 +41,5 @@
             </p>
         </footer>
     </div>
-    <script src="../../JS/manager.js"></script>
-    <script>
-        if(localStorage.role != "admin"){
-            window.location.replace('/error');
-        }
-    </script>
 </body>
 </html>

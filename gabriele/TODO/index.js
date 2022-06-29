@@ -109,7 +109,7 @@ router.get('/modifyUser',function(req,res){
       });
 
       var sql2 = "UPDATE pcto2022.todo SET user = '" + req.query.username + "' WHERE user = '" + req.query.userDaMo + "';";
-      con.query(sql, function (err, result) {
+      con.query(sql2, function (err, result) {
         if (err) throw err;
         console.log("Elements modified");
       });
@@ -138,7 +138,9 @@ router.get('/change',function(req,res){
   });
 });
 
-router.get('/login',function(req,res){
+let bodyparser = require('body-parser');
+let urlencodedParser = bodyparser.json({extended: false});
+router.post('/login', urlencodedParser, function(req,res){
   var sql1 = "select password, role from pcto2022.users where username = '" + req.query.user + "';";
   con.query(sql1, function (err, result) {
       if(err) throw err;

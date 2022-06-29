@@ -31,9 +31,14 @@ const fun_log_IN = () =>{
                 if(data != 0){
                     localStorage.clear();
                     console.log(data)
-                    localStorage.setItem("access", data[0].role);
+                    utente = {
+                        "role" : data[0].role,
+                        "user" : data[0].username
+                    }
+                    localStorage.setItem('role', data[0].role);
+                    localStorage.setItem('user', data[0].username);
                     console.log(localStorage);
-                    //window.location.replace("/home");
+                    window.location.replace("/home");
                 }
                 else{
                     document.getElementById("error").innerText = "ERRORE!!!";
