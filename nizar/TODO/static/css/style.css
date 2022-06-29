@@ -61,7 +61,8 @@ table{
    #List{
     display: flex;
     justify-content:center;
-    padding-bottom: 100px;
+    padding-bottom: 80px;
+    
    }
 
    #dati{
