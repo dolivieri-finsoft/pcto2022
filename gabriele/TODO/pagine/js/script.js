@@ -122,7 +122,7 @@ function Log(){
         document.getElementById("errore").innerHTML = "Please fill in all the required data";
     }
     else{
-        fetch("/login?" + "user=" + user)
+        fetch("/login?" + "user=" + user, {method: "POST"})
         .then(response => response.json())
         .then(data => {
             if(data[0] == undefined){
