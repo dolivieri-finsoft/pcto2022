@@ -17,7 +17,10 @@
     <h1 id="benvenuto">ADMIN PAGE<br></h1>
 </div><br>
 
-
+<div id="adminPage">
+    <button type="button" id="Exit" onclick="Exit()" style="display:none" >Exit Admin Page</button>
+  
+  </div>
 
 
   <div class="container">
@@ -56,7 +59,7 @@
 </div>
 
 <div class="w3-container w3-red w3-center " style="padding:68px">
-    <h2 class="w3-margin w3-jumbo" id="elemento">Nuovo Utente</h2>
+    <h2 class="w3-margin w3-jumbo" id="elemento1">Nuovo Utente</h2>
     <div>
       <label id="label">Username: </label>
     <input type="text" id="userUtente" name="userUtente" placeholder="username">
@@ -67,20 +70,22 @@
     <br>
     <br>
     <select name="statoUtenti" id="selectUtenti">
-      <option value="utente" >Admin</option>
-      <option value="admin" selected="selected">Utente</option>
+     <option value="admin" selected="selected">Admin</option>
+      <option value="utente" >Utente</option>
+     
       </select>
     </div>
       <br>
-      <button type="button" id="indietro" onclick="indietro()" style="display:none">Return </button>
-      <button type="button" id="aggiungi" onclick="aggiungi()">Aggiungi </button>
+      <button type="button" id="indietroUtente" onclick="indietroUtente()" style="display:none">Return </button>
+      <button type="button" id="aggiungiUtente" onclick="aggiungiUtente()">Aggiungi </button>
       
       
 </div>
-
+<div id="dati1">
   <div id="insieme">
 <button type="button" id="deleteAccount" onclick="deleteAccount()" >Delete Account </button>
     <button type="button" id="logout" onclick="logout()" >Logout </button>
+</div>
 </div>
  
 </body>

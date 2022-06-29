@@ -27,8 +27,8 @@ const todoList = () => {
                     html += "<td class='autore elemento'>"+ element.Username +"</td>";
                 }
                 html += "<td class='elementoButton'>";
-                html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`)'>ELIMINA</button>";
-                html += "<button class='fatto' id='ButtonFatto' onclick='todoFatto(`"+ element.cosa +"`, `"+ element.stato +"`)'>FATTO</button></td></tr>";
+                html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`,`"+ element.id +"`)'>ELIMINA</button>";
+                html += "<button class='fatto' id='ButtonFatto' onclick='todoFatto(`"+ element.cosa +"`, `"+ element.id +"`)'>FATTO</button></td></tr>";
             }
             html += "</body></table>"
             document.getElementById("inserisciTodo").innerHTML = html;
@@ -36,9 +36,9 @@ const todoList = () => {
         .catch(error => console.log(error));
 }
 
-const deleteTodo = async (elimina) => {
+const deleteTodo = async (elimina, IdElimina) => {
 
-    fetch("/mysql?" + "cmd=deleteTodo&cosa=" + elimina + "&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo)
+    fetch("/mysql?" + "cmd=deleteTodo&cosa=" + elimina + "&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo + "&IdEliminare=" + IdElimina)
         .then(response => {
             if(response.status == 200 && response.statusText == "OK"){
                 window.location.href = '/home/todo.html'; //aggiornamento pagina
@@ -47,9 +47,9 @@ const deleteTodo = async (elimina) => {
         .catch(error => console.log(error));
 }
 
-const todoFatto = (cosa) => {
+const todoFatto = (cosa, IdSposta) => {
     console.log('todo fatto')
-    fetch("/mysql?" + "cmd=todoFatto&cosa=" + cosa + "&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo)
+    fetch("/mysql?" + "cmd=todoFatto&cosa=" + cosa + "&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo + "&IdSpostare=" + IdSposta)
         .then(response => {
             if (response.status == 200 && response.statusText == "OK") {
                 window.location.href = '/home/todo.html'; //aggiornamento pagina

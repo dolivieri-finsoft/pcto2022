@@ -21,20 +21,32 @@ const UserList = () => {
             html += "<tr class='tableRow' style='color: black;'>";
             html += "<td class='titolo'>USER LIST</td></tr>";   
             html += "<tr class='tableRow' style='color:  black;'>";
-            html += "<td class='elemento' id='titoloColonna'> ID UTENTE</td>";
+            html += "<td class='elemento IdElemento' id='titoloColonna'> ID UTENTE</td>";
             html += "<td class='elemento' id='titoloColonna'> NOME UTENTE</td>";
+            html += "<td class='elemento' id='titoloColonna'> NOME</td>";
+            html += "<td class='elemento' id='titoloColonna'> COGNOME </td>";
             html += "<td class='elemento' id='titoloColonna'> RUOLO</td>";
             html += "<td class='elemento pulsanti' id=''></td></tr>";
             for (var i = 0; i < data.length; i++) {
                 const element = data[i];
                 html += "<tr class='tableRow'>";
-                html += "<td class='elemento' id='IdUtente'>" + element.IdUtente + "</td>";
+                html += "<td class='elemento IdElemento' id='IdUtente'>" + element.IdUtente + "</td>";
                 html += "<td class='elemento' id='NomeUtente'>" + element.Nome_utente + "</td>";
-                html += "<td class='elemento' id='RuoloUtente'>"+ element.Ruolo +"</td>";
-                if(element.Ruolo != "super admin")
-                    html += "<td class='elemento pulsanti' id='ButtoneliminaUser'><button class='ButtonDeleteAdmin' onclick='DeleteUser(`"+ element.IdUtente +"`)'>ELIMINA</button></td>";
+                if(element.Nome == "")
+                    html += "<td class='elemento' id='NomeUtente'> // </td>";
                 else
+                    html += "<td class='elemento' id='NomeUtente'>"+ element.Nome +"</td>";
+                if(element.Cognome == "")
+                    html += "<td class='elemento' id='NomeUtente'> // </td>";
+                else
+                    html += "<td class='elemento' id='CognomeUtente'>"+ element.Cognome +"</td>";
+                html += "<td class='elemento' id='RuoloUtente'>"+ element.Ruolo +"</td>";
+                if(localStorage.ruolo == element.Ruolo)
+                    html += "<td class='elemento pulsanti' id='ButtoneliminaUser'><button class='ButtonDeleteAdmin' onclick='DeleteUser(`"+ element.IdUtente +"`)'>ELIMINA</button></td>";
+                else if(localStorage.ruolo == "admin" && element.Ruolo == "admin" || element.Ruolo == "super admin" && localStorage.ruolo == "admin")
                     html += "<td class='elemento pulsanti' style='color: black;'> IMPOSSIBILE ELIMINARE </td>";
+                else
+                    html += "<td class='elemento pulsanti' id='ButtoneliminaUser'><button class='ButtonDeleteAdmin' onclick='DeleteUser(`"+ element.IdUtente +"`)'>ELIMINA</button></td>";
                 html += "</tr>";
             }
             document.getElementById("inserisciUser").innerHTML = html;
@@ -47,6 +59,12 @@ const UserList = () => {
     }
     document.getElementById("formSelectEtà").innerHTML = html;
     document.getElementById("ShowPassword").innerHTML = "<i class='fa-solid fa-eye'></i>";
+
+    html = "<option value='utente'>utente</option>"
+    if(localStorage.ruolo != "admin"){
+        html += "<option value='admin'>admin</option>";
+    }
+    document.getElementById("formSelectRuolo").innerHTML = html;
 }
 
 const AddCloseUser = () => {
@@ -63,7 +81,10 @@ const DeleteUser = (IdUtente) => {
     fetch("/mysql?" + "cmd=deleteUser&IdUtente=" + IdUtente)
         .then(response => {
             if(response.status == 200 && response.statusText == "OK"){
-                window.location.href = '/home/admin.html'; //aggiornamento pagina
+                if(localStorage.Id == IdUtente)
+                    window.location.href = '/';
+                else
+                    window.location.href = '/home/admin.html'; //aggiornamento pagina
             }
         });
 }

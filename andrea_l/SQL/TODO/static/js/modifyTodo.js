@@ -17,9 +17,10 @@ const todoList = () => {
             html += "<select class='formSelect' id='formSelectCosa' name='cosa' onclick='aggiungi()'>";
             for (var i = 0; i < data.length; i++) {
                 const element = data[i];
-                html += "<option value = '"+ element.cosa +"'>"+ element.cosa +"</oprion>";
+                html += "<option value ='"+ element.id +"'>"+ element.cosa +"</option>";
             }
             html += "</select>";
+            html += "<input id='labelId'></input>";
             document.getElementById("rowModCosa").innerHTML = html;
         })
         .catch(error => console.log(error));
@@ -39,7 +40,7 @@ const todoList = () => {
                     html += "<td class='autore elemento'>"+ element.Username +"</td>";
                 }
                 html += "<td class='elementoButton'>";
-                html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`)'>ELIMINA</button>";
+                html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`,`"+ element.id +"`)'>ELIMINA</button>";
                 html += "</td></tr>";
             }
             document.getElementById("inserisciDone").innerHTML = html;
@@ -58,8 +59,8 @@ const todoList = () => {
                     html += "<td class='autore elemento'>"+ element.Username +"</td>";
                 }
                 html += "<td class='elementoButton'>";
-                html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`)'>ELIMINA</button>";
-                html += "<button class='fatto' id='ButtonFatto' onclick='todoFatto(`"+ element.cosa +"`, `"+ element.stato +"`)'>FATTO</button></td></tr>";
+                html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`,`"+ element.id +"`)'>ELIMINA</button>";
+                html += "<button class='fatto' id='ButtonFatto' onclick='todoFatto(`"+ element.cosa +"`, `"+ element.id +"`)'>FATTO</button></td></tr>";
             }
             html += "</body></table>"
             document.getElementById("inserisciTodo").innerHTML = html;
@@ -68,17 +69,25 @@ const todoList = () => {
 }
 
 const aggiungi = () =>{
-    document.getElementById('SelectCosa').value = document.getElementById('formSelectCosa').value;
+    IdCosa = document.getElementById("formSelectCosa").value;
+    fetch("/mysql?" + "cmd=getSpecificoTodo&IdCosa=" + IdCosa)
+        .then(response => response.json())
+        .then(data => {
+            element = data[0];
+            document.getElementById("SelectCosa").value = element.cosa;
+        });
 }
 
 const modifyTodo = () =>{
     var nuovaCosa = document.getElementById('SelectCosa').value;
-    var DaModificare = document.getElementById('formSelectCosa').value;
+    var DaModificare = document.getElementById('formSelectCosa').textContent;
     var stato = document.getElementById('SelectStato').value;
+    var IdModifica = documen.getElementById('labelId').value;
 
-    fetch("/mysql?" + "cmd=modifyTodo&cosa=" + nuovaCosa + "&stato=" + stato + "&modificare=" + DaModificare + "&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo)
+    fetch("/mysql?" + "cmd=modifyTodo&cosa=" + nuovaCosa + "&stato=" + stato + "&modificare=" + DaModificare + "&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo + "&IdModifica=" + IdModifica)
         .then(response => {
             if (response.status == 200 && response.statusText == "OK") {
+                alert("MODIFICATO");
                 window.location.href = '/home/modify.html'; //aggiornamento pagina
             }
         })
@@ -88,9 +97,9 @@ const modifyTodoClose = () =>{
     window.location.href = '/home';
 }
 
-const deleteTodo = async (elimina) => {
+const deleteTodo = async (elimina, IdElimina) => {
 
-    fetch("/mysql?" + "cmd=deleteTodo&cosa=" + elimina + "&IdUtente=" + localStorage.Id)
+    fetch("/mysql?" + "cmd=deleteTodo&cosa=" + elimina + "&IdUtente=" + localStorage.Id + "&IdEliminare=" + IdElimina)
         .then(response => {
             if(response.status == 200 && response.statusText == "OK"){
                 window.location.href = '/home/modify.html'; //aggiornamento pagina
@@ -99,9 +108,9 @@ const deleteTodo = async (elimina) => {
         .catch(error => console.log(error));
 }
 
-const todoFatto = (cosa) => {
+const todoFatto = (cosa, IdSposta) => {
     console.log('todo fatto')
-    fetch("/mysql?" + "cmd=todoFatto&cosa=" + cosa + "&IdUtente=" + localStorage.Id)
+    fetch("/mysql?" + "cmd=todoFatto&cosa=" + cosa + "&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo + "&IdSpostare=" + IdSposta)
         .then(response => {
             if (response.status == 200 && response.statusText == "OK") {
                 window.location.href = '/home/modify.html'; //aggiornamento pagina

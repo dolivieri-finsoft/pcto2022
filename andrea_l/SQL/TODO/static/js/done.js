@@ -26,7 +26,7 @@ const doneList = () => {
                     html += "<td class='autore elemento'>"+ element.Username +"</td>";
                 }
                 html += "<td class='elementoButton'>";
-                html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`)'>ELIMINA</button>";
+                html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`,`"+ element.id +"`)'>ELIMINA</button>";
                 html += "</td></tr>";
             }
             document.getElementById("inserisciDone").innerHTML = html;
@@ -34,9 +34,9 @@ const doneList = () => {
         .catch(error => console.log(error)); 
 }
 
-const deleteTodo = async (elimina) => {
+const deleteTodo =  (elimina, IdElimina) => {
 
-    fetch("/mysql?" + "cmd=deleteTodo&cosa=" + elimina + "&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo)
+    fetch("/mysql?" + "cmd=deleteTodo&cosa=" + elimina + "&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo + "&IdEliminare=" + IdElimina)
         .then(response => {
             if(response.status == 200 && response.statusText == "OK"){
                 window.location.href = '/home/done.html'; //aggiornamento pagina

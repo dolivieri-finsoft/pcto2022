@@ -91,9 +91,6 @@ router.get('/sposta', function(req,res){
 
 router.get('/modifica', function(req,res){
 
-
-   
-
     var sql1 = "SELECT cosa FROM pcto2022.lista where cosa = '" + req.query.cosa + "';";
     conn.query(sql1, function (err, result) {
       if(result.length == 0 || result[0].cosa == req.query.modificare){
@@ -145,6 +142,7 @@ router.get('/deleteAccount', function(req,res){
   var sql = "DELETE FROM pcto2022.utenti WHERE username ='" + req.query.username + "';";
   conn.query(sql, function (err, result) {
     if (err) throw err;
+    console.log("Eliminato utente: ✔");
     res.send(result);
   });
 
@@ -161,6 +159,58 @@ router.get('/lista',function(req,res){
 });
 
 
+router.get('/writeUtente', function(req,res){
+
+  
+  var sql1 = "SELECT username FROM pcto2022.utenti where username = '" + req.query.username + "';";
+  conn.query(sql1, function (err, result) {
+    if (result.length == 0){
+      var sql = "INSERT INTO pcto2022.utenti (username, password, ruolo) VALUES ('" + req.query.username + "', '" + req.query.password + "', '" + req.query.ruolo + "');";
+      conn.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log("Aggiunto utente: ✔");
+      });
+    }
+    else{
+      console.log("Utente già presente!");
+      res.send("Utente già presente!");
+    }
+  });
+
+
+});
+
+
+router.get('/modificaUtente', function(req,res){
+
+  var sql1 = "SELECT username FROM pcto2022.utenti where username = '" + req.query.username + "';";
+  conn.query(sql1, function (err, result) {
+    if(result.length == 0 || result[0].username == req.query.usernameVecchio){
+      var sql = "UPDATE pcto2022.utenti SET username = '" + req.query.username + "', password = '" + req.query.password + "', ruolo = '" + req.query.ruolo + "' WHERE username = '" + req.query.usernameVecchio + "';";
+      conn.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log("Modificato Utente: ✔");
+      });
+    }
+    else{
+      console.log("Utente già presente!");
+      res.send("Utente già presente!");
+    }
+  });
+
+
+});
+
+router.get('/trova', function(req,res){
+
+  var sql1 = "SELECT password, ruolo FROM pcto2022.utenti where username = '" + req.query.username + "';";
+
+  conn.query(sql1, function(err , result)
+  {
+  if (err) throw err;
+  res.send(result);
+  });
+});
 
 
 //add the router

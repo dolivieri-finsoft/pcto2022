@@ -61,16 +61,17 @@ table{
    #List{
     display: flex;
     justify-content:center;
-    padding-bottom: 100px;
+    padding-bottom: 80px;
+    
    }
 
    #dati{
-    display: flex;
-    flex-direction: column;
-    justify-content:center;
     width: 300px;
-    margin-left: 650px;
-    
+    }
+
+    #dati1{
+      display: flex;
+      justify-content: center;
     }
 
    #List2{
@@ -109,8 +110,7 @@ table{
   }
 
 #insieme{
-  display: flex;
-  justify-content: center;
+  
   margin-top: 50px;
   margin-bottom: 50px;
 
@@ -161,6 +161,9 @@ table{
 
   }
 
+  #label{
+    font-size: 21px;
+  }
 
   #labelPassword{
     font-size: 25px;
@@ -180,13 +183,24 @@ table{
     border-radius: 10px 10px 10px 10px;
     background-color: lightblue;
   }
+
+  #aggiungiUtente{
+    font-size: 25px;
+    border-radius: 10px 10px 10px 10px;
+    background-color: lightblue;
+  }
    
   #accesso{
-    display: flex;
-    justify-content: center;
+    width:200px;
   }
 
   #indietro{
+    font-size: 25px;
+    border-radius: 10px 10px 10px 10px;
+    background-color: red;
+  }
+
+  #indietroUtente{
     font-size: 25px;
     border-radius: 10px 10px 10px 10px;
     background-color: red;
@@ -227,6 +241,13 @@ table{
   
 
 #amministratore{
+  font-size: 25px;
+  border-radius: 10px 10px 10px 10px;
+  background-color: black;
+  color:yellow;
+}
+
+#Exit{
   font-size: 25px;
   border-radius: 10px 10px 10px 10px;
   background-color: black;
