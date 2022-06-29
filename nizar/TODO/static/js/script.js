@@ -1,3 +1,5 @@
+const { METHODS } = require("http");
+
 var modificare;
 
 if(localStorage.length == 0){
@@ -184,7 +186,9 @@ function modifica(id, numero){
       alert("Compila i campi sottostanti!!!");
     }
     else{
-      fetch("/login?" + "username=" + username)
+      fetch("/login?" + "username=" + username,{
+        method: 'POST',
+      })
     .then(response => response.json())
     .then(data => {
       
