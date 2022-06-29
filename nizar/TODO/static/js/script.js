@@ -187,7 +187,7 @@ function modifica(id, numero){
     }
     else{
       fetch("/login?" + "username=" + username,{
-        method: 'POST',
+        method: 'POST'
       })
     .then(response => response.json())
     .then(data => {

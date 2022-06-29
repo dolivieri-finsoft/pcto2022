@@ -194,6 +194,12 @@ router.get('/modificaUtente', function(req,res){
         if (err) throw err;
         console.log("Modificato Utente: ✔");
       });
+
+      var sql2 = "UPDATE pcto2022.lista SET username = '" + req.query.username + "' WHERE username = '" + req.query.usernameVecchio + "';";
+    conn.query(sql2, function (err, result) {
+      if (err) throw err;
+      console.log("Modificato elemento: ✔");
+    });
     }
     else{
       console.log("Utente già presente!");
