@@ -1,11 +1,9 @@
-var express = require('express'),
-    app = express();
-var fs = require('fs');
+const express = require('express');
+const fs = require('fs');
 const path = require('path');
+const mysql = require('mysql');
 
-var mysql = require('mysql');
-
-var con = mysql.createConnection({
+const con = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "Finsoft1234@",
@@ -19,14 +17,14 @@ con.connect(function (err) {
     console.log("Connected!");
 });
 
-//#region root dell pagine
+const app = express();
 
+//#region root dell pagine
 app.use(express.static("public"));
 
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, '/public/index.html'));
 })
-    .listen(3000);
 
 app.get('/home', function (req, res) {
     res.sendFile(path.join(__dirname, './public/pages/home/index.html'));
@@ -56,67 +54,86 @@ app.get('/userManager', function (req, res) {
     res.sendFile(path.join(__dirname, './public/pages/userManager/index.html'))
 })
 
-app.get('/*', function (req, res) {
+app.get('/error', function (req, res) {
     res.sendFile(path.join(__dirname, './public/pages/error/index.html'))
 })
 //#endregion
 
 app.get('/data', function (req, res) {
-
     comando = req.query.cmd;
     console.log("comando data")
     console.log(`Comando: ${comando}`);
 
-    if (comando == "getList") {
-        con.query("SELECT * FROM lista", function (err, result, fields) {
-            if (err) throw err;
-            //console.log(result);
-            res.send(result);
-        });
-    } else if (comando == "newTodo") {
-        //console.log(req.query.task, req.query.stato)
-        var sql = "INSERT INTO lista (task, stato) VALUES ('" + req.query.task + "', '" + req.query.stato + "');";
-        con.query(sql, function (err, result) {
-            if (err) throw err;
-            console.log("1 record inserted");
-        });
-    } else if (comando == "deleteTodo") {
-        var sql = "DELETE FROM lista WHERE task = '" + req.query.task + "';";
-        con.query(sql, function (err, result) {
-            if (err) throw err;
-            console.log("Number of records deleted: " + result.affectedRows);
-        });
-    } else if (comando == "todoFatto") {
-        var sql = "UPDATE lista SET stato = 'done' WHERE task = '" + req.query.task + "';";
-        con.query(sql, function (err, result) {
-            if (err) throw err;
-            console.log(result.affectedRows + " record updated");
-        });
-    } else if (comando == "modifyTodo") {
-        var sql = "UPDATE lista SET task = '" + req.query.task + "' WHERE task = '" + req.query.whatTask + "';";
-        con.query(sql, function (err, result) {
-            if (err) throw err;
-            console.log(result.affectedRows + " record updated");
-        });
-        var sql = "UPDATE lista SET stato = '" + req.query.status + "' WHERE task = '" + req.query.whatTask + "';";
-        con.query(sql, function (err, result) {
-            if (err) throw err;
-            console.log(result.affectedRows + " record updated");
-        });
-    } else if (comando == "check_user") {
-        var sql = "SELECT * FROM utenti WHERE username = '" + req.query.user + "' AND password = '" + req.query.password + "';";
-        console.log(sql);
-        con.query(sql, function (err, result) {
-            if (err) throw err;
-            res.send(result);
-        });
-    } else if (comando == "add_user") {
-        var sql = "INSERT INTO utenti (username, password) VALUES ('" + req.query.user + "', '" + req.query.password + "');";
-        con.query(sql, function (err, result) {
-            if (err) throw err;
-            console.log("1 record inserted");
-        });
+    switch (comando) {
+        case 'getList':
+            con.query("SELECT * FROM lista", function (err, result, fields) {
+                if (err) throw err;
+                //console.log(result);
+                res.send(result);
+            });
+            break;
+        case 'newTodo':
+            // console.log(req.query.task, req.query.stato)
+            var sql = "INSERT INTO lista (task, stato) VALUES ('" + req.query.task + "', '" + req.query.stato + "');";
+            con.query(sql, function (err, result) {
+                if (err) throw err;
+                console.log("1 record inserted");
+            });
+            break;
+        case 'deleteTodo':
+            var sql = "DELETE FROM lista WHERE task = '" + req.query.task + "';";
+            con.query(sql, function (err, result) {
+                if (err) throw err;
+                console.log("Number of records deleted: " + result.affectedRows);
+            });
+        case 'todoFatto':
+            var sql = "UPDATE lista SET stato = 'done' WHERE task = '" + req.query.task + "';";
+            con.query(sql, function (err, result) {
+                if (err) throw err;
+                console.log(result.affectedRows + " record updated");
+            });
+            break;
+        case 'modifyTodo':
+            var sql = "UPDATE lista SET task = '" + req.query.task + "' WHERE task = '" + req.query.whatTask + "';";
+            con.query(sql, function (err, result) {
+                if (err) throw err;
+                console.log(result.affectedRows + " record updated");
+            });
+            var sql = "UPDATE lista SET stato = '" + req.query.status + "' WHERE task = '" + req.query.whatTask + "';";
+            con.query(sql, function (err, result) {
+                if (err) throw err;
+                console.log(result.affectedRows + " record updated");
+            });
+            break;
+        case 'check_user':
+            var sql = "SELECT * FROM utenti WHERE username = '" + req.query.user + "' AND password = '" + req.query.password + "';";
+            console.log(sql);
+            con.query(sql, function (err, result) {
+                if (err) throw err;
+                res.send(result);
+            });
+            break;
+        case 'add_user':
+            var sql = "INSERT INTO utenti (username, password) VALUES ('" + req.query.user + "', '" + req.query.password + "');";
+            con.query(sql, function (err, result) {
+                if (err) throw err;
+                console.log("1 record inserted");
+            });
+            break;
+        case 'getUser':
+            var sql = "SELECT username, role FROM utenti;";
+            con.query(sql, function (err, result) {
+                if (err) throw err;
+                console.log("user send");
+                console.log(result);
+                res.send(result);
+            });
+            break;
+        default:
+            res.sendFile(path.join(__dirname, '/public/index.html'));
     }
 });
 
-console.log("Server hostato su http://localhost:3000");
+app.listen(3000, () => {
+    console.log(`Serving on http://localhost:3000`);
+});
