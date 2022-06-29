@@ -3,7 +3,6 @@ var modificare;
 if(localStorage.length == 0){
   localStorage.setItem("username", "");
   localStorage.setItem("ruolo", "");
-  localStorage.setItem("access", "no");
 
 }
 function myFunction() {
@@ -15,14 +14,10 @@ function myFunction() {
   }
 }
 
-function Accesso(){
-  if(localStorage.access == "si"){
-      window.location.replace("/home");
-  }
-}
+
 
 function Richiesta(){
-  if(localStorage.access == "si"){
+  
   if(localStorage.ruolo == "admin"){
     document.getElementById('amministratore').style.display = "inline";
   }
@@ -60,10 +55,7 @@ function Richiesta(){
   document.onloadeddata = todoList();
   
     
-}
-else{
-  windows.location.replace("/");
-}
+
 }
   
 
@@ -202,7 +194,6 @@ function modifica(id, numero){
     else if(password == data[0].password){
       localStorage.username = username;
       localStorage.ruolo = data[0].ruolo;
-      localStorage.access = "si";
       
 
       window.location.replace("/home");
@@ -220,8 +211,7 @@ function modifica(id, numero){
 
 function logout(){
   window.location.replace("/");
-  localStorage.access = "no";
-  localStorage.user = "";
+  localStorage.username = "";
 
 }
 
