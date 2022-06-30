@@ -11,8 +11,10 @@ const todoList = () => {
     document.getElementById('ModButton').style.color = "black";
     document.getElementById('ModButton').style.fontSize = "20px";
 
+    var stato = "all";
+
     if(sessionStorage.ruolo == "utente"){
-        fetch("/mysql?" + "cmd=getList&IdUtente=" + sessionStorage.Id + "&Ruolo=" + sessionStorage.ruolo)
+        fetch("/mysql?" + "cmd=getList&IdUtente=" + sessionStorage.Id + "&Ruolo=" + sessionStorage.ruolo + "&stato=" + stato)
         .then(response => response.json())
         .then(data => {
             html = "<label for='text' class='formLabelModify'>Cosa vuoi modificare? </label>";
@@ -56,7 +58,8 @@ const getListAdmin = () => {
 }
 
 const optionList = (username) => {
-    fetch("/mysql?" + "cmd=getList&Ruolo=" + sessionStorage.ruolo)
+    var stato = "all";
+    fetch("/mysql?" + "cmd=getList&Ruolo=" + sessionStorage.ruolo + "&stato=" + stato)
         .then(response => response.json())
         .then(data => {
             html1 = "";
@@ -70,7 +73,8 @@ const optionList = (username) => {
 }
 
 const getList = () => {
-    fetch("/mysql?" + "cmd=getListDone&IdUtente=" + sessionStorage.Id + "&Ruolo=" + sessionStorage.ruolo)
+    var stato = "Done"
+    fetch("/mysql?" + "cmd=getList&IdUtente=" + sessionStorage.Id + "&Ruolo=" + sessionStorage.ruolo + "&stato=" + stato)
     .then(response => response.json())
     .then(data => {
         html = "";
@@ -100,7 +104,9 @@ const getList = () => {
     })
     .catch(error => console.log(error));
 
-    fetch("/mysql?" + "cmd=getListTodo&IdUtente=" + sessionStorage.Id + "&Ruolo=" + sessionStorage.ruolo)
+    var stato = "todo";
+
+    fetch("/mysql?" + "cmd=getList&IdUtente=" + sessionStorage.Id + "&Ruolo=" + sessionStorage.ruolo + "&stato=" + stato)
     .then(response => response.json())
     .then(data => {
         html = "";

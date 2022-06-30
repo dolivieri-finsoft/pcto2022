@@ -48,8 +48,10 @@ const AddGrafica = () => {
     document.getElementById('AddButton').style.fontSize = "20px";
     document.getElementById('todoList').style.display = "block";
     document.getElementById('doneList').style.display = "block";
+
+    var stato = "Done";
     
-    fetch("/mysql?" + "cmd=getListDone&IdUtente=" + sessionStorage.Id + "&Ruolo=" + sessionStorage.ruolo)
+    fetch("/mysql?" + "cmd=getList&IdUtente=" + sessionStorage.Id + "&Ruolo=" + sessionStorage.ruolo + "&stato=" + stato)
         .then(response => response.json())
         .then(data => {
             html = "";
@@ -79,7 +81,9 @@ const AddGrafica = () => {
         })
         .catch(error => console.log(error));
 
-    fetch("/mysql?" + "cmd=getListTodo&IdUtente=" + sessionStorage.Id + "&Ruolo=" + sessionStorage.ruolo)
+        var stato = "todo";
+
+    fetch("/mysql?" + "cmd=getList&IdUtente=" + sessionStorage.Id + "&Ruolo=" + sessionStorage.ruolo + "&stato=" + stato)
         .then(response => response.json())
         .then(data => {
             html = "";

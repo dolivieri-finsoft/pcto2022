@@ -15,7 +15,9 @@ const todoList = () => {
     document.getElementById('BothButton').style.color = "white";
     document.getElementById('BothButton').style.fontSize = "";
 
-    fetch("/mysql?" + "cmd=getListTodo&IdUtente=" + sessionStorage.Id + "&Ruolo=" + sessionStorage.ruolo)
+    var stato = "todo";
+
+    fetch("/mysql?" + "cmd=getList&IdUtente=" + sessionStorage.Id + "&Ruolo=" + sessionStorage.ruolo + "&stato=" + stato)
         .then(response => response.json())
         .then(data => {
             html = "";

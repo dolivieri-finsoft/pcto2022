@@ -42,17 +42,7 @@ app.get('/mysql', function (req, res) {
     cmd = req.query.cmd;
     console.log(`CMD: ${cmd}`);
 
-    if(cmd == "getListSpecific"){
-        var sql ="SELECT * FROM todo_done_DB WHERE Username = '"+ req.query.username +"';";
-        
-        db.query(sql, (err, result) =>{
-            if(err)
-                console.log(err);
-            else
-                res.send(result);
-                console.log(result);
-        });
-    }else if(cmd == "ModifyUser"){
+    if(cmd == "ModifyUser"){
         var sqlSelect = "SELECT Nome_utente FROM Users WHERE NOT IdUtente = '"+ req.query.IdUtente +"'  AND Nome_utente = '"+ req.query.username +"';";
         console.log("USERNAME:"+req.query.username + " Id:"+ req.query.IdUtente);
         db.query(sqlSelect, (err, result) =>{
@@ -169,55 +159,28 @@ app.get('/mysql', function (req, res) {
             }
             res.send(result);
         });
-    }else if (cmd == "getListTodo") {
-        if(req.query.Ruolo == "admin" || req.query.Ruolo == "super admin"){
-            console.log("sono admin");
-            var sqlSelect ="SELECT * FROM todo_done_DB WHERE stato = 'todo';";
-        }
-        else{
-            console.log("non sono admin");
-            var sqlSelect ="SELECT * FROM todo_done_DB WHERE stato = 'todo' AND IdUtente = "+ req.query.IdUtente +";";
-        }
-
-
-        db.query(sqlSelect, (err, result) =>{
-            if(err)
-                console.log(err);
-            else
-                res.send(result);
-        });
     }else if(cmd == "getList"){
-        if(req.query.Ruolo == "admin" || req.query.Ruolo == "super admin"){
-            console.log("sono admin");
-            var sqlSelect ="SELECT * FROM todo_done_DB;";
+        if(req.query.stato == "all"){
+            if(req.query.Ruolo == "admin" || req.query.Ruolo == "super admin"){
+                var sqlSelect ="SELECT * FROM todo_done_DB;";
+            }
+            else{
+                var sqlSelect ="SELECT * FROM todo_done_DB WHERE IdUtente = "+ req.query.IdUtente +";";
+            }
+        }else{
+            if(req.query.Ruolo == "admin" || req.query.Ruolo == "super admin"){
+                var sqlSelect ="SELECT * FROM todo_done_DB WHERE stato = '"+ req.query.stato +"';";
+            }
+            else{
+                var sqlSelect ="SELECT * FROM todo_done_DB WHERE IdUtente = "+ req.query.IdUtente +" AND stato = '"+ req.query.stato +"';";
+            }
         }
-        else{
-            console.log("non sono admin");
-            var sqlSelect ="SELECT * FROM todo_done_DB WHERE IdUtente = "+ req.query.IdUtente +";";
-        }
-
         db.query(sqlSelect, (err, result) =>{
             if(err)
                 console.log(err);
             else
                 res.send(result);
                 console.log(result);
-        });
-    }else if(cmd == "getListDone"){
-        if(req.query.Ruolo == "admin" || req.query.Ruolo == "super admin"){
-            console.log("sono admin");
-            var sqlSelect ="SELECT * FROM todo_done_DB WHERE stato = 'Done';";
-        }
-        else{
-            console.log("non sono admin");
-            var sqlSelect ="SELECT * FROM todo_done_DB WHERE stato = 'Done' AND IdUtente = "+ req.query.IdUtente +";";
-        }
-
-        db.query(sqlSelect, (err, result) =>{
-            if(err)
-                console.log(err);
-            else
-                res.send(result);
         });
     }else if (cmd == "modifyTodo"){
         if(req.query.Ruolo == "admin" || req.query.Ruolo == "super admin"){
@@ -306,5 +269,3 @@ app.get('/mysql', function (req, res) {
         });
     }
 });
-
- 

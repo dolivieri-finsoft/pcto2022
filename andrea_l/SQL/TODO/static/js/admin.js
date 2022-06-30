@@ -12,6 +12,7 @@ const UserList = () => {
         document.getElementById("AdminButton").style.display = "none";
 
     document.getElementById("UserList").style.display = "block";
+    
     fetch("/mysql?" + "cmd=getListUser")
         .then(response => response.json())
         .then(data => {
@@ -96,7 +97,14 @@ const AggiungiUtente = () => {
     var sesso = document.getElementById('formSelectSesso').value;
     var ruolo = document.getElementById("formSelectRuolo").value;
 
-    fetch("/mysql?" + "cmd=addUser&username=" + username + "&password=" + password + "&nome=" + nome + "&cognome=" + cognome + "&eta=" + eta + "&sesso=" + sesso + "&ruolo=" + ruolo)
+    if(password == "")
+        alert("Inserire una password");
+    else if(username == "")
+        alert("Inserire un username");
+    else if(username == password)
+        alert("Inserire username e password diversi");
+    else
+        fetch("/mysql?" + "cmd=addUser&username=" + username + "&password=" + password + "&nome=" + nome + "&cognome=" + cognome + "&eta=" + eta + "&sesso=" + sesso + "&ruolo=" + ruolo)
         .then(response => response.json())
         .then(data => {
             if(data[0] == undefined){
@@ -207,15 +215,22 @@ const ModificaUtente = () => {
     var ruolo = document.getElementById("formSelectRuoloMod").value;
     var IdUtente = document.getElementById("ID").textContent;
 
-    fetch("/mysql?" + "cmd=ModifyUser&username="+ username +"&password="+ password +"&nome="+ nome +"&cognome="+  cognome +"&anni="+ anni +"&sesso="+ sesso + "&ruolo="+ ruolo +"&oldusername="+ oldusername + "&IdUtente="+ IdUtente)
-    .then(response => response.json())
-        .then(data => {
-            if(data[0] == undefined){
-                window.location.href = '/home/admin.html';
-            }else{
-                alert("Esiste già un utente con quel User");
-            }
-        });
+    if(password == "")
+        alert("Inserire una password");
+    else if(username == "")
+        alert("Inserire un username");
+    else if(username == password)
+        alert("Inserire username e password diversi");
+    else
+        fetch("/mysql?" + "cmd=ModifyUser&username="+ username +"&password="+ password +"&nome="+ nome +"&cognome="+  cognome +"&anni="+ anni +"&sesso="+ sesso + "&ruolo="+ ruolo +"&oldusername="+ oldusername + "&IdUtente="+ IdUtente)
+            .then(response => response.json())
+            .then(data => {
+                if(data[0] == undefined){
+                    window.location.href = '/home/admin.html';
+                }else{
+                    alert("Esiste già un utente con quel User");
+                }
+            });
 }
 
 /**
