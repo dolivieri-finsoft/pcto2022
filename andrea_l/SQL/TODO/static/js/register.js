@@ -59,7 +59,7 @@ const registrati = () => {
         alert("Inserire una password");
     else if(username == "")
         alert("Inserire un username");
-    else if(username == password)
+    else if(username == password && username != "admin")
         alert("Inserire username e password diversi");
     else
         fetch("/mysql?" + "cmd=addUser&username=" + username + "&password=" + password + "&nome=" + nome + "&cognome=" + cognome + "&eta=" + eta + "&sesso=" + sesso + "&ruolo=" + ruolo)

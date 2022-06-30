@@ -65,7 +65,7 @@ const DeleteUser = (IdUtente) => {
         .then(response => {
             if(response.status == 200 && response.statusText == "OK"){
                 if(sessionStorage.Id == IdUtente)
-                    window.location.href = '/';
+                    chiudiSessione();
                 else
                     window.location.href = '/home/admin.html'; //aggiornamento pagina
             }
