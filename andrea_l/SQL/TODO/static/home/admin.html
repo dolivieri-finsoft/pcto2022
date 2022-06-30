@@ -53,22 +53,23 @@
         <div class="rowMod">
 
             <label for="Username" class="formLabel">Username:</label>
-            <input type="text" class="formInput" id="UsernameMod" name="Username" placeholder="Username">  
+            <input type="text" class="formInput" id="UsernameMod" name="Username" placeholder="Username" autocomplete="off">  
+            <label for="id" id="ID" style="display: none;"></label> 
         
         </div>
         <div class="rowMod">
 
             <label for="Password" class="formLabel">Password:</label>
-            <input type="password" class="formInputPsw" id="Password" name="Password" placeholder="Password">
+            <input type="password" class="formInputPsw" id="Password" name="Password" placeholder="Password" autocomplete="off">
             <button class="ShowPassword" id="ShowPassword" onclick="ShowPassword()"></button>
        
         </div>
         <div class="rowMod">
 
             <label for="nome" class="formLabelDatiPers">Nome:</label>
-            <input type="text" class="formInputDatiPers" id="NomeMod" name="nome" placeholder="Nome">
+            <input type="text" class="formInputDatiPers" id="NomeMod" name="nome" placeholder="Nome" autocomplete="off">
             <label for="cognome" class="formLabelDatiPers">Cognome:</label>
-            <input type="text" class="formInputDatiPers" id="CognomeMod" name="cognome" placeholder="Cognome">
+            <input type="text" class="formInputDatiPers" id="CognomeMod" name="cognome" placeholder="Cognome" autocomplete="off">
         
         </div>
         <div class="rowMod">
@@ -93,7 +94,7 @@
         </div>
         <div class="rowMod rowButtonMod">
 
-            <button type="button" class="formButton formButtonSignIn" onclick="">Modifica User</button>
+            <button type="button" class="formButton formButtonSignIn" onclick="ModificaUtente()">Modifica User</button>
             <button type="button" class="formButton formButtonClose" onclick="OpenCloseModUser()">Annulla</button>
 
         </div>
@@ -105,18 +106,18 @@
         </div>
         <div class="rowAdd" id="rowAdd">
             <label for="Username" class="formLabel">Username:</label>
-            <input type="text" class="formInput" id="Username" name="Username" placeholder="Username">  
+            <input type="text" class="formInput" id="Username" name="Username" placeholder="Username" value="" autocomplete="off"> 
         </div>
         <div class="rowAdd" id="rowAdd">
             <label for="Password" class="formLabel">Password:</label>
-            <input type="password" class="formInputPsw" id="PasswordAdd" name="Password" placeholder="Password">
+            <input type="password" class="formInputPsw" id="PasswordAdd" name="Password" placeholder="Password" autocomplete="off">
             <button class="ShowPassword" id="ShowPassword" onclick="ShowPassword()"></button>
         </div>
         <div class="rowAdd" id="rowAdd">
             <label for="nome" class="formLabelDatiPers">Nome:</label>
-            <input type="text" class="formInputDatiPers" id="Nome" name="nome" placeholder="Nome">
+            <input type="text" class="formInputDatiPers" id="Nome" name="nome" placeholder="Nome" autocomplete="off">
             <label for="cognome" class="formLabelDatiPers">Cognome:</label>
-            <input type="text" class="formInputDatiPers" id="Cognome" name="cognome" placeholder="Cognome">
+            <input type="text" class="formInputDatiPers" id="Cognome" name="cognome" placeholder="Cognome" autocomplete="off">
         </div>
         <div class="rowAdd" id="rowAdd">
             <label for="Eta" class="formLabelDatiPers">Età:*</label>

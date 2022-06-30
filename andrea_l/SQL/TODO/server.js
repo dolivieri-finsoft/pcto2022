@@ -1,8 +1,6 @@
 const express = require('express');
 const mysql = require('mysql');
 
-var IdUtente = 0;
-
 const app = express();
 var port = 3000;
 
@@ -24,7 +22,7 @@ app.get('/home', function (req, res) {
  const db = mysql.createConnection({
     host : 'localhost',
     user : 'root',
-    password : 'finsoft',
+    password : 'Andry1949!',
     database : 'TODO_DONE'
  });
  
@@ -55,19 +53,20 @@ app.get('/mysql', function (req, res) {
                 console.log(result);
         });
     }else if(cmd == "ModifyUser"){
-        var sql ="SELECT Nome_utente FROM Users WHERE Nome_utente = '"+ req-query.oldusername +"'; ";
-        
+        var sqlSelect = "SELECT Nome_utente FROM Users WHERE NOT IdUtente = '"+ req.query.IdUtente +"'  AND Nome_utente = '"+ req.query.username +"';";
+        console.log("USERNAME:"+req.query.username + " Id:"+ req.query.IdUtente);
         db.query(sqlSelect, (err, result) =>{
             if(result.length == 0){
+                console.log("E POSSIBILE AGGIORNARE L'UTENTE");
                 var sql = "UPDATE Users SET Nome_utente = '"+ req.query.username +"', Password = '"+ req.query.password +"', Nome = '"+ req.query.nome +"', Cognome = '"+ req.query.cognome +"', Anni = '"+ req.query.anni +"', Sesso = '"+ req.query.sesso +"', Ruolo = '"+ req.query.ruolo +"'WHERE Nome_utente = '"+ req.query.oldusername +"';";
                 db.query(sql, (err, result) =>{
                     if(err)
                         console.log(err);
                     else
-                        console.log("1 user inserted");
+                        console.log("UTENTE AGGIORNATO");
                 });
             }else{
-                console.log(err);
+                console.log("UTENTE TROVATO");
             }
             res.send(result);
         });

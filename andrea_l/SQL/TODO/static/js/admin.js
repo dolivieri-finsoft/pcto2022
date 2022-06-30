@@ -90,7 +90,6 @@ const ShowPassword = () => {
 const AggiungiUtente = () => {
     var username = document.getElementById('Username').value;
     var password = document.getElementById('PasswordAdd').value;
-    alert(password);
     var nome = document.getElementById('Nome').value;
     var cognome = document.getElementById('Cognome').value;
     var eta = document.getElementById('formSelectEtà').value;
@@ -157,7 +156,7 @@ const OpenCloseModUser = () =>{
             for(var i = 0; i<data.length; i++){
                 const element  = data[i];
                 if(element.Ruolo != "super admin")
-                    html +=" <option value='"+ element.Nome_utente +"'>"+ element.Nome_utente +"</option>";
+                    html +=" <option value='"+element.Nome_utente+"'>"+ element.Nome_utente +"</option>";
             }
 
             document.getElementById("SelectUsername").innerHTML = html;
@@ -185,13 +184,15 @@ const CompilaForm = () => {
         .then(response => response.json())
         .then(data => {
             const element = data[0];
-            document.getElementById("UsernameMod").value = element.Password;
+            document.getElementById("UsernameMod").value = element.Nome_utente;
             document.getElementById("Password").value = element.Password;
             document.getElementById("NomeMod").value = element.Nome;
             document.getElementById("CognomeMod").value = element.Cognome;
             document.getElementById("formSelectEtàMod").value = element.Anni;
             document.getElementById("formSelectSessoMod").value = element.Sesso;
-            document.getElementById("formSelectRuoloMod").value = element.Ruolo;  
+            document.getElementById("formSelectRuoloMod").value = element.Ruolo; 
+            document.getElementById("ID").textContent = element.IdUtente;
+ 
         })
 }
 
@@ -204,17 +205,17 @@ const ModificaUtente = () => {
     var anni = document.getElementById("formSelectEtàMod").value;
     var sesso = document.getElementById("formSelectSessoMod").value;
     var ruolo = document.getElementById("formSelectRuoloMod").value;
+    var IdUtente = document.getElementById("ID").textContent;
 
-    fetch("/mysql?" + "cmd=ModifyUser&username= "+ username +"&password="+ password +"&nome="+ nome +"&cognome="+  cognome +"&anni="+ anni +"&sesso="+ sesso + "&ruolo="+ ruolo +"&oldusername="+ oldusername)
+    fetch("/mysql?" + "cmd=ModifyUser&username="+ username +"&password="+ password +"&nome="+ nome +"&cognome="+  cognome +"&anni="+ anni +"&sesso="+ sesso + "&ruolo="+ ruolo +"&oldusername="+ oldusername + "&IdUtente="+ IdUtente)
     .then(response => response.json())
-    .then(data => {
-        if(data[0] == undefined){
-            alert("Utente Aggiornato");
-            window.location.href = '/home/admin.html';
-        }else{
-            alert("Utente già presente");
-        }
-    })
+        .then(data => {
+            if(data[0] == undefined){
+                window.location.href = '/home/admin.html';
+            }else{
+                alert("Esiste già un utente con quel User");
+            }
+        });
 }
 
 /**
