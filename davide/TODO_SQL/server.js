@@ -114,10 +114,37 @@ app.get('/data', function (req, res) {
             });
             break;
         case 'add_user':
-            var sql = "INSERT INTO utenti (username, password) VALUES ('" + req.query.user + "', '" + req.query.password + "');";
+            var sql = "INSERT INTO utenti (username, password, role) VALUES ('" + req.query.user + "', '" + req.query.password + "', '" + req.query.role + "');";
             con.query(sql, function (err, result) {
                 if (err) throw err;
                 console.log("1 record inserted");
+                res.send(result)
+            });
+            break;
+        case 'delete_user':
+            var sql = "DELETE FROM utenti WHERE username = '" + req.query.user + "';";
+            con.query(sql, function (err, result) {
+                if (err) throw err;
+                console.log("1 record inserted");
+                res.send(result)
+            });
+            break;
+        case 'modifyUser':
+            var sql = "UPDATE utenti SET username = '" + req.query.user + "' WHERE username = '" + req.query.whatUser + "';";
+            con.query(sql, function (err, result) {
+                if (err) throw err;
+                console.log(result.affectedRows + " record updated");
+            });
+            var sql = "UPDATE utenti SET password = '" + req.query.pass + "' WHERE username = '" + req.query.whatUser + "';";
+            con.query(sql, function (err, result) {
+                if (err) throw err;
+                console.log(result.affectedRows + " record updated");
+            });
+            var sql = "UPDATE utenti SET role = '" + req.query.role + "' WHERE username = '" + req.query.whatUser + "';";
+            con.query(sql, function (err, result) {
+                if (err) throw err;
+                console.log(result.affectedRows + " record updated");
+                res.send(result);
             });
             break;
         case 'getUser':

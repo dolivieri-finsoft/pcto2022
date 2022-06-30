@@ -201,3 +201,8 @@ footer{
 #logIN, #signIN, #userManagerli{
     display: none;
 }
+
+.containeruser{
+    display: flex;
+    justify-content: space-around;
+}
