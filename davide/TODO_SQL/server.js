@@ -17,6 +17,9 @@ con.connect(function (err) {
     console.log("Connected!");
 });
 
+let bodyParser = require("body-parser");
+let urlencodedParser = bodyParser.json({ extended: false });
+
 const app = express();
 
 //#region root dell pagine
@@ -164,3 +167,13 @@ app.get('/data', function (req, res) {
 app.listen(3000, () => {
     console.log(`Serving on http://localhost:3000`);
 });
+
+app.post('/log',urlencodedParser,function(req,res) {
+    var sql = "SELECT * FROM utenti WHERE username = '" + req.query.user + "' AND password = '" + req.query.password + "';";
+    console.log(sql);
+    con.query(sql, function (err, result) {
+    if (err) throw err;
+        res.send(result);
+        console.log('log eseguito in post');
+    });
+})
