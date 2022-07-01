@@ -1,7 +1,6 @@
 
 
 body{
-    margin: 0;
     overflow: hidden;
     background: #000;
     position:static;
@@ -426,3 +425,26 @@ body{
     background-color: rgb(0, 236, 217);
     color: rgb(16, 107, 100);
 }
+
+.vertical-menu {
+  width: 200px;
+  float: right;
+  }
+
+  .vertical-menu a {
+  background-color: #eee;
+  color: black;
+  display: block;
+  padding: 12px;
+  text-decoration: none;
+  }
+
+  .vertical-menu a:hover {
+  background-color: rgb(136, 128, 128);
+  }
+
+  .vertical-menu a.active {
+  background-color: #04AA6D;
+  color: white;
+  }
+  

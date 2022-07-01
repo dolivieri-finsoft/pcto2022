@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Logout</title>
+</head>
+
+<body>
+    <script>
+        const out = () => {
+            let idaccesso = localStorage.getItem('IDaccesso');
+            let control = localStorage.getItem('controllo');
+            let role = localStorage.getItem('ruolo');
+            localStorage.controllo = "no";
+            window.location.href = '/';
+            localStorage.IDaccesso = 0;
+            localStorage.ruolo = "none";
+        }
+        onloadeddata = out();
+    </script>
+</body>
+
+</html>
