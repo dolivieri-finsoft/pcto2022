@@ -129,8 +129,12 @@ const chiudiSessione = () => {
 }
 
 const ControlloAccesso = () => {
-    if(sessionStorage.access == "si")
+    if(sessionStorage.access == "si"){
+        let today = new Date();
+        let dateTime = today.getDate() + "/" + today.getMonth() + "/" + today.getFullYear();
+        document.getElementById("Data").innerHTML = dateTime;
         AddGrafica();
+    }
     else{
         alert("Accesso vietato");
         window.location.href = '/'; //aggiornamento pagina

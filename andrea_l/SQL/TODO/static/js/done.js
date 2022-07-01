@@ -60,8 +60,13 @@ const chiudiSessione = () => {
 
 const ControlloAccesso = () => {
 
-    if(sessionStorage.access == "si")
-    doneList();
+    if(sessionStorage.access == "si"){
+        doneList();
+        let today = new Date();
+        let dateTime = today.getDate() + "/" + today.getMonth() + "/" + today.getFullYear();
+        document.getElementById("Data").innerHTML = dateTime;
+    }
+
     else{
         alert("Accesso vietato");
         window.location.href = '/'; //aggiornamento pagina

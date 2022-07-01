@@ -48,9 +48,21 @@ body{
     box-shadow: 0 0 0 5vw white inset;
 }
 
-.formButton:past
-
 .registratiLink{
     color: black;
     text-decoration: none;
+}
+
+.ShowPassword{
+    width: auto;
+    height: auto;
+    padding-left: 2%;
+    padding-right: 2%;
+    border: 0;
+    background-color: transparent;
+    font-size: 15px;
+}
+
+.formInputPsw{
+    width: 67%;
 }

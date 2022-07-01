@@ -30,6 +30,7 @@ const log = () => {
 
 const salvaIdUtente = () =>{
     var username = document.getElementById("Username").value;
+    
     fetch("/mysqlPost?" + "cmd=getIdUtente&username="+ username, {
         method: 'POST'
     })
@@ -46,4 +47,11 @@ const salvaIdUtente = () =>{
             window.location.href = '/home';
         }
     });
+}
+
+const ShowPassword = () => {
+    if(document.getElementById("Password").type == "password")
+        document.getElementById("Password").type == "text";
+    else
+        document.getElementById("Password").type == "password";
 }

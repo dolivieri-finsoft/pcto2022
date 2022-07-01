@@ -11,7 +11,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
 
     <script src="https://kit.fontawesome.com/728ba0677f.js" crossorigin="anonymous"></script>
-
 </head>
 
 <body background="./src/sfondo.jpg">
@@ -29,8 +28,8 @@
             </div>
             <div class="row">
                 <label for="Password" class="formLabel">Password</label>
-                <input type="password" class="formInput" id="Password" name="Password" placeholder="Password" onkeyup="checkinputPassword();" required>
-                </button>
+                <input type="password" class="formInputPsw" id="Password" name="Password" placeholder="Password">
+                <button class="ShowPassword" id="ShowPassword" onclick="ShowPassword()"><i class='fa-solid fa-eye'></i></button>
             </div>
             <div class="row rowButton">
                 <button type="button" class="formButton" onclick="log()">Login</button>

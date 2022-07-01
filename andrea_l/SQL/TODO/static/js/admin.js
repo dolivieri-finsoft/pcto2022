@@ -36,13 +36,13 @@ const UserList = () => {
                 html += "<td class='elemento' id='NomeUtente'>" + element.Nome_utente + "</td>";                
                 html += "<td class='elemento' id='RuoloUtente'>"+ element.Ruolo +"</td>";
 
-                if(sessionStorage.ruolo == "admin" && element.Ruolo == "admin")
-                html += "<td class='elemento pulsanti' style='color: black;'> IMPOSSIBILE ELIMINARE </td>";
-                else if(element.Ruolo == "super admin" && sessionStorage.ruolo == "admin")
-                html += "<td class='elemento pulsanti' style='color: black;'> IMPOSSIBILE ELIMINARE </td>";
-                else
                 html += "<td class='elemento pulsantielimina' id='ButtoneliminaUser'>";
-                html += "<div class='drop_down' onclick='openCloseUser("+ element.IdUtente +")'><i class='fa-solid fa-caret-down freccia'></i></div>'";
+                html += "<div class='drop_down' onclick='openCloseUser("+ element.IdUtente +")'><i class='fa-solid fa-caret-down freccia'></i></div>";
+                if(sessionStorage.ruolo == "admin" && element.Ruolo == "admin")
+                    html += "<button class='notDelete'>IMPOSSIBILE ELIMINARE</button>";
+                else if(element.Ruolo == "super admin" && sessionStorage.ruolo == "admin")
+                    html += "<button class='notDelete'>IMPOSSIBILE ELIMINARE</button>";
+                else
                 html += "<button class='ButtonDeleteAdmin' onclick='DeleteUser(`"+ element.IdUtente +"`)'>ELIMINA</button>";
                 html += "</td></tr>";
                 html += "<div class='sottoElemento' id='"+ element.IdUtente +"' style='display: none;'>";
@@ -273,8 +273,12 @@ const chiudiSessione = () => {
 
 const ControlloAccesso = () => {
 
-    if(sessionStorage.access == "si" && sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin")
-    UserList();
+    if(sessionStorage.access == "si" && sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin"){
+        UserList();
+        let today = new Date();
+        let dateTime = today.getDate() + "/" + today.getMonth() + "/" + today.getFullYear();
+        document.getElementById("Data").innerHTML = dateTime;
+    }
     else{
         alert("Accesso vietato");
         window.location.href = '/'; //aggiornamento pagina
