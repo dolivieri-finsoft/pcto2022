@@ -27,12 +27,18 @@
             </p>
         </div>
         <div class="rowButton">
-            <button class="menuButton" id="TodoButton" onclick="location.href='./todo.html'">Todo List</button>
-            <button class="menuButton" id="DoneButton" onclick="location.href='./done.html'">Done List</button>
-            <button class="menuButton" id="BothButton" onclick="location.href='./index.html'">Both List</button>
-            <button class="menuButton" id="AddButton" onclick="location.href='./add.html'">Aggiungi</button>
-            <button class="menuButton" id="ModButton" onclick="location.href='./modify.html'">Modifica</button>
-            <button style="display: none;" class="menuButton" id="AdminButton" onclick="location.href='./admin.html'">Admin Page</button>
+            <div class="menu">
+                <button class="menuButton" id="TodoButton" onclick="location.href='./todo.html'">Todo List</button>
+                <button class="menuButton" id="DoneButton" onclick="location.href='./done.html'">Done List</button>
+                <button class="menuButton" id="BothButton" onclick="location.href='./index.html'">Both List</button>
+                <button class="menuButton" id="AddButton" onclick="location.href='./add.html'">Aggiungi</button>
+                <button class="menuButton" id="ModButton" onclick="location.href='./modify.html'">Modifica</button>
+                <button style="display: none;" class="menuButton" id="AdminButton" onclick="location.href='./admin.html'">Admin Page</button>
+            </div>
+            <div class="search" id="search">
+                <i class="fa-solid fa-magnifying-glass searchIcon"></i>
+                <input type="text" class="InputSearch"> 
+            </div>
         </div>
     </header>
     <div class="containerElement animate__animated animate__backInDown">

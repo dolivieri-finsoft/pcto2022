@@ -58,24 +58,17 @@ const AddGrafica = () => {
             for (var i = 0; i < data.length; i++) {
                 const element = data[i];
                 if(i%2 == 0){
-                    html += "<tr class='tableRow'  style='background-color: #F7F7F7;'>";
-                    html += "<td class='elemento' id='stato'>" + element.cosa + "</td>";
-                    if(sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin"){
-                        html += "<td class='autore elemento'>"+ element.Username +"</td>";
-                    }
-                    html += "<td class='elementoButton'>";
-                    html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`,`"+ element.id +"`)'>ELIMINA</button>";
-                    html += "</td></tr>";
+                    html += "<tr class='tableRow'  style='background-color: lightgray;'>";
                 }else{
                     html += "<tr class='tableRow'>";
-                    html += "<td class='elemento' id='stato'>" + element.cosa + "</td>";
-                    if(sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin"){
-                        html += "<td class='autore elemento'>"+ element.Username +"</td>";
-                    }
-                    html += "<td class='elementoButton'>";
-                    html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`,`"+ element.id +"`)'>ELIMINA</button>";
-                    html += "</td></tr>";
-                }     
+                }
+                html += "<td class='elemento' id='stato'>" + element.cosa + "</td>";
+                if(sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin"){
+                    html += "<td class='autore elemento'>"+ element.Username +"</td>";
+                }
+                html += "<td class='elementoButton'>";
+                html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`,`"+ element.id +"`)'>ELIMINA</button>";
+                html += "</td></tr>";
             }
             document.getElementById("inserisciDone").innerHTML = html;
         })
@@ -90,24 +83,17 @@ const AddGrafica = () => {
             for (var i = 0; i < data.length; i++) {
                 const element = data[i];
                 if(i%2 == 0){
-                    html += "<tr class='tableRow' style='background-color: #F7F7F7;'>";
-                    html += "<td class='elemento' id='cosa'>" + element.cosa + "</td>";
-                    if(sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin"){
-                        html += "<td class='autore elemento'>"+ element.Username +"</td>";
-                    }
-                    html += "<td class='elementoButton'>";
-                    html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`,`"+ element.id +"`)'>ELIMINA</button>";
-                    html += "<button class='fatto' id='ButtonFatto' onclick='todoFatto(`"+ element.cosa +"`, `"+ element.id +"`)'>FATTO</button></td></tr>";
+                    html += "<tr class='tableRow'  style='background-color: lightgray;'>";
                 }else{
                     html += "<tr class='tableRow'>";
-                    html += "<td class='elemento' id='cosa'>" + element.cosa + "</td>";
-                    if(sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin"){
-                        html += "<td class='autore elemento'>"+ element.Username +"</td>";
-                    }
-                    html += "<td class='elementoButton'>";
-                    html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`,`"+ element.id +"`)'>ELIMINA</button>";
-                    html += "<button class='fatto' id='ButtonFatto' onclick='todoFatto(`"+ element.cosa +"`, `"+ element.id +"`)'>FATTO</button></td></tr>";
                 }
+                html += "<td class='elemento' id='cosa'>" + element.cosa + "</td>";
+                if(sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin"){
+                    html += "<td class='autore elemento'>"+ element.Username +"</td>";
+                }
+                html += "<td class='elementoButton'>";
+                html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`,`"+ element.id +"`)'>ELIMINA</button>";
+                html += "<button class='fatto' id='ButtonFatto' onclick='todoFatto(`"+ element.cosa +"`, `"+ element.id +"`)'>FATTO</button></td></tr>";
             }
             html += "</body></table>"
             document.getElementById("inserisciTodo").innerHTML = html;

@@ -15,7 +15,7 @@ const doneList = () => {
     document.getElementById('BothButton').style.color = "white";
     document.getElementById('BothButton').style.fontSize = "";
 
-    var stato = "todo";
+    var stato = "Done";
 
     fetch("/mysql?" + "cmd=getList&IdUtente=" + sessionStorage.Id + "&Ruolo=" + sessionStorage.ruolo + "&stato=" + stato)
         .then(response => response.json())
@@ -24,24 +24,17 @@ const doneList = () => {
             for (var i = 0; i < data.length; i++) {
                 const element = data[i];
                 if(i%2 == 0){
-                    html += "<tr class='tableRow'  style='background-color: #F7F7F7;'>";
-                    html += "<td class='elemento' id='stato'>" + element.cosa + "</td>";
-                    if(sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin"){
-                        html += "<td class='autore elemento'>"+ element.Username +"</td>";
-                    }
-                    html += "<td class='elementoButton'>";
-                    html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`,`"+ element.id +"`)'>ELIMINA</button>";
-                    html += "</td></tr>";
+                    html += "<tr class='tableRow'  style='background-color: lightgray;'>";
                 }else{
                     html += "<tr class='tableRow'>";
-                    html += "<td class='elemento' id='stato'>" + element.cosa + "</td>";
-                    if(sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin"){
-                        html += "<td class='autore elemento'>"+ element.Username +"</td>";
-                    }
-                    html += "<td class='elementoButton'>";
-                    html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`,`"+ element.id +"`)'>ELIMINA</button>";
-                    html += "</td></tr>";
-                }     
+                }
+                html += "<td class='elemento' id='stato'>" + element.cosa + "</td>";
+                if(sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin"){
+                    html += "<td class='autore elemento'>"+ element.Username +"</td>";
+                }
+                html += "<td class='elementoButton'>";
+                html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`,`"+ element.id +"`)'>ELIMINA</button>";
+                html += "</td></tr>";
             }
             document.getElementById("inserisciDone").innerHTML = html;
         })
