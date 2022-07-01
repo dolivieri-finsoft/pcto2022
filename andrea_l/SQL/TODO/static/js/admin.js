@@ -13,7 +13,9 @@ const UserList = () => {
 
     document.getElementById("UserList").style.display = "block";
     
-    fetch("/mysql?" + "cmd=getListUser")
+    fetch("/mysqlPost?" + "cmd=getListUser" ,{
+        method: 'POST'
+    })
         .then(response => response.json())
         .then(data => {
             html = "<tr class='tableRow tableRowButton' style='color:  black;'>";
@@ -104,7 +106,9 @@ const AggiungiUtente = () => {
     else if(username == password)
         alert("Inserire username e password diversi");
     else
-        fetch("/mysql?" + "cmd=addUser&username=" + username + "&password=" + password + "&nome=" + nome + "&cognome=" + cognome + "&eta=" + eta + "&sesso=" + sesso + "&ruolo=" + ruolo)
+        fetch("/mysqlPost?" + "cmd=addUser&username=" + username + "&password=" + password + "&nome=" + nome + "&cognome=" + cognome + "&eta=" + eta + "&sesso=" + sesso + "&ruolo=" + ruolo, {
+            method: 'POST'
+        })
         .then(response => response.json())
         .then(data => {
             if(data[0] == undefined){
@@ -157,7 +161,9 @@ const OpenCloseModUser = () =>{
     if(ModDiv.style.display == "none"){
         ModDiv.style.display = "flex";
 
-        fetch("/mysql?" + "cmd=getListUser")
+        fetch("/mysqlPost?" + "cmd=getListUser", {
+            method: 'POST'
+        })
         .then(response => response.json())
         .then(data => {
             html = "";
@@ -188,7 +194,9 @@ const OpenCloseModUser = () =>{
 
 const CompilaForm = () => {
     const username = document.getElementById("SelectUsername").value;
-    fetch("/mysql?" + "cmd=getIdUtente&username="+ username)
+    fetch("/mysqlPost?" + "cmd=getIdUtente&username="+ username, {
+        method: 'POST'
+    })
         .then(response => response.json())
         .then(data => {
             const element = data[0];
@@ -222,15 +230,17 @@ const ModificaUtente = () => {
     else if(username == password)
         alert("Inserire username e password diversi");
     else
-        fetch("/mysql?" + "cmd=ModifyUser&username="+ username +"&password="+ password +"&nome="+ nome +"&cognome="+  cognome +"&anni="+ anni +"&sesso="+ sesso + "&ruolo="+ ruolo +"&oldusername="+ oldusername + "&IdUtente="+ IdUtente)
-            .then(response => response.json())
-            .then(data => {
-                if(data[0] == undefined){
-                    window.location.href = '/home/admin.html';
-                }else{
-                    alert("Esiste già un utente con quel User");
-                }
-            });
+        fetch("/mysqlPost?" + "cmd=ModifyUser&username="+ username +"&password="+ password +"&nome="+ nome +"&cognome="+  cognome +"&anni="+ anni +"&sesso="+ sesso + "&ruolo="+ ruolo +"&oldusername="+ oldusername + "&IdUtente="+ IdUtente, {
+            method: 'POST'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data[0] == undefined){
+                window.location.href = '/home/admin.html';
+            }else{
+                alert("Esiste già un utente con quel User");
+            }
+        });
 }
 
 /**
@@ -243,7 +253,8 @@ const chiudiSessione = () => {
 }
 
 const ControlloAccesso = () => {
-    if(sessionStorage.access == "si")
+
+    if(sessionStorage.access == "si" && sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin")
     UserList();
     else{
         alert("Accesso vietato");

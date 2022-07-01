@@ -40,7 +40,9 @@ const todoList = () => {
 
 const getListAdmin = () => {
 
-    fetch("/mysql?" + "cmd=getListUser")
+    fetch("/mysqlPost?" + "cmd=getListUser", {
+        method: 'POST'
+    })
         .then(response => response.json())
         .then(data => {
             html = "<label for='text' class='formLabelModify'>Cosa vuoi modificare? </label>";
@@ -197,6 +199,7 @@ const chiudiSessione = () => {
 }
 
 const ControlloAccesso = () => {
+
     if(sessionStorage.access == "si")
     todoList();
     else{

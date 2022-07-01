@@ -12,23 +12,27 @@ const log = () => {
     if(username == "" || password == ""){
         alert("Inserire username e password")
     }else{
-        fetch("/mysql?" +  "cmd=loginUser&username=" + username)
-            .then(response => response.json())
-            .then(data => {
-                if(data[0] == undefined){
-                    alert("Utente non esistente");
-                }else if(password == data[0].Password){
-                    salvaIdUtente();
-                }else{
-                    alert("Password errata");
-                }
-            });
+        fetch("/mysqlPost?" +  "cmd=loginUser&username=" + username,{
+            method: 'POST'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data[0] == undefined){
+                alert("Utente non esistente");
+            }else if(password == data[0].Password){
+                salvaIdUtente();
+            }else{
+                alert("Password errata");
+            }
+        });
     }
 }
 
 const salvaIdUtente = () =>{
     var username = document.getElementById("Username").value;
-    fetch("/mysql?" + "cmd=getIdUtente&username="+ username)
+    fetch("/mysqlPost?" + "cmd=getIdUtente&username="+ username, {
+        method: 'POST'
+    })
     .then(response => response.json())
     .then(data => {
         for(var i = 0; i<data.length; i++){

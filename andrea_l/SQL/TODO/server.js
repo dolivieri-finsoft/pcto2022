@@ -10,11 +10,11 @@ app.listen(port, () =>{
 
 app.use(express.static("static"));
 
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
     res.sendfile(path.join(__dirname, '/'));
 });
 
-app.get('/home', function (req, res) {
+app.get('/home', (req, res) => {
     res.sendfile(path.join(__dirname, '/home'));
 });
 
@@ -22,7 +22,7 @@ app.get('/home', function (req, res) {
  const db = mysql.createConnection({
     host : 'localhost',
     user : 'root',
-    password : 'Andry1949!',
+    password : 'finsoft',
     database : 'TODO_DONE'
  });
  
@@ -38,29 +38,93 @@ app.get('/home', function (req, res) {
 const path = require('path');
 const fs = require('fs');
 
-app.get('/mysql', function (req, res) {
+app.post('/mysqlPost',urlencodedParser = (req, res) =>{
+
+    cmd = req.query.cmd;
+
+    console.log("POST");
+    console.log(`CMD: ${cmd}`);
+
+    switch(cmd){
+        case("loginUser"):
+            var sql = "SELECT Password from Users WHERE Nome_utente = '"+ req.query.username + "';";
+            db.query(sql, (err, result) =>{
+                if(err)
+                    console.log("ERRORE");
+                else{
+                    console.log("User trovato");
+                res.send(result);
+                }
+            });
+            break;
+        case("ModifyUser"):
+            var sqlSelect = "SELECT Nome_utente FROM Users WHERE NOT IdUtente = '"+ req.query.IdUtente +"'  AND Nome_utente = '"+ req.query.username +"';";
+            console.log("USERNAME:"+req.query.username + " Id:"+ req.query.IdUtente);
+            db.query(sqlSelect, (err, result) =>{
+                if(result.length == 0){
+                    console.log("E POSSIBILE AGGIORNARE L'UTENTE");
+                    var sql = "UPDATE Users SET Nome_utente = '"+ req.query.username +"', Password = '"+ req.query.password +"', Nome = '"+ req.query.nome +"', Cognome = '"+ req.query.cognome +"', Anni = '"+ req.query.anni +"', Sesso = '"+ req.query.sesso +"', Ruolo = '"+ req.query.ruolo +"'WHERE Nome_utente = '"+ req.query.oldusername +"';";
+                    db.query(sql, (err, result) =>{
+                        if(err)
+                            console.log(err);
+                        else
+                            console.log("UTENTE AGGIORNATO");
+                    });
+                }else{
+                    console.log("UTENTE TROVATO");
+                }
+                res.send(result);
+            });
+            break;
+        case("getListUser"):
+            var sql ="SELECT * FROM Users;"
+
+            db.query(sql, (err, result) =>{
+                if(err)
+                    console.log("ERRORE");
+                else{
+                    console.log("lista utenti trovata");
+                    res.send(result);
+                }
+            });
+            break;
+        case("getIdUtente"):
+            var sql = "SELECT * FROM Users WHERE Nome_Utente = '"+ req.query.username +"';";
+            db.query(sql, (err, result)=> {
+                if(err)
+                    console.log("ERRORE");
+                else{
+                    console.log("Id trovato");
+                    res.send(result);
+                }
+            });
+            break;
+        case("addUser"):
+            var sqlSelect = "SELECT Nome_utente FROM Users WHERE Nome_utente = '" + req.query.username +"';";
+
+            db.query(sqlSelect, (err, result) =>{
+                if(result.length == 0){
+                    var sql = "INSERT INTO Users(Nome_utente, Password, Nome, Cognome, Anni, Sesso, Ruolo) VALUES ('"+ req.query.username +"', '"+ req.query.password +"', '"+ req.query.nome +"', '"+ req.query.cognome +"', '"+ req.query.eta +"', '"+ req.query.sesso +"', '"+ req.query.ruolo +"');";
+                    db.query(sql, (err, result) =>{
+                        if(err)
+                            console.log(err);
+                        else
+                            console.log("1 user inserted");
+                    });
+                }else{
+                    console.log("Errore");
+                }
+                res.send(result);
+            });
+            break;
+    }
+});
+
+app.get('/mysql', (req, res) =>{
     cmd = req.query.cmd;
     console.log(`CMD: ${cmd}`);
 
-    if(cmd == "ModifyUser"){
-        var sqlSelect = "SELECT Nome_utente FROM Users WHERE NOT IdUtente = '"+ req.query.IdUtente +"'  AND Nome_utente = '"+ req.query.username +"';";
-        console.log("USERNAME:"+req.query.username + " Id:"+ req.query.IdUtente);
-        db.query(sqlSelect, (err, result) =>{
-            if(result.length == 0){
-                console.log("E POSSIBILE AGGIORNARE L'UTENTE");
-                var sql = "UPDATE Users SET Nome_utente = '"+ req.query.username +"', Password = '"+ req.query.password +"', Nome = '"+ req.query.nome +"', Cognome = '"+ req.query.cognome +"', Anni = '"+ req.query.anni +"', Sesso = '"+ req.query.sesso +"', Ruolo = '"+ req.query.ruolo +"'WHERE Nome_utente = '"+ req.query.oldusername +"';";
-                db.query(sql, (err, result) =>{
-                    if(err)
-                        console.log(err);
-                    else
-                        console.log("UTENTE AGGIORNATO");
-                });
-            }else{
-                console.log("UTENTE TROVATO");
-            }
-            res.send(result);
-        });
-    }else if(cmd == "getSpecificoTodo"){
+    if(cmd == "getSpecificoTodo"){
         var sqlGet = "SELECT * FROM todo_done_DB WHERE id = '"+ req.query.IdCosa +"';";
         
         db.query(sqlGet, (err, result) =>{
@@ -89,48 +153,6 @@ app.get('/mysql', function (req, res) {
                 });
             }
         });
-    }else if(cmd == "getListUser"){
-        var sql ="SELECT * FROM Users;"
-
-        db.query(sql, (err, result) =>{
-            if(err)
-                console.log("ERRORE");
-            else{
-                console.log("lista utenti trovata");
-                res.send(result);
-            }
-        });
-    }else if(cmd =="getNomeUtente"){
-        var sql = "SELECT Nome_utente FROM Users WHERE IdUtente = '"+ req.query.IdUtente +"';";
-
-        db.query(sql, (err, result)=> {
-            if(err)
-                console.log("ERRORE");
-            else{
-                console.log("Nome utente trovato");
-                res.send(result);
-            }
-        });
-    }else if(cmd == "getIdUtente"){
-        var sql = "SELECT * FROM Users WHERE Nome_Utente = '"+ req.query.username +"';";
-        db.query(sql, (err, result)=> {
-            if(err)
-                console.log("ERRORE");
-            else{
-                console.log("Id trovato");
-                res.send(result);
-            }
-        });
-    }else if(cmd == "loginUser"){
-        var sql = "SELECT Password from Users WHERE Nome_utente = '"+ req.query.username + "';";
-        db.query(sql, (err, result) =>{
-            if(err)
-                console.log("ERRORE");
-            else{
-                console.log("User trovato");
-                res.send(result);
-            }
-        });
     }else if(cmd == "ControlloRuolo"){
         var sqlAdmin = "SELECT Ruolo FROM Users WHERE Ruolo = '"+ req.query.ruolo +"';";
         
@@ -141,23 +163,6 @@ app.get('/mysql', function (req, res) {
             }else{
                 console.log(req.query.ruolo + " trovato");
             }
-        });
-    }else if(cmd == "addUser"){
-        var sqlSelect = "SELECT Nome_utente FROM Users WHERE Nome_utente = '" + req.query.username +"';";
-
-        db.query(sqlSelect, (err, result) =>{
-            if(result.length == 0){
-                var sql = "INSERT INTO Users(Nome_utente, Password, Nome, Cognome, Anni, Sesso, Ruolo) VALUES ('"+ req.query.username +"', '"+ req.query.password +"', '"+ req.query.nome +"', '"+ req.query.cognome +"', '"+ req.query.eta +"', '"+ req.query.sesso +"', '"+ req.query.ruolo +"');";
-                db.query(sql, (err, result) =>{
-                    if(err)
-                        console.log(err);
-                    else
-                        console.log("1 user inserted");
-                });
-            }else{
-                console.log("Errore");
-            }
-            res.send(result);
         });
     }else if(cmd == "getList"){
         if(req.query.stato == "all"){

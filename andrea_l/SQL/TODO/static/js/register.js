@@ -62,7 +62,9 @@ const registrati = () => {
     else if(username == password && username != "admin")
         alert("Inserire username e password diversi");
     else
-        fetch("/mysql?" + "cmd=addUser&username=" + username + "&password=" + password + "&nome=" + nome + "&cognome=" + cognome + "&eta=" + eta + "&sesso=" + sesso + "&ruolo=" + ruolo)
+        fetch("/mysqlPost?" + "cmd=addUser&username=" + username + "&password=" + password + "&nome=" + nome + "&cognome=" + cognome + "&eta=" + eta + "&sesso=" + sesso + "&ruolo=" + ruolo, {
+            method: 'POST'
+        })
         .then(response => response.json())
         .then(data => {
             if(data[0] == undefined){
