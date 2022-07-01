@@ -1,6 +1,10 @@
 body{
   background-color: rgb(152, 3, 3);
 }
+
+#header{
+  margin-right: 50000px;
+}
 table{
     border: 2px solid;
     font-size: 30px;
@@ -46,8 +50,8 @@ table{
   text-align: center;
   color: black;
   text-shadow: 0 0 3px #FF0000;  
-  border: 3px solid black;
   width:40%;
+  color:aqua;
  }
 
  #List{
@@ -59,7 +63,6 @@ table{
  #dati{
   display: flex;
   flex-direction: column;
-  justify-content:center;
   width: 300px;
   margin-left: 650px;
   

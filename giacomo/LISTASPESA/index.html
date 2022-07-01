@@ -5,38 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="home/fogliocss/style.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <script src="home/javascript/serve.js"></script>
-
-
-
+  
     <title>Login</title>
 </head>
 <body>
+    <script src="home/javascript/serve.js"></script>
     <div id="List">
         <h1> Login </h1><br>
 
     </div><br>
 
-    <header class="w3-container w3-red w3-center" style="padding:68px" >
-       
+    <header id="header" >
         <div id="dati">
           <label id="labelUsername">Username: </label>
-        <input type="text" id="username" name="username" placeholder="username">
+        <input type="text" id="username" name="username">
                <br>
                <br>
          <label id="labelPassword">Password:</label>
         <input type="password" value="" id="password">
-        <input type="checkbox" onclick="myFunction()" id="show">Show Password
-         
+ 
         </div>
 
+        
           <br>
-          <br>
-          <button type="button" id="Signin" onclick="Signin()">Sign in </button>
-          <button type="button" id="Login" onclick="Login()">Log in </button>
-
        
       </header>
+
+      <center><button type="button" id="Login" onclick="Login()">Log in </button></center>
+
 
       
 
