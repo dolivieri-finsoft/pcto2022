@@ -20,45 +20,64 @@ const UserList = () => {
         .then(data => {
             html = "<tr class='tableRow tableRowButton' style='color:  black;'>";
             html += "<td class='elemento pulsanti' id='IdUtente'><button class='ButtonAddAdmin' onclick='AddCloseUser()'>AGGIUNGI</button></td>";
-            html += "<td class='elemento pulsanti' id='IdUtente'><button class='ButtonModAdmin' onclick='OpenCloseModUser()'>MODIFICA</button></td>";
+            html += "<td class='elemento pulsanti' id='IdUtente'><button class='ButtonModAdmin' onclick='OpenCloseModUser()'>MODIFICA</button></td></tr>";
             html += "<tr class='tableRow' style='color: black;'>";
             html += "<td class='titolo'>USER LIST</td></tr>";   
             html += "<tr class='tableRow' style='color:  black;'>";
             html += "<td class='elemento IdElemento' id='titoloColonna'> ID UTENTE</td>";
             html += "<td class='elemento' id='titoloColonna'> NOME UTENTE</td>";
-            html += "<td class='elemento' id='titoloColonna'> NOME</td>";
-            html += "<td class='elemento' id='titoloColonna'> COGNOME </td>";
-            html += "<td class='elemento' id='titoloColonna'> RUOLO</td>";
-            html += "<td class='elemento pulsanti' id=''></td></tr>";
+            html += "<td class='elemento' id='titoloColonna'> PASSWORD </td>";
+            html += "<td class='elemento'></td>"
+            html += "</tr>";
             for (var i = 0; i < data.length; i++) {
                 const element = data[i];
                 html += "<tr class='tableRow'>";
                 html += "<td class='elemento IdElemento' id='IdUtente'>" + element.IdUtente + "</td>";
-                html += "<td class='elemento' id='NomeUtente'>" + element.Nome_utente + "</td>";
-                if(element.Nome == "")
-                    html += "<td class='elemento' id='NomeUtente'> // </td>";
-                else
-                    html += "<td class='elemento' id='NomeUtente'>"+ element.Nome +"</td>";
-
-                if(element.Cognome == "")
-                    html += "<td class='elemento' id='NomeUtente'> // </td>";
-                else
-                    html += "<td class='elemento' id='CognomeUtente'>"+ element.Cognome +"</td>";
-
+                html += "<td class='elemento' id='NomeUtente'>" + element.Nome_utente + "</td>";                
                 html += "<td class='elemento' id='RuoloUtente'>"+ element.Ruolo +"</td>";
-                
+
                 if(sessionStorage.ruolo == "admin" && element.Ruolo == "admin")
-                    html += "<td class='elemento pulsanti' style='color: black;'> IMPOSSIBILE ELIMINARE </td>";
+                html += "<td class='elemento pulsanti' style='color: black;'> IMPOSSIBILE ELIMINARE </td>";
                 else if(element.Ruolo == "super admin" && sessionStorage.ruolo == "admin")
-                    html += "<td class='elemento pulsanti' style='color: black;'> IMPOSSIBILE ELIMINARE </td>";
+                html += "<td class='elemento pulsanti' style='color: black;'> IMPOSSIBILE ELIMINARE </td>";
                 else
-                    html += "<td class='elemento pulsanti' id='ButtoneliminaUser'><button class='ButtonDeleteAdmin' onclick='DeleteUser(`"+ element.IdUtente +"`)'>ELIMINA</button></td>";
-                html += "</tr>";
-            }
+                html += "<td class='elemento pulsantielimina' id='ButtoneliminaUser'>";
+                html += "<div class='drop_down' onclick='openCloseUser("+ element.IdUtente +")'><i class='fa-solid fa-caret-down freccia'></i></div>'";
+                html += "<button class='ButtonDeleteAdmin' onclick='DeleteUser(`"+ element.IdUtente +"`)'>ELIMINA</button>";
+                html += "</td></tr>";
+                html += "<div class='sottoElemento' id='"+ element.IdUtente +"' style='display: none;'>";
+                html += "<div class='pelement'> <b>Username</b>: "+ element.Nome_utente +"</div>";
+                html += "<div class='pelement'> <b>Password</b>: "+ element.Password +"</div>";
+                if(element.Nome == "")
+                    html += "<div class='pelement'> <b>Nome</b>: //</div>";
+                else
+                    html += "<div class='pelement'> <b>Nome</b>: "+ element.Nome +"</div>";
+                
+                if(element.Cognome == "")
+                    html += "<div class='pelement'> <b>Cognome</b>: //</div>";
+                else
+                    html += "<div class='pelement'> <b>Cognome</b>: "+ element.Cognome +"</div>";
+                html += "<div class='pelement'> <b>Anni</b>: "+ element.Anni +"</div>";
+                html += "<div class='pelement'> <b>Sesso</b>: "+ element.Sesso +"</div>";
+                html += "<div class='pelement'> <b>Ruolo</b>: "+ element.Ruolo +"</div>";
+                html += "</div>";
+                }
+                
             document.getElementById("inserisciUser").innerHTML = html;
         })
         .catch(error => console.log(error));
     document.getElementById("ShowPassword").innerHTML = "<i class='fa-solid fa-eye'></i>";
+}
+
+const openCloseUser = (IdUtente) => {
+    if(document.getElementById(IdUtente).style.display == "none"){
+        document.getElementById(IdUtente).style.display = "block";
+    }
+    else{
+        document.getElementById(IdUtente).style.display = "none";
+    }
+        
+
 }
 
 const DeleteUser = (IdUtente) => {
