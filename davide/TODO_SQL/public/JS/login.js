@@ -15,7 +15,6 @@ const checkInsert = (id) => {
     return true;
 }
 
-var currentUser;
 
 //#region funzioni log e sign
 const fun_log_IN = () =>{
@@ -25,14 +24,21 @@ const fun_log_IN = () =>{
     console.log(`user: ${user}, password: ${password}`);
 
     if (checkInsert('user_log') && checkInsert('password_log')) {
-        fetch("/data?" + "cmd=check_user&user=" + user + "&password=" + password )
+        fetch("/log?" + "cmd=check_user&user=" + user + "&password=" + password, { method: 'POST'})
             .then(response => response.json())
             .then(data => {
                 console.log(data);
                 if(data != 0){
+                    localStorage.clear();
+                    console.log(data)
+                    utente = {
+                        "role" : data[0].role,
+                        "user" : data[0].username
+                    }
+                    localStorage.setItem('role', data[0].role);
+                    localStorage.setItem('user', data[0].username);
+                    console.log(localStorage);
                     window.location.replace("/home");
-                    currentUser = data;
-                    console.log(currentUser);
                 }
                 else{
                     document.getElementById("error").innerText = "ERRORE!!!";

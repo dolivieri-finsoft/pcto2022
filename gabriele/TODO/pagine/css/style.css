@@ -9,6 +9,7 @@ table{
     border: 3px white solid;
     background-color: black;
     padding: 5px;
+    width: 35%;
 }
 tr, td{
     border: 1px solid;
@@ -48,12 +49,6 @@ h1{
     padding: 20px;
     border: 3px white solid;
 }
-#todoList{
-    width: 600px;
-}
-#doneList{
-    width: 600px;
-}
 .opzioni{
     color: white;
     border-radius: 10px;
@@ -88,7 +83,7 @@ h1{
     display: none;
 }
 .largo{
-    width: 10%;
+    width: 150px;
     height: min-content;
 }
 .bordi{
@@ -97,4 +92,21 @@ h1{
 #user{
     background-color: black;
     color: white;
+}
+.section{
+    padding: 20px;
+    border: 3px black solid;
+    border-radius: 10px;
+    background-color: #ffffff6c;
+}
+#my{
+    background-color:yellow;
+}
+#sinistra{
+    width: 170px;
+}
+.error{
+    color: rgb(255, 30, 0);
+    font-size: 25px;
+    padding-top: 15px;
 }

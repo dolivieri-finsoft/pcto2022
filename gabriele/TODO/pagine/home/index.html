@@ -13,6 +13,9 @@
         <button class="opzioni bordi rossa largo" onclick="DeleteAccount()">Delete account</button>
         <h1 id="benvenuto"></h1>
         <button class="opzioni bordi rossa largo" onclick="Logout()">Log out</button>
+    </div>
+    <div class="new">
+        <button class="opzioni bordi blu largo invisibile" id="adminPage" onclick="Admin()">Admin Page</button>
     </div><br>
 
     <div class="container">
@@ -33,6 +36,9 @@
             <label id="testo" for="done">Done</label><br><br>
             <button class="base rossa invisibile" id="buttonB" onclick="Back()">Back</button>
             <button class="base verde" id="button" onclick="Add()">Add</button>
+            <div class="error">
+                <label id="errore"></label>
+            </div>
         </div>
     </div>
 

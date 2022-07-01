@@ -26,6 +26,7 @@ a{
 
 nav li{
     display: inline-block;
+    padding-inline-start: 0px;
 }
 
 li a{
@@ -157,7 +158,7 @@ footer{
     border-radius: 25px;
 }
 
-.button-container{
+.button-container, .containercolonne{
     padding-top: 25px;
     display: flex;
     justify-content: space-around;
@@ -197,6 +198,11 @@ footer{
     padding-top: 25px;
 }
 
-#logIN, #signIN{
+#logIN, #signIN, #userManagerli{
     display: none;
+}
+
+.containeruser{
+    display: flex;
+    justify-content: space-around;
 }

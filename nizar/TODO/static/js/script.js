@@ -1,5 +1,12 @@
+const { METHODS } = require("http");
+
 var modificare;
 
+if(localStorage.length == 0){
+  localStorage.setItem("username", "");
+  localStorage.setItem("ruolo", "");
+
+}
 function myFunction() {
   var x = document.getElementById("password");
   if (x.type === "password") {
@@ -9,7 +16,14 @@ function myFunction() {
   }
 }
 
+
+
 function Richiesta(){
+  
+  if(localStorage.ruolo == "admin"){
+    document.getElementById('amministratore').style.display = "inline";
+  }
+  document.getElementById('h1').innerHTML = "To do / Done List by " + localStorage.username;
     
     const todoList = () => {
       fetch("/request")
@@ -21,6 +35,7 @@ function Richiesta(){
               
               for (var i = 0; i < data.length; i++) {
                   const element = data[i];
+                  
                   if(element.username == localStorage.username){
                   if(element.stato == "todo"){
                     html += "<tr> <td>" + element.cosa + "</td>  <td class='elimina' id ='" + element.cosa + "' onclick='elimina(this.id)'>Delete</td> <td class='cambia' id ='" + element.cosa + "' onclick='cambia(this.id)'>Move </td> <td class='modifica' id ='" + element.cosa + "' onclick='modifica(this.id, 0)'>✏️</td> </tr>";
@@ -42,6 +57,7 @@ function Richiesta(){
   document.onloadeddata = todoList();
   
     
+
 }
   
 
@@ -60,7 +76,13 @@ function cambia(id){
 
   function indietro(id){
     
-    window.location.href = "../home/index.html";
+    window.location.reload();
+    
+  }
+
+  function indietroUtente(username){
+    
+    window.location.reload();
     
   }
 
@@ -106,7 +128,6 @@ function modifica(id, numero){
   
   document.getElementById('indietro').style.display = "inline";
   document.getElementById('logout').style.display = "none";
-
 
 
   modificare = id;
@@ -165,18 +186,24 @@ function modifica(id, numero){
       alert("Compila i campi sottostanti!!!");
     }
     else{
-      fetch("/login?" + "username=" + username)
+      fetch("/login?" + "username=" + username,{
+        method: 'POST'
+      })
     .then(response => response.json())
     .then(data => {
       
     if(data[0] == undefined){
         alert("Utente inesistente. Registrati");
     }
-    else if(data[0].password == password){
-      window.location.href = "../home/index.html";
-      localStorage.setItem("username",username);
+    else if(password == data[0].password){
+      localStorage.username = username;
+      localStorage.ruolo = data[0].ruolo;
+      
 
-    }
+      window.location.replace("/home");
+
+      
+  }
     else{
       alert("Email o Username Errati");
     }
@@ -187,7 +214,9 @@ function modifica(id, numero){
 }
 
 function logout(){
-  window.location.href = "../index.html";
+  window.location.replace("/");
+  localStorage.username = "";
+
 }
 
 function deleteAccount(){
@@ -208,6 +237,144 @@ function deleteAccount(){
   });
 
 }
+
+function admin(){
+  window.location.replace("/admin");
+}
+
+function Exit(){
+  window.location.replace("/home");
+}
+
+function Richiesta2(){
+  document.getElementById('Exit').style.display = "inline";
+
+      const todoList = () => {
+          fetch("/request")
+           .then(response => response.json())
+           .then(data => {
+           html = "<tr><th id='autore' colspan='1'>Autore</th><th id='titolo' colspan='8'>To do</th></tr>";
+           html1 = "<tr><th id='autore' colspan='1'>Autore</th><th id='titolo' colspan='8'>Done</th></tr>";
+           for (var i = 0; i < data.length; i++) {
+               const element = data[i];
+                  if(element.stato == "todo"){
+                    html += "<tr> <td id='user'>" + element.username + "</td> <td>" + element.cosa + "</td>  <td class='elimina' id ='" + element.cosa + "' onclick='elimina(this.id)'>Delete</td> <td class='cambia' id ='" + element.cosa + "' onclick='cambia(this.id)'>Move </td> <td class='modifica' id ='" + element.cosa + "' onclick='modifica(this.id, 0)'>✏️</td> </tr>";
+                   }
+                   else{
+                    html1 += "<tr> <td id='user'>" + element.username + "</td> <td>" + element.cosa + "</td> <td class='elimina' id ='" + element.cosa + "' onclick='elimina(this.id)'>Delete</td> <td class='modifica' id ='" + element.cosa + "' onclick='modifica(this.id, 1)'>✏️</td> </tr>";
+                   }
+           }
+           document.getElementById("todoList").innerHTML = html;
+          document.getElementById("todoList1").innerHTML = html1;
+      
+           })
+           .catch(error => console.log(error));
+          }
+      
+          document.onloadeddata = todoList();
+
+          const utenti = () => {
+            fetch("/lista")
+             .then(response => response.json())
+             .then(data => {
+                 lista = "<tr><th id='titolo' colspan='8'>Autori</th></tr><tr><td id='lis'>Username</td><td id='lis'>Password</td><td id='lis'>Ruolo</td></tr>";
+                 for (var i = 0; i < data.length; i++) {
+                    const element = data[i]; 
+                    lista += "<tr> <td>" + element.username + "</td> <td>" + element.password + "</td> <td>" + element.ruolo + "</td> <td class='elimina' id ='" + element.username + "' onclick='eliminaAutore(this.id)'>Delete</td> <td class='modifica' id ='" + element.username + "' onclick='modificaAutore(this.id)'>✏️</td>";    
+                 }
+                 document.getElementById("utenti").innerHTML = lista;
+            
+             })
+             .catch(error => console.log(error));
+             }
+            
+            document.onloadeddata = utenti();    
+    }    
+
+function eliminaAutore(id){
+
+  if(id == localStorage.username){
+  fetch("/deleteAccount?" + "username=" + id) 
+  alert("Utente eliminato correttamente");
+      window.location.replace("/");
+  }
+  else{
+    fetch("/deleteAccount?" + "username=" + id) 
+  alert("Utente eliminato correttamente");
+      window.location.reload();   
+  }
+      
+
+  };
+
+  function aggiungiUtente(){
+
+    let username = document.getElementById('userUtente').value;
+    var password = document.getElementById("passUtente").value;
+    var ruolo = document.getElementById("selectUtenti").value;
+    
+
+    if(username == "" || password == ""){
+      alert("Compila i campi sottostanti!!!");
+    }
+    else if(document.getElementById("elemento1").outerHTML.length == 63)
+        {
+            fetch("/writeUtente?" + "username=" + username + "&password=" + password + "&ruolo=" + ruolo)
+            .then(data => {
+              if(data){
+                  alert("Utente già registrato");
+              }
+          });
+        }
+        else if (document.getElementById("elemento1").outerHTML.length == 66)
+        {
+
+        fetch("/modificaUtente?" + "username=" + username + "&password=" + password + "&ruolo=" + ruolo + "&usernameVecchio=" + modificare)
+        .then(data => {
+          if(data){
+              alert("Utente già registrato");
+          }
+      });
+}
+window.location.reload();
+
+  }
+
+
+function modificaAutore(id){
+
+  document.getElementById('indietroUtente').style.display = "inline";
+
+
+  document.getElementById('aggiungiUtente').innerHTML = "Modifica";
+  document.getElementById('elemento1').innerHTML = "Modifica Utente"
+  document.getElementById('userUtente').value = id;
+
+ 
+
+  modificare = id;
+
+
+  fetch("/trova?" + "username=" + id) 
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById('passUtente').value = data[0].password;
+    
+   if(data[0].ruolo == "admin"){
+  document.getElementById('selectUtenti').value = "admin";
+   }
+   else{
+  document.getElementById('selectUtenti').value = "utente";
+
+}
+
+  });
+
+
+
+  }
+
+  
 
  
   

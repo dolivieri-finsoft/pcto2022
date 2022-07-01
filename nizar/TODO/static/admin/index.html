@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/script.js"></script>
+  
+
+  <title></title>
+</head>
+<body onload="Richiesta2()"  >
+
+  <div id="List2">
+    <h1 id="benvenuto">ADMIN PAGE<br></h1>
+</div><br>
+
+<div id="adminPage">
+    <button type="button" id="Exit" onclick="Exit()" style="display:none" >Exit Admin Page</button>
+  
+  </div>
+
+
+  <div class="container">
+    
+    <table id="todoList">
+    </table>
+    <table id="todoList1"></table>
+    
+</div>
+
+
+
+
+<header class="w3-container w3-red w3-center" style="padding:68px" >
+  <h2 class="w3-margin w3-jumbo" id="elemento">Nuovo Elemento</h2>
+  <div>
+    <label id="label">Thing: </label>
+  <input type="text" id="cosa" name="cosa" placeholder="es.gommista...">
+  <br>
+  <br>
+  <select name="stato" id="select">
+    <option value="todo" selected="selected">To Do</option>
+    <option value="done">Done </option>
+    </select>
+  </div>
+    <br>
+    <button type="button" id="indietro" onclick="indietro()" style="display:none">Return </button>
+    <button type="button" id="aggiungi" onclick="aggiungi()">Aggiungi </button>
+    
+    
+</header>
+
+<div class="container2">
+    <table id="utenti">
+    </table>
+</div>
+
+<div class="w3-container w3-red w3-center " style="padding:68px">
+    <h2 class="w3-margin w3-jumbo" id="elemento1">Nuovo Utente</h2>
+    <div>
+      <label id="label">Username: </label>
+    <input type="text" id="userUtente" name="userUtente" placeholder="username">
+    <br>
+    <br>
+    <label id="label">Password: </label>
+    <input type="text" id="passUtente" name="passUtente" placeholder="password">
+    <br>
+    <br>
+    <select name="statoUtenti" id="selectUtenti">
+     <option value="admin" selected="selected">Admin</option>
+      <option value="utente" >Utente</option>
+     
+      </select>
+    </div>
+      <br>
+      <button type="button" id="indietroUtente" onclick="indietroUtente()" style="display:none">Return </button>
+      <button type="button" id="aggiungiUtente" onclick="aggiungiUtente()">Aggiungi </button>
+      
+      
+</div>
+<div id="dati1">
+  <div id="insieme">
+<button type="button" id="deleteAccount" onclick="deleteAccount()" >Delete Account </button>
+    <button type="button" id="logout" onclick="logout()" >Logout </button>
+</div>
+</div>
+ 
+</body>
+</html>

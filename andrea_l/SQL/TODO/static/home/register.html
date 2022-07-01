@@ -8,7 +8,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Genos:wght@100;400;700&display=swap" rel="stylesheet">
     
     <script src="https://kit.fontawesome.com/728ba0677f.js" crossorigin="anonymous"></script>
 </head>
@@ -21,7 +21,7 @@
         </div>
         <div class="row">
             <label for="Username" class="formLabel">Username:</label>
-            <input type="text" class="formInput" id="Username" name="Username" placeholder="Username" onkeyup="checkinputUsername();" required>  
+            <input type="text" class="formInput" id="Username" name="Username" placeholder="Username" autocomplete="off">  
         </div>
         <div class="row">
             <label for="Password" class="formLabel">Password:</label>
@@ -37,7 +37,6 @@
         <div class="row" id="rowAdd">
             <label for="Eta" class="formLabelDatiPers">Età:*</label>
             <select class='formSelect' id='formSelectEtà' name='eta'>
-
             </select>
             
             <label for="Eta" class="formLabelDatiPers">Sesso:*</label>
@@ -46,13 +45,16 @@
                 <option value='maschio'>Maschio</option>
                 <option value='femmina'>Femmina</option>
             </select>
+            <label for="Eta" class="formLabelDatiPers">Ruolo:</label>
+            <select class='formSelect' id='formSelectRuolo' name='stato'>
+                <option value='utente'>utente</option>
+            </select>
         </div>
         <div class="row rowButton">
             <button type="button" class="formButton" onclick="registrati()">Sign in</button>
         </div>
     </div>
     <script src="../js/register.js"></script>
-
 </body>
 
 </html> 

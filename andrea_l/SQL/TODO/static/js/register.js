@@ -5,6 +5,33 @@ const eta = () => {
     }
     document.getElementById("formSelectEtà").innerHTML = html;
     document.getElementById("ShowPassword").innerHTML = "<i class='fa-solid fa-eye'></i>";
+
+    html = "<option value='utente'>utente</option>"
+
+    controlloAdmin();
+    controlloSuperAdmin();
+}
+
+const controlloSuperAdmin = () =>{
+    superAdmin = "super admin";
+    fetch("/mysql?" + "cmd=ControlloRuolo&ruolo=" + superAdmin)
+        .then(response => {
+            if(response.status == 200 && response.statusText == "OK"){
+                html += "<option value='super admin'>super admin</option>"
+            }
+            document.getElementById("formSelectRuolo").innerHTML = html;
+        });
+}
+
+const controlloAdmin = () =>{
+    admin = "admin";
+    fetch("/mysql?" + "cmd=ControlloRuolo&ruolo=" + admin)
+        .then(response => {
+            if(response.status == 200 && response.statusText == "OK"){
+                html += "<option value='admin'>admin</option>"
+            }
+            document.getElementById("formSelectRuolo").innerHTML = html;
+        });
 }
 
 const ShowPassword = () => {
@@ -26,8 +53,18 @@ const registrati = () => {
     var cognome = document.getElementById('Cognome').value;
     var eta = document.getElementById('formSelectEtà').value;
     var sesso = document.getElementById('formSelectSesso').value;
-
-    fetch("/mysql?" + "cmd=addUser&username=" + username + "&password=" + password + "&nome=" + nome + "&cognome=" + cognome + "&eta=" + eta + "&sesso=" + sesso)
+    var ruolo = document.getElementById("formSelectRuolo").value;
+    
+    if(password == "")
+        alert("Inserire una password");
+    else if(username == "")
+        alert("Inserire un username");
+    else if(username == password && username != "admin")
+        alert("Inserire username e password diversi");
+    else
+        fetch("/mysqlPost?" + "cmd=addUser&username=" + username + "&password=" + password + "&nome=" + nome + "&cognome=" + cognome + "&eta=" + eta + "&sesso=" + sesso + "&ruolo=" + ruolo, {
+            method: 'POST'
+        })
         .then(response => response.json())
         .then(data => {
             if(data[0] == undefined){
