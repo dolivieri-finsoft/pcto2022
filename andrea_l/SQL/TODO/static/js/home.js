@@ -32,7 +32,7 @@ const bothList = () => {
                 }else{
                     html += "<tr class='tableRow'>";
                 }
-                html += "<td class='elemento' id='stato'>" + element.cosa + "</td>";
+                html += "<td class='elemento' id='stato' name='"+ element.cosa +"'>" + element.cosa + "</td>";
                 if(sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin"){
                     html += "<td class='autore elemento'>"+ element.Username +"</td>";
                 }
