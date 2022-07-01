@@ -125,7 +125,14 @@ app.get('/mysql', (req, res) =>{
     console.log(`CMD: ${cmd}`);
 
     if(cmd == "getSpecificoTodo"){
-        var sqlGet = "SELECT * FROM todo_done_DB WHERE id = '"+ req.query.IdCosa +"';";
+        if(req.query.IdCosa == ""){
+            var sqlGet = "SELECT * FROM todo_done_DB WHERE cosa = '"+ req.query.cosa +"';";
+            console.log("cosa");
+        }
+        else{
+            var sqlGet = "SELECT * FROM todo_done_DB WHERE id = '"+ req.query.IdCosa +"';";
+            console.log("IdCosa");
+        }
         
         db.query(sqlGet, (err, result) =>{
             if(err)

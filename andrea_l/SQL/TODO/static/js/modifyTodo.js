@@ -112,13 +112,13 @@ const getList = () => {
             }else{
                 html += "<tr class='tableRow'>";
             }
-            html += "<td class='elemento' id='stato'>" + element.cosa + "</td>";
+            html += "<td class='elemento' id='cosa'>" + element.cosa + "</td>";
             if(sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin"){
                 html += "<td class='autore elemento'>"+ element.Username +"</td>";
             }
             html += "<td class='elementoButton'>";
             html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`,`"+ element.id +"`)'>ELIMINA</button>";
-            html += "</td></tr>";
+            html += "<button class='fatto' id='ButtonFatto' onclick='todoFatto(`"+ element.cosa +"`, `"+ element.id +"`)'>FATTO</button></td></tr>";
         }
         html += "</body></table>"
         document.getElementById("inserisciTodo").innerHTML = html;
