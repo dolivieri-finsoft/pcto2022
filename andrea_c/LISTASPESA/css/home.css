@@ -67,3 +67,26 @@ font-size: 50px;
         background-position: 200% center;
     }
 }
+
+.vertical-menu {
+    width: 200px;
+    float: right;
+    }
+  
+    .vertical-menu a {
+    background-color: #eee;
+    color: black;
+    display: block;
+    padding: 12px;
+    text-decoration: none;
+    }
+  
+    .vertical-menu a:hover {
+    background-color: rgb(136, 128, 128);
+    }
+  
+    .vertical-menu a.active {
+    background-color: #04AA6D;
+    color: white;
+    }
+    

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<head>
+    <title>Registrazione</title>
+    <link rel="stylesheet" href="../css/login.css" />
+</head>
+<body>
+    <script src="./js/registrazione.js"></script>
+    <div id="login">
+        <div id="titolologin"><label class="log">Registrazione</label></div>
+        <form action="#" class="formlogin" method="post">
+            <label>Username:</label>
+            <input type="text" id="username" class="testo" placeholder="Username..."/><br>
+            <span id="errorUsername" class="error" style="display: none"></span>
+            <label>Password:</label>&nbsp
+            <input type="password" id="password" class="testo" placeholder="Password..."/><br>
+            <span id="errorPassword" class="error" style="display: none"></span>
+            <a href="/"><input type="button" class="button" id="register" name="Register" value="Indietro"></a>
+            <button type="button" class="button" name="submit" value="Login" onclick="registration();">Avanti</button>
+        </form>
+        
+    </div>
+</body>
+</html>

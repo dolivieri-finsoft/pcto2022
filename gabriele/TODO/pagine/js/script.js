@@ -1,7 +1,5 @@
-var userDaModificare;
-var cosaDaModificareUser;
 
-if(localStorage.length == 0 || localStorage.length == 1 || localStorage.length == 2){
+if(localStorage.length <= 2){
     localStorage.setItem("access", "no");
     localStorage.setItem("user", "");
     localStorage.setItem("role", "");
@@ -64,7 +62,7 @@ function Add(){
     let stato;
     let user = localStorage.user;
      if(cosa == ""){
-        alert("Fill in te field 'What'");
+        document.getElementById("errore").innerHTML = "Fill in te field 'What'";
      }
      else{
         if(document.getElementById("todo").checked == true){
@@ -78,18 +76,21 @@ function Add(){
         {
             fetch("/modify?" + "cosaDaMo=" + cosaDaModificare + "&cosa=" + cosa + "&stato=" + stato)
             .then(data => {
-                    alert("Element already present in the lists");
+                alert("Element already present in the lists");
             });
+            
         }
         else{
             fetch("/write?" + "cosa=" + cosa + "&stato=" + stato + "&user=" + user)
             .then(data => {
-                    alert("Element already present in the lists");
+                alert("Element already present in the lists");
             });
-            
+           
         }
+
         Back();
      }
+    
 }
 
 function Modifica(id, stato){
@@ -113,19 +114,19 @@ function Back(){
 }
 
 function Log(){
-
+    document.getElementById("errore").style.color = "rgb(255, 30, 0)";
     let user = document.getElementById("username").value; 
     let pass = document.getElementById("password").value; 
 
     if( user == "" || pass == ""){
-        alert("Please fill in all the required data");
+        document.getElementById("errore").innerHTML = "Please fill in all the required data";
     }
     else{
-        fetch("/login?" + "user=" + user)
+        fetch("/login?" + "user=" + user, {method: "POST"})
         .then(response => response.json())
         .then(data => {
             if(data[0] == undefined){
-                alert("The user does not exist, please sign in");
+                document.getElementById("errore").innerHTML = "The user does not exist, please sign in";
             }
             else if(pass == data[0].password){
                 localStorage.access = "si";
@@ -134,7 +135,7 @@ function Log(){
                 window.location.replace("/home");
             }
             else{
-                alert("Incorrect password");
+                document.getElementById("errore").innerHTML = "Incorrect password";
             }
         });
 
@@ -142,21 +143,23 @@ function Log(){
 }
 
 function Sign(){
+    document.getElementById("errore").style.color = "rgb(255, 30, 0)";
     let user = document.getElementById("username").value; 
     let pass = document.getElementById("password").value; 
 
     if( user == "" || pass == ""){
-        alert("Please fill in all the required data");
+        document.getElementById("errore").innerHTML = "Please fill in all the required data";
     }
     else{
         fetch("/sign?" + "user=" + user + "&pass=" + pass)
         .then(response => response.json())
         .then(data => {
             if(data[0] == undefined){
-                alert("Registration was successful");
+                document.getElementById("errore").style.color = "rgb(51, 255, 0)";
+                document.getElementById("errore").innerHTML = "Registration was successful, please log in";
             }
             else{
-                alert("User already registered, please log in");
+                document.getElementById("errore").innerHTML = "User already registered, please log in";
             }
         });
     }

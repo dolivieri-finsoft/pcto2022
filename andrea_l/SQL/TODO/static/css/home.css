@@ -1,7 +1,7 @@
 body{
     background-color: white;  
     margin: 0;
-    font-family: 'Permanent Marker', cursive;
+    font-family: 'Genos', sans-serif;
     overflow-x: hidden;
 }
 
@@ -30,6 +30,7 @@ a:hover{
     background: none;
     border: hidden;
     color: white;
+    font-weight: bold;
 }
 
 .rowButton button:hover{
@@ -53,9 +54,10 @@ header{
     margin-top: 10px;
     display: flex;
     align-items: center;
-    font-size: xx-large;
+    font-size: 30px;
     justify-content: center;
     margin-right: 35%;
+    font-weight: bold;
 }
 
 .rowButtonBackTitle{
@@ -69,10 +71,18 @@ header{
 }
 
 .rowButton{
-    width: 98%;
     margin-left: 1%;
+    margin-right: 1%;
     margin-bottom: 2.5%;
     height: 47.5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.menu{
+    width: 75%;
+    height: 100%;
     display: flex;
     align-items: flex-end;
 }
@@ -110,6 +120,14 @@ header{
     background-color: white;
 }
 
+.searchDiv{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+
 #todoList{
     width: 100%;
     height: auto;
@@ -133,6 +151,7 @@ header{
     justify-content: center;
     font-size: x-large;
     border-bottom:0.5px solid black;
+    font-weight: bold;
 }
 .tableRow{
     width: 100vw;
@@ -185,6 +204,30 @@ td,tr{
 .fatto:hover{
     background-color: #00BB2D;
     color: white;
+}
+
+/*----SEARCH BAR----*/
+.InputSearch{
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid white;
+}
+
+.InputSearch:focus{
+    outline-width: 0;
+}
+
+.search{
+    width: 25%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.searchIcon{
+    padding: 10px;
+    margin-bottom: none;
 }
 
 /*----MEDIA----*/

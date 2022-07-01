@@ -127,7 +127,10 @@ router.get('/signin', function(req,res){
   });
 });
 
-router.get('/login', function(req,res){ 
+let bodyParser = require("body-parser");
+let urlencodedParser = bodyParser.json({ extended: false });
+
+router.post('/login',urlencodedParser, function(req,res){ 
   var sql1 = "select password, ruolo from pcto2022.utenti where username = '" + req.query.username + "';";
   conn.query(sql1, function (err, result) {
     if(err) throw err;
@@ -191,11 +194,18 @@ router.get('/modificaUtente', function(req,res){
         if (err) throw err;
         console.log("Modificato Utente: ✔");
       });
+
+      var sql2 = "UPDATE pcto2022.lista SET username = '" + req.query.username + "' WHERE username = '" + req.query.usernameVecchio + "';";
+    conn.query(sql2, function (err, result) {
+      if (err) throw err;
+      console.log("Modificato elemento: ✔");
+    });
     }
     else{
       console.log("Utente già presente!");
       res.send("Utente già presente!");
     }
+    
   });
 
 

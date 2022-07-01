@@ -1,0 +1,93 @@
+body {
+    background-color: rgb(11, 6, 34);
+}
+
+#login {
+    width: 600px;
+    border: 1px solid rgb(255, 255, 255);
+    height: 290px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -180px;
+    margin-left: -300px;
+    background-color: rgba(0, 0, 0, 0.747);
+    border-radius: 17px;
+}
+
+#titolologin {
+    border-bottom: 2px solid #ffffff;
+    height: 25px;
+    width: 575px;
+    float: left;
+    padding: 20px 0 15px 25px;
+    font-size: 30px;
+    color: black;
+    border-radius: 18px 18px 0 0;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgb(86, 0, 94)), color-stop(17%, rgb(162, 62, 255)), color-stop(33%, rgb(36, 0, 194)), color-stop(50%, rgb(0, 218, 29)), color-stop(66%, rgb(217, 255, 0)), color-stop(83%, rgb(255, 153, 0)), color-stop(100%, rgb(223, 37, 37)));
+}
+
+#register {
+    margin-right: 90px;
+}
+
+.button {
+    width: 125px;
+    height: 35px;
+    text-shadow: 2px 2px 5px rgba(212, 212, 212, 1);
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    border-radius: 10px;
+    border: 1px solid #fff;
+
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgb(86, 0, 94)), color-stop(17%, rgb(162, 62, 255)), color-stop(33%, rgb(36, 0, 194)), color-stop(50%, rgb(0, 218, 29)), color-stop(66%, rgb(217, 255, 0)), color-stop(83%, rgb(255, 153, 0)), color-stop(100%, rgb(223, 37, 37)));
+    box-shadow: 2px 2px 5px #000;
+}
+
+.button:hover {
+    box-shadow: 2px 2px 5px rgb(255, 255, 255);
+}
+.button:focus,
+.button:hover{
+        width: 135px;
+        height: 35px;
+        box-shadow: 2px 2px 5px rgb(255, 255, 255);
+}
+
+.formlogin {
+    margin: 75px 50px 50px 50px;
+    margin-top: 75px;
+}
+
+.testo {
+    height: 30px;
+    width: 350px;
+    margin-bottom: 15px;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgb(86, 0, 94)), color-stop(17%, rgb(162, 62, 255)), color-stop(33%, rgb(36, 0, 194)), color-stop(50%, rgb(0, 218, 29)), color-stop(66%, rgb(217, 255, 0)), color-stop(83%, rgb(255, 153, 0)), color-stop(100%, rgb(223, 37, 37)));
+    padding: 5px;
+    text-decoration: bold;
+    color:rgb(0, 0, 0);
+}
+
+.testo:hover {
+    box-shadow: 2px 2px 5px rgb(255, 255, 255);
+}
+
+.testo:focus,
+.testo:hover {
+    box-shadow: 2px 2px 5px rgb(255, 255, 255);
+    height: 35px;
+    width: 355px;
+}
+label {
+    color: white;
+    text-decoration: underline;
+}
+.log {
+    color:black;
+}
+span {
+    color:rgb(217, 255, 0);
+    font-size: 15px;
+    text-align: center;
+}
