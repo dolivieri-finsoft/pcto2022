@@ -19,7 +19,7 @@
 
 <div id="adminPage">
   <button type="button" id="amministratore" onclick="admin()" style="display:none" >Admin Page </button>
-
+  <button type="button" id="modificaAccount" onclick="modificaAccount()" style="display:block" >Modify Account</button>
 </div>
 
 
@@ -50,7 +50,33 @@
     <button type="button" id="indietro" onclick="indietro()" style="display:none">Return </button>
     <button type="button" id="aggiungi" onclick="aggiungi()">Aggiungi </button>
     <br>
-    <br>
+
+    <div id="containermodify" style="display:none">
+    <div class="w3-container w3-red w3-center " style="padding:68px">
+      <h2 class="w3-margin w3-jumbo" id="elemento1">Moifica Utente</h2>
+      <div>
+        <label id="label">Username: </label>
+      <input type="text" id="userUtente" name="userUtente" placeholder="username">
+      <br>
+      <br>
+      <label id="label">Password: </label>
+      <input type="text" id="passUtente" name="passUtente" placeholder="password">
+      <br>
+      <br>
+      <select name="statoUtenti" id="selectUtenti">
+       <option value="admin" selected="selected">Admin</option>
+        <option value="utente" >Utente</option>
+       
+        </select>
+      </div>
+        <br>
+        <button type="button" id="indietroUtente" onclick="indietroUtente()" style="display:none">Return </button>
+        <button type="button" id="aggiungiUtente" onclick="aggiungiUtente()">Aggiungi </button>
+        
+        
+  </div>
+</div>
+
     <br>
     <button type="button" id="deleteAccount" onclick="deleteAccount()" >Delete Account </button>
     <button type="button" id="logout" onclick="logout()" >Logout </button>
