@@ -2,6 +2,7 @@
 if(localStorage.length <= 2){
     localStorage.setItem("access", "no");
     localStorage.setItem("user", "");
+    localStorage.setItem("password", "");
     localStorage.setItem("role", "");
 }
 
@@ -131,6 +132,7 @@ function Log(){
             else if(pass == data[0].password){
                 localStorage.access = "si";
                 localStorage.user = user;
+                localStorage.password = pass;
                 localStorage.role = data[0].role;
                 window.location.replace("/home");
             }
@@ -192,8 +194,8 @@ function RichiediAdmin(){
             fetch("/request")
              .then(response => response.json())
              .then(data => {
-             htmlTodo = "<tr><th class='titolo' colspan='5'>To do</th></tr><tr><td id='user'>User</td><td id='user'>What</td></tr>";
-             htmlDone = "<tr><th class='titolo' colspan='4'>Done</th></tr><tr><td id='user'>User</td><td id='user'>What</td></tr>";
+             htmlTodo = "<tr><th class='titolo' colspan='5'>To do</th></tr><tr><td class='user'>User</td><td class='user'>What</td></tr>";
+             htmlDone = "<tr><th class='titolo' colspan='4'>Done</th></tr><tr><td class='user'>User</td><td class='user'>What</td></tr>";
              for (var i = 0; i < data.length; i++) {
                  const element = data[i];
                      if(element.state == "todo"){
@@ -227,7 +229,7 @@ function RichiediAdmin(){
             fetch("/requestUsers")
              .then(response => response.json())
              .then(data => {
-                 htmlUsers = "<tr><th class='titolo' colspan='5'>Users</th></tr><tr><td id='user'>Username</td><td id='user'>Password</td><td id='user'>Role</td></tr>";
+                 htmlUsers = "<tr><th class='titolo' colspan='5'>Users</th></tr><tr><td class='user'>Username</td><td class='user'>Password</td><td class='user'>Role</td></tr>";
                  for (var i = 0; i < data.length; i++) {
                     const element = data[i]; 
                     if(element.username == localStorage.user){
@@ -295,7 +297,7 @@ function AddUser(){
      let pass = document.getElementById("password").value;
      let role;
      if(user == "" || pass == ""){
-        alert("Fill in te field 'Username' or 'Password'");
+        document.getElementById("erroreA").innerHTML = "Fill in te field 'Username' or 'Password'";
      }
      else{
         if(document.getElementById("userRole").checked == true){
@@ -309,7 +311,7 @@ function AddUser(){
         {
             fetch("/modifyUser?" + "userDaMo=" + userDaModificare + "&username=" + user + "&password=" + pass + "&role=" + role)
             .then(data => {
-                    alert("User already registered");
+                    alert("User already existing");
             });
             if(userDaModificare == localStorage.user){
                 Logout();
@@ -324,4 +326,29 @@ function AddUser(){
         }
         Back();
      }
+}
+
+function ModAccount(){
+    document.getElementById("form").style.display = "inline";  
+    document.getElementById("modifyA").style.backgroundColor = "brown";  
+    document.getElementById("username").value = localStorage.user;
+    document.getElementById("password").value = localStorage.password;      
+}
+
+function ModUser(){
+    let user = document.getElementById("username").value;
+    let pass = document.getElementById("password").value;
+    let role = localStorage.role;
+    let userDaMo = localStorage.user;
+
+    if(user == "" || pass == ""){
+        document.getElementById("erroreA").innerHTML = "Fill in te field 'Username' or 'Password'";
+    }
+    else{
+        fetch("/modifyUser?" + "userDaMo=" + userDaMo + "&username=" + user + "&password=" + pass + "&role=" + role)
+            .then(data => {
+                    alert("User already existing");
+        });
+        Logout();
+    }
 }

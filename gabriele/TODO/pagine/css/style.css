@@ -42,6 +42,10 @@ h1{
     display: flex;
     justify-content: space-around;
 }
+.center{
+    display: flex;
+    justify-content: center;
+}
 #form{
     background-color: black;
     border-radius: 10px;
@@ -83,13 +87,13 @@ h1{
     display: none;
 }
 .largo{
-    width: 150px;
+    width: 170px;
     height: min-content;
 }
 .bordi{
     border: 1px solid;
 }
-#user{
+.user{
     background-color: black;
     color: white;
 }
