@@ -14,10 +14,24 @@
         <h1 id="benvenuto"></h1>
         <button class="opzioni bordi rossa largo" onclick="Logout()">Log out</button>
     </div>
-    <div class="new">
+    <div class="center">
+        <button class="opzioni bordi blu largo" id="modifyA" onclick="ModAccount()">Modify Account</button>
         <button class="opzioni bordi blu largo invisibile" id="adminPage" onclick="Admin()">Admin Page</button>
     </div><br>
-
+    <div class="new">
+        <div id="form" class="invisibile">
+            <h2 class="titolo" id="testoUser"><b>Modify Account</b></h2>
+            <label id="testo" for="username"><b>Username: </b></label>
+            <input class="cosa" id="username" type="text"> <br><br>
+            <label id="testo" for="password"><b>Password: </b></label>
+            <input class="cosa" id="password" type="password"> <br><br>
+            <button class="base rossa" id="buttonBack" onclick="Back()">Back</button>
+            <button class="base verde" id="buttonUser" onclick="ModUser()">Modify</button>
+            <div class="error">
+                <label id="erroreA"></label>
+            </div>
+        </div>
+    </div><br>
     <div class="container">
         <table id="todoList">
         </table>
