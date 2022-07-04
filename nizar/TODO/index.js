@@ -195,7 +195,7 @@ router.get('/modificaUtente', function(req,res){
         console.log("Modificato Utente: ✔");
       });
 
-      var sql2 = "UPDATE pcto2022.lista SET username = '" + req.query.username + "' WHERE username = '" + req.query.usernameVecchio + "';";
+      var sql2 = "UPDATE pcto2022.lista SET username = '" + req.query.username + "' WHERE username = '" + req.query.modificare + "';";
     conn.query(sql2, function (err, result) {
       if (err) throw err;
       console.log("Modificato elemento: ✔");

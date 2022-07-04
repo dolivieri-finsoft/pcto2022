@@ -247,6 +247,13 @@ table{
   color:yellow;
 }
 
+#modificaAccount{
+  font-size: 25px;
+  border-radius: 10px 10px 10px 10px;
+  background-color: black;
+  color:yellow;
+}
+
 #Exit{
   font-size: 25px;
   border-radius: 10px 10px 10px 10px;

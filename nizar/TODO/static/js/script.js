@@ -370,10 +370,12 @@ function modificaAutore(id){
 
   });
 
+}
 
 
-  }
-
+function modificaAccount(){
+  document.getElementById('containermodify').style.display = "block";
+}
   
 
  
