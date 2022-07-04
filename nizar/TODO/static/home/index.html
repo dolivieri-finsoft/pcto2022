@@ -19,6 +19,8 @@
 
 <div id="adminPage">
   <button type="button" id="amministratore" onclick="admin()" style="display:none" >Admin Page </button>
+  <button type="button" id="modificaAccount" onclick="modificaAccount()" style="display:block" >Modify Account</button>
+  <button type="button" id="ExitModify" onclick="Exit()" style="display:none" >Exit Modify Page</button>
 
 </div>
 
@@ -51,6 +53,32 @@
     <button type="button" id="aggiungi" onclick="aggiungi()">Aggiungi </button>
     <br>
     <br>
+    <br>
+    <br>
+    
+    <hr id="divisore" align=”left” style="display:none" size=”1″ width=”300″ color=”red” noshade>
+    <div id="containermodify" style="display:none">
+    <div class="w3-container w3-red w3-center " style="padding:68px">
+      <h2 class="w3-margin w3-jumbo" id="elemento1">Modifica Utente</h2>
+      <div>
+        <label id="label">Username: </label>
+      <input type="text" id="modificaUsernameUtente" name="modificaUsernameUtente" placeholder="username">
+      <br>
+      <br>
+      <label id="label">Password: </label>
+      <input type="text" id="modificaPasswordUtente" name="modificaPasswordUtente" placeholder="password">
+      <br>
+      <br>
+      
+      </div>
+        <br>
+
+        <button type="button" id="modificaUtente2" onclick="modificaUtente2()">Modifica </button>
+        
+        
+  </div>
+</div>
+
     <br>
     <button type="button" id="deleteAccount" onclick="deleteAccount()" >Delete Account </button>
     <button type="button" id="logout" onclick="logout()" >Logout </button>

@@ -54,8 +54,17 @@ const registrati = () => {
     var eta = document.getElementById('formSelectEtà').value;
     var sesso = document.getElementById('formSelectSesso').value;
     var ruolo = document.getElementById("formSelectRuolo").value;
-
-    fetch("/mysql?" + "cmd=addUser&username=" + username + "&password=" + password + "&nome=" + nome + "&cognome=" + cognome + "&eta=" + eta + "&sesso=" + sesso + "&ruolo=" + ruolo)
+    
+    if(password == "")
+        alert("Inserire una password");
+    else if(username == "")
+        alert("Inserire un username");
+    else if(username == password && username != "admin")
+        alert("Inserire username e password diversi");
+    else
+        fetch("/mysqlPost?" + "cmd=addUser&username=" + username + "&password=" + password + "&nome=" + nome + "&cognome=" + cognome + "&eta=" + eta + "&sesso=" + sesso + "&ruolo=" + ruolo, {
+            method: 'POST'
+        })
         .then(response => response.json())
         .then(data => {
             if(data[0] == undefined){

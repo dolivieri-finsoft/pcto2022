@@ -17,6 +17,9 @@ con.connect(function (err) {
     console.log("Connected!");
 });
 
+let bodyParser = require("body-parser");
+let urlencodedParser = bodyParser.json({ extended: false });
+
 const app = express();
 
 //#region root dell pagine
@@ -114,10 +117,37 @@ app.get('/data', function (req, res) {
             });
             break;
         case 'add_user':
-            var sql = "INSERT INTO utenti (username, password) VALUES ('" + req.query.user + "', '" + req.query.password + "');";
+            var sql = "INSERT INTO utenti (username, password, role) VALUES ('" + req.query.user + "', '" + req.query.password + "', '" + req.query.role + "');";
             con.query(sql, function (err, result) {
                 if (err) throw err;
                 console.log("1 record inserted");
+                res.send(result)
+            });
+            break;
+        case 'delete_user':
+            var sql = "DELETE FROM utenti WHERE username = '" + req.query.user + "';";
+            con.query(sql, function (err, result) {
+                if (err) throw err;
+                console.log("1 record inserted");
+                res.send(result)
+            });
+            break;
+        case 'modifyUser':
+            var sql = "UPDATE utenti SET username = '" + req.query.user + "' WHERE username = '" + req.query.whatUser + "';";
+            con.query(sql, function (err, result) {
+                if (err) throw err;
+                console.log(result.affectedRows + " record updated");
+            });
+            var sql = "UPDATE utenti SET password = '" + req.query.pass + "' WHERE username = '" + req.query.whatUser + "';";
+            con.query(sql, function (err, result) {
+                if (err) throw err;
+                console.log(result.affectedRows + " record updated");
+            });
+            var sql = "UPDATE utenti SET role = '" + req.query.role + "' WHERE username = '" + req.query.whatUser + "';";
+            con.query(sql, function (err, result) {
+                if (err) throw err;
+                console.log(result.affectedRows + " record updated");
+                res.send(result);
             });
             break;
         case 'getUser':
@@ -137,3 +167,13 @@ app.get('/data', function (req, res) {
 app.listen(3000, () => {
     console.log(`Serving on http://localhost:3000`);
 });
+
+app.post('/log',urlencodedParser,function(req,res) {
+    var sql = "SELECT * FROM utenti WHERE username = '" + req.query.user + "' AND password = '" + req.query.password + "';";
+    console.log(sql);
+    con.query(sql, function (err, result) {
+    if (err) throw err;
+        res.send(result);
+        console.log('log eseguito in post');
+    });
+})

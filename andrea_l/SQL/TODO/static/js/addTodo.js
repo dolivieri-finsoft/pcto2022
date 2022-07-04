@@ -11,8 +11,11 @@ const saveTodo = () => {
     var stato = document.getElementById('stato').value;
     console.log(`Cosa: ${cosa}, Stato: ${stato}`);
 
+    let today = new Date();
+    let data = today.getDate() + "/" + today.getMonth() + "/" + today.getFullYear();
+
     if (checkInsert('cosa') && checkInsert('stato')) {
-        fetch("/mysql?" + "cmd=newTodo&cosa=" + cosa + "&stato=" + stato + "&IdUtente=" + localStorage.Id + "&username=" + localStorage.username + "&Ruolo=" + localStorage.ruolo)
+        fetch("/mysql?" + "cmd=newTodo&cosa=" + cosa + "&stato=" + stato + "&IdUtente=" + sessionStorage.Id + "&username=" + sessionStorage.username + "&Ruolo=" + sessionStorage.ruolo + "&data=" + data)
             .then(response => {
                 if (response.status == 200 && response.statusText == "OK") {
                     window.location.href = '/home/add.html'
@@ -36,10 +39,10 @@ const ADDTodoClose = () =>{
 
 const AddGrafica = () => {
     var titolo = "Lista - ";
-    titolo += localStorage.username; 
+    titolo += sessionStorage.username; 
     document.getElementById("titolo").innerHTML = titolo;
 
-    if(localStorage.ruolo == "admin" || localStorage.ruolo == "super admin")
+    if(sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin")
         document.getElementById("AdminButton").style.display = "block";
     else
         document.getElementById("AdminButton").style.display = "none";
@@ -48,15 +51,23 @@ const AddGrafica = () => {
     document.getElementById('AddButton').style.fontSize = "20px";
     document.getElementById('todoList').style.display = "block";
     document.getElementById('doneList').style.display = "block";
-    fetch("/mysql?" + "cmd=getListDone&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo)
+
+    var stato = "Done";
+    
+    fetch("/mysql?" + "cmd=getList&IdUtente=" + sessionStorage.Id + "&Ruolo=" + sessionStorage.ruolo + "&stato=" + stato)
         .then(response => response.json())
         .then(data => {
             html = "";
             for (var i = 0; i < data.length; i++) {
                 const element = data[i];
-                html += "<tr class='tableRow'>";
+                if(i%2 == 0){
+                    html += "<tr class='tableRow'  style='background-color: lightgray;'>";
+                }else{
+                    html += "<tr class='tableRow'>";
+                }
                 html += "<td class='elemento' id='stato'>" + element.cosa + "</td>";
-                if(localStorage.ruolo == "admin" || localStorage.ruolo == "super admin"){
+                html += "<td class='elemento' id='data'>" + element.data + "</td>";
+                if(sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin"){
                     html += "<td class='autore elemento'>"+ element.Username +"</td>";
                 }
                 html += "<td class='elementoButton'>";
@@ -67,15 +78,22 @@ const AddGrafica = () => {
         })
         .catch(error => console.log(error));
 
-    fetch("/mysql?" + "cmd=getListTodo&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo)
+        var stato = "todo";
+
+    fetch("/mysql?" + "cmd=getList&IdUtente=" + sessionStorage.Id + "&Ruolo=" + sessionStorage.ruolo + "&stato=" + stato)
         .then(response => response.json())
         .then(data => {
             html = "";
             for (var i = 0; i < data.length; i++) {
                 const element = data[i];
-                html += "<tr class='tableRow'>";
+                if(i%2 == 0){
+                    html += "<tr class='tableRow'  style='background-color: lightgray;'>";
+                }else{
+                    html += "<tr class='tableRow'>";
+                }
                 html += "<td class='elemento' id='cosa'>" + element.cosa + "</td>";
-                if(localStorage.ruolo == "admin" || localStorage.ruolo == "super admin"){
+                html += "<td class='elemento' id='data'>" + element.data + "</td>"; 
+                if(sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin"){
                     html += "<td class='autore elemento'>"+ element.Username +"</td>";
                 }
                 html += "<td class='elementoButton'>";
@@ -90,7 +108,7 @@ const AddGrafica = () => {
 
 const deleteTodo = async (elimina, IdElimina) => {
 
-    fetch("/mysql?" + "cmd=deleteTodo&cosa=" + elimina + "&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo)
+    fetch("/mysql?" + "cmd=deleteTodo&cosa=" + elimina + "&IdUtente=" + sessionStorage.Id + "&Ruolo=" + sessionStorage.ruolo + "&IdEliminare=" + IdElimina)
         .then(response => {
             if(response.status == 200 && response.statusText == "OK"){
                 window.location.href = '/home/add.html'; //aggiornamento pagina
@@ -101,7 +119,7 @@ const deleteTodo = async (elimina, IdElimina) => {
 
 const todoFatto = (cosa, IdSposta) => {
     console.log('todo fatto')
-    fetch("/mysql?" + "cmd=todoFatto&cosa=" + cosa + "&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo + "&IdSpostare=" + IdSposta)
+    fetch("/mysql?" + "cmd=todoFatto&cosa=" + cosa + "&IdUtente=" + sessionStorage.Id + "&Ruolo=" + sessionStorage.ruolo + "&IdSpostare=" + IdSposta)
         .then(response => {
             if (response.status == 200 && response.statusText == "OK") {
                 window.location.href = '/home/add.html'; //aggiornamento pagina
@@ -110,4 +128,22 @@ const todoFatto = (cosa, IdSposta) => {
         .catch(error => console.log(error));
 }
 
-document.onload = AddGrafica();
+const chiudiSessione = () => {
+    sessionStorage.clear();
+    window.location.href = '/'; //aggiornamento pagina
+}
+
+const ControlloAccesso = () => {
+    if(sessionStorage.access == "si"){
+        let today = new Date();
+        let dateTime = today.getDate() + "/" + today.getMonth() + "/" + today.getFullYear();
+        document.getElementById("Data").innerHTML = dateTime;
+        AddGrafica();
+    }
+    else{
+        alert("Accesso vietato");
+        window.location.href = '/'; //aggiornamento pagina
+    }
+}
+
+document.onload = ControlloAccesso();

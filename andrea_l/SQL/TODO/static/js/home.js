@@ -1,9 +1,9 @@
 const bothList = () => {
     var titolo = "Lista - ";
-    titolo += localStorage.username; 
+    titolo += sessionStorage.username; 
     document.getElementById("titolo").innerHTML = titolo;
 
-    if(localStorage.ruolo == "admin" || localStorage.ruolo == "super admin")
+    if(sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin")
         document.getElementById("AdminButton").style.display = "block";
     else
         document.getElementById("AdminButton").style.display = "none";
@@ -18,15 +18,23 @@ const bothList = () => {
     document.getElementById('BothButton').style.fontSize = "20px";
     document.getElementById('inserisciTitoloListaDone').style.display = "flex";
     document.getElementById('inserisciTitoloListaTodo').style.display = "flex";
-    fetch("/mysql?" + "cmd=getListDone&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo)
+    
+    var stato = "Done";
+
+    fetch("/mysql?" + "cmd=getList&IdUtente=" + sessionStorage.Id + "&Ruolo=" + sessionStorage.ruolo + "&stato=" + stato)
         .then(response => response.json())
         .then(data => {
             html = "";
             for (var i = 0; i < data.length; i++) {
                 const element = data[i];
-                html += "<tr class='tableRow'>";
-                html += "<td class='elemento' id='stato'>" + element.cosa + "</td>";
-                if(localStorage.ruolo == "admin" || localStorage.ruolo == "super admin"){
+                if(i%2 == 0){
+                    html += "<tr class='tableRow'  style='background-color: lightgray;'>";
+                }else{
+                    html += "<tr class='tableRow'>";
+                }
+                html += "<td class='elemento' id='stato' name='"+ element.cosa +"'>" + element.cosa + "</td>";
+                html += "<td class='elemento' id='data'>" + element.data + "</td>";
+                if(sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin"){
                     html += "<td class='autore elemento'>"+ element.Username +"</td>";
                 }
                 html += "<td class='elementoButton'>";
@@ -37,15 +45,22 @@ const bothList = () => {
         })
         .catch(error => console.log(error));
 
-    fetch("/mysql?" + "cmd=getListTodo&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo)
+    var stato = "todo";
+
+    fetch("/mysql?" + "cmd=getList&IdUtente=" + sessionStorage.Id + "&Ruolo=" + sessionStorage.ruolo + "&stato=" + stato)
         .then(response => response.json())
         .then(data => {
             html = "";
             for (var i = 0; i < data.length; i++) {
                 const element = data[i];
-                html += "<tr class='tableRow'>";
+                if(i%2 == 0){
+                    html += "<tr class='tableRow'  style='background-color: lightgray;'>";
+                }else{
+                    html += "<tr class='tableRow'>";
+                }
                 html += "<td class='elemento' id='cosa'>" + element.cosa + "</td>";
-                if(localStorage.ruolo == "admin" || localStorage.ruolo == "super admin"){
+                html += "<td class='elemento' id='data'>" + element.data + "</td>";
+                if(sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin"){
                     html += "<td class='autore elemento'>"+ element.Username +"</td>";
                 }
                 html += "<td class='elementoButton'>";
@@ -60,7 +75,7 @@ const bothList = () => {
 
 const todoFatto = (cosa, IdSposta) => {
     console.log('todo fatto')
-    fetch("/mysql?" + "cmd=todoFatto&cosa=" + cosa + "&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo + "&IdSpostare=" + IdSposta)
+    fetch("/mysql?" + "cmd=todoFatto&cosa=" + cosa + "&IdUtente=" + sessionStorage.Id + "&Ruolo=" + sessionStorage.ruolo + "&IdSpostare=" + IdSposta)
         .then(response => {
             if (response.status == 200 && response.statusText == "OK") {
                 window.location.href = '/home'; //aggiornamento pagina
@@ -71,7 +86,7 @@ const todoFatto = (cosa, IdSposta) => {
 
 const deleteTodo = (elimina, IdElimina) => {
 
-    fetch("/mysql?" + "cmd=deleteTodo&cosa=" + elimina + "&IdUtente=" + localStorage.Id + "&Ruolo=" + localStorage.ruolo + "&IdEliminare=" + IdElimina)
+    fetch("/mysql?" + "cmd=deleteTodo&cosa=" + elimina + "&IdUtente=" + sessionStorage.Id + "&Ruolo=" + sessionStorage.ruolo + "&IdEliminare=" + IdElimina)
         .then(response => {
             if(response.status == 200 && response.statusText == "OK"){
                 window.location.href = '/home'; //aggiornamento pagina
@@ -80,6 +95,65 @@ const deleteTodo = (elimina, IdElimina) => {
         .catch(error => console.log(error));
 }
 
+/**
+ * ELIMINA ACCOUNT
+ */
 
+const DeleteUser = () => {
+    var IdUtente = sessionStorage.Id;
 
-document.onload = bothList();
+    fetch("/mysql?" + "cmd=deleteUser&IdUtente=" + IdUtente)
+        .then(response => {
+            if(response.status == 200 && response.statusText == "OK"){
+                if(sessionStorage.Id == IdUtente)
+                    chiudiSessione();
+                else
+                    window.location.href = '/home'; //aggiornamento pagina
+            }
+        });
+}
+
+const DeleteUserShow = () => {
+    document.getElementById("confermaP").innerText += sessionStorage.username + " ?";
+    document.getElementById("confermaDiv").style.display = "flex";
+    document.getElementById("containerElement").style.display = "none";
+    document.getElementById
+}
+
+const annulla = () => {
+    window.location.href = '/home'; //aggiornamento pagina
+}
+
+/**
+ * CHIUSURA SESSIONE
+ */
+
+const chiudiSessione = () => {
+    sessionStorage.clear();
+    window.location.href = '/'; //aggiornamento pagina
+}
+
+const ControlloAccesso = () => {
+
+    if(sessionStorage.access == "si"){
+        bothList();
+        let today = new Date();
+        let dateTime = today.getDate() + "/" + today.getMonth() + "/" + today.getFullYear();
+        document.getElementById("Data").innerHTML = dateTime;
+    } 
+    else{
+        alert("Accesso vietato");
+        window.location.href = '/'; //aggiornamento pagina
+    }
+}
+
+document.onload = ControlloAccesso();
+
+/**
+ * FUNZIONE DI RICERCA
+ */
+
+const ricerca = () => {
+    
+}
+ 

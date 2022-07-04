@@ -7,7 +7,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Genos:wght@100;400;700&display=swap" rel="stylesheet">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -21,21 +21,41 @@
 
 <body>
     <header>
+        <div class="conferma" id="confermaDiv" style="display: none;">
+            <div class="rowP">
+                <p class="confermaP" id="confermaP">SEI SICURO DI VOLER ELIMINARE L'ACCOUNT: </p>
+            </div>
+            <div class="row">
+                <button class="buttonDelete" type="Button" onclick="DeleteUser()">ELIMINA</button>
+                <button class="buttonAnnulla" type="Button" onclick="annulla()">ANNULLA</button>
+            </div>
+        </div>
         <div class="rowButtonBackTitle">
-            <button class="ButtonBack" type="Button" onclick="location.href='../index.html'"><i class="fa-solid fa-reply arrowback"></i></button>
+            <button class="ButtonBack" type="Button" onclick="chiudiSessione()"><i class="fa-solid fa-reply arrowback"></i></button>
             <p class='TitlePage' id='titolo'>
             </p>
+            <button class="ButtonDeleteAccount" type="Button" onclick="DeleteUserShow()"><i class="fa-solid fa-user-xmark arrowback"></i></button>
+            
         </div>
         <div class="rowButton">
-            <button class="menuButton" id="TodoButton" onclick="location.href='./todo.html'">Todo List</button>
-            <button class="menuButton" id="DoneButton" onclick="location.href='./done.html'">Done List</button>
-            <button class="menuButton" id="BothButton" onclick="location.href='./index.html'">Both List</button>
-            <button class="menuButton" id="AddButton" onclick="location.href='./add.html'">Aggiungi</button>
-            <button class="menuButton" id="ModButton" onclick="location.href='./modify.html'">Modifica</button>
-            <button style="display: none;" class="menuButton" id="AdminButton" onclick="location.href='./admin.html'">Admin Page</button>
+            <div class="menu">
+                <button class="menuButton" id="TodoButton" onclick="location.href='./todo.html'">Todo List</button>
+                <button class="menuButton" id="DoneButton" onclick="location.href='./done.html'">Done List</button>
+                <button class="menuButton" id="BothButton" onclick="location.href='./index.html'">Both List</button>
+                <button class="menuButton" id="AddButton" onclick="location.href='./add.html'">Aggiungi</button>
+                <button class="menuButton" id="ModButton" onclick="location.href='./modify.html'">Modifica</button>
+                <button style="display: none;" class="menuButton" id="AdminButton" onclick="location.href='./admin.html'">Admin Page</button>
+                
+            </div>
+            <!-- <div class="search" id="search">
+                <i class="fa-solid fa-magnifying-glass searchIcon"></i>
+                <input type="text" class="InputSearch" id="InputSearch" onkeyup="ricerca()">
+                <i class="fa-solid fa-xmark searchIcon"></i> 
+            </div> -->
+                <p class="Data" id="Data"></p>
         </div>
     </header>
-    <div class="containerElement animate__animated animate__backInDown">
+    <div class="containerElement animate__animated animate__backInDown" id="containerElement">
         <div id="inserisciTitoloListaTodo" class='listTitle'>TODO LIST</div>
         <table id='todoList'  style="display: none;">
             <tbody id="inserisciTodo" class="w3-animate-top">
@@ -44,6 +64,14 @@
         <div id="inserisciTitoloListaDone" class='listTitle'>DONE LIST</div>
         <table id='doneList' style="display: none;">
             <tbody id="inserisciDone">
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="searchDiv" style="display: none;">
+        <div id="inserisciTitoloListaTodo" class='listTitle'>SEARCH LIST</div>
+        <table id='searchList'  style="display: none;">
+            <tbody id="inserisciSearch">
             </tbody>
         </table>
     </div>
