@@ -1,5 +1,3 @@
-const { METHODS } = require("http");
-
 var modificare;
 
 if(localStorage.length == 0){
@@ -373,10 +371,54 @@ function modificaAutore(id){
 }
 
 
-function modificaAccount(){
+function modificaAccount(id){
+  let username = localStorage.username;
+
+
   document.getElementById('containermodify').style.display = "block";
+  document.getElementById('divisore').style.display = "block";
+  document.getElementById('modificaUsernameUtente').value = username;
+  document.getElementById('ExitModify').style.display = "block";
+  document.getElementById('modificaAccount').style.display = "none";
+
+
+
+
+
+  fetch("/trova?" + "username=" + username) 
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById('modificaPasswordUtente').value = data[0].password;
+  
+
+  });
 }
   
+
+function modificaUtente2(){
+  let username = document.getElementById('modificaUsernameUtente').value;
+  var password = document.getElementById("modificaPasswordUtente").value;
+  let daMo = localStorage.username;
+  let ruolo = localStorage.ruolo;
+
+
+  if(username == "" || password == ""){
+    alert("Compila i campi sottostanti!!!");
+  }
+  else{
+    fetch("/modificaUtente?" + "usernameVecchio=" + daMo + "&username=" + username + "&password=" + password + "&ruolo=" + ruolo)
+        .then(data => {
+          if(data){
+              alert("Utente già registrato");
+          }
+      });
+  }
+  localStorage.username = username;
+  window.location.reload();
+
+
+
+}
 
  
   

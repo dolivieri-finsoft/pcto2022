@@ -141,6 +141,19 @@ table{
     width: auto;
   }
 
+  #modificaUsernameUtente{
+    font-size: 20px;
+    height: 50px;
+    width: auto;
+  }
+
+  #modificaPasswordUtente{
+    font-size: 20px;
+    height: 50px;
+    width: auto;
+  }
+
+
   #passUtente{
     font-size: 20px;
     height: 50px;
@@ -179,6 +192,12 @@ table{
   }
 
   #aggiungi{
+    font-size: 25px;
+    border-radius: 10px 10px 10px 10px;
+    background-color: lightblue;
+  }
+
+  #modificaUtente2{
     font-size: 25px;
     border-radius: 10px 10px 10px 10px;
     background-color: lightblue;
@@ -239,6 +258,7 @@ table{
     margin-top: 8px;
   }
   
+ 
 
 #amministratore{
   font-size: 25px;
@@ -255,6 +275,13 @@ table{
 }
 
 #Exit{
+  font-size: 25px;
+  border-radius: 10px 10px 10px 10px;
+  background-color: black;
+  color:yellow;
+}
+
+#ExitModify{
   font-size: 25px;
   border-radius: 10px 10px 10px 10px;
   background-color: black;
