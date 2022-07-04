@@ -398,7 +398,7 @@ function modificaAccount(id){
 function modificaUtente2(){
   let username = document.getElementById('modificaUsernameUtente').value;
   var password = document.getElementById("modificaPasswordUtente").value;
-  let daMo = localStorage.username;
+  let mod = localStorage.username;
   let ruolo = localStorage.ruolo;
 
 
@@ -406,7 +406,7 @@ function modificaUtente2(){
     alert("Compila i campi sottostanti!!!");
   }
   else{
-    fetch("/modificaUtente?" + "usernameVecchio=" + daMo + "&username=" + username + "&password=" + password + "&ruolo=" + ruolo)
+    fetch("/modificaUtente?" + "usernameVecchio=" + mod + "&username=" + username + "&password=" + password + "&ruolo=" + ruolo)
         .then(data => {
           if(data){
               alert("Utente già registrato");
