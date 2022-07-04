@@ -15,6 +15,68 @@ a:hover{
     color: white;
 }
 
+.confermaP{
+    font-size: 20px;
+}
+.conferma{
+    position: absolute;
+    width: 50vw;
+    height: 50vh;
+    margin-top: 25vh;
+    margin-left: 25vw;
+    background-color: lightgray;
+    color: black;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.rowP{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 50%;
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 50%;
+}
+
+.buttonDelete{
+    width: 25%;
+    height: 50%;
+    background-color: transparent;
+    border: 1px solid black;
+    border-radius: 50px;
+    transition: 1s;
+}
+
+.buttonAnnulla{
+    width: 25%;
+    height: 50%;
+    background-color: transparent;
+    border: 1px solid black;
+    border-radius: 50px;
+    transition: 1s;
+}
+
+.buttonDelete:hover{
+    background-color: #00BB2D;
+}
+
+.buttonAnnulla:hover{
+    background-color: red;
+}
+
 /*----HEADER----*/
 
 .Data{
@@ -63,7 +125,6 @@ header{
     align-items: center;
     font-size: 30px;
     justify-content: center;
-    margin-right: 35%;
     font-weight: bold;
 }
 
@@ -98,6 +159,13 @@ header{
 .ButtonBack{
     width: 5%;
     height: 100%;
+    background: transparent;
+    border: none;
+}
+
+.ButtonDeleteAccount{
+    width: 5%;
+    height: 75%;
     background: transparent;
     border: none;
 }
@@ -240,7 +308,7 @@ td,tr{
 }
 
 /*----MEDIA----*/
-@media (max-width: 1600px) {
+@media (max-width: 1300px) {
     .TitlePage{
         width: 50%;
         height: 100%;

@@ -214,7 +214,7 @@ app.get('/mysql', (req, res) =>{
         });
 
     }else if (cmd == "newTodo") {
-        var sqlInsert = "INSERT INTO todo_done_DB (cosa, stato, IdUtente, Username) VALUES ('" + req.query.cosa + "', '" + req.query.stato + "', '"+ req.query.IdUtente +"', '"+ req.query.username +"');";
+        var sqlInsert = "INSERT INTO todo_done_DB (cosa, stato, IdUtente, Username, data) VALUES ('" + req.query.cosa + "', '" + req.query.stato + "', '"+ req.query.IdUtente +"', '"+ req.query.username +"', '"+ req.query.data +"');";
 
         
         db.query(sqlInsert, (err) => {

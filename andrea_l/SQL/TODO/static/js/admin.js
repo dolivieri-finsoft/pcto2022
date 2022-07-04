@@ -37,15 +37,15 @@ const UserList = () => {
                 html += "<td class='elemento' id='RuoloUtente'>"+ element.Ruolo +"</td>";
 
                 html += "<td class='elemento pulsantielimina' id='ButtoneliminaUser'>";
-                html += "<div class='drop_down' onclick='openCloseUser("+ element.IdUtente +")'><i class='fa-solid fa-caret-down freccia'></i></div>";
+                html += "<div class='drop_down' onclick='openCloseUser(`"+ element.Nome_utente +"`)'><i class='fa-solid fa-caret-down freccia'></i></div>";
                 if(sessionStorage.ruolo == "admin" && element.Ruolo == "admin")
                     html += "<button class='notDelete'>IMPOSSIBILE ELIMINARE</button>";
                 else if(element.Ruolo == "super admin" && sessionStorage.ruolo == "admin")
                     html += "<button class='notDelete'>IMPOSSIBILE ELIMINARE</button>";
                 else
-                html += "<button class='ButtonDeleteAdmin' onclick='DeleteUser(`"+ element.IdUtente +"`)'>ELIMINA</button>";
+                html += "<button class='ButtonDeleteAdmin' onclick='DeleteUser("+ element.IdUtente +")'>ELIMINA</button>";
                 html += "</td></tr>";
-                html += "<div class='sottoElemento' id='"+ element.IdUtente +"' style='display: none;'>";
+                html += "<div class='sottoElemento' id='"+ element.Nome_utente +"' style='display: none;'>";
                 html += "<div class='pelement'> <b>Username</b>: "+ element.Nome_utente +"</div>";
                 html += "<div class='pelement'> <b>Password</b>: "+ element.Password +"</div>";
                 if(element.Nome == "")
@@ -79,6 +79,10 @@ const openCloseUser = (IdUtente) => {
         
 
 }
+
+/**
+ * DELETE USER
+ */
 
 const DeleteUser = (IdUtente) => {
 
@@ -188,7 +192,9 @@ const OpenCloseModUser = () =>{
             html = "";
             for(var i = 0; i<data.length; i++){
                 const element  = data[i];
-                if(element.Ruolo != "super admin")
+                if(sessionStorage.ruolo == "super admin" && element.Ruolo != "super admin")
+                    html +=" <option value='"+element.Nome_utente+"'>"+ element.Nome_utente +"</option>";
+                else if(sessionStorage.ruolo == "admin" && element.Ruolo != "admin" && element.Ruolo != "super admin")
                     html +=" <option value='"+element.Nome_utente+"'>"+ element.Nome_utente +"</option>";
             }
 

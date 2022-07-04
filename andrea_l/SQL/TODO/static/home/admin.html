@@ -23,6 +23,15 @@
 
 <body>
     <header>
+        <div class="conferma" id="confermaDiv" style="display: none;">
+            <div class="rowP">
+                <p class="confermaP" id="confermaP">SEI SICURO DI VOLER ELIMINARE L'ACCOUNT: </p>
+            </div>
+            <div class="row">
+                <button class="buttonDelete" type="Button" onclick="DeleteUser()">ELIMINA</button>
+                <button class="buttonAnnulla" type="Button" onclick="annulla()">ANNULLA</button>
+            </div>
+        </div>
         <div class="rowButtonBackTitle">
             <button class="ButtonBack" type="Button" onclick="chiudiSessione()"><i class="fa-solid fa-reply arrowback"></i></button>
             <p class='TitlePage' id='titolo'>

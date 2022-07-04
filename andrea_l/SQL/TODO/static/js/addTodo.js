@@ -11,8 +11,11 @@ const saveTodo = () => {
     var stato = document.getElementById('stato').value;
     console.log(`Cosa: ${cosa}, Stato: ${stato}`);
 
+    let today = new Date();
+    let data = today.getDate() + "/" + today.getMonth() + "/" + today.getFullYear();
+
     if (checkInsert('cosa') && checkInsert('stato')) {
-        fetch("/mysql?" + "cmd=newTodo&cosa=" + cosa + "&stato=" + stato + "&IdUtente=" + sessionStorage.Id + "&username=" + sessionStorage.username + "&Ruolo=" + sessionStorage.ruolo)
+        fetch("/mysql?" + "cmd=newTodo&cosa=" + cosa + "&stato=" + stato + "&IdUtente=" + sessionStorage.Id + "&username=" + sessionStorage.username + "&Ruolo=" + sessionStorage.ruolo + "&data=" + data)
             .then(response => {
                 if (response.status == 200 && response.statusText == "OK") {
                     window.location.href = '/home/add.html'
@@ -63,6 +66,7 @@ const AddGrafica = () => {
                     html += "<tr class='tableRow'>";
                 }
                 html += "<td class='elemento' id='stato'>" + element.cosa + "</td>";
+                html += "<td class='elemento' id='data'>" + element.data + "</td>";
                 if(sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin"){
                     html += "<td class='autore elemento'>"+ element.Username +"</td>";
                 }
@@ -88,6 +92,7 @@ const AddGrafica = () => {
                     html += "<tr class='tableRow'>";
                 }
                 html += "<td class='elemento' id='cosa'>" + element.cosa + "</td>";
+                html += "<td class='elemento' id='data'>" + element.data + "</td>"; 
                 if(sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin"){
                     html += "<td class='autore elemento'>"+ element.Username +"</td>";
                 }

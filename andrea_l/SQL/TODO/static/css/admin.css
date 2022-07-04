@@ -59,6 +59,11 @@
 }
 
 /*----PULSANTI ADMIN----*/
+
+.drop_down:hover{
+    cursor: pointer;
+}
+
 .pulsanti:hover{
     cursor: pointer;
 }
