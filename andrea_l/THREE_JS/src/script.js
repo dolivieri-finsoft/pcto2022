@@ -20,6 +20,7 @@ const scene = new THREE.Scene()
 // Objects
 const geometry = new THREE.BoxGeometry(2, 2, 2);
 const geometry2 = new THREE.SphereGeometry( .5, 16  , 8);
+const geometry3 = new THREE.DodecahedronGeometry(3, 1);
 
 // Materials
 
@@ -31,12 +32,19 @@ const material2 = new THREE.MeshBasicMaterial();
 material2.wireframe = true
 material2.color = new THREE.Color(0x0000ff)
 
+const material3 = new THREE.MeshBasicMaterial();
+material3.wireframe = true
+material3.color = new THREE.Color(0xffa500)
+
 // Mesh
-const sphere = new THREE.Mesh(geometry,material)
-scene.add(sphere)
+const cube = new THREE.Mesh(geometry,material)
+scene.add(cube)
 
 const sphere2 = new THREE.Mesh(geometry2, material2)
 scene.add(sphere2)
+
+const dodecagon = new THREE.Mesh(geometry3, material3)
+scene.add(dodecagon)
 
 /**
 * Sizes
@@ -69,19 +77,13 @@ window.addEventListener('resize', () =>
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
 camera.position.x = 0
 camera.position.y = 0
-camera.position.z = 2
+camera.position.z = 5
 scene.add(camera)
 
 // Controls
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
-controls.enableZoom = true
-controls.keys = {
-    LEFT: 'ArrowLeft', 
-    UP: 'ArrowUp', 
-    RIGHT: 'ArrowRight',
-    BOTTOM: 'ArrowDown'
-}
+controls.enableZoom = false
 
 /**
 * Renderer
@@ -115,17 +117,17 @@ function onDocumentMouseMove (event){
 }
 
 
-document.onkeydown = function (e){
+/*document.onkeydown = function (e){
     if(e.keyCode === 65){
-
+        cube.rotation.y += -.5
     }else if(e.keyCode === 87){
-
+        cube.rotation.x += .5
     }else if(e.keyCode === 68){
-
+        cube.rotation.y += .5
     }else if(e.keyCode === 83){
-
+        cube.rotation.x += -.5
     }
-}
+}*/
 
 const clock = new THREE.Clock()
 
@@ -138,13 +140,15 @@ const tick = () =>
     const elapsedTime = clock.getElapsedTime()
 
     //Update objects
-    sphere.rotation.y = .5 * elapsedTime
-    sphere.rotation.x = .5 * elapsedTime
+    cube.rotation.y = .5 * elapsedTime
+    cube.rotation.x = .5 * elapsedTime
 
     sphere2.rotation.y = .5 * elapsedTime
 
-    sphere.rotation.y += 1.5 * (targetX - sphere.rotation.y)
-    sphere.rotation.x += 2 * (targetY - sphere.rotation.x)
+    dodecagon.rotation.x = .5 * elapsedTime
+
+    //cube.rotation.y += 1.5 * (targetX - cube.rotation.y)
+    //cube.rotation.x += 2 * (targetY - cube.rotation.x)
 
     // Update Orbital Controls
     controls.update()
