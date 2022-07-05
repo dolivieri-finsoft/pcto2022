@@ -19,7 +19,7 @@ const scene = new THREE.Scene()
 
 // Objects
 const geometry = new THREE.BoxGeometry(2, 2, 2);
-const geometry2 = new THREE.SphereGeometry( .5, 64, 32);
+const geometry2 = new THREE.SphereGeometry( .5, 16  , 8);
 
 // Materials
 
@@ -39,8 +39,8 @@ const sphere2 = new THREE.Mesh(geometry2, material2)
 scene.add(sphere2)
 
 /**
- * Sizes
- */
+* Sizes
+*/
 const sizes = {
     width: window.innerWidth,
     height: window.innerHeight
@@ -62,8 +62,9 @@ window.addEventListener('resize', () =>
 })
 
 /**
- * Camera
- */
+* Camera
+*/
+
 // Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
 camera.position.x = 0
@@ -72,19 +73,19 @@ camera.position.z = 2
 scene.add(camera)
 
 // Controls
- const controls = new OrbitControls(camera, canvas)
- controls.enableDamping = true
- controls.enableZoom = true
- controls.keys = {
+const controls = new OrbitControls(camera, canvas)
+controls.enableDamping = true
+controls.enableZoom = true
+controls.keys = {
     LEFT: 'ArrowLeft', 
-	UP: 'ArrowUp', 
-	RIGHT: 'ArrowRight',
-	BOTTOM: 'ArrowDown'
- }
+    UP: 'ArrowUp', 
+    RIGHT: 'ArrowRight',
+    BOTTOM: 'ArrowDown'
+}
 
 /**
- * Renderer
- */
+* Renderer
+*/
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
     alpha: true
@@ -93,10 +94,10 @@ renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
 /**
- * Animate
- */
+* Animate
+*/
 
-/*
+
 document.addEventListener('mousemove', onDocumentMouseMove)
 
 let mouseX = 0
@@ -112,37 +113,17 @@ function onDocumentMouseMove (event){
     mouseX = (event.clientX - windowHalfX)
     mouseY = (event.clientY - windowHalfY)
 }
-*/
 
-document.onkeydown = function (a){
-    if(a.keyCode === 65){
-        sphere.rotation.y += -.5
-        sphere2.rotation.y += .5
-    }else if(a.keyCode === 87){
-        sphere.rotation.x += .5
-        sphere2.rotation.x += -.5
-    }else if(a.keyCode === 68){
-        sphere.rotation.y += .5
-        sphere2.rotation.y += -.5
-    }else if(a.keyCode === 83){
-        sphere.rotation.x += -.5
-        sphere2.rotation.x += .5
-    }
-}
 
 document.onkeydown = function (e){
-    if(e.keyCode === 37){
-        sphere.position.y += -.5
-        sphere2.position.y += .5
-    }else if(e.keyCode === 38){
-        sphere.position.x += .5
-        sphere2.position.x += -.5
-    }else if(e.keyCode === 39){
-        sphere.position.y += .5
-        sphere2.position.y += -.5
-    }else if(e.keyCode === 40){
-        sphere.position.x += -.5
-        sphere2.position.x += .5
+    if(e.keyCode === 65){
+
+    }else if(e.keyCode === 87){
+
+    }else if(e.keyCode === 68){
+
+    }else if(e.keyCode === 83){
+
     }
 }
 
@@ -151,17 +132,19 @@ const clock = new THREE.Clock()
 const tick = () =>
 {
 
-    /*targetX = mouseX * .001
-    targetY = mouseY * .001 */
+    targetX = mouseX * .001
+    targetY = mouseY * .001
 
-    //const elapsedTime = clock.getElapsedTime()
+    const elapsedTime = clock.getElapsedTime()
 
     //Update objects
-    //sphere.rotation.y = .5 * elapsedTime
-    //sphere.rotation.x = .5 * elapsedTime
+    sphere.rotation.y = .5 * elapsedTime
+    sphere.rotation.x = .5 * elapsedTime
 
-    //sphere.rotation.y += 1.5 * (targetX - sphere.rotation.y)
-    //sphere.rotation.x += 2 * (targetY - sphere.rotation.x)
+    sphere2.rotation.y = .5 * elapsedTime
+
+    sphere.rotation.y += 1.5 * (targetX - sphere.rotation.y)
+    sphere.rotation.x += 2 * (targetY - sphere.rotation.x)
 
     // Update Orbital Controls
     controls.update()
