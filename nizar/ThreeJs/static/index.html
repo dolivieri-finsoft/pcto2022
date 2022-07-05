@@ -44,7 +44,7 @@ document.body.appendChild(stats.domElement);
 
 
 
-const geometry = new THREE.BoxGeometry(5, 5, 5,);
+const geometry = new THREE.BoxGeometry(5, 5, 5);
 var material = new THREE.MeshBasicMaterial({
     color: 0xffff,
     wireframe: true
@@ -70,7 +70,7 @@ var reqAnimFrame = window.requestAnimationFrame || window.webkitRequestAnimation
 function render() {
     reqAnimFrame(render);
     
-    var delta = 0.01;
+    var delta = 0.007;
 
     cube.rotation.x += delta;
     cube.rotation.y += delta;
