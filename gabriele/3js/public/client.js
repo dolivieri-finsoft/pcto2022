@@ -42,9 +42,8 @@ const controls = new OrbitControls(camera, renderer.domElement);
 
 // making sphere
 const geometry = new THREE.SphereGeometry(6, 10, 10);
-const material = new THREE.MeshBasicMaterial({
-    color: 0xFF6600,
-    wireframe: true
+const material = new THREE.MeshNormalMaterial({
+    wireframe: true,
 });
 const sphere = new THREE.Mesh(geometry, material);
 scene.add(sphere);
