@@ -27,6 +27,9 @@
 			import { GUI } from './jsm/libs/lil-gui.module.min.js';
 			import { OrbitControls } from './jsm/controls/OrbitControls.js';
 
+			let z = 15;
+			let y = 0;
+
 			let camera, scene, renderer, controls, stats;
 
 			let mesh;
@@ -44,8 +47,8 @@
 
 			function init() {
 
-				camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 100 );
-				camera.position.set( amount, amount, amount );
+				camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 100 );
+				camera.position.set( 0, 0, 15 );
 				camera.lookAt( 0, 0, 0 );
 
 				scene = new THREE.Scene();
@@ -126,6 +129,29 @@
 
 			}
 
+			document.onkeydown = function(e) {
+				//W = 87
+				if(e.keyCode === 87){
+					z -= 2;
+					camera.position.set( y, 0, z );
+				}
+				//A = 65
+				else if (e.keyCode === 65){
+					y -= 2;
+					camera.position.set( y, 0, z );
+				}
+				//S = 83
+				else if (e.keyCode === 83){
+					z += 2;
+					camera.position.set( y, 0, z );
+				}
+				//D = 68
+				else if (e.keyCode === 68){
+					y += 2;
+					camera.position.set( y, 0, z );
+				}
+			}
+
 			function animate() {
 
 				requestAnimationFrame( animate );
@@ -165,5 +191,7 @@
 			}
 
 		</script>
+
+		<h2 id="name">Trapani Davide</h2>
 	</body>
 </html>
