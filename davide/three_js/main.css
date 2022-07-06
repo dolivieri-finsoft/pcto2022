@@ -6,6 +6,7 @@ body {
 	font-size: 13px;
 	line-height: 24px;
 	overscroll-behavior: none;
+	overflow: hidden; 
 }
 
 a {
@@ -88,4 +89,11 @@ a, button, input, select {
 	background-color: #f00;
 	margin-top: 20px;
 	padding: 10px;
+}
+
+#name {
+	bottom: 0px;
+	right: 0px;
+	position: fixed;
+	padding-right: 10px;
 }
