@@ -116,18 +116,19 @@ function onDocumentMouseMove (event){
     mouseY = (event.clientY - windowHalfY)
 }
 
-
-/*document.onkeydown = function (e){
+document.onkeydown = function (e){
     if(e.keyCode === 65){
-        cube.rotation.y += -.5
+        dodecagon.rotation.y += -.5
+        cube.rotation.x += 1
     }else if(e.keyCode === 87){
-        cube.rotation.x += .5
+        camera.position.z += .5
     }else if(e.keyCode === 68){
-        cube.rotation.y += .5
+        dodecagon.rotation.y += .5
+        cube.rotation.x += -1
     }else if(e.keyCode === 83){
-        cube.rotation.x += -.5
+        camera.position.z += -.5
     }
-}*/
+}
 
 const clock = new THREE.Clock()
 
@@ -141,7 +142,6 @@ const tick = () =>
 
     //Update objects
     cube.rotation.y = .5 * elapsedTime
-    cube.rotation.x = .5 * elapsedTime
 
     sphere2.rotation.y = .5 * elapsedTime
 
@@ -161,3 +161,4 @@ const tick = () =>
 }
 
 tick()
+
