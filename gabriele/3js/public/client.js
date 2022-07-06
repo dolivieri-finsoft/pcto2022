@@ -8,8 +8,8 @@ let i = 25;
 const canvas = document.querySelector('.web-gl');
 
 // showing fps
-//const stats = new Stats();
-//document.body.appendChild(stats.domElement);
+const stats = new Stats();
+document.body.appendChild(stats.domElement);
 
 // Scene Setup
 const scene = new THREE.Scene();
