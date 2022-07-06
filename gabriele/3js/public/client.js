@@ -3,12 +3,13 @@ import Stats from './jsm/libs/stats.module.js';
 import { OrbitControls } from './jsm/controls/OrbitControls.js';
 console.log(THREE);
 console.log(OrbitControls);
+let i = 25;
 
 const canvas = document.querySelector('.web-gl');
 
 // showing fps
-const stats = new Stats();
-document.body.appendChild(stats.domElement);
+//const stats = new Stats();
+//document.body.appendChild(stats.domElement);
 
 // Scene Setup
 const scene = new THREE.Scene();
@@ -79,5 +80,35 @@ const windowResize = ()=>{
     renderer.setSize(window.innerWidth, window.innerHeight);
     render();
 }
+
+document.onkeydown = function(e) {
+        //alert(e.keyCode);
+    switch (e.keyCode) {
+     case 87:
+        i -= 2;
+        camera.position.set(0, 0, i);
+     break;
+     case 83:
+        i += 2;
+        camera.position.set(0, 0, i);
+     break;
+     case 40:
+        sphere.rotation.x += 0.1;
+        innerSphere.rotation.x += 0.1;
+     break;
+     case 38:
+        sphere.rotation.x -= 0.1;
+        innerSphere.rotation.x -= 0.1;
+     break;
+     case 37:
+        sphere.rotation.y -= 0.1;
+        innerSphere.rotation.y -= 0.1;
+     break;
+     case 39:
+        sphere.rotation.y += 0.1;
+        innerSphere.rotation.y += 0.1;
+     break;
+    }
+};
 
 window.addEventListener('resize', windowResize, false);
