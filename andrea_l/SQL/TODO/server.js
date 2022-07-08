@@ -280,5 +280,22 @@ app.get('/mysql', (req, res) =>{
                 res.send("OK");
             }
         });
+    } else if(cmd == "searchList"){
+        if(req.query.Ruolo == "admin" || req.query.Ruolo == "super admin"){
+            console.log("sono admin");
+            var sqlSelect ="SELECT * FROM todo_done_DB WHERE cosa = '"+ req.query.cosa +"';";
+        }
+        else{
+            console.log("non sono admin");
+            var sqlSelect ="SELECT * FROM todo_done_DB WHERE cosa = '"+ req.query.cosa +"' AND IdUtente = '"+ req.query.IdUtente +"';";        
+        }
+
+        db.query(sqlSelect, (err, result) =>{
+            if(err)
+                console.log(err);
+            else
+                res.send(result);
+                console.log(result);
+        });
     }
 });

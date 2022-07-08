@@ -159,9 +159,8 @@ document.onload = ControlloAccesso();
 const ricerca = () => {
     searchInput = document.getElementById("InputSearch").value;
     console.log(searchInput);
-    var vuoto = "";
 
-    fetch("/mysql?" + "cmd=getSpecificoTodo&cosa=" + searchInput + "&IdCosa=" + vuoto)
+    fetch("/mysql?" + "cmd=searchList&cosa=" + searchInput + "&IdUtente=" + sessionStorage.Id + "&Ruolo=" + sessionStorage.ruolo)
         .then(response => response.json())
         .then(data => {
             var contTodo = 0;
@@ -170,33 +169,39 @@ const ricerca = () => {
             var htmlTodo = "";
             for(var i = 0; i<data.length; i++){
                 element = data[i];
-                if(contTodo%2 == 0){
-                    htmlTodo += "<tr class='tableRow'  style='background-color: lightgray;'>";
-                }else if(contTodo%2 != 0){
-                    htmlTodo += "<tr class='tableRow'>";
-                }
-
-                if(contDone%2 == 0){
-                    htmlDone += "<tr class='tableRow'  style='background-color: lightgray;'>";
-                }else if(contTodo%2 != 0){
-                    htmlDone += "<tr class='tableRow'>";
-                }
-
                 if(element.stato == "todo"){
+                    if(contTodo%2 == 0){
+                        htmlTodo += "<tr class='tableRow'  style='background-color: lightgray;'>";
+                    }else{
+                        htmlTodo += "<tr class='tableRow'>";
+                    }
+
                     htmlTodo += "<td class='elemento' id='stato' name='"+ element.cosa +"'>" + element.cosa + "</td>";
                     htmlTodo += "<td class='elemento' id='data'>" + element.data + "</td>";
+                    if(sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin"){
+                        htmlTodo += "<td class='autore elemento'>"+ element.Username +"</td>";
+                    }
                     contTodo ++;
-                    html += "<td class='elementoButton'>";
-                    html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`,`"+ element.id +"`)'>ELIMINA</button>";
-                    html += "<button class='fatto' id='ButtonFatto' onclick='todoFatto(`"+ element.cosa +"`, `"+ element.id +"`)'>FATTO</button></td></tr>";
+                    htmlTodo += "<td class='elementoButton'>";
+                    htmlTodo += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`,`"+ element.id +"`)'>ELIMINA</button>";
+                    htmlTodo += "<button class='fatto' id='ButtonFatto' onclick='todoFatto(`"+ element.cosa +"`, `"+ element.id +"`)'>FATTO</button></td></tr>";
 
                 }else{
+                    if(contDone%2 == 0){
+                        htmlDone += "<tr class='tableRow'  style='background-color: lightgray;'>";
+                    }else{
+                        htmlDone += "<tr class='tableRow'>";
+                    }
+
                     htmlDone += "<td class='elemento' id='stato' name='"+ element.cosa +"'>" + element.cosa + "</td>";
                     htmlDone += "<td class='elemento' id='data'>" + element.data + "</td>";
+                    if(sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin"){
+                        htmlDone += "<td class='autore elemento'>"+ element.Username +"</td>";
+                    }
                     contDone ++;
-                    html += "<td class='elementoButton'>";
-                    html += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`,`"+ element.id +"`)'>ELIMINA</button>";
-                    html += "</td></tr>";
+                    htmlDone += "<td class='elementoButton'>";
+                    htmlDone += "<button class='elimina' id='ButtonElimina' onclick='deleteTodo(`"+ element.cosa +"`,`"+ element.id +"`)'>ELIMINA</button>";
+                    htmlDone += "</td></tr>";
                 }
 
             }

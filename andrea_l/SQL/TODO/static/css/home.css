@@ -264,6 +264,7 @@ td,tr{
 .elementoButton{
     width: 30%;
     min-height: 60px;
+    margin-right: 20px;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
