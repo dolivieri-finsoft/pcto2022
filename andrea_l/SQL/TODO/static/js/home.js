@@ -140,7 +140,8 @@ const ControlloAccesso = () => {
     if(sessionStorage.access == "si"){
         bothList();
         let today = new Date();
-        let dateTime = today.getDate() + "/" + today.getMonth() + "/" + today.getFullYear();
+        let mese = today.getMonth() + 1;
+        let dateTime = today.getDate() + "/" + mese + "/" + today.getFullYear();       
         document.getElementById("Data").innerHTML = dateTime;
     } 
     else{

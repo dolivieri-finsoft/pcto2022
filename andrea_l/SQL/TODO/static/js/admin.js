@@ -312,6 +312,7 @@ const ControlloAccesso = () => {
     if(sessionStorage.access == "si" && sessionStorage.ruolo == "admin" || sessionStorage.ruolo == "super admin"){
         UserList();
         let today = new Date();
+        let mese = today.getMonth() + 1;
         let dateTime = today.getDate() + "/" + today.getMonth() + "/" + today.getFullYear();
         document.getElementById("Data").innerHTML = dateTime;
     }

@@ -12,7 +12,8 @@ const saveTodo = () => {
     console.log(`Cosa: ${cosa}, Stato: ${stato}`);
 
     let today = new Date();
-    let data = today.getDate() + "/" + today.getMonth() + "/" + today.getFullYear();
+    let mese = today.getMonth() + 1;
+    let data = today.getDate() + "/" + mese + "/" + today.getFullYear();
 
     if (checkInsert('cosa') && checkInsert('stato')) {
         fetch("/mysql?" + "cmd=newTodo&cosa=" + cosa + "&stato=" + stato + "&IdUtente=" + sessionStorage.Id + "&username=" + sessionStorage.username + "&Ruolo=" + sessionStorage.ruolo + "&data=" + data)
@@ -136,7 +137,8 @@ const chiudiSessione = () => {
 const ControlloAccesso = () => {
     if(sessionStorage.access == "si"){
         let today = new Date();
-        let dateTime = today.getDate() + "/" + today.getMonth() + "/" + today.getFullYear();
+        let mese = today.getMonth() + 1;
+        let dateTime = today.getDate() + "/" + mese + "/" + today.getFullYear();
         document.getElementById("Data").innerHTML = dateTime;
         AddGrafica();
     }
