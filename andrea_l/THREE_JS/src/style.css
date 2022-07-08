@@ -48,9 +48,3 @@ h4{
     color: white;
     z-index: 1;
 }
-    
-section{
-    border-top: 2px dashed blue;
-    height: 100vh;
-    background-color: gray;
-}
