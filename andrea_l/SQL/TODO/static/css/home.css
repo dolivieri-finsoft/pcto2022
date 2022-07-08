@@ -79,6 +79,16 @@ a:hover{
 
 /*----HEADER----*/
 
+.closeSearch{
+    background-color: transparent;
+    border: none;
+    color: white;
+}
+
+.closeSearch:hover{
+    cursor: pointer;
+}
+
 .Data{
     width: 10%;
     margin-bottom: 0;

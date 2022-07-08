@@ -28,7 +28,7 @@
                 <p class="confermaP" id="confermaP">SEI SICURO DI VOLER ELIMINARE L'ACCOUNT: </p>
             </div>
             <div class="row">
-                <button class="buttonDelete" type="Button" onclick="DeleteUser()">ELIMINA</button>
+                <button class="buttonDelete" type="Button" onclick="DeleteActuallyUser()">ELIMINA</button>
                 <button class="buttonAnnulla" type="Button" onclick="annulla()">ANNULLA</button>
             </div>
         </div>
@@ -36,6 +36,8 @@
             <button class="ButtonBack" type="Button" onclick="chiudiSessione()"><i class="fa-solid fa-reply arrowback"></i></button>
             <p class='TitlePage' id='titolo'>
             </p>
+            <button class="ButtonDeleteAccount" type="Button" onclick="DeleteUserShow()"><i class="fa-solid fa-user-xmark arrowback"></i></button>
+
         </div>
         <div class="rowButton">
             <div class="menu">
@@ -45,6 +47,11 @@
                 <button class="menuButton" id="AddButton" onclick="location.href='./add.html'">Aggiungi</button>
                 <button class="menuButton" id="ModButton" onclick="location.href='./modify.html'">Modifica</button>
                 <button style="display: none;" class="menuButton" id="AdminButton" onclick="location.href='./admin.html'">Admin Page</button>
+            </div>
+            <div class="search" id="search">
+                <i class="fa-solid fa-magnifying-glass searchIcon"></i>
+                <input type="text" class="InputSearch" id="InputSearch" onkeyup="ricerca()">
+                <button class="closeSearch" onclick="UserList()"><i class="fa-solid fa-xmark searchIcon"></i></button> 
             </div>
             <p class="Data" id="Data"></p>
         </div>
@@ -111,7 +118,6 @@
 
         </div>
     </div>
-
     <div class="ContainerAddUser" id="AddUserDiv" style="display: none;">
         <div class="rowAdd" id="rowAdd">
             <h2>AGGIUNGI</h2>
@@ -153,7 +159,7 @@
             <button type="button" class="formButton formButtonClose" onclick="AddCloseUser()">Annulla</button>
         </div>
     </div>
-    <div class="containerElement animate__animated animate__backInDown">
+    <div class="containerElement animate__animated animate__backInDown" id="containerElement">
         <table id='UserList'  style="display: none;">
             <tbody id="inserisciUser" class="inserisciUser">
                 

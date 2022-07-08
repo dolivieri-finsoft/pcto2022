@@ -35,7 +35,6 @@
             <p class='TitlePage' id='titolo'>
             </p>
             <button class="ButtonDeleteAccount" type="Button" onclick="DeleteUserShow()"><i class="fa-solid fa-user-xmark arrowback"></i></button>
-            
         </div>
         <div class="rowButton">
             <div class="menu">
@@ -47,12 +46,12 @@
                 <button style="display: none;" class="menuButton" id="AdminButton" onclick="location.href='./admin.html'">Admin Page</button>
                 
             </div>
-            <!-- <div class="search" id="search">
+            <div class="search" id="search">
                 <i class="fa-solid fa-magnifying-glass searchIcon"></i>
                 <input type="text" class="InputSearch" id="InputSearch" onkeyup="ricerca()">
-                <i class="fa-solid fa-xmark searchIcon"></i> 
-            </div> -->
-                <p class="Data" id="Data"></p>
+                <button class="closeSearch" onclick="bothList()"><i class="fa-solid fa-xmark searchIcon"></i></button> 
+            </div>
+            <p class="Data" id="Data"></p>
         </div>
     </header>
     <div class="containerElement animate__animated animate__backInDown" id="containerElement">

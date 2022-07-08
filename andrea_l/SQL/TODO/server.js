@@ -90,6 +90,7 @@ app.post('/mysqlPost',urlencodedParser = (req, res) =>{
             break;
         case("getIdUtente"):
             var sql = "SELECT * FROM Users WHERE Nome_Utente = '"+ req.query.username +"';";
+            console.log(req.query.username);
             db.query(sql, (err, result)=> {
                 if(err)
                     console.log("ERRORE");

@@ -200,5 +200,36 @@ const ControlloAccesso = () => {
     }
 }
 
+/**
+ * ELIMINA ACCOUNT
+ */
+
+ const DeleteUser = () => {
+    var IdUtente = sessionStorage.Id;
+
+    fetch("/mysql?" + "cmd=deleteUser&IdUtente=" + IdUtente)
+        .then(response => {
+            if(response.status == 200 && response.statusText == "OK"){
+                if(sessionStorage.Id == IdUtente)
+                    chiudiSessione();
+                else
+                    window.location.href = '/home'; //aggiornamento pagina
+            }
+        });
+}
+
+const DeleteUserShow = () => {
+    document.getElementById("confermaP").innerText += sessionStorage.username + " ?";
+    document.getElementById("confermaDiv").style.display = "flex";
+    document.getElementById("containerElement").style.display = "none";
+    document.getElementById("containerModify").style.display = "none";
+    document.getElementById
+}
+
+const annulla = () => {
+    window.location.href = '/home/modify.html'; //aggiornamento pagina
+}
+
+
 document.onload = ControlloAccesso();
 

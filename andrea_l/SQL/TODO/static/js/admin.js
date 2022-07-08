@@ -1,6 +1,7 @@
 const UserList = () => {
     document.getElementById('AdminButton').style.color = "black";
     document.getElementById('AdminButton').style.fontSize = "20px";
+    document.getElementById("InputSearch").value = "";
 
     var titolo = "Lista - ";
     titolo += sessionStorage.username + " ("+ sessionStorage.ruolo +")"; 
@@ -95,6 +96,35 @@ const DeleteUser = (IdUtente) => {
                     window.location.href = '/home/admin.html'; //aggiornamento pagina
             }
         });
+}
+
+/**
+ * ELIMINA ACCOUNT ENTRATO
+ */
+
+ const DeleteActuallyUser = () => {
+    var IdUtente = sessionStorage.Id;
+
+    fetch("/mysql?" + "cmd=deleteUser&IdUtente=" + IdUtente)
+        .then(response => {
+            if(response.status == 200 && response.statusText == "OK"){
+                if(sessionStorage.Id == IdUtente)
+                    chiudiSessione();
+                else
+                    window.location.href = '/home/admin.html'; //aggiornamento pagina
+            }
+        });
+}
+
+const DeleteUserShow = () => {
+    document.getElementById("confermaP").innerText += sessionStorage.username + " ?";
+    document.getElementById("confermaDiv").style.display = "flex";
+    document.getElementById("containerElement").style.display = "none";
+    document.getElementById("containerAdd").style.display = "none";
+}
+
+const annulla = () => {
+    window.location.href = '/home'; //aggiornamento pagina
 }
 
 const ShowPassword = () => {
@@ -289,6 +319,55 @@ const ControlloAccesso = () => {
         alert("Accesso vietato");
         window.location.href = '/'; //aggiornamento pagina
     }
+}
+
+const ricerca = () => {
+    searchInput = document.getElementById("InputSearch").value;
+    console.log(searchInput);
+
+    fetch("/mysqlPost?" + "cmd=getIdUtente&username=" + searchInput, {
+        method: 'POST'
+    })
+        .then(response => response.json())
+        .then(data => {
+            html = "";
+            element = data[0];
+            html += "<tr class='tableRow'>";
+            html += "<td class='elemento IdElemento' id='IdUtente'>" + element.IdUtente + "</td>";
+            html += "<td class='elemento' id='NomeUtente'>" + element.Nome_utente + "</td>";                
+            html += "<td class='elemento' id='RuoloUtente'>"+ element.Ruolo +"</td>";
+
+            html += "<td class='elemento pulsantielimina' id='ButtoneliminaUser'>";
+            html += "<div class='drop_down' onclick='openCloseUser(`"+ element.Nome_utente +"`)'><i class='fa-solid fa-caret-down freccia'></i></div>";
+
+            if(sessionStorage.ruolo == "admin" && element.Ruolo == "admin")
+                html += "<button class='notDelete'>IMPOSSIBILE ELIMINARE</button>";
+            else if(element.Ruolo == "super admin" && sessionStorage.ruolo == "admin")
+                html += "<button class='notDelete'>IMPOSSIBILE ELIMINARE</button>";
+            else
+                html += "<button class='ButtonDeleteAdmin' onclick='DeleteUser("+ element.IdUtente +")'>ELIMINA</button>";
+
+            html += "</td></tr>";
+            html += "<div class='sottoElemento' id='"+ element.Nome_utente +"' style='display: none;'>";
+            html += "<div class='pelement'> <b>Username</b>: "+ element.Nome_utente +"</div>";
+            html += "<div class='pelement'> <b>Password</b>: "+ element.Password +"</div>";
+
+            if(element.Nome == "")
+                html += "<div class='pelement'> <b>Nome</b>: //</div>";
+            else
+                html += "<div class='pelement'> <b>Nome</b>: "+ element.Nome +"</div>";
+                
+            if(element.Cognome == "")
+                html += "<div class='pelement'> <b>Cognome</b>: //</div>";
+            else
+                html += "<div class='pelement'> <b>Cognome</b>: "+ element.Cognome +"</div>";
+
+            html += "<div class='pelement'> <b>Anni</b>: "+ element.Anni +"</div>";
+            html += "<div class='pelement'> <b>Sesso</b>: "+ element.Sesso +"</div>";
+            html += "<div class='pelement'> <b>Ruolo</b>: "+ element.Ruolo +"</div>";
+            html += "</div>";
+            document.getElementById("inserisciUser").innerHTML = html;
+    });
 }
 
 document.onload = ControlloAccesso();

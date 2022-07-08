@@ -50,8 +50,16 @@ const salvaIdUtente = () =>{
 }
 
 const ShowPassword = () => {
-    if(document.getElementById("Password").type == "password")
-        document.getElementById("Password").type == "text";
-    else
-        document.getElementById("Password").type == "password";
+    alert("SONO ENTRATO");
+    inputPassword = document.getElementById("Password");
+
+    if(inputPassword.type == "password"){
+        alert("è PASSWORD");
+        inputPassword.type = "text";
+        document.getElementById("ShowPassword").innerHTML = "<i class='fa-solid fa-eye-slash'></i>";
+    }else{        
+        alert("è TEXT");
+        inputPassword.type = "password";
+        document.getElementById("ShowPassword").innerHTML = "<i class='fa-solid fa-eye'></i>";
+    }
 }
